@@ -1,0 +1,83 @@
+2008-04-24  Luis Lavena
+
+    * config/ruby_installer.rb: Use of updated GCC packages that fixes
+    Windows Vista problems.
+
+2008-04-23  Luis Lavena
+
+    * config/ruby_installer.rb: Reverted to 1.8.6-p114, 1.8.7 was giving
+    headaches to lot of developers (known bugs).
+
+2008-04-16  Luis Lavena
+
+    * resources/icons/rubyw.ico: Added customized Ruby icon (GUI).
+
+2008-04-15  Luis Lavena
+
+    * config/ruby_installer.rb: Update Ruby sources from 1.8 to 1.8.7-p0
+    (preview1).
+
+2008-04-12  Luis Lavena
+
+    * config/ruby_installer.rb: Updated RubyGems package to version 1.1.1
+
+2008-04-11  Luis Lavena
+
+    * recipes/interpreter/ruby18.rake: Determine dependency of download task
+    during extraction or use of CHECKOUT.
+    * recipes/tools/rubygems.rake: Ditto.
+
+2008-04-10  Luis Lavena
+
+    * config/ruby_installer.rb: Updated MinGW components to latest stable 
+    ones.
+
+2008-04-07  Luis Lavena
+
+    * config/ruby_installer.rb: Added GDB 6.8 and Utils 0.3 to MinGW,
+    suggested by Mario Steele.
+
+2008-03-30  Luis Lavena
+
+    * config/ruby_installer.rb: Empty RUBYOPT when installing RubyGems.
+    Reported by Will Green @ rubyinstaller-devel mailing list.
+    * config/ruby_installer.rb: Allow RubyGems to be checkout from svn.
+    * recipes/tools/rubygems.rake: Ditto.
+
+2008-03-29  Luis Lavena
+
+    * config/ruby_installer.rb: Updated RubyGems to match release 1.1.0.
+
+2008-03-24  Luis Lavena
+
+    * recipes/interpreter/ruby18.rake: Remove path reference to sandbox in
+    rbconfig.rb after install.
+    * recipes/tools/rubygems.rake: Fixes the shebang line to avoid conflicts
+    with cygwin installation due missing path to sandbox prefix.
+
+2008-03-23  Luis Lavena
+
+    * recipes/interpreter/ruby18.rake: fix batch files (windows scripts stubs)
+    to remove references from build environment.
+    * recipes/tools/rubygems.rake: ditto.
+    * recipes/tools/rubygems.rake: Install RubyGems into sandboxed installation.
+    * config/ruby_installer.rb: Added RubyGems version and download information.
+    * recipes/dependencies/iconv.rake: Added Iconv support using alternative
+    implementation from Yukihiro Nakadaira and Tor Lillqvist.
+    * config/ruby_installer.rb: ditto.
+
+2008-03-22  Luis Lavena
+
+    * resources/icons/ruby.ico: Added customized Ruby icon (CUI).
+    * recipes/interpreter/ruby18.rake: Added prepare task to copy customized
+    icons.
+    Download and Extract task are now aware of CHECKOUT environment variable to
+    use subversion instead of packaged source code.
+    * rake/extracttask.rb: Allow paths to contain spaces when calling
+    extracting tools.
+    * recipes/extract_utils/extract_utils.rake: Extract zlib1.dll into
+    sandbox/extract_utils (to avoid require it system-wide).
+    * recipes/dependencies/openssl.rake: Added OpenSSL binaries from GNU Win32
+    project. Now builds the openssl extension.
+    * config/ruby_installer.rb: Added OpenSsl version and download information.
+    Added checkout and checkout_target for Ruby18.

@@ -1,0 +1,4 @@
+* Try getting Readline 5.0 (or 5.2) working and passing all test
+  (test/test_readline.rb)
+
+* Implements all the dependencies required by Setup.nt extensions.
