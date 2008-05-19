@@ -1,4 +1,4 @@
-require 'rake/contrib/unzip.rb'
+require 'rake/contrib/unzip'
 
 namespace(:extract_utils) do
   package = RubyInstaller::ExtractUtils
@@ -18,12 +18,8 @@ namespace(:extract_utils) do
     task :download => file_target
   end
   
-  task :extract_utils => [:download, package.target, "dependencies:zlib:download"] do
+  task :extract_utils => [:download, package.target] do
     package.files.each do |f|
-      filename = "downloads/#{f}"
-      Zip.fake_unzip(filename, /\.exe|\.dll$/, package.target)
-    end
-    RubyInstaller::Zlib.files.each do |f|
       filename = "downloads/#{f}"
       Zip.fake_unzip(filename, /\.exe|\.dll$/, package.target)
     end
