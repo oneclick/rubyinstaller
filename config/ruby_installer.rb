@@ -17,7 +17,7 @@ module RubyInstaller
     MinGW = OpenStruct.new(
       :release => 'current',
       :version => '3.4.5',
-      :url => "http://prdownloads.sourceforge.net/mingw",
+      :url => "http://easynews.dl.sourceforge.net/mingw",
       :target => 'sandbox/mingw',
       :files => [
         'binutils-2.17.50-20060824-1.tar.gz',
@@ -33,7 +33,7 @@ module RubyInstaller
     MSYS = OpenStruct.new(
       :release => 'technology-preview',
       :version => '1.0.11',
-      :url => "http://prdownloads.sourceforge.net/mingw",
+      :url => "http://easynews.dl.sourceforge.net/mingw",
       :target => 'sandbox/msys',
       :files => [
         'diffutils-2.8.7-MSYS-1.0.11-snapshot.tar.bz2',
@@ -82,7 +82,7 @@ module RubyInstaller
     Zlib = OpenStruct.new(
       :release => "official",
       :version => "1.2.3",
-      :url => "http://www.zlib.net/",
+      :url => "http://www.zlib.net",
       :target => RubyInstaller::MinGW.target,
       :files => [
         'zlib123-dll.zip'
@@ -94,7 +94,7 @@ module RubyInstaller
     Readline = OpenStruct.new(
       :release => "official",
       :version => "5.0",
-      :url => "http://ufpr.dl.sourceforge.net/sourceforge/gnuwin32",
+      :url => "http://easynews.dl.sourceforge.net/sourceforge/gnuwin32",
       :target => RubyInstaller::MinGW.target,
       :files => [
         'readline-5.0-bin.zip',
@@ -103,7 +103,7 @@ module RubyInstaller
     )
   
     ExtractUtils = OpenStruct.new(
-        :url => "http://prdownloads.sourceforge.net/gnuwin32",
+        :url => "http://easynews.dl.sourceforge.net/gnuwin32",
         :target => 'sandbox/extract_utils',
         :files => [
           'unzip-5.51-1-bin.zip',
@@ -113,7 +113,7 @@ module RubyInstaller
     )
     
     OpenSsl = OpenStruct.new(
-      :url => "http://prdownloads.sourceforge.net/gnuwin32",
+      :url => "http://easynews.dl.sourceforge.net/gnuwin32",
       :version => '0.9.7.c',
       :target => RubyInstaller::MinGW.target,
       :files => [
