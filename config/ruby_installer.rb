@@ -103,12 +103,10 @@ module RubyInstaller
     )
   
     ExtractUtils = OpenStruct.new(
-        :url => "http://easynews.dl.sourceforge.net/gnuwin32",
+        :url => "http://easynews.dl.sourceforge.net/sevenzip",
         :target => 'sandbox/extract_utils',
         :files => [
-          'unzip-5.51-1-bin.zip',
-          'bzip2-1.0.4-bin.zip',
-          'libarchive-2.4.0-bin.zip'
+          '7za458.zip'
         ]
     )
     
