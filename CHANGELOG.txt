@@ -1,4 +1,4 @@
-﻿2008-05-18  Luis Lavena
+2008-05-18  Luis Lavena
 
     * rake/extracttask.rb: Use 7-Zip as extract() utility to solve some
     extration troubles and speedup extraction process.

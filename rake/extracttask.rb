@@ -1,4 +1,4 @@
-﻿require 'tmpdir'
+require 'tmpdir'
 require 'fileutils'
 
 def extract(file, target, options = {})
