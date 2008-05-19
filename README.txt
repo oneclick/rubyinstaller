@@ -1,9 +1,9 @@
 == MinGW One-Click Installer: Bootstrapping Recipes
 
-This project attempt to generate a development sandbox that will be used to
-compile ruby and it's components using MinGW tools, offering a simplified way
-to boost your productivity and ease the path of contributiors for One-Click
-Ruby Installer for Windows.
+This project attempts to generate a development sandbox that will be used to
+compile Ruby and it's components using MinGW tools. Our goal is to offer a 
+simplified way to boost your productivity and ease the path for anyone who 
+would like to contribute to the One-Click Ruby Installer for Windows.
 
 These are a work-in-progress collection of Rake recipes that download, compile
 and check MinGW utils required to build Ruby 1.8 (at this time) and it's depen-
@@ -16,18 +16,18 @@ Layout and organization explained:
 
 The recipes are distributed in the following layout:
 
-compiler/*.rake: here recides the recipes to download and prepare the compiler
-to be used to build the interpreter (MinGW for now)
+compiler/*.rake: here resides the recipes to download and prepare the compiler
+to be used to build the interpreter (MinGW for now).
 
-interpreter/*.rake: the idea is provide a series of recipes that allow build
-other interpreters besides Ruby (Rubinius, JRuby, etc)
+interpreter/*.rake: the idea is to provide a series of recipes that would allow 
+one to build other interpreters besides Matz's Ruby (Rubinius, JRuby, etc).
 
-depedencies/*.rake: this contains the dependencies needed to be downloaded,
+dependencies/*.rake: this contains the dependencies needed to be downloaded,
 compiled and included for the interpreter to work properly. At this time only
 readline, zlib and openssl are included.
 
 installer/*.rake: here we will store the basic recipes to generate MSI packages
-(using WiX toolset) or any other kind of package.
+(using the WiX toolset) or any other kind of package.
 
 === Requirements:
 
