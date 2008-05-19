@@ -1,3 +1,9 @@
+﻿2008-05-18  Luis Lavena
+
+    * rake/extracttask.rb: Use 7-Zip as extract() utility to solve some
+    extration troubles and speedup extraction process.
+    * recipes/extract_utils/extrac_utils.rake: Ditto.
+
 2008-04-24  Luis Lavena
 
     * config/ruby_installer.rb: Use of updated GCC packages that fixes
