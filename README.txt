@@ -1,4 +1,4 @@
-= MinGW One-Click Installer: Bootstrapping Recipes
+== MinGW One-Click Installer: Bootstrapping Recipes
 
 This project attempt to generate a development sandbox that will be used to
 compile ruby and it's components using MinGW tools, offering a simplified way
@@ -29,7 +29,7 @@ readline, zlib and openssl are included.
 installer/*.rake: here we will store the basic recipes to generate MSI packages
 (using WiX toolset) or any other kind of package.
 
-Requirements:
+=== Requirements:
 
 At this time you require to have a working Ruby installation (current stable
 One-Click release is enough).
