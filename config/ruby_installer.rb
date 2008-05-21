@@ -152,7 +152,7 @@ module RubyInstaller
     Wix = OpenStruct.new(
       :release => 'beta',
       :version => '3.0.2925.0 ',
-      :url => 'http://easynews.dl.sourceforge.net/gnuwin32',
+      :url => 'http://easynews.dl.sourceforge.net/wix',
       :target => 'sandbox/wix',
       :files => [
         'wix-3.0.2925.0-binaries.zip'
