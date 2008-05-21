@@ -148,5 +148,15 @@ module RubyInstaller
         'rubygems-1.1.1.tgz'
       ]
     )
+    
+    Wix = OpenStruct.new(
+      :release => 'beta',
+      :version => '3.0.2925.0 ',
+      :url => 'http://easynews.dl.sourceforge.net/gnuwin32',
+      :target => 'sandbox/wix',
+      :files => [
+        'wix-3.0.2925.0-binaries.zip'
+      ]    
+    )
   end
 end
