@@ -1,3 +1,8 @@
+* Generate manifest information for following components:
+  # Sandboxed Ruby (sandbox/ruby_mingw)
+  # MinGW (GCC and binutils)
+  # MSYS
+
 * Try getting Readline 5.0 (or 5.2) working and passing all test
   (test/test_readline.rb)
 
