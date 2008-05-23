@@ -1,3 +1,8 @@
+2008-05-23  Gordon Thiesfeld
+
+    * config/rubyinstaller.rb: Added WiX recipes and Package information.
+    * rake/packager/wix.rake: Rake task for WiX extraction.
+
 2008-05-18  Luis Lavena
 
     * rake/extracttask.rb: Use 7-Zip as extract() utility to solve some
