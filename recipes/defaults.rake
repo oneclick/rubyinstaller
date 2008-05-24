@@ -22,6 +22,9 @@ task :install
 desc "Run tests for the interpreter in the sandbox."
 task :check
 
+desc "Test drive the sandbox (using IRB)."
+task :irb
+
 desc "Do everything!"
 task :default => [:download, :extract, :prepare, :configure, :compile, :install]
 

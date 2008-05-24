@@ -1,7 +1,11 @@
+2008-05-25  Luis Lavena
+
+    * recipes/interpreter/ruby18.rake: Added hacky IRB task to ease debugging.
+
 2008-05-23  Gordon Thiesfeld
 
     * config/rubyinstaller.rb: Added WiX recipes and Package information.
-    * rake/packager/wix.rake: Rake task for WiX extraction.
+    * recipes/packager/wix.rake: Rake task for WiX extraction.
 
 2008-05-18  Luis Lavena
 

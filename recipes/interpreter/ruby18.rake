@@ -118,6 +118,12 @@ namespace(:interpreter) do
       end
       manifest.close
     end
+
+    task :irb do
+      Dir.chdir(File.join(package.install_target, 'bin')) do
+        sh "irb"
+      end
+    end
   end
 end
 
@@ -132,3 +138,4 @@ task :configure => ['interpreter:ruby18:configure']
 task :compile   => ['interpreter:ruby18:compile']
 task :install   => ['interpreter:ruby18:install']
 task :check     => ['interpreter:ruby18:check']
+task :irb       => ['interpreter:ruby18:irb']
