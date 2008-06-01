@@ -49,14 +49,14 @@ namespace(:tools) do
       end
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
-    
+
     task :install => [package.target, package.install_target, interpreter.install_target] do
       new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
       Dir.chdir(package.target) do
         sh "ruby setup.rb install #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
-      
+
       # now fixes all the stub batch files form bin
       Dir.glob("{#{interpreter.install_target},#{package.install_target}}/bin/*.bat").each do |bat|
         script = File.basename(bat).gsub(File.extname(bat), '')
@@ -71,7 +71,7 @@ GOTO :EOF
 TEXT
         end
       end
-      
+
       # and now, fixes the shebang lines for the scripts
       bang_line = "#!#{File.expand_path(File.join(interpreter.install_target, 'bin', 'ruby.exe'))}"
       Dir.glob("#{package.install_target}/bin/*").each do |script|
@@ -82,6 +82,13 @@ TEXT
           end
           File.open(script, 'w') { |f| f.write(contents) }
         end
+      end
+
+      # now relocate lib into lib/ruby/site_ruby (to conform default installation).
+      Dir.chdir(package.install_target) do
+        mv 'lib', '1.8'
+        mkdir_p 'lib/ruby/site_ruby'
+        mv '1.8', 'lib/ruby/site_ruby'
       end
     end
   end
