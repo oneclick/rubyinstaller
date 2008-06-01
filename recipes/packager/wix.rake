@@ -37,6 +37,9 @@ namespace(:packager) do
 
     # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\bin -custom RUBYGEMS_BIN -guids -multiple -alias ..\..\sandbox\rubygems_mingw\bin rubygems_bin.wxs
     # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\lib -custom RUBYGEMS_LIB -guids -multiple -alias ..\..\sandbox\rubygems_mingw\lib rubygems_lib.wxs
+
+    # TODO: only needed is -update to update each fragment!
+    # cmd: paraffin -update file.wxs
   end
 end
 
