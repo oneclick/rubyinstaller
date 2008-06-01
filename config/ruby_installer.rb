@@ -138,11 +138,10 @@ module RubyInstaller
       :checkout => 'svn://rubyforge.org/var/svn/rubygems/trunk',
       :checkout_target => 'downloads/rubygems',
       :target => 'sandbox/rubygems',
-      :install_target => RubyInstaller::Ruby18.install_target,
+      :install_target => 'sandbox/rubygems_mingw',
       :configure_options => [
         '--no-ri',
-        '--no-rdoc',
-        'RUBYOPT='
+        '--no-rdoc'
       ],
       :files => [
         'rubygems-1.1.1.tgz'

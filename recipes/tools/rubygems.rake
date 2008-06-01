@@ -4,8 +4,11 @@ require 'rake/clean'
 namespace(:tools) do
   namespace(:rubygems) do
     package = RubyInstaller::RubyGems
+    interpreter = RubyInstaller::Ruby18
     directory package.target
+    directory package.install_target
     CLEAN.include(package.target)
+    CLEAN.include(package.install_target)
     
     # Put files for the :download task
     package.files.each do |f|
@@ -47,15 +50,15 @@ namespace(:tools) do
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
     
-    task :install => [package.target, package.install_target] do
-      new_ruby = File.join(RubyInstaller::ROOT, package.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
+    task :install => [package.target, package.install_target, interpreter.install_target] do
+      new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
       Dir.chdir(package.target) do
-        sh "ruby setup.rb install #{package.configure_options.join(' ')}"
+        sh "ruby setup.rb install #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
       
       # now fixes all the stub batch files form bin
-      Dir.glob("#{package.install_target}/bin/*.bat").each do |bat|
+      Dir.glob("{#{interpreter.install_target},#{package.install_target}}/bin/*.bat").each do |bat|
         script = File.basename(bat).gsub(File.extname(bat), '')
         File.open(bat, 'w') do |f|
           f.puts <<-TEXT
@@ -70,7 +73,7 @@ TEXT
       end
       
       # and now, fixes the shebang lines for the scripts
-      bang_line = "#!#{File.expand_path(File.join(package.install_target, 'bin', 'ruby.exe'))}"
+      bang_line = "#!#{File.expand_path(File.join(interpreter.install_target, 'bin', 'ruby.exe'))}"
       Dir.glob("#{package.install_target}/bin/*").each do |script|
         # only process true scripts!!! (extensionless)
         if File.extname(script) == ""
