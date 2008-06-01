@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Product Id="67F67970-2233-4AF9-9B41-7161F927617C" Name="One-Click Ruby Installer for Windows" Version="3.0.0" Language="1033" Manufacturer="RubyInstaller Project" UpgradeCode="3E145ABF-D25C-4E4C-899E-5F043D3F9A33">
+    <Package Id="????????-????-????-????-????????????" Description="One-Click Ruby Installer for Windows" Comments="Copyright © 2008 RubyInstaller Project" Manufacturer="RubyInstaller Project" Keywords="Installer Ruby" InstallPrivileges="elevated" Compressed="yes" InstallerVersion="100" />
+    <UI />
+    <Media Id="1" Cabinet="runtime.cab" EmbedCab="yes" CompressionLevel="high" />
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="WindowsVolume" Name="BootDrv">
+        <Directory Id="INSTALLDIR" Name="Ruby18" />
+      </Directory>
+    </Directory>
+    <Icon Id="RubyInstaller" SourceFile="..\icons\ruby.ico" />
+    <Feature Id="Minimal" Level="1">
+      <FeatureRef Id="Ruby" />
+      <FeatureRef Id="RubyGems" />
+    </Feature>
+    <Feature Id="Ruby" Level="1">
+      <ComponentGroupRef Id="group_RUBY_BIN" />
+      <ComponentGroupRef Id="group_RUBY_LIB" />
+      <ComponentGroupRef Id="group_RUBY_SHARE" />
+    </Feature>
+    <Feature Id="RubyGems" Level="1">
+      <ComponentGroupRef Id="group_RUBYGEMS_BIN" />
+      <ComponentGroupRef Id="group_RUBYGEMS_LIB" />
+    </Feature>
+  </Product>
+</Wix>
