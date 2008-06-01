@@ -2,3 +2,5 @@ downloads
 sandbox
 *.kpf
 *.wixobj
+*.msi
+*.log
