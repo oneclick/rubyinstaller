@@ -43,3 +43,6 @@ or your RUby bin directory)
 
 NOTE: Avoid extracting this project into a PATH with spaces, MSYS have issues
 mounting fstab for MinGW.
+
+To generate the Microsoft Windows Installer (MSI), you require have dotNET 2.0
+for WiX toolset to work and dotNET 3.5 for Paraffin utility.
