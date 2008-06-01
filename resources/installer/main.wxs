@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<?include config.wxi ?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
-  <Product Id="67F67970-2233-4AF9-9B41-7161F927617C" Name="One-Click Ruby Installer for Windows" Version="3.0.0" Language="1033" Manufacturer="RubyInstaller Project" UpgradeCode="3E145ABF-D25C-4E4C-899E-5F043D3F9A33">
-    <Package Id="????????-????-????-????-????????????" Description="One-Click Ruby Installer for Windows" Comments="Copyright © 2008 RubyInstaller Project" Manufacturer="RubyInstaller Project" Keywords="Installer Ruby" InstallPrivileges="elevated" Compressed="yes" InstallerVersion="100" />
+  <Product Name="$(var.ProductName)" Id="$(var.ProductCode)" Version="$(var.ProductVersion)" Language="1033" Manufacturer="RubyInstaller Project">
+    <Package Id="????????-????-????-????-????????????" Description="$(var.ProductName)" Comments="Copyright (c) 2008 RubyInstaller Project" Keywords="Installer Ruby" InstallPrivileges="elevated" Compressed="yes" InstallerVersion="200" />
     <UI />
-    <Media Id="1" Cabinet="runtime.cab" EmbedCab="yes" CompressionLevel="high" />
+    <Media Id="1" Cabinet="rubyinstaller.cab" EmbedCab="yes" CompressionLevel="high" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="WindowsVolume" Name="BootDrv">
-        <Directory Id="INSTALLDIR" Name="Ruby18" />
+        <Directory Id="INSTALLDIR" Name="$(var.InstallId)" />
       </Directory>
     </Directory>
     <Icon Id="RubyInstaller" SourceFile="..\icons\ruby.ico" />
