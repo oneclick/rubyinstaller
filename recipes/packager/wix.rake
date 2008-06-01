@@ -29,6 +29,14 @@ namespace(:packager) do
         extract(File.join(RubyInstaller::ROOT, f), package.target)
       }
     end
+
+    # TODO: use paraffin to generate the WiX fragments for ruby and rubygems
+    # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\bin -custom RUBY_BIN -guids -multiple -alias ..\..\sandbox\ruby_mingw\bin ruby_bin.wxs
+    # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\lib -custom RUBY_LIB -guids -multiple -alias ..\..\sandbox\ruby_mingw\lib ruby_lib.wxs -direXclude gems
+    # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\share -custom RUBY_SHARE -guids -multiple -alias ..\..\sandbox\ruby_mingw\share ruby_share.wxs
+
+    # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\bin -custom RUBYGEMS_BIN -guids -multiple -alias ..\..\sandbox\rubygems_mingw\bin rubygems_bin.wxs
+    # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\lib -custom RUBYGEMS_LIB -guids -multiple -alias ..\..\sandbox\rubygems_mingw\lib rubygems_lib.wxs
   end
 end
 
