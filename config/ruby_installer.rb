@@ -153,9 +153,22 @@ module RubyInstaller
       :version => '2.0.5805.1',
       :url => 'http://easynews.dl.sourceforge.net/wix',
       :target => 'sandbox/wix',
+      :package_target => 'sandbox/package',
+      :package_file => 'ruby_installer.msi',
       :files => [
         'wix-2.0.5805.0-binaries.zip'
       ]
     )
+    
+    Paraffin  = OpenStruct.new(
+      :release => 'stable',
+      :version => '2.0.5805.1',
+      :url => 'http://www.wintellect.com/cs/files/folders/4332/download.aspx',
+      :target => RubyInstaller::Wix.target,
+      :files => [
+        'Paraffin-1.03.zip'
+      ]
+    )
+    
   end
 end
