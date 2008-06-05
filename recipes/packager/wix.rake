@@ -51,14 +51,14 @@ namespace(:packager) do
     
     task :candle => :prepare do
       Dir.chdir(package.package_target) do
-         wxs_files = FileList[ '*.{wxs}']
+         wxs_files = FileList[ '*.wxs']
          candle wxs_files
       end
     end
     
     task :light => :candle do
       Dir.chdir(package.package_target) do
-         wixobj_files = FileList[ '*.{wixobj}']
+         wixobj_files = FileList[ '*.wixobj']
          light wixobj_files, package.package_file
       end
     end
