@@ -57,7 +57,7 @@ module RubyInstaller
       :release => "preview1",
       :version => "1.8.6-p114",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
-      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8',
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/1_8_6',
       :checkout_target => 'downloads/ruby_1_8',
       :target => 'sandbox/ruby_1_8',
       :build_target => 'sandbox/ruby_build',
@@ -68,7 +68,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.8.6-p114.tar.bz2'
+        'ruby-1.8.6-p230.tar.bz2'
       ],
       :dependencies => [
         'readline5.dll',

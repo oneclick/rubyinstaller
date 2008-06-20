@@ -38,15 +38,15 @@ namespace(:packager) do
       # grab the files from the download task
       files = Rake::Task['packager:wix:download'].prerequisites
 
-      files.each { |f|
+      files.each do |f|
         extract(File.join(RubyInstaller::ROOT, f), package.target)
-      }
-    end
-    
-    task :prepare => [package.package_target] do
-      Dir.chdir(RubyInstaller::ROOT) do
-        FileUtils.cp_r(Dir.glob('resources/installer/*'), package.package_target, :verbose => true)
       end
+    end
+
+    directory package.package_target
+    
+    task :prepare => package.package_target do
+      FileUtils.cp_r(Dir.glob('resources/installer/*'), package.package_target, :verbose => true)
     end
     
     task :candle => :prepare do
@@ -63,11 +63,10 @@ namespace(:packager) do
       end
     end
     
-    task :package => :light do
-      Dir.chdir(RubyInstaller::ROOT) do
-        directory 'package'
-        FileUtils.cp(File.join(package.package_target, package.package_file), 'package', :verbose => true)
-      end
+    directory 'package'
+    
+    task :package => [:light, 'package'] do
+      FileUtils.cp(File.join(package.package_target, package.package_file), 'package', :verbose => true)
     end
 
     # TODO: Test for .net 3.5 using Win32/Registry (Parafin may do this)
