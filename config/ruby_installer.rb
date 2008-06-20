@@ -122,7 +122,7 @@ module RubyInstaller
     
     Iconv = OpenStruct.new(
       :release => 'official',
-      :version => "20080320",
+      :version => "1.9.2-1",
       :url => "http://easynews.dl.sourceforge.net/gnuwin32",
       :target => RubyInstaller::MinGW.target,
       :files => [
