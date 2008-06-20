@@ -121,13 +121,13 @@ module RubyInstaller
     )
     
     Iconv = OpenStruct.new(
-      :release => 'windows alternative',
+      :release => 'official',
       :version => "20080320",
-      :url => "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies",
+      :url => "http://easynews.dl.sourceforge.net/gnuwin32",
       :target => RubyInstaller::MinGW.target,
       :files => [
-        'win_iconv-tml-20080320.zip',
-        'win_iconv_dll-tml-20080320.zip'
+        'libiconv-1.9.2-1-bin.zip',
+        'libiconv-1.9.2-1-dep.zip'
       ]
     )
     
