@@ -171,7 +171,13 @@ module RubyInstaller
     )
     
     Patches = OpenStruct.new(
-      # todo: add a package for patches to Ruby interpreter
+    
+     :url => 'http://dump.mmediasys.com/installer3',
+     :target => 'sandbox/patches',
+     :prepare_target => RubyInstaller::Ruby18.target,
+     :files => [
+        'patches.zip'
+      ]
     )
     
   end
