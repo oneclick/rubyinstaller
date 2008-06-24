@@ -170,5 +170,9 @@ module RubyInstaller
       ]
     )
     
+    Patches = OpenStruct.new(
+      # todo: add a package for patches to Ruby interpreter
+    )
+    
   end
 end
