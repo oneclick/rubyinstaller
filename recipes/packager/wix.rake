@@ -43,21 +43,15 @@ namespace(:packager) do
       end
     end
 
-    directory package.package_target
-    
-    task :prepare => package.package_target do
-      FileUtils.cp_r(Dir.glob('resources/installer/*.{wxs,wxi}'), package.package_target, :verbose => true)
-    end
-    
-    task :candle => :prepare do
-      Dir.chdir(package.package_target) do
+    task :candle do
+      Dir.chdir('resources/installer') do
          wxs_files = FileList[ '*.wxs']
          candle wxs_files
       end
     end
     
     task :light => :candle do
-      Dir.chdir(package.package_target) do
+      Dir.chdir('resources/installer') do
          wixobj_files = FileList[ '*.wixobj']
          light wixobj_files, package.package_file
       end
@@ -66,7 +60,7 @@ namespace(:packager) do
     directory 'package'
     
     task :package => [:light, 'package'] do
-      FileUtils.mv(File.join(package.package_target, package.package_file), 'package', :verbose => true)
+      FileUtils.mv(File.join('resources/installer', package.package_file), 'package', :verbose => true)
     end
 
     # TODO: Test for .net 3.5 using Win32/Registry (Parafin may do this)
