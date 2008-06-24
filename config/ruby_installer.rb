@@ -68,7 +68,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.8.6-p230.tar.bz2'
+        'ruby-1.8.6-p114.tar.bz2'
       ],
       :dependencies => [
         'readline5.dll',
