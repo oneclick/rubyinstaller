@@ -41,6 +41,8 @@ namespace(:interpreter) do
   end
 end
 
-task :download  => ['interpreter:patch:download']
-task :extract   => ['interpreter:patch:extract']
-task :prepare   => ['interpreter:patch:prepare']
+unless ENV['checkout']
+  task :download  => ['interpreter:patch:download']
+  task :extract   => ['interpreter:patch:extract']
+  task :prepare   => ['interpreter:patch:prepare'] 
+end
