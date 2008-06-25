@@ -33,7 +33,7 @@ namespace(:interpreter) do
       glob = File.join(RubyInstaller::ROOT, package.target, '*.patch')
       Dir.chdir(package.prepare_target) do
         Dir[glob].sort.each do |patch|
-          msys_sh "patch < #{patch}"
+          msys_sh "patch -t < #{patch}"
         end
       end
     end  
