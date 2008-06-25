@@ -75,7 +75,7 @@ module RubyInstaller
         'zlib1.dll',
         'libeay32.dll',
         'libssl32.dll',
-        'iconv.dll'
+        'libiconv2.dll'
       ]
     )
     
@@ -127,7 +127,7 @@ module RubyInstaller
       :target => RubyInstaller::MinGW.target,
       :files => [
         'libiconv-1.9.2-1-bin.zip',
-        'libiconv-1.9.2-1-dep.zip'
+        'libiconv-1.9.2-1-lib.zip'
       ]
     )
     
