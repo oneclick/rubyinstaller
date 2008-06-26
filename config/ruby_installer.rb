@@ -171,7 +171,6 @@ module RubyInstaller
     )
     
     Patches = OpenStruct.new(
-    
      :url => 'http://dump.mmediasys.com/installer3',
      :target => 'sandbox/patches',
      :prepare_target => RubyInstaller::Ruby18.target,
@@ -179,6 +178,5 @@ module RubyInstaller
         'patches.zip'
       ]
     )
-    
   end
 end

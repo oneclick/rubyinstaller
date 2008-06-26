@@ -33,7 +33,7 @@ namespace(:interpreter) do
       glob = File.join(RubyInstaller::ROOT, package.target, '*.patch')
       Dir.chdir(package.prepare_target) do
         Dir[glob].sort.each do |patch|
-          msys_sh "patch -t < #{patch}"
+          msys_sh "patch -p1 -t < #{patch}"
         end
       end
     end  
@@ -41,7 +41,7 @@ namespace(:interpreter) do
   end
 end
 
-unless ENV['checkout']
+unless ENV['CHECKOUT']
   task :download  => ['interpreter:patch:download']
   task :extract   => ['interpreter:patch:extract']
   task :prepare   => ['interpreter:patch:prepare'] 
