@@ -9,8 +9,11 @@ end
 
 def light(list, file)
   puts "** linking wixobj files" if Rake.application.options.trace
-  light = File.expand_path(File.join(RubyInstaller::ROOT, 'sandbox/wix', 'light.exe'))
-  sh "\"#{light}\" -nologo -out #{file} #{list.join(' ')}"  
+  wix_path = File.join(RubyInstaller::ROOT, 'sandbox/wix')
+  ui_lib   = File.join(wix_path, 'wixui.wixlib')
+  loc      = File.join(wix_path, 'WixUI_en-us.wxl')
+  light   = File.join(wix_path, 'light.exe')
+  sh "\"#{light}\" -nologo -out #{file} #{list.join(' ')} #{ui_lib} -loc #{loc}"  
 end
 
 def paraffin(file, options)
@@ -134,3 +137,5 @@ end
 task :download  => ['packager:wix:download', 'packager:paraffin:download']
 task :extract   => ['packager:wix:extract', 'packager:paraffin:extract']
 task :package   => 'packager:wix:package'
+task :update_wxs => 'packager:paraffin:update'
+

@@ -57,7 +57,7 @@ module RubyInstaller
       :release => "preview1",
       :version => "1.8.6-p114",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
-      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6',
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/tags/v1_8_6_232',
       :checkout_target => 'downloads/ruby_1_8',
       :target => 'sandbox/ruby_1_8',
       :build_target => 'sandbox/ruby_build',
@@ -93,12 +93,12 @@ module RubyInstaller
     # to grab a correct link (stack level too deep due redirections)
     Readline = OpenStruct.new(
       :release => "official",
-      :version => "5.0",
+      :version => "5.0-1",
       :url => "http://easynews.dl.sourceforge.net/sourceforge/gnuwin32",
       :target => RubyInstaller::MinGW.target,
       :files => [
-        'readline-5.0-bin.zip',
-        'readline-5.0-lib.zip'
+        'readline-5.0-1-bin.zip',
+        'readline-5.0-1-lib.zip'
       ]
     )
   

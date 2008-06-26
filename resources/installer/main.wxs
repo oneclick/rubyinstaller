@@ -6,6 +6,8 @@
   <Product Name="$(var.ProductName)" Id="$(var.ProductCode)" Version="$(var.ProductVersion)" Language="1033" Manufacturer="RubyInstaller Project">
     <Package Id="????????-????-????-????-????????????" Description="$(var.ProductName)" Comments="Copyright (c) 2008 RubyInstaller Project" Keywords="Installer Ruby" InstallPrivileges="elevated" Compressed="yes" InstallerVersion="200" />
     <UI />
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
     <Media Id="1" Cabinet="rubyinstaller.cab" EmbedCab="yes" CompressionLevel="high" />
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="WindowsVolume" Name="BootDrv">
