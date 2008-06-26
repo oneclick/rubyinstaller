@@ -13,6 +13,11 @@ def light(list, file)
   sh "\"#{light}\" -nologo -out #{file} #{list.join(' ')}"  
 end
 
+def paraffin(file, options)
+  paraffin = File.expand_path(File.join(RubyInstaller::ROOT, 'sandbox/wix/Debug', 'paraffin.exe'))
+  sh "\"#{paraffin}\" #{options.to_a.join(' ')} #{file}" 
+end
+
 namespace(:packager) do
   namespace(:wix) do
     package = RubyInstaller::Wix
@@ -57,33 +62,34 @@ namespace(:packager) do
       end
     end
     
-    directory 'package'
+    directory 'pkg'
     
-    task :package => [:light, 'package'] do
-      FileUtils.mv(File.join('resources/installer', package.package_file), 'package', :verbose => true)
+    task :package => [:light, 'pkg'] do
+      FileUtils.mv(File.join('resources/installer', package.package_file), 'pkg', :verbose => true)
     end
 
-    # TODO: Test for .net 3.5 using Win32/Registry (Parafin may do this)
-    
-    # HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5  == 1
-    # HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\5.0\User Agent\Post Platform\
-    # == '.NET CLR 3.5.build number'  
-
-    # URL:  http://msdn.microsoft.com/en-us/library/cc160716.aspx
-
-    # TODO: use paraffin to generate the WiX fragments for ruby and rubygems
-    # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\bin -custom RUBY_BIN -guids -multiple -alias ..\..\sandbox\ruby_mingw\bin ruby_bin.wxs
-    # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\lib -custom RUBY_LIB -guids -multiple -alias ..\..\sandbox\ruby_mingw\lib ruby_lib.wxs -direXclude gems
-    # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\share -custom RUBY_SHARE -guids -multiple -alias ..\..\sandbox\ruby_mingw\share ruby_share.wxs
-
-    # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\bin -custom RUBYGEMS_BIN -guids -multiple -alias ..\..\sandbox\rubygems_mingw\bin rubygems_bin.wxs
-    # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\lib -custom RUBYGEMS_LIB -guids -multiple -alias ..\..\sandbox\rubygems_mingw\lib rubygems_lib.wxs
-
-    # TODO: only needed is -update to update each fragment!
-    # cmd: paraffin -update file.wxs
   end
+
+  # TODO: Test for .net 3.5 using Win32/Registry (Parafin may do this)
   
-  namespace(:parrafin) do
+  # HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v3.5  == 1
+  # HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\5.0\User Agent\Post Platform\
+  # == '.NET CLR 3.5.build number'  
+
+  # URL:  http://msdn.microsoft.com/en-us/library/cc160716.aspx
+
+  # TODO: use paraffin to generate the WiX fragments for ruby and rubygems
+  # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\bin -custom RUBY_BIN -guids -multiple -alias ..\..\sandbox\ruby_mingw\bin ruby_bin.wxs
+  # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\lib -custom RUBY_LIB -guids -multiple -alias ..\..\sandbox\ruby_mingw\lib ruby_lib.wxs -direXclude gems
+  # cmd: paraffin -dir ..\..\sandbox\ruby_mingw\share -custom RUBY_SHARE -guids -multiple -alias ..\..\sandbox\ruby_mingw\share ruby_share.wxs
+
+  # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\bin -custom RUBYGEMS_BIN -guids -multiple -alias ..\..\sandbox\rubygems_mingw\bin rubygems_bin.wxs
+  # cmd: paraffin -dir ..\..\sandbox\rubygems_mingw\lib -custom RUBYGEMS_LIB -guids -multiple -alias ..\..\sandbox\rubygems_mingw\lib rubygems_lib.wxs
+
+  # TODO: only needed is -update to update each fragment!
+  # cmd: paraffin -update file.wxs
+  
+  namespace(:paraffin) do
     package = RubyInstaller::Paraffin
     directory package.target
     CLEAN.include(package.target)
@@ -104,16 +110,27 @@ namespace(:packager) do
     # Prepare the :sandbox, it requires the :download task
     task :extract => [:extract_utils, :download, package.target] do
       # grab the files from the download task
-      files = Rake::Task['packager:parrafin:download'].prerequisites
+      files = Rake::Task['packager:paraffin:download'].prerequisites
 
       files.each { |f|
         extract(File.join(RubyInstaller::ROOT, f), package.target)
       }
     end
+    
+    task :update do
+      Dir.chdir('resources/installer') do
+         wxs_files = FileList.new('*.wxs'){|fl| fl.exclude('main.wxs') }
+         wxs_files.each do |file|
+           paraffin file, {'-update' => '' }
+           mv "#{File.basename(file, '.wxs')}.PARAFFIN", file
+         end
+      end
+    end
+    
   end
   
 end
 
-task :download  => ['packager:wix:download', 'packager:parrafin:download']
-task :extract   => ['packager:wix:extract', 'packager:parrafin:extract']
+task :download  => ['packager:wix:download', 'packager:paraffin:download']
+task :extract   => ['packager:wix:extract', 'packager:paraffin:extract']
 task :package   => 'packager:wix:package'
