@@ -120,12 +120,13 @@ namespace(:packager) do
       }
     end
     
-    task :update do
+    task :diff do
       Dir.chdir('resources/installer') do
          wxs_files = FileList.new('*.wxs'){|fl| fl.exclude('main.wxs') }
          wxs_files.each do |file|
            paraffin file, {'-update' => '' }
-           mv "#{File.basename(file, '.wxs')}.PARAFFIN", file
+           file_name = File.basename(file, '.wxs')
+           msys_sh "diff #{file_name}.PARAFFIN #{file} > #{file_name}.diff ;exit 0" 
          end
       end
     end
@@ -136,6 +137,8 @@ end
 
 task :download  => ['packager:wix:download', 'packager:paraffin:download']
 task :extract   => ['packager:wix:extract', 'packager:paraffin:extract']
+
+desc 'create an MSI package of the runtime'
 task :package   => 'packager:wix:package'
-task :update_wxs => 'packager:paraffin:update'
+task :diff_wxs => 'packager:paraffin:diff'
 
