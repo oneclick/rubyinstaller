@@ -15,16 +15,16 @@
       </Directory>
     </Directory>
     <Icon Id="RubyInstaller" SourceFile="..\icons\ruby.ico" />
-    <Feature Id="Minimal" Level="1" Title="One Click Installer runtime" Description="The basic Ruby One Click Installer" ConfigurableDirectory="INSTALLDIR" >
+    <Feature Id="Minimal" Level="1" Title="One Click Installer runtime" Description="The basic Ruby One Click Installer" Display="expand" ConfigurableDirectory="INSTALLDIR" >
       <FeatureRef Id="Ruby" />
       <FeatureRef Id="RubyGems" />
     </Feature>
-    <Feature Id="Ruby" Level="1" Title="Ruby" Description="The Ruby interpreter and standard library">
+    <Feature Id="Ruby" Level="1" Title="Ruby" Description="The Ruby interpreter and standard library" >
       <ComponentGroupRef Id="group_RUBY_BIN" />
       <ComponentGroupRef Id="group_RUBY_LIB" />
       <ComponentGroupRef Id="group_RUBY_SHARE" />
     </Feature>
-    <Feature Id="RubyGems" Level="1" Title="RubyGems" Description="The RubyGems package management system">
+    <Feature Id="RubyGems" Level="1" Title="RubyGems" Description="The RubyGems package management system" >
       <ComponentGroupRef Id="group_RUBYGEMS_BIN" />
       <ComponentGroupRef Id="group_RUBYGEMS_LIB" />
     </Feature>
