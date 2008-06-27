@@ -15,7 +15,7 @@
       </Directory>
     </Directory>
     <Icon Id="RubyInstaller" SourceFile="..\icons\ruby.ico" />
-    <Feature Id="Minimal" Level="1" Title="One Click Installer runtime" Description="The basic Ruby One Click Installer" >
+    <Feature Id="Minimal" Level="1" Title="One Click Installer runtime" Description="The basic Ruby One Click Installer" ConfigurableDirectory="INSTALLDIR" >
       <FeatureRef Id="Ruby" />
       <FeatureRef Id="RubyGems" />
     </Feature>
