@@ -153,14 +153,12 @@ module RubyInstaller
       :version => '2.0.5805.1',
       :url => 'http://easynews.dl.sourceforge.net/wix',
       :target => 'sandbox/wix',
-      :package_target => 'sandbox/package',
-      :package_file => 'ruby_installer.msi',
       :files => [
         'wix-2.0.5805.0-binaries.zip'
       ]
     )
     
-    Paraffin  = OpenStruct.new(
+    Paraffin = OpenStruct.new(
       :release => 'stable',
       :version => '2.0.5805.1',
       :url => 'http://www.wintellect.com/cs/files/folders/4332/download.aspx',
@@ -178,5 +176,20 @@ module RubyInstaller
         'patches.zip'
       ]
     )
+    
+    Runtime = OpenStruct.new(
+      :version => '1.8.6-p214',
+      :namespace => 'runtime',
+      :source => 'resources/installer',
+      :package_name => 'ruby'
+    )
+    
+    DevKit = OpenStruct.new(
+      :version => RubyInstaller::Runtime.version,
+      :namespace => 'devkit',
+      :source => RubyInstaller::Runtime.source,
+      :package_name => 'ruby_devkit'
+    )
+   
   end
 end

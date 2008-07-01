@@ -64,6 +64,12 @@ namespace(:compiler) do
       cmd = args.join(' ')
       sh "\"#{File.join(RubyInstaller::ROOT, RubyInstaller::MSYS.target, "bin")}/bash.exe\" --login -i -c \"#{cmd}\""
     end
+    
+    def msys_system(*args)
+      cmd = args.join(' ')
+      system "\"#{File.join(RubyInstaller::ROOT, RubyInstaller::MSYS.target, "bin")}/bash.exe\" --login -i -c \"#{cmd}\""
+    end
+    
   end
 end
 

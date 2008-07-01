@@ -1,24 +1,28 @@
 require 'rake'
 require 'rake/clean'
 
-def candle(list)
+def candle(*list)
   puts "** compiling wxs files" if Rake.application.options.trace
-  candle = File.expand_path(File.join(RubyInstaller::ROOT, 'sandbox/wix', 'candle.exe'))
+  candle = File.expand_path(File.join(RubyInstaller::ROOT, 'sandbox', 'wix', 'candle.exe'))
   sh "\"#{candle}\" -nologo  #{list.join(' ')}"
 end
 
 def light(list, file)
   puts "** linking wixobj files" if Rake.application.options.trace
-  wix_path = File.join(RubyInstaller::ROOT, 'sandbox/wix')
+  wix_path = File.join(RubyInstaller::ROOT, 'sandbox', 'wix')
   ui_lib   = File.join(wix_path, 'wixui.wixlib')
   loc      = File.join(wix_path, 'WixUI_en-us.wxl')
-  light   = File.join(wix_path, 'light.exe')
+  light    = File.join(wix_path, 'light.exe')
   sh "\"#{light}\" -nologo -out #{file} #{list.join(' ')} #{ui_lib} -loc #{loc}"  
 end
 
-def paraffin(file, options)
+def paraffin(file, *args)
   paraffin = File.expand_path(File.join(RubyInstaller::ROOT, 'sandbox/wix/Debug', 'paraffin.exe'))
-  sh "\"#{paraffin}\" #{options.to_a.join(' ')} #{file}" 
+  sh "\"#{paraffin}\" #{args.join(' ')} #{file}" 
+end
+
+def diff(file1, file2)
+  msys_system "diff -u -I\\<CreatedOn\\> #{file1} #{file2} > #{file1.ext('diff')}"
 end
 
 namespace(:packager) do
@@ -26,7 +30,6 @@ namespace(:packager) do
     package = RubyInstaller::Wix
     directory package.target
     CLEAN.include(package.target)
-    CLEAN.include(package.package_target)
     
     # Put files for the :download task
     package.files.each do |f|
@@ -49,26 +52,6 @@ namespace(:packager) do
       files.each do |f|
         extract(File.join(RubyInstaller::ROOT, f), package.target)
       end
-    end
-
-    task :candle do
-      Dir.chdir('resources/installer') do
-         wxs_files = FileList[ '*.wxs']
-         candle wxs_files
-      end
-    end
-    
-    task :light => :candle do
-      Dir.chdir('resources/installer') do
-         wixobj_files = FileList[ '*.wixobj']
-         light wixobj_files, package.package_file
-      end
-    end
-    
-    directory 'pkg'
-    
-    task :package => [:light, 'pkg'] do
-      FileUtils.mv(File.join('resources/installer', package.package_file), 'pkg', :verbose => true)
     end
 
   end
@@ -123,11 +106,14 @@ namespace(:packager) do
     task :diff do
       Dir.chdir('resources/installer') do
          wxs_files = FileList.new('*.wxs'){|fl| fl.exclude('main.wxs') }
-         wxs_files.each do |file|
-           paraffin file, {'-update' => '' }
-           file_name = File.basename(file, '.wxs')
-           msys_sh "diff #{file_name}.PARAFFIN #{file} > #{file_name}.diff ;exit 0" 
+         
+         diffs = wxs_files.reject do |file|
+           paraffin file, '-update'
+           diff file, file.ext('PARAFFIN')
          end
+         
+         puts (diffs.empty? ? "All files are correct." : "These files need to be edited:")
+         puts diffs  
       end
     end
     
@@ -139,6 +125,5 @@ task :download  => ['packager:wix:download', 'packager:paraffin:download']
 task :extract   => ['packager:wix:extract', 'packager:paraffin:extract']
 
 desc 'create an MSI package of the runtime'
-task :package   => 'packager:wix:package'
 task :diff_wxs => 'packager:paraffin:diff'
 
