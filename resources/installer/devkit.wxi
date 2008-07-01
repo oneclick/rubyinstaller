@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+	<Feature Id="DevKit" Level="1" Title="Software Development Kit" Description="The MINGW Development package" >
+	  <ComponentGroupRef Id="group_MSYS" />
+	  <ComponentGroupRef Id="group_MINGW" />
+	  <ComponentGroupRef Id="group_MSYS_STUBS" />
+	</Feature>
+</Include>
