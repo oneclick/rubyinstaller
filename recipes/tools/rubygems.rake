@@ -53,6 +53,7 @@ namespace(:tools) do
     task :install => [package.target, package.install_target, interpreter.install_target] do
       new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
+      ENV.delete("RUBYOPT")
       Dir.chdir(package.target) do
         sh "ruby setup.rb install #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
