@@ -86,11 +86,11 @@ TEXT
       end
 
       # now relocate lib into lib/ruby/site_ruby (to conform default installation).
-      Dir.chdir(package.install_target) do
-        mv 'lib', '1.8'
-        mkdir_p 'lib/ruby/site_ruby'
-        mv '1.8', 'lib/ruby/site_ruby'
-      end
+      # Dir.chdir(package.install_target) do
+      #   mv 'lib', '1.8'
+      #   mkdir_p 'lib/ruby/site_ruby'
+      #   mv '1.8', 'lib/ruby/site_ruby'
+      # end
     end
   end
 end
