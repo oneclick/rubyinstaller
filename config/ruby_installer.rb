@@ -178,7 +178,8 @@ module RubyInstaller
     )
     
     Runtime = OpenStruct.new(
-      :version => '1.8.6-p214',
+      :version => '1.8.6-p114',
+      :version_source => RubyInstaller::Ruby18.target,
       :namespace => 'runtime',
       :source => 'resources/installer',
       :package_name => 'ruby'
@@ -186,6 +187,7 @@ module RubyInstaller
     
     DevKit = OpenStruct.new(
       :version => RubyInstaller::Runtime.version,
+      :version_source => RubyInstaller::Ruby18.target,
       :namespace => 'devkit',
       :source => RubyInstaller::Runtime.source,
       :package_name => 'ruby_devkit'

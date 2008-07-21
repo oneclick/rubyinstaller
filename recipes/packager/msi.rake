@@ -1,12 +1,22 @@
 require 'rake'
 require 'rake/clean'
 
+def ruby_version(file)
+  return nil unless File.exist?(file)
+  version_file = File.read(file)
+  ver = /RUBY_VERSION_CODE (.+)$/.match(version_file)[1]
+  pl = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
+  "#{ver}-p#{pl}"
+end
+
 packages = [RubyInstaller::Runtime, RubyInstaller::DevKit]
 
 packages.each do |pkg|
   
-  pkg.file = "#{pkg.package_name}-#{pkg.version}.msi"
-  pkg.target= "pkg\\#{pkg.file}"
+  version_file = File.join(RubyInstaller::ROOT, pkg.version_source, 'version.h')
+  pkg.version = ruby_version(version_file) || pkg.version
+  pkg.file = "#{pkg.package_name}-#{pkg.version}.msi"  
+  pkg.target = "pkg\\#{pkg.file}"
   
   namespace(pkg.namespace) do
 
@@ -14,7 +24,7 @@ packages.each do |pkg|
       ENV['PACKAGE'] = pkg.namespace.upcase
     end
     
-    desc "install the product"
+    desc "install the product #{pkg.target}"
     task :install => pkg.target do
       sh "msiexec /i #{pkg.target}"
     end
