@@ -4,7 +4,7 @@
 
 <Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
   <Product Name="$(var.ProductName)" Id="$(var.ProductCode)" Version="$(var.ProductVersion)" Language="1033" Manufacturer="RubyInstaller Project">
-    <Package Id="????????-????-????-????-????????????" Description="$(var.ProductName)" Comments="Copyright (c) 2008 RubyInstaller Project" Keywords="Installer Ruby Windows" InstallPrivileges="elevated" Compressed="yes" InstallerVersion="200" />
+    <Package Id="????????-????-????-????-????????????" Description="$(var.ProductName)" Comments="Copyright (c) $(var.Year) RubyInstaller Project" Keywords="Installer Ruby Windows" InstallPrivileges="elevated" Compressed="yes" InstallerVersion="200" />
     <UIRef Id="WixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
     <Media Id="1" Cabinet="rubyinstaller.cab" EmbedCab="yes" CompressionLevel="high" />
@@ -18,16 +18,16 @@
       </Directory>
     </Directory>
     <Icon Id="RubyInstaller" SourceFile="..\icons\ruby.ico" />
-    <Feature Id="Minimal" Level="1" Title="Ruby runtime" Description="The Ruby runtime" Display="expand" ConfigurableDirectory="INSTALLDIR" >
+    <Feature Id="Minimal" Level="1" Title="$(var.RuntimeTitle)" Description="$(var.RuntimeDescription)" Display="expand" ConfigurableDirectory="INSTALLDIR" >
       <FeatureRef Id="Ruby" />
       <FeatureRef Id="RubyGems" />
     </Feature>
-    <Feature Id="Ruby" Level="1" Title="Ruby" Description="The Ruby interpreter and standard library" >
+    <Feature Id="Ruby" Level="1" Title="$(var.RubyTitle) $(var.RubyVersion)" Description="$(var.RubyDescription)" >
       <ComponentGroupRef Id="group_RUBY_BIN" />
       <ComponentGroupRef Id="group_RUBY_LIB" />
       <ComponentGroupRef Id="group_RUBY_MAN" />
     </Feature>
-    <Feature Id="RubyGems" Level="1" Title="RubyGems" Description="The RubyGems package management system" >
+    <Feature Id="RubyGems" Level="1" Title="$(var.RubyGemsTitle) $(var.RubyGemsVersion)" Description="$(var.RubyGemsDescription)" >
       <ComponentGroupRef Id="group_RUBYGEMS_BIN" />
       <ComponentGroupRef Id="group_RUBYGEMS_LIB" />
     </Feature>

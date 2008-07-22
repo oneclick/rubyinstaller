@@ -3,10 +3,19 @@
   <?define ProductCode="67F67970-2233-4AF9-9B41-7161F927617C" ?>
   <?define UpgradeCode="3E145ABF-D25C-4E4C-899E-5F043D3F9A33" ?>
 
+  <?define Year = "2008" ?>
   <?define ProductName = "One-Click Ruby Installer 3.0" ?>
   <?define InstallName = "RubyInstaller" ?>
   <?define InstallId = "Ruby18" ?>
   <?define DevKitInstallId = "devkit" ?>
   <?define ProductVersion = "3.0.0" ?>
   <?define ProductURL = "http://rubyinstaller.rubyforge.org/" ?>
+  <?define RuntimeTitle = "Ruby runtime" ?>
+  <?define RuntimeDescription = "The Ruby runtime" ?>
+  <?define RubyTitle = "Ruby" ?>
+  <?define RubyVersion = "" ?>
+  <?define RubyDescription = "The Ruby interpreter and standard library" ?>
+  <?define RubyGemsTitle = "RubyGems" ?>
+  <?define RubyGemsDescription = "The RubyGems package management system" ?>
+  <?define RubyGemsVersion = "" ?>  
 </Include>
