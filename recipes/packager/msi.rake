@@ -79,9 +79,18 @@ packages.each do |pkg|
     desc "compile #{pkg.file}"
     task :package => pkg.target
     
+    task :clobber do
+     rm_f pkg.target
+    end
+    
   end
   
   desc "compile #{pkg.namespace} msi"
   task :package => "#{pkg.namespace}:package"
+  desc "remove #{pkg.namespace} msi"
+  task :clobber_package   => "#{pkg.namespace}:clobber"
   
 end
+
+desc "remove and rebuild msi"
+task :repackage => [:clobber_package, :package]
