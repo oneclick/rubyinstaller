@@ -179,18 +179,42 @@ module RubyInstaller
     
     Runtime = OpenStruct.new(
       :version => '1.8.6-p114',
-      :version_source => RubyInstaller::Ruby18.target,
+      :ruby_version_source => RubyInstaller::Ruby18.target,
+      :rubygems_version_source => RubyInstaller::RubyGems.target,
       :namespace => 'runtime',
       :source => 'resources/installer',
-      :package_name => 'ruby'
+      :package_name => 'ruby',
+      :wix_config => {
+          'ProductCode'=> "67F67970-2233-4AF9-9B41-7161F927617C",
+          'UpgradeCode'=> "3E145ABF-D25C-4E4C-899E-5F043D3F9A33",
+          'Year' =>  "2008",
+          'ProductName' =>  "One-Click Ruby Installer 3.0",
+          'InstallName' =>  "RubyInstaller",
+          'InstallId' =>  "Ruby18",
+          'DevKitInstallId' =>  "devkit",
+          'ProductVersion' =>  "3.0.0",
+          'ProductURL' =>  "http://rubyinstaller.rubyforge.org/",
+          'RuntimeTitle' =>  "Ruby runtime",
+          'RuntimeDescription' =>  "The Ruby runtime",
+          'RubyTitle' =>  "Ruby",
+          'RubyVersion' =>  "",
+          'RubyDescription' =>  "The Ruby interpreter and standard library",
+          'RubyGemsTitle' =>  "RubyGems",
+          'RubyGemsDescription' =>  "The RubyGems package management system",
+          'RubyGemsVersion' =>  ""
+        },
+      :config_file => 'config.wxi.erb'
     )
     
     DevKit = OpenStruct.new(
       :version => RubyInstaller::Runtime.version,
-      :version_source => RubyInstaller::Ruby18.target,
+      :ruby_version_source => RubyInstaller::Ruby18.target,
+      :rubygems_version_source => RubyInstaller::RubyGems.target,
       :namespace => 'devkit',
       :source => RubyInstaller::Runtime.source,
-      :package_name => 'ruby_devkit'
+      :package_name => 'ruby_devkit',
+      :wix_config   => RubyInstaller::Runtime.wix_config,
+      :config_file  => RubyInstaller::Runtime.config_file
     )
    
   end

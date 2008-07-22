@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+<% RubyInstaller::Runtime.wix_config.each do |key, value| %>
+  <?define <%= "#{key}=#{value.inspect}" %>  ?> 
+<% end %>
+</Include>

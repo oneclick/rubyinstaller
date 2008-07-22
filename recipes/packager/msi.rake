@@ -1,20 +1,31 @@
 require 'rake'
 require 'rake/clean'
+require 'erb'
 
 def ruby_version(file)
   return nil unless File.exist?(file)
+  h = {}
   version_file = File.read(file)
-  ver = /RUBY_VERSION_CODE (.+)$/.match(version_file)[1]
-  pl = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
-  "#{ver}-p#{pl}"
+  h[:version] = /RUBY_VERSION "(.+)"$/.match(version_file)[1]
+  h[:version_code] = /RUBY_VERSION_CODE (.+)$/.match(version_file)[1]
+  h[:patchlevel] = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
+  h
+end
+
+def rubygems_version(target)
+  Dir.chdir(target) do
+    @ret = `ruby -Ilib bin/gem environment packageversion`.chomp
+  end
+  @ret
 end
 
 packages = [RubyInstaller::Runtime, RubyInstaller::DevKit]
 
 packages.each do |pkg|
   
-  version_file = File.join(RubyInstaller::ROOT, pkg.version_source, 'version.h')
-  pkg.version = ruby_version(version_file) || pkg.version
+  version_file = File.join(RubyInstaller::ROOT, pkg.ruby_version_source, 'version.h')
+  pkg.info    = ruby_version(version_file)
+  pkg.version = "#{pkg.info[:version_code]}-p#{pkg.info[:patchlevel]}" || pkg.version
   pkg.file = "#{pkg.package_name}-#{pkg.version}.msi"  
   pkg.target = "pkg\\#{pkg.file}"
   
@@ -38,8 +49,18 @@ packages.each do |pkg|
     task :test_run => pkg.target  do
       sh "msiexec /i #{pkg.target} EXECUTEMODE=None"
     end
+    
+    task :configure => :env do
+      pkg.wix_config['RubyVersion'] = "#{pkg.info[:version] } patchlevel #{pkg.info[:patchlevel] }"
+      gems = File.join(RubyInstaller::ROOT, pkg.rubygems_version_source)
+      pkg.wix_config['RubyGemsVersion'] = rubygems_version(gems)
+      config_file = File.join(RubyInstaller::ROOT, pkg.source, pkg.config_file)
+      template = ERB.new(File.read(config_file))
+      output = File.join(File.dirname(config_file), File.basename(config_file, '.erb'))
+      File.open(output, 'w+'){|f| f.write template.result }
+    end
    
-    task :compile => :env do |t|
+    task :compile => :configure do
       Dir.chdir(pkg.source) do
         candle *FileList[ '*.wxs' ]
       end
