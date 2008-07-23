@@ -25,7 +25,7 @@ packages.each do |pkg|
   
   version_file = File.join(RubyInstaller::ROOT, pkg.ruby_version_source, 'version.h')
   pkg.info    = ruby_version(version_file)
-  pkg.version = "#{pkg.info[:version_code]}-p#{pkg.info[:patchlevel]}" || pkg.version
+  pkg.version = pkg.info.nil? ? pkg.version : "#{pkg.info[:version_code]}-p#{pkg.info[:patchlevel]}"
   pkg.file = "#{pkg.package_name}-#{pkg.version}.msi"  
   pkg.target = "pkg\\#{pkg.file}"
   
