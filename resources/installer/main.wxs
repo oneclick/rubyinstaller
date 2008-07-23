@@ -25,7 +25,6 @@
     <Feature Id="Ruby" Level="1" Title="$(var.RubyTitle) $(var.RubyVersion)" Description="$(var.RubyDescription)" >
       <ComponentGroupRef Id="group_RUBY_BIN" />
       <ComponentGroupRef Id="group_RUBY_LIB" />
-      <ComponentGroupRef Id="group_RUBY_MAN" />
     </Feature>
     <Feature Id="RubyGems" Level="1" Title="$(var.RubyGemsTitle) $(var.RubyGemsVersion)" Description="$(var.RubyGemsDescription)" >
       <ComponentGroupRef Id="group_RUBYGEMS_BIN" />
