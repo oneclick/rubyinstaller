@@ -4,3 +4,4 @@ sandbox
 *.wixobj
 *.msi
 *.log
+resources/installer/config.wxi
