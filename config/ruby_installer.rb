@@ -75,7 +75,8 @@ module RubyInstaller
         'zlib1.dll',
         'libeay32.dll',
         'libssl32.dll',
-        'libiconv2.dll'
+        'libiconv2.dll',
+        'pdcurses.dll'
       ]
     )
     
@@ -99,6 +100,15 @@ module RubyInstaller
       :files => [
         'readline-5.0-bin.zip',
         'readline-5.0-lib.zip'
+      ]
+    )
+
+    PdCurses = OpenStruct.new(
+      :version => '3.3',
+      :url => "http://downloads.sourceforge.net/pdcurses",
+      :target => RubyInstaller::MinGW.target,
+      :files => [ 
+        'pdc33dll.zip' 
       ]
     )
   
