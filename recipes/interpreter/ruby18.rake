@@ -61,19 +61,24 @@ namespace(:interpreter) do
       end
     end
 
-    task :configure => [package.target, package.build_target] do
-      # check for configure script existance or checkout being used.
-      if File.exist?(File.join(package.target, '.svn')) or !File.exist?(File.join(package.target, 'configure'))
-        Dir.chdir(package.target) do
-          msys_sh "autoconf"
-        end
+    makefile = File.join(package.build_target, 'Makefile')
+    configurescript = File.join(package.target, 'configure')
+
+    file configurescript => [ package.target ] do
+      cd package.target do
+        msys_sh "autoconf"
       end
+    end
+
+    file makefile => [ package.build_target, configurescript ] do
       Dir.chdir(package.build_target) do
         msys_sh "../ruby_1_8/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
     end
 
-    task :compile do
+    task :configure => makefile
+    
+    task :compile => makefile do
       Dir.chdir(package.build_target) do
         msys_sh "make"
       end
