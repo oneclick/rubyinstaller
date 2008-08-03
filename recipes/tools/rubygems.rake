@@ -45,7 +45,7 @@ namespace(:tools) do
           extract(File.join(RubyInstaller::ROOT, f), package.target)
         }
       else
-        FileUtils.cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true)
+        FileUtils.cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
       end
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
