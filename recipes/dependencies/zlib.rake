@@ -36,12 +36,12 @@ namespace(:dependencies) do
       # remove test/*.exe
       # remove *.txt
       # move zlib1.dll to bin
-      Dir.chdir(File.join(RubyInstaller::ROOT, package.target)) do
-        FileUtils.rm_rf("test")
-        Dir.glob("*.txt").each do |f|
-          FileUtils.rm_f(f)
+      cd File.join(RubyInstaller::ROOT, package.target) do
+        rm_rf "test"
+        Dir.glob("*.txt").each do |path|
+          rm_f path
         end
-        FileUtils.mv("zlib1.dll", "bin")
+        mv "zlib1.dll", "bin"
       end
     end
   end

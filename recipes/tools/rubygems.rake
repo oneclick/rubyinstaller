@@ -24,7 +24,7 @@ namespace(:tools) do
     end
 
     task :checkout => "downloads" do
-      Dir.chdir(RubyInstaller::ROOT) do
+      cd RubyInstaller::ROOT do
         # If is there already a checkout, update instead of checkout"
         if File.exist?(File.join(RubyInstaller::ROOT, package.checkout_target, '.svn'))
           sh "svn update #{package.checkout_target}"
@@ -45,7 +45,7 @@ namespace(:tools) do
           extract(File.join(RubyInstaller::ROOT, f), package.target)
         }
       else
-        FileUtils.cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
+        cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
       end
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
@@ -54,7 +54,7 @@ namespace(:tools) do
       new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
       ENV.delete("RUBYOPT")
-      Dir.chdir(package.target) do
+      cd package.target do
         sh "ruby setup.rb install #{package.configure_options.join(' ')} --destdir=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
 

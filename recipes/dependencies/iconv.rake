@@ -36,10 +36,10 @@ namespace(:dependencies) do
       # remove *.txt
       # remove src folder
       # leave zlib1.dll inside bin ;-)
-      Dir.chdir(File.join(RubyInstaller::ROOT, package.target)) do
-        FileUtils.rm_rf("src")
-        Dir.glob("*.txt").each do |f|
-          FileUtils.rm_f(f)
+      cd File.join(RubyInstaller::ROOT, package.target) do
+        rm_rf "src"
+        Dir.glob("*.txt").each do |path|
+          rm_f path
         end
       end
     end

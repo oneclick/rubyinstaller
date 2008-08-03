@@ -104,7 +104,7 @@ namespace(:packager) do
     end
     
     task :diff do
-      Dir.chdir('resources/installer') do
+      cd 'resources/installer' do
          wxs_files = FileList.new('*.wxs'){|fl| fl.exclude('main.wxs') }
          
          diffs = wxs_files.reject do |file|

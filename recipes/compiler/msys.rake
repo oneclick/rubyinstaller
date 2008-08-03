@@ -1,6 +1,5 @@
 require 'rake'
 require 'rake/clean'
-require 'fileutils'
 
 namespace(:compiler) do
   namespace(:msys) do
@@ -38,12 +37,12 @@ namespace(:compiler) do
       # msys is hardcoded to mount /usr and cannot be overwriten
       from_folder = File.join(package.target, "usr")
       Dir.glob("#{from_folder}/*").reject { |f| f =~ /local$/ }.each do |f|
-        FileUtils.cp_r(f, package.target)
+        cp_r f, package.target
       end
       Dir.glob("#{from_folder}/local/*").each do |f|
-        FileUtils.cp_r(f, package.target)
+        cp_r f, package.target
       end
-      FileUtils.rm_rf(from_folder)
+      rm_rf from_folder
       
       # create the fstab file, mount /mingw to sandbox/mingw
       # mount also /usr/local to sandbox/msys/usr

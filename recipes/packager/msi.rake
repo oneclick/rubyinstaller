@@ -13,7 +13,7 @@ def ruby_version(file)
 end
 
 def rubygems_version(target)
-  Dir.chdir(target) do
+  cd target do
     @ret = `ruby -Ilib bin/gem environment packageversion`.chomp
   end
   @ret
@@ -61,7 +61,7 @@ packages.each do |pkg|
     end
    
     task :compile => :configure do
-      Dir.chdir(pkg.source) do
+      cd pkg.source do
         candle *FileList[ '*.wxs' ]
       end
     end
@@ -70,7 +70,7 @@ packages.each do |pkg|
     
     file pkg.target => ['pkg', *FileList[ File.join(pkg.source, '*.wxs') ] ] do
       Rake::Task["#{pkg.namespace}:compile"].invoke
-      Dir.chdir(pkg.source) do
+      cd pkg.source do
         wixobj = FileList[ '*.wixobj']
         light wixobj, File.join(RubyInstaller::ROOT, pkg.target).gsub('/','\\')
       end
