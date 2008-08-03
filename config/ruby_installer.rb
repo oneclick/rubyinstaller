@@ -76,7 +76,8 @@ module RubyInstaller
         'libeay32.dll',
         'libssl32.dll',
         'libiconv2.dll',
-        'pdcurses.dll'
+        'pdcurses.dll',
+        'gdbm3.dll'
       ]
     )
     
@@ -138,6 +139,18 @@ module RubyInstaller
       :files => [
         'libiconv-1.9.2-1-bin.zip',
         'libiconv-1.9.2-1-lib.zip'
+      ]
+    )
+
+    Gdbm = OpenStruct.new(
+      :release => 'official',
+      :version => '1.8.3-1',
+      :url => "http://easynews.dl.sourceforge.net/gnuwin32",
+      :target => RubyInstaller::MinGW.target,
+      :files => [
+        'gdbm-1.8.3-1-bin.zip',
+        'gdbm-1.8.3-1-lib.zip',
+        'gdbm-1.8.3-1-src.zip'
       ]
     )
     
