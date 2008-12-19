@@ -46,3 +46,6 @@ mounting fstab for MinGW.
 
 To generate the Microsoft Windows Installer (MSI), you require have dotNET 2.0
 for WiX toolset to work and dotNET 3.5 for Paraffin utility.
+
+NOTE: On Vista, run the rake task from an administrator command prompt or "/bin/patch"
+will fail during the build.
