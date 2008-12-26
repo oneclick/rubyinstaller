@@ -72,7 +72,7 @@ namespace(:interpreter) do
 
     file makefile => [ package.build_target, configurescript ] do
       cd package.build_target do
-        msys_sh "../ruby_1_8/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
+        msys_sh "../ruby_1_8/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
     end
 
