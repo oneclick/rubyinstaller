@@ -8,6 +8,7 @@
 require 'cgi'
 require 'uri'
 require 'net/http'
+require 'net/https'
 require 'tempfile'
 require 'fileutils'
 
@@ -225,41 +226,43 @@ module URI
   end
 
   class HTTP #:nodoc:
+
     # See URI::Generic#read
-    def read(options = {}, &block)
-      headers = { "If-Modified-Since" => CGI.rfc1123_date(options[:modified].utc) } if options[:modified]
-      verbose = options[:verbose]
-      result = nil
-      request = lambda do |http|
+    def read(options = nil, &block)
+      options ||= {}
+      connect do |http|
         puts "Requesting #{self}" if verbose
-        http.request_get(path, headers) do |response|
+        headers = { 'If-Modified-Since' => CGI.rfc1123_date(options[:modified].utc) } if options[:modified]
+        request = Net::HTTP::Get.new(request_uri.empty? ? '/' : request_uri, headers)
+        request.basic_auth self.user, self.password if self.user
+        http.request request do |response|
           case response
           when Net::HTTPNotModified
             # No modification, nothing to do.
-            puts "Not modified since last download" if verbose
-
+            puts 'Not modified since last download' if verbose
+            return nil
           when Net::HTTPRedirection
             # Try to download from the new URI, handle relative redirects.
             puts "Redirected to #{response['Location']}" if verbose
-            result = (self + URI.parse(response["location"])).read(options, &block)
-
+            return (self + URI.parse(response['location'])).read(options, &block)
           when Net::HTTPOK
             puts "Downloading #{self}" if verbose
-            with_progress_bar options[:progress], path.split("/").last, response.content_length do |progress|
+            result = nil
+            with_progress_bar options[:progress], path.split('/').last, response.content_length do |progress|
               if block
                 response.read_body do |chunk|
                   block.call chunk
                   progress << chunk
                 end
               else
-                result = ""
+                result = ''
                 response.read_body do |chunk|
                   result << chunk
                   progress << chunk
                 end
               end
             end
-
+            return result
           when Net::HTTPNotFound
             raise NotFoundError, "Looking for #{self} and all I got was a 404!"
           else
@@ -267,15 +270,19 @@ module URI
           end
         end
       end
+    end
 
+  private
+
+    def connect
       if proxy = proxy_uri
         proxy = URI.parse(proxy) if String === proxy
-        Net::HTTP.start(host, port, proxy.host, proxy.port, proxy.user, proxy.password) { |http| request[http] }
+        http = Net::HTTP.new(host, port, proxy.host, proxy.port, proxy.user, proxy.password)
       else
-        Net::HTTP.start(host, port) { |http| request[http] }
+        http = Net::HTTP.new(host, port)
       end
-      result
+      http.use_ssl = true if self.instance_of? URI::HTTPS
+      yield http
     end
-  end
-  
+  end  
 end
