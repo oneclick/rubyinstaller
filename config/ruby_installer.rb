@@ -91,7 +91,7 @@ module RubyInstaller
     Readline = OpenStruct.new(
       :release => "official",
       :version => "5.0",
-      :url => "http://easynews.dl.sourceforge.net/sourceforge/gnuwin32",
+      :url => "http://downloads.sourceforge.net/sourceforge/gnuwin32",
       :target => RubyInstaller::MinGW.target,
       :files => [
         'readline-5.0-bin.zip',
@@ -117,7 +117,7 @@ module RubyInstaller
     )
 
     OpenSsl = OpenStruct.new(
-      :url => "http://easynews.dl.sourceforge.net/gnuwin32",
+      :url => "http://downloads.sourceforge.net/gnuwin32",
       :version => '0.9.7.c',
       :target => RubyInstaller::MinGW.target,
       :files => [
@@ -129,7 +129,7 @@ module RubyInstaller
     Iconv = OpenStruct.new(
       :release => 'official',
       :version => "1.9.2-1",
-      :url => "http://easynews.dl.sourceforge.net/gnuwin32",
+      :url => "http://downloads.sourceforge.net/gnuwin32",
       :target => RubyInstaller::MinGW.target,
       :files => [
         'libiconv-1.9.2-1-bin.zip',
@@ -140,7 +140,7 @@ module RubyInstaller
     Gdbm = OpenStruct.new(
       :release => 'official',
       :version => '1.8.3-1',
-      :url => "http://easynews.dl.sourceforge.net/gnuwin32",
+      :url => "http://downloads.sourceforge.net/gnuwin32",
       :target => RubyInstaller::MinGW.target,
       :files => [
         'gdbm-1.8.3-1-bin.zip',
@@ -148,7 +148,7 @@ module RubyInstaller
         'gdbm-1.8.3-1-src.zip'
       ]
     )
-    
+
     RubyGems = OpenStruct.new(
       :release => 'official',
       :version => '1.3.1',
@@ -169,7 +169,7 @@ module RubyInstaller
     Wix = OpenStruct.new(
       :release => 'stable',
       :version => '2.0.5805.1',
-      :url => 'http://easynews.dl.sourceforge.net/wix',
+      :url => 'http://downloads.sourceforge.net/wix',
       :target => 'sandbox/wix',
       :files => [
         'wix-2.0.5805.0-binaries.zip'
