@@ -112,15 +112,15 @@ module RubyInstaller
         'pdc33dll.zip' 
       ]
     )
-  
+
     ExtractUtils = OpenStruct.new(
-        :url => "http://easynews.dl.sourceforge.net/sevenzip",
+        :url => "http://downloads.sourceforge.net/sevenzip",
         :target => 'sandbox/extract_utils',
         :files => [
-          '7za458.zip'
+          '7za465.zip'
         ]
     )
-    
+
     OpenSsl = OpenStruct.new(
       :url => "http://easynews.dl.sourceforge.net/gnuwin32",
       :version => '0.9.7.c',
