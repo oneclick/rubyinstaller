@@ -33,23 +33,18 @@ module RubyInstaller
     MSYS = OpenStruct.new(
       :release => 'technology-preview',
       :version => '1.0.11',
-      :url => "http://easynews.dl.sourceforge.net/mingw",
+      :url => "http://downloads.sourceforge.net/mingw",
       :target => 'sandbox/msys',
       :files => [
-        'diffutils-2.8.7-MSYS-1.0.11-snapshot.tar.bz2',
-        'findutils-4.3.0-MSYS-1.0.11-snapshot.tar.bz2',
-        'gawk-3.1.5-MSYS-1.0.11-snapshot.tar.bz2',
-        'msysCORE-1.0.11-2007.01.19-1.tar.bz2',
-        'MSYS-1.0.11-20070729.tar.bz2',
-        'coreutils-5.97-MSYS-1.0.11-snapshot.tar.bz2',
-        'texinfo-4.11-MSYS-1.0.11.tar.bz2',
-        'bash-3.1-MSYS-1.0.11-1.tar.bz2',
-        'bison-2.3-MSYS-1.0.11.tar.bz2',
-        'perl-5.6.1-MSYS-1.0.11.tar.bz2',
-        'm4-1.4.7-MSYS.tar.bz2',
-        'msys-autoconf-2.59.tar.bz2',
-        'msys-automake-1.8.2.tar.bz2',
-        'msys-libtool-1.5.tar.bz2'
+        'msysCORE-1.0.11-20080826.tar.gz',
+        'findutils-4.3.0-MSYS-1.0.11-3-bin.tar.gz',
+        'MSYS-1.0.11-20090120-dll.tar.gz',
+        'tar-1.19.90-MSYS-1.0.11-2-bin.tar.gz',
+        'autoconf2.5-2.61-1-bin.tar.bz2',
+        'autoconf-4-1-bin.tar.bz2',
+        'perl-5.6.1-MSYS-1.0.11-1.tar.bz2',
+        'crypt-1.1-1-MSYS-1.0.11-1.tar.bz2',
+        'bison-2.3-MSYS-1.0.11-1.tar.bz2'
       ]
     )
     

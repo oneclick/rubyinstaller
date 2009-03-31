@@ -33,23 +33,16 @@ namespace(:compiler) do
     
     # prepares the msys environment to be used
     task :prepare do
-      # relocate all content from usr to / since
-      # msys is hardcoded to mount /usr and cannot be overwriten
-      from_folder = File.join(package.target, "usr")
-      Dir.glob("#{from_folder}/*").reject { |f| f =~ /local$/ }.each do |f|
-        cp_r f, package.target
-      end
-      Dir.glob("#{from_folder}/local/*").each do |f|
-        cp_r f, package.target
-      end
-      rm_rf from_folder
-      
       # create the fstab file, mount /mingw to sandbox/mingw
-      # mount also /usr/local to sandbox/msys/usr
+      # mount also /usr/local to sandbox/msys/usr/local
+      mingw = File.join(RubyInstaller::ROOT, RubyInstaller::MinGW.target)
+      usr_local = File.join(RubyInstaller::ROOT, package.target, 'usr', 'local')
+
       File.open(File.join(package.target, "etc", "fstab"), 'w') do |f|
-        f.puts "#{File.join(RubyInstaller::ROOT, RubyInstaller::MinGW.target)} /mingw"
+        f.puts "#{mingw} /mingw"
+        f.puts "#{usr_local} /usr/local"
       end
-    
+
       #remove the chdir to $HOME in the /etc/profile
       profile = File.join(package.target, "etc", "profile")
       
