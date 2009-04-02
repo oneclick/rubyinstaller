@@ -7,8 +7,12 @@ module RubyInstaller
       MINOR = 0
       REVISION = 0
     end
+
+    unless defined?(STRING)
+      STRING = [MAJOR, MINOR, REVISION].join('.')
+    end
   end
-  
+
   unless defined?(ROOT)
     # Root folder
     ROOT = File.expand_path(File.join(File.dirname(__FILE__), ".."))
@@ -196,12 +200,12 @@ module RubyInstaller
       :wix_config => {
           'ProductCode'=> "67F67970-2233-4AF9-9B41-7161F927617C",
           'UpgradeCode'=> "3E145ABF-D25C-4E4C-899E-5F043D3F9A33",
-          'Year' =>  "2008",
+          'Year' =>  "2009",
           'ProductName' =>  "One-Click Ruby Installer 3.0",
           'InstallName' =>  "RubyInstaller",
           'InstallId' =>  "Ruby18",
           'DevKitInstallId' =>  "devkit",
-          'ProductVersion' =>  "3.0.0",
+          'ProductVersion' =>  RubyInstaller::Version::STRING,
           'ProductURL' =>  "http://rubyinstaller.rubyforge.org/",
           'RuntimeTitle' =>  "Ruby runtime",
           'RuntimeDescription' =>  "The Ruby runtime",
