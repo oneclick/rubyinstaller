@@ -51,10 +51,10 @@ module RubyInstaller
         'bison-2.3-MSYS-1.0.11-1.tar.bz2'
       ]
     )
-    
+
     Ruby18 = OpenStruct.new(
       :release => "preview1",
-      :version => "1.8.6-p114",
+      :version => "1.8.6-p368",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6',
       :checkout_target => 'downloads/ruby_1_8',
@@ -67,7 +67,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.8.6-p114.tar.bz2'
+        'ruby-1.8.6-p368.tar.bz2'
       ],
       :dependencies => [
         'readline5.dll',
@@ -79,7 +79,7 @@ module RubyInstaller
         'gdbm3.dll'
       ]
     )
-    
+
     Zlib = OpenStruct.new(
       :release => "official",
       :version => "1.2.3",

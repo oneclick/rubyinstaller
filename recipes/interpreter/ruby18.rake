@@ -86,7 +86,7 @@ namespace(:interpreter) do
 
     task :install => [package.install_target] do
       full_install_target = File.expand_path(File.join(RubyInstaller::ROOT, package.install_target))
-      
+
       # perform make install
       cd package.build_target do
         msys_sh "make install"
@@ -108,6 +108,13 @@ namespace(:interpreter) do
       rbconfig = File.join(package.install_target, 'lib/ruby/1.8/i386-mingw32/rbconfig.rb')
       contents = File.read(rbconfig).gsub(/#{Regexp.escape(full_install_target)}/) { |match| "" }
       File.open(rbconfig, 'w') { |f| f.write(contents) }
+
+      # replace the batch files with new and path-clean stubs
+      Dir.glob("#{package.install_target}/bin/*.bat").each do |bat|
+        File.open(bat, 'w') do |f|
+          f.write stub(File.basename(bat).ext(''))
+        end
+      end
     end
 
     # makes the installed ruby the first in the path and use if for the tests!
@@ -131,8 +138,19 @@ namespace(:interpreter) do
 
     task :irb do
       cd File.join(package.install_target, 'bin') do
-        sh "irb"
+        sh "irb.bat"
       end
+    end
+
+    def stub(script)
+      <<-SCRIPT
+@ECHO OFF
+IF NOT "%~f0" == "~f0" GOTO :WinNT
+@"ruby" -S "#{script}" %1 %2 %3 %4 %5 %6 %7 %8 %9
+GOTO :EOF
+:WinNT
+@"ruby" -S "#{script}" %*
+SCRIPT
     end
   end
 end
