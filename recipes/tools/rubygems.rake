@@ -91,6 +91,10 @@ TEXT
          mkdir_p 'lib/ruby/site_ruby'
          mv '1.8', 'lib/ruby/site_ruby'
       end
+
+      # remove the empty gems folder structure
+      gems_folder = File.join(interpreter.install_target, 'lib/ruby', 'gems')
+      rm_rf gems_folder
     end
   end
 end
