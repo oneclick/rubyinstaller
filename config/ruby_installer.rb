@@ -59,8 +59,8 @@ module RubyInstaller
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6',
       :checkout_target => 'downloads/ruby_1_8',
       :target => 'sandbox/ruby_1_8',
-      :build_target => 'sandbox/ruby_build',
-      :install_target => 'sandbox/ruby_mingw',
+      :build_target => 'sandbox/ruby18_build',
+      :install_target => 'sandbox/ruby18_mingw',
       :configure_options => [
         '--enable-shared',
         '--with-winsock2',
