@@ -47,6 +47,10 @@ namespace(:dependencies) do
   end
 end
 
-task :download  => ['dependencies:zlib:download']
-task :extract   => ['dependencies:zlib:extract']
-task :prepare   => ['dependencies:zlib:prepare']
+task :zlib => [
+  'dependencies:zlib:download',
+  'dependencies:zlib:extract',
+  'dependencies:zlib:prepare'
+]
+
+task :dependencies => [:zlib]

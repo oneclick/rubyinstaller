@@ -35,6 +35,14 @@ namespace(:interpreter) do
       end
     end
 
+    task :download_or_checkout do
+      if ENV['CHECKOUT'] then
+        Rake::Task['interpreter:ruby18:checkout'].invoke
+      else
+        Rake::Task['interpreter:ruby18:download'].invoke
+      end
+    end
+
     task :extract => [:extract_utils, package.target] do
       # grab the files from the download task
       files = Rake::Task['interpreter:ruby18:download'].prerequisites
@@ -155,15 +163,20 @@ SCRIPT
   end
 end
 
-if ENV['CHECKOUT']
-  task :download  => ['interpreter:ruby18:checkout']
-else
-  task :download  => ['interpreter:ruby18:download']
-end
-task :extract   => ['interpreter:ruby18:extract']
-task :prepare   => ['interpreter:ruby18:prepare']
-task :configure => ['interpreter:ruby18:configure']
-task :compile   => ['interpreter:ruby18:compile']
-task :install   => ['interpreter:ruby18:install']
+# add compiler and dependencies to the mix
+task :ruby18 => [:compiler, :dependencies]
+
+task :ruby18 => [
+  'interpreter:ruby18:download_or_checkout',
+  'interpreter:ruby18:extract',
+  'interpreter:ruby18:prepare',
+  'interpreter:ruby18:configure',
+  'interpreter:ruby18:compile',
+  'interpreter:ruby18:install'
+]
+
+# Ruby needs RubyGems, please add it :-)
+task :ruby18 => [:rubygems]
+
 task :check     => ['interpreter:ruby18:check']
 task :irb       => ['interpreter:ruby18:irb']

@@ -32,5 +32,9 @@ namespace(:dependencies) do
   end
 end
 
-task :download  => ['dependencies:openssl:download']
-task :extract   => ['dependencies:openssl:extract']
+task :openssl => [
+  'dependencies:openssl:download',
+  'dependencies:openssl:extract'
+]
+
+task :dependencies => [:openssl]

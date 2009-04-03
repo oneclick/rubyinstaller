@@ -43,6 +43,10 @@ namespace(:dependencies) do
   end
 end
 
-task :download  => ['dependencies:gdbm:download']
-task :extract   => ['dependencies:gdbm:extract']
-task :prepare   => ['dependencies:gdbm:prepare']
+task :gdbm => [
+  'dependencies:gdbm:download',
+  'dependencies:gdbm:extract',
+  'dependencies:gdbm:prepare'
+]
+
+task :dependencies => [:gdbm]

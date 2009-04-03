@@ -46,6 +46,10 @@ namespace(:dependencies) do
   end
 end
 
-task :download  => ['dependencies:iconv:download']
-task :extract   => ['dependencies:iconv:extract']
-task :prepare   => ['dependencies:iconv:prepare']
+task :iconv => [
+  'dependencies:iconv:download',
+  'dependencies:iconv:extract',
+  'dependencies:iconv:prepare'
+]
+
+task :dependencies => [:iconv]

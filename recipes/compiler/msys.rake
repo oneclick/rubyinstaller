@@ -65,6 +65,9 @@ namespace(:compiler) do
   end
 end
 
-task :download  => ['compiler:msys:download']
-task :extract   => ['compiler:msys:extract']
-task :prepare   => ['compiler:msys:prepare']
+# depend on mingw part
+task :msys => [:mingw]
+task :msys => ['compiler:msys:download', 'compiler:msys:extract', 'compiler:msys:prepare']
+
+# compiler also depends on msys
+task :compiler => [:msys]

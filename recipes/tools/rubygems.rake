@@ -34,6 +34,14 @@ namespace(:tools) do
       end
     end
 
+    task :download_or_checkout do
+      if ENV['CHECKOUT'] then
+        Rake::Task['tools:rubygems:checkout'].invoke
+      else
+        Rake::Task['tools:rubygems:download'].invoke
+      end
+    end
+
     # Prepare the :sandbox, it requires the :download task
     task :extract => [:extract_utils, package.target] do
       # grab the files from the download task
@@ -99,11 +107,11 @@ TEXT
   end
 end
 
+# depend on Ruby 1.8
+task :rubygems => [:ruby18]
 
-if ENV['CHECKOUT']
-  task :download  => ['tools:rubygems:checkout']
-else
-  task :download  => ['tools:rubygems:download']
-end
-task :extract   => ['tools:rubygems:extract']
-task :install   => ['tools:rubygems:install']
+task :rubygems => [
+  'tools:rubygems:download_or_checkout',
+  'tools:rubygems:extract',
+  'tools:rubygems:install'
+]

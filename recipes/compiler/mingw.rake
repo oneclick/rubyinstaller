@@ -33,5 +33,5 @@ namespace(:compiler) do
   end
 end
 
-task :download  => ['compiler:mingw:download']
-task :extract   => ['compiler:mingw:extract']
+task :mingw => ['compiler:mingw:download', 'compiler:mingw:extract']
+task :compiler => [:mingw]

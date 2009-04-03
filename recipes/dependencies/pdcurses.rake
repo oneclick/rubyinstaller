@@ -41,6 +41,10 @@ namespace(:dependencies) do
   end
 end
 
-task :download  => ['dependencies:pdcurses:download']
-task :extract   => ['dependencies:pdcurses:extract']
-task :prepare   => ['dependencies:pdcurses:prepare']
+task :pdcurses => [
+  'dependencies:pdcurses:download',
+  'dependencies:pdcurses:extract',
+  'dependencies:pdcurses:prepare'
+]
+
+task :dependencies => [:pdcurses]

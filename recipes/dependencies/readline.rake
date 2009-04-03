@@ -32,7 +32,11 @@ namespace(:dependencies) do
   end
 end
 
+task :readline => [
+  'dependencies:readline:download',
+  'dependencies:readline:extract'
+]
+
 unless ENV['NOREADLINE']
-  task :download  => ['dependencies:readline:download']
-  task :extract   => ['dependencies:readline:extract']
+  task :dependencies => [:readline]
 end
