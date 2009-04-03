@@ -80,6 +80,34 @@ module RubyInstaller
       ]
     )
 
+    Ruby19 = OpenStruct.new(
+      :release => "stable",
+      :version => "1.9.1-p0",
+      :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1',
+      :checkout_target => 'downloads/ruby_1_9_1',
+      :target => 'sandbox/ruby_1_9_1',
+      :build_target => 'sandbox/ruby191_build',
+      :install_target => 'sandbox/ruby191_mingw',
+      :configure_options => [
+        '--enable-shared',
+        '--with-winsock2',
+        '--disable-install-doc'
+      ],
+      :files => [
+        'ruby-1.9.1-p0.tar.bz2'
+      ],
+      :dependencies => [
+        'readline5.dll',
+        'zlib1.dll',
+        'libeay32.dll',
+        'libssl32.dll',
+        'libiconv2.dll',
+        'pdcurses.dll',
+        'gdbm3.dll'
+      ]
+    )
+
     Zlib = OpenStruct.new(
       :release => "official",
       :version => "1.2.3",
