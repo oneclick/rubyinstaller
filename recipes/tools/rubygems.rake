@@ -55,20 +55,20 @@ namespace(:tools) do
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
       ENV.delete("RUBYOPT")
       cd package.target do
-        sh "ruby setup.rb install #{package.configure_options.join(' ')} --destdir=#{File.join(RubyInstaller::ROOT, package.install_target)}"
+        sh "ruby setup.rb install #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
 
-      # now fixes all the stub batch files form bin
-      Dir.glob("{#{interpreter.install_target},#{package.install_target}}/bin/*.bat").each do |bat|
+      # now fixes the stub batch files form bin
+      Dir.glob("{#{interpreter.install_target},#{package.install_target}}/bin/gem.bat").each do |bat|
         script = File.basename(bat).gsub(File.extname(bat), '')
         File.open(bat, 'w') do |f|
           f.puts <<-TEXT
 @ECHO OFF
 IF NOT "%~f0" == "~f0" GOTO :WinNT
-@"ruby.exe" "#{File.join("C:/Ruby/bin", script)}" %1 %2 %3 %4 %5 %6 %7 %8 %9
+@"ruby" -S "#{script}" %1 %2 %3 %4 %5 %6 %7 %8 %9
 GOTO :EOF
 :WinNT
-@"ruby.exe" "%~dpn0" %*
+@"ruby" -S "#{script}" %*
 TEXT
         end
       end
@@ -86,11 +86,11 @@ TEXT
       end
 
       # now relocate lib into lib/ruby/site_ruby (to conform default installation).
-      # Dir.chdir(package.install_target) do
-      #   mv 'lib', '1.8'
-      #   mkdir_p 'lib/ruby/site_ruby'
-      #   mv '1.8', 'lib/ruby/site_ruby'
-      # end
+      Dir.chdir(package.install_target) do
+         mv 'lib', '1.8'
+         mkdir_p 'lib/ruby/site_ruby'
+         mv '1.8', 'lib/ruby/site_ruby'
+      end
     end
   end
 end
