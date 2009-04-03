@@ -1,7 +1,6 @@
 require 'delegate'
 require 'singleton'
 require 'tempfile'
-require 'ftools'
 require 'stringio'
 require 'zlib'
 require 'zip/stdrubyext'
