@@ -107,9 +107,6 @@ TEXT
   end
 end
 
-# depend on Ruby 1.8
-task :rubygems => [:ruby18]
-
 task :rubygems => [
   'tools:rubygems:download_or_checkout',
   'tools:rubygems:extract',

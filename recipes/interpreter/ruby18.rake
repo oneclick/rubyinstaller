@@ -175,7 +175,7 @@ task :ruby18 => [
   'interpreter:ruby18:install'
 ]
 
-# Ruby needs RubyGems, please add it :-)
+# Add rubygems to the chain
 task :ruby18 => [:rubygems]
 
 task :check     => ['interpreter:ruby18:check']
