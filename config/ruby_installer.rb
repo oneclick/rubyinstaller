@@ -188,7 +188,6 @@ module RubyInstaller
       :checkout => 'svn://rubyforge.org/var/svn/rubygems/trunk',
       :checkout_target => 'downloads/rubygems',
       :target => 'sandbox/rubygems',
-      :install_target => 'sandbox/rubygems_mingw',
       :configure_options => [
         '--no-ri',
         '--no-rdoc'
@@ -197,7 +196,7 @@ module RubyInstaller
         'rubygems-1.3.1.tgz'
       ]
     )
-    
+
     Wix = OpenStruct.new(
       :release => 'stable',
       :version => '2.0.5805.1',

@@ -6,10 +6,8 @@ namespace(:tools) do
     package = RubyInstaller::RubyGems
     interpreter = RubyInstaller::Ruby18
     directory package.target
-    directory package.install_target
     CLEAN.include(package.target)
-    CLEAN.include(package.install_target)
-    
+
     # Put files for the :download task
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
@@ -58,16 +56,16 @@ namespace(:tools) do
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
 
-    task :install => [package.target, package.install_target, interpreter.install_target] do
+    task :install => [package.target, interpreter.install_target] do
       new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
       ENV.delete("RUBYOPT")
       cd package.target do
-        sh "ruby setup.rb install #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
+        sh "ruby setup.rb install #{package.configure_options.join(' ')}"
       end
 
       # now fixes the stub batch files form bin
-      Dir.glob("{#{interpreter.install_target},#{package.install_target}}/bin/gem.bat").each do |bat|
+      Dir.glob("#{interpreter.install_target}/bin/gem.bat").each do |bat|
         script = File.basename(bat).gsub(File.extname(bat), '')
         File.open(bat, 'w') do |f|
           f.puts <<-TEXT
@@ -83,7 +81,7 @@ TEXT
 
       # and now, fixes the shebang lines for the scripts
       bang_line = "#!#{File.expand_path(File.join(interpreter.install_target, 'bin', 'ruby.exe'))}"
-      Dir.glob("#{package.install_target}/bin/*").each do |script|
+      Dir.glob("#{interpreter.install_target}/bin/gem").each do |script|
         # only process true scripts!!! (extensionless)
         if File.extname(script) == ""
           contents = File.read(script).gsub(/#{Regexp.escape(bang_line)}/) do |match|
@@ -92,17 +90,6 @@ TEXT
           File.open(script, 'w') { |f| f.write(contents) }
         end
       end
-
-      # now relocate lib into lib/ruby/site_ruby (to conform default installation).
-      Dir.chdir(package.install_target) do
-         mv 'lib', '1.8'
-         mkdir_p 'lib/ruby/site_ruby'
-         mv '1.8', 'lib/ruby/site_ruby'
-      end
-
-      # remove the empty gems folder structure
-      gems_folder = File.join(interpreter.install_target, 'lib/ruby', 'gems')
-      rm_rf gems_folder
     end
   end
 end
