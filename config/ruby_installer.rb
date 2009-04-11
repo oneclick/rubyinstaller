@@ -217,32 +217,34 @@ module RubyInstaller
       ]
     )
 
-    Runtime = OpenStruct.new(
-      :version => '1.8.6-p114',
+    Runtime18 = OpenStruct.new(
+      :version => RubyInstaller::Ruby18.version,
       :ruby_version_source => RubyInstaller::Ruby18.target,
       :rubygems_version_source => RubyInstaller::RubyGems.target,
-      :namespace => 'runtime',
+      :namespace => 'runtime18',
       :source => 'resources/installer',
       :package_name => 'ruby',
       :wix_config => {
           'ProductCode'=> "67F67970-2233-4AF9-9B41-7161F927617C",
           'UpgradeCode'=> "3E145ABF-D25C-4E4C-899E-5F043D3F9A33",
-          'Year' =>  "2009",
-          'ProductName' =>  "One-Click Ruby Installer 3.0",
+          'Year' =>  "2008-2009",
+          'ProductName' =>  "One-Click Ruby Installer #{RubyInstaller::Ruby18.version}",
           'InstallName' =>  "RubyInstaller",
-          'InstallId' =>  "Ruby18",
-          'DevKitInstallId' =>  "devkit",
-          'ProductVersion' =>  RubyInstaller::Version::STRING,
+          'InstallId' =>  "Ruby",
+          'ProductVersion' =>  RubyInstaller::Ruby18.version,
           'ProductURL' =>  "http://rubyinstaller.rubyforge.org/",
-          'RuntimeTitle' =>  "Ruby runtime",
-          'RuntimeDescription' =>  "The Ruby runtime",
-          'RubyTitle' =>  "Ruby",
+          'RuntimeTitle' =>  "Standard Ruby",
+          'RuntimeDescription' =>  "Standard package including Ruby and libraries required for proper behavior of the language",
+          'RubyTitle' =>  "Ruby + RubyGems",
           'RubyVersion' =>  "",
-          'RubyDescription' =>  "The Ruby interpreter and standard library",
-          'RubyGemsTitle' =>  "RubyGems",
-          'RubyGemsDescription' =>  "The RubyGems package management system",
+          'RubyDescription' =>  "Matz Ruby Implementation, standard library and RubyGems",
           'RubyGemsVersion' =>  ""
         },
+      :wix_files => [
+        'main.wxs',
+        'ruby_bin.wxs',
+        'ruby_lib.wxs'
+      ],
       :config_file => 'config.wxi.erb'
     )
   end
