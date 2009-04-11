@@ -103,7 +103,7 @@ namespace(:packager) do
       }
     end
     
-    task :diff do
+    task :diff => [:paraffin] do
       cd 'resources/installer' do
          wxs_files = FileList.new('*.wxs'){|fl| fl.exclude('main.wxs') }
          
@@ -126,6 +126,10 @@ task :wix => [
   'packager:wix:extract',
 ]
 
+task :paraffin => [
+  'packager:paraffin:download',
+  'packager:paraffin:extract'
+]
+
 desc 'create an MSI package of the runtime'
 task :diff_wxs => 'packager:paraffin:diff'
-
