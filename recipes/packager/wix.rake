@@ -121,8 +121,10 @@ namespace(:packager) do
   
 end
 
-task :download  => ['packager:wix:download', 'packager:paraffin:download']
-task :extract   => ['packager:wix:extract', 'packager:paraffin:extract']
+task :wix => [
+  'packager:wix:download',
+  'packager:wix:extract',
+]
 
 desc 'create an MSI package of the runtime'
 task :diff_wxs => 'packager:paraffin:diff'
