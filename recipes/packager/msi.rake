@@ -19,13 +19,13 @@ def rubygems_version(target)
   @ret
 end
 
-packages = [RubyInstaller::Runtime, RubyInstaller::DevKit]
+packages = [RubyInstaller::Runtime18]
 
 packages.each do |pkg|
   
   version_file = File.join(RubyInstaller::ROOT, pkg.ruby_version_source, 'version.h')
   pkg.info    = ruby_version(version_file)
-  pkg.version = pkg.info.nil? ? pkg.version : "#{pkg.info[:version_code]}-p#{pkg.info[:patchlevel]}"
+  pkg.version = pkg.info.nil? ? pkg.version : "#{pkg.info[:version]}-p#{pkg.info[:patchlevel]}"
   pkg.file = "#{pkg.package_name}-#{pkg.version}.msi"  
   pkg.target = "pkg\\#{pkg.file}"
   
@@ -62,13 +62,15 @@ packages.each do |pkg|
    
     task :compile => :configure do
       cd pkg.source do
-        candle *FileList[ '*.wxs' ]
+        candle *pkg.wix_files
       end
     end
     
     directory 'pkg'
-    
-    file pkg.target => ['pkg', *FileList[ File.join(pkg.source, '*.wxs') ] ] do
+
+    wix_files = pkg.wix_files.map { |f| File.join(pkg.source, f) }
+
+    file pkg.target => ['pkg', *wix_files ] do
       Rake::Task["#{pkg.namespace}:compile"].invoke
       cd pkg.source do
         wixobj = FileList[ '*.wixobj']
@@ -84,11 +86,14 @@ packages.each do |pkg|
     end
     
   end
-  
+
+  # packaging requires wix
+  task :package => [:wix]
+
   desc "compile #{pkg.namespace} msi"
-  task :package => "#{pkg.namespace}:package"
+  task :package => ["#{pkg.namespace}:package"]
   desc "remove #{pkg.namespace} msi"
-  task :clobber_package   => "#{pkg.namespace}:clobber"
+  task :clobber_package   => ["#{pkg.namespace}:clobber"]
   
 end
 
