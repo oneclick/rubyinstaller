@@ -245,17 +245,5 @@ module RubyInstaller
         },
       :config_file => 'config.wxi.erb'
     )
-    
-    DevKit = OpenStruct.new(
-      :version => RubyInstaller::Runtime.version,
-      :ruby_version_source => RubyInstaller::Ruby18.target,
-      :rubygems_version_source => RubyInstaller::RubyGems.target,
-      :namespace => 'devkit',
-      :source => RubyInstaller::Runtime.source,
-      :package_name => 'ruby_devkit',
-      :wix_config   => RubyInstaller::Runtime.wix_config,
-      :config_file  => RubyInstaller::Runtime.config_file
-    )
-   
   end
 end
