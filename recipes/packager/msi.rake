@@ -33,6 +33,7 @@ packages.each do |pkg|
 
     task :env do
       ENV['PACKAGE'] = pkg.namespace.upcase
+      ENV['RUNTIME_NAME'] = pkg.namespace.capitalize
     end
     
     desc "install the product #{pkg.target}"
