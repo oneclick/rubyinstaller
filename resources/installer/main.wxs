@@ -14,6 +14,7 @@
     <Feature Id="Ruby" Level="1" Title="$(var.RubyTitle)" Description="$(var.RubyDescription) ($(var.RubyGemsVersion))."  ConfigurableDirectory="INSTALLDIR">
       <ComponentGroupRef Id="group_RUBY_BIN" />
       <ComponentGroupRef Id="group_RUBY_LIB" />
+      <ComponentGroupRef Id="group_RUBY_ENV" />
     </Feature>
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <UIRef Id="WixUI_InstallDir" />

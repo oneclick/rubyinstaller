@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?include config.wxi ?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2003/01/wi">
+  <Fragment>
+    <ComponentGroup Id="group_RUBY_ENV">
+      <ComponentRef Id="comp_RUBY_PATH" />
+      <ComponentRef Id="comp_RUBY_SHORTCUTS" />
+    </ComponentGroup>
+    <DirectoryRef Id="TARGETDIR">
+      <Directory Id="ProgramMenuFolder">
+        <Directory Id="ShortcutFolder" Name="RUBY_18" LongName="$(var.ProductName)">
+          <Component Id="comp_RUBY_SHORTCUTS" Guid="685A7A49-09FF-43ae-ABF7-237095251F4B">
+            <Shortcut Id="UninstallProduct" Name="UN_RB_18" LongName="Uninstall $(var.ProductName)" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ShortcutFolder" Description="Uninstalls $(var.ProductName)" />
+            <RemoveFolder Id="RemoveShorcutFolder" On="uninstall" />
+          </Component>
+        </Directory>
+      </Directory>
+      <Component Id="comp_RUBY_PATH" Guid="4E193F84-0D60-45c9-932F-91919C7B95C0">
+        <Environment Id="Environment" Name="PATH" Action="set" Part="last" System="yes" Value="[INSTALLDIR]bin" />
+      </Component>
+    </DirectoryRef>
+  </Fragment>
+</Wix>

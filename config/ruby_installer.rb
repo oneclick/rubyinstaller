@@ -243,7 +243,8 @@ module RubyInstaller
       :wix_files => [
         'main.wxs',
         'ruby18_bin.wxs',
-        'ruby18_lib.wxs'
+        'ruby18_lib.wxs',
+        'ruby18_env.wxs'
       ],
       :config_file => 'config.wxi.erb'
     )
