@@ -52,6 +52,7 @@ packages.each do |pkg|
     end
     
     task :configure => :env do
+      pkg.wix_config['ProductVersion'] = "#{pkg.info[:version]}.#{pkg.info[:patchlevel]}"
       pkg.wix_config['RubyVersion'] = "#{pkg.info[:version] } patchlevel #{pkg.info[:patchlevel] }"
       gems = File.join(RubyInstaller::ROOT, pkg.rubygems_version_source)
       pkg.wix_config['RubyGemsVersion'] = rubygems_version(gems)
