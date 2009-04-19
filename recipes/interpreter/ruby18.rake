@@ -120,7 +120,7 @@ namespace(:interpreter) do
       # replace the batch files with new and path-clean stubs
       Dir.glob("#{package.install_target}/bin/*.bat").each do |bat|
         File.open(bat, 'w') do |f|
-          f.write stub(File.basename(bat).ext(''))
+          f.write batch_stub
         end
       end
     end
@@ -150,14 +150,14 @@ namespace(:interpreter) do
       end
     end
 
-    def stub(script)
+    def batch_stub
       <<-SCRIPT
 @ECHO OFF
 IF NOT "%~f0" == "~f0" GOTO :WinNT
-@"ruby" -S "#{script}" %1 %2 %3 %4 %5 %6 %7 %8 %9
+ECHO.This version of Ruby has not been built with support for Windows 95/98/Me.
 GOTO :EOF
 :WinNT
-@"ruby" -S "#{script}" %*
+@"%~dp0ruby.exe" "%~dpn0" %*
 SCRIPT
     end
   end

@@ -71,10 +71,10 @@ namespace(:tools) do
           f.puts <<-TEXT
 @ECHO OFF
 IF NOT "%~f0" == "~f0" GOTO :WinNT
-@"ruby" -S "#{script}" %1 %2 %3 %4 %5 %6 %7 %8 %9
+ECHO.This version of Ruby has not been built with support for Windows 95/98/Me.
 GOTO :EOF
 :WinNT
-@"ruby" -S "#{script}" %*
+@"%~dp0ruby.exe" "%~dpn0" %*
 TEXT
         end
       end
