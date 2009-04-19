@@ -1,7 +1,9 @@
-downloads
-sandbox
 *.kpf
-*.wixobj
-*.msi
 *.log
+*.msi
+*.wixobj
+downloads
+resources/installer/*.diff
+resources/installer/*.PARAFFIN
 resources/installer/config.wxi
+sandbox
