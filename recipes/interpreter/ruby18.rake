@@ -178,5 +178,5 @@ task :ruby18 => [
 # Add rubygems to the chain
 task :ruby18 => [:rubygems]
 
-task :check     => ['interpreter:ruby18:check']
-task :irb       => ['interpreter:ruby18:irb']
+task :check18 => ['interpreter:ruby18:check']
+task :irb18   => ['interpreter:ruby18:irb']
