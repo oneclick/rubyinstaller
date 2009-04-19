@@ -105,7 +105,7 @@ namespace(:packager) do
     
     task :diff => [:paraffin] do
       cd 'resources/installer' do
-         wxs_files = FileList.new('*.wxs'){|fl| fl.exclude('main.wxs') }
+         wxs_files = FileList.new('*.wxs'){|fl| fl.exclude('main.wxs', '*_env.wxs') }
          
          diffs = wxs_files.reject do |file|
            paraffin file, '-update'
