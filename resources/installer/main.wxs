@@ -9,8 +9,8 @@
         <Directory Id="INSTALLDIR" Name="$(var.InstallId)" />
       </Directory>
     </Directory>
-    <Icon Id="RubyInstaller" SourceFile="..\icons\ruby.ico" />
-    <Property Id="ARPPRODUCTICON" Value="RubyInstaller" />
+    <Icon Id="RubyInstallerIcon" SourceFile="..\icons\ruby.ico" />
+    <Property Id="ARPPRODUCTICON" Value="RubyInstallerIcon" />
     <Feature Id="Ruby" Level="1" Title="$(var.RubyTitle)" Description="$(var.RubyDescription) ($(var.RubyGemsVersion))."  ConfigurableDirectory="INSTALLDIR">
       <ComponentGroupRef Id="group_RUBY_BIN" />
       <ComponentGroupRef Id="group_RUBY_LIB" />
