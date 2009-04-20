@@ -32,10 +32,10 @@ packages.each do |pkg|
   namespace(pkg.namespace) do
 
     task :env do
-      ENV['PACKAGE'] = pkg.namespace.upcase
       ENV['RUNTIME_NAME'] = pkg.namespace.capitalize
+      ENV['PACKAGE_CONFIG'] = "config.#{pkg.namespace}.wxi"
     end
-    
+
     desc "install the product #{pkg.target}"
     task :install => pkg.target do
       sh "msiexec /i #{pkg.target}"
@@ -58,7 +58,7 @@ packages.each do |pkg|
       pkg.wix_config['RubyGemsVersion'] = rubygems_version(gems)
       config_file = File.join(RubyInstaller::ROOT, pkg.source, pkg.config_file)
       template = ERB.new(File.read(config_file))
-      output = File.join(File.dirname(config_file), File.basename(config_file, '.erb'))
+      output = File.join(File.dirname(config_file), ENV['PACKAGE_CONFIG'])
       File.open(output, 'w+'){|f| f.write template.result }
     end
    

@@ -5,5 +5,5 @@
 downloads
 resources/installer/*.diff
 resources/installer/*.PARAFFIN
-resources/installer/config.wxi
+resources/installer/config.*.wxi
 sandbox
