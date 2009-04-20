@@ -10,7 +10,7 @@
       <ComponentRef Id="comp_RUBY_SHORTCUTS" />
     </ComponentGroup>
     <DirectoryRef Id="INSTALLDIR">
-      <Directory Id="Documentation" LongName="doc" Name="doc">
+      <Directory Id="Documentation" LongName="doc" Name="DOC">
         <Component Id="comp_RUBY_DOCS" DiskId="1" Guid="09CF8DCF-6B0B-40DB-8011-0F5BA520E9C4">
           <File Id="GettingStartedShortCutFile" LongName="getting-started.url" Name="GETTING.URL" Source="..\doc\getting-started.txt">
             <Shortcut Id="GettingStartedShortcut" Directory="DocumentationFolder" Name="GETTING" LongName="Getting Started with Ruby" Icon="RubyDocIcon" />
