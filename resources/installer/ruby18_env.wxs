@@ -4,12 +4,37 @@
   <Fragment>
     <ComponentGroup Id="group_RUBY_ENV">
       <ComponentRef Id="comp_RUBY_PATH" />
+      <ComponentRef Id="comp_RUBY_DOCS" />
+      <ComponentRef Id="comp_RUBY_DOCS_SHORTCUTS" />
       <ComponentRef Id="comp_RUBYGEMS_SHORTCUTS" />
       <ComponentRef Id="comp_RUBY_SHORTCUTS" />
     </ComponentGroup>
+    <DirectoryRef Id="INSTALLDIR">
+      <Directory Id="Documentation" LongName="doc" Name="doc">
+        <Component Id="comp_RUBY_DOCS" DiskId="1" Guid="09CF8DCF-6B0B-40DB-8011-0F5BA520E9C4">
+          <File Id="GettingStartedShortCutFile" LongName="getting-started.url" Name="GETTING.URL" Source="..\doc\getting-started.txt">
+            <Shortcut Id="GettingStartedShortcut" Directory="DocumentationFolder" Name="GETTING" LongName="Getting Started with Ruby" Icon="RubyDocIcon" />
+          </File>
+          <File Id="RubyCoreShortcutFile" LongName="ruby-core-1.8.url" Name="RUBY-CO.URL" Source="..\doc\ruby-core-1.8.txt">
+            <Shortcut Id="RubyCoreShortcut" Directory="DocumentationFolder" Name="RUBY-CO" LongName="Ruby Core API" Icon="RubyDocIcon" />
+          </File>
+          <File Id="RubyStdlibShortcutFile" LongName="ruby-stdlib.url" Name="RUBY-ST.URL" Source="..\doc\ruby-stdlib.txt">
+            <Shortcut Id="RubyStdlibShortcut" Directory="DocumentationFolder" Name="RUBY-ST" LongName="Ruby Standard Library Documentation" Icon="RubyDocIcon" />
+          </File>
+          <File Id="UsersGuideShortcutFile" LongName="users-guide.url" Name="USERS-G.URL" Source="..\doc\users-guide.txt">
+            <Shortcut Id="UsersGuideShortcut" Directory="DocumentationFolder" Name="USERS-G" LongName="Ruby User's Guide" Icon="RubyDocIcon" />
+          </File>
+        </Component>
+      </Directory>
+    </DirectoryRef>
     <DirectoryRef Id="TARGETDIR">
       <Directory Id="ProgramMenuFolder">
         <Directory Id="ShortcutFolder" Name="RUBY_18" LongName="$(var.ProductName)">
+          <Directory Id="DocumentationFolder" LongName="Ruby Documentation" Name="rubydoc">
+            <Component Id="comp_RUBY_DOCS_SHORTCUTS" Guid="1A0B418D-1EA9-4202-98A2-1354B317B9F8">
+              <RemoveFolder Id="RemoveDocumentationFolder" On="uninstall" />
+            </Component>
+          </Directory>
           <Directory Id="RubyGemsShortcutFolder" Name="RB_GEM18" LongName="RubyGems $(var.RubyGemsVersion)">
             <Component Id="comp_RUBYGEMS_SHORTCUTS" Guid="5A8FB651-CA54-4ECB-A162-FD2B91BA32F2">
               <RemoveFolder Id="RemoveShortcutRubyGemsFolder" On="uninstall" />
@@ -28,5 +53,6 @@
         <Environment Id="Environment" Name="PATH" Action="set" Part="last" System="yes" Value="[INSTALLDIR]bin" />
       </Component>
     </DirectoryRef>
+    <Icon Id="RubyDocIcon" SourceFile="..\icons\ruby-doc.ico" />
   </Fragment>
 </Wix>
