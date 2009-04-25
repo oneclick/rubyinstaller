@@ -225,8 +225,8 @@ module RubyInstaller
       :source => 'resources/installer',
       :package_name => 'rubyinstaller',
       :wix_config => {
-          'ProductCode'=> "67F67970-2233-4AF9-9B41-7161F927617C",
-          'UpgradeCode'=> "3E145ABF-D25C-4E4C-899E-5F043D3F9A33",
+          'ProductCode'=> "D7BFC0DB-2D60-4905-AFD4-87D05D70D7F2",
+          'UpgradeCode'=> "419CB0D6-C20E-4553-B415-698427244883",
           'Year' =>  "2008-2009",
           'ProductName' =>  "Ruby Installer #{RubyInstaller::Ruby18.version}",
           'ProductVersion' =>  "",
