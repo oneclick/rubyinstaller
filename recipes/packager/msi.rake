@@ -21,13 +21,13 @@ end
 packages = [RubyInstaller::Runtime18, RubyInstaller::Runtime19]
 
 packages.each do |pkg|
-  
+
   version_file = File.join(RubyInstaller::ROOT, pkg.ruby_version_source, 'version.h')
   pkg.info    = ruby_version(version_file)
   pkg.version = pkg.info.nil? ? pkg.version : "#{pkg.info[:version]}-p#{pkg.info[:patchlevel]}"
-  pkg.file = "#{pkg.package_name}-#{pkg.version}.msi"  
+  pkg.file = "#{pkg.package_name}-#{pkg.version}.msi"
   pkg.target = "pkg\\#{pkg.file}"
-  
+
   namespace(pkg.namespace) do
 
     task :env do
@@ -74,7 +74,7 @@ packages.each do |pkg|
     file pkg.target => ['pkg', *wix_files ] do
       Rake::Task["#{pkg.namespace}:compile"].invoke
       cd pkg.source do
-        wixobj = FileList[ '*.wixobj']
+        wixobj = pkg.wix_files.map { |f| f.ext('wixobj') }
         light wixobj, File.join(RubyInstaller::ROOT, pkg.target).gsub('/','\\')
       end
     end
