@@ -18,7 +18,7 @@ def rubygems_version(target)
   @ret
 end
 
-packages = [RubyInstaller::Runtime18]
+packages = [RubyInstaller::Runtime18, RubyInstaller::Runtime19]
 
 packages.each do |pkg|
   

@@ -1,0 +1,2 @@
+[InternetShortcut]
+URL=http://ruby-doc.org/core-1.9/
