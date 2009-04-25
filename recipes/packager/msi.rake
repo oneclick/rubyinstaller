@@ -7,7 +7,6 @@ def ruby_version(file)
   h = {}
   version_file = File.read(file)
   h[:version] = /RUBY_VERSION "(.+)"$/.match(version_file)[1]
-  h[:version_code] = /RUBY_VERSION_CODE (.+)$/.match(version_file)[1]
   h[:patchlevel] = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
   h
 end
