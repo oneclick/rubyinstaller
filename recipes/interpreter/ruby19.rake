@@ -175,5 +175,11 @@ task :ruby19 => [
   'interpreter:ruby19:install'
 ]
 
+# add Pure Readline to the chain
+unless ENV['READLINE']
+  task :ruby19 => [:rbreadline]
+  task :ruby19 => ['dependencies:rbreadline:install19']
+end
+
 task :check19   => ['interpreter:ruby19:check']
 task :irb19     => ['interpreter:ruby19:irb']

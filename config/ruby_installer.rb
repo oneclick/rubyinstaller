@@ -98,7 +98,7 @@ module RubyInstaller
         'ruby-1.9.1-p0.tar.bz2'
       ],
       :dependencies => [
-        'readline5.dll',
+        #'readline5.dll',
         'zlib1.dll',
         'libeay32.dll',
         'libssl32.dll',
@@ -128,6 +128,16 @@ module RubyInstaller
       :files => [
         'readline-5.0-bin.zip',
         'readline-5.0-lib.zip'
+      ]
+    )
+
+    PureReadline = OpenStruct.new(
+      :release => 'experimental',
+      :version => '0.5.2-0.1.0',
+      :url => 'http://cloud.github.com/downloads/luislavena/rb-readline',
+      :target => 'sandbox/rb-readline',
+      :files => [
+        'rb-readline-0.1.0.zip'
       ]
     )
 

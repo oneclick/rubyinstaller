@@ -37,6 +37,6 @@ task :readline => [
   'dependencies:readline:extract'
 ]
 
-unless ENV['NOREADLINE']
+if ENV['READLINE']
   task :dependencies => [:readline]
 end
