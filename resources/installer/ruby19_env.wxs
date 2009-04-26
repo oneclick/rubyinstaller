@@ -11,7 +11,7 @@
     </ComponentGroup>
     <DirectoryRef Id="INSTALLDIR">
       <Directory Id="Documentation" LongName="doc" Name="DOC">
-        <Component Id="comp_RUBY_DOCS" DiskId="1" Guid="48EC8C3D-65C7-4F31-B10E-B2DEDDDB2328">
+        <Component Id="comp_RUBY_DOCS" DiskId="1" Guid="26A0DC30-9335-461B-BF4D-2AB43EC289EB">
           <File Id="GettingStartedShortCutFile" LongName="getting-started.url" Name="GETTING.URL" Source="..\doc\getting-started.txt" />
           <File Id="RubyCoreShortcutFile" LongName="ruby-core-1.9.url" Name="RUBY-CO.URL" Source="..\doc\ruby-core-1.9.txt" />
           <File Id="RubyStdlibShortcutFile" LongName="ruby-stdlib.url" Name="RUBY-ST.URL" Source="..\doc\ruby-stdlib.txt" />
@@ -21,9 +21,9 @@
     </DirectoryRef>
     <DirectoryRef Id="TARGETDIR">
       <Directory Id="ProgramMenuFolder">
-        <Directory Id="ShortcutFolder" Name="RUBY_18" LongName="$(var.ProductName)">
-          <Directory Id="DocumentationFolder" LongName="Ruby Documentation" Name="rubydoc">
-            <Component Id="comp_RUBY_DOCS_SHORTCUTS" Guid="5D5579EA-372B-41F9-B9A6-3911BE246946">
+        <Directory Id="ShortcutFolder" Name="RUBY_19" LongName="$(var.ProductName)">
+          <Directory Id="DocumentationFolder" LongName="Ruby Documentation" Name="rubyd19">
+            <Component Id="comp_RUBY_DOCS_SHORTCUTS" Guid="FDBB7D51-3783-45A3-934E-1F0F52E04739">
               <RemoveFolder Id="RemoveDocumentationFolder" On="uninstall" />
               <Shortcut Id="GettingStartedShortcut" Directory="DocumentationFolder" Name="GETTING" LongName="Getting Started with Ruby" Icon="RubyDocIcon" Target="[INSTALLDIR]doc\getting-started.url" />
               <Shortcut Id="RubyCoreShortcut" Directory="DocumentationFolder" Name="RUBY-CO" LongName="Ruby Core 1.9 API" Icon="RubyDocIcon" Target="[INSTALLDIR]doc\ruby-core-1.9.url" />
@@ -32,24 +32,23 @@
             </Component>
           </Directory>
           <Directory Id="RubyGemsShortcutFolder" Name="RB_GEM19" LongName="RubyGems">
-            <Component Id="comp_RUBYGEMS_SHORTCUTS" Guid="4839319C-50B9-40FF-8CBC-BB2B9B8C6CC8">
+            <Component Id="comp_RUBYGEMS_SHORTCUTS" Guid="37A0B323-6FE9-4AAC-98DE-5650B4D10FD5">
               <RemoveFolder Id="RemoveShortcutRubyGemsFolder" On="uninstall" />
               <Shortcut Id="RubyGemsServer" Directory="RubyGemsShortcutFolder" Name="GEMSERVE" LongName="Start RubyGems RDoc Server" Description="Start RubyGems RDoc Server" Target="[INSTALLDIR]bin\gem.bat" Arguments="server" Icon="RubyInstallerIcon" />
               <Shortcut Id="RubyGemsConsole" Directory="RubyGemsShortcutFolder" Name="GEM_CMD" LongName="RubyGems Package Manager" Description="RubyGems Package Manager Console" Target="[System64Folder]cmd.exe" Arguments="/k [INSTALLDIR]bin\gem.bat" />
             </Component>
           </Directory>
-          <Component Id="comp_RUBY_SHORTCUTS" Guid="38896681-375F-4436-9D14-F11112D94E0F">
+          <Component Id="comp_RUBY_SHORTCUTS" Guid="5C721C9B-3DBB-470C-8A3D-B35B23D41561">
             <RemoveFolder Id="RemoveShortcutFolder" On="uninstall" />
             <Shortcut Id="InteractiveConsole" Name="IRB" LongName="irb - Interactive Ruby Console" Target="[INSTALLDIR]bin\irb.bat" Directory="ShortcutFolder" Description="Start a Ruby Interactive Console (irb)" Icon="RubyInstallerIcon" />
             <Shortcut Id="UninstallProduct" Name="UN_RUBY" LongName="Uninstall $(var.ProductName)" Target="[System64Folder]msiexec.exe" Arguments="/x [ProductCode]" Directory="ShortcutFolder" Description="Uninstalls $(var.ProductName)" />
           </Component>
         </Directory>
       </Directory>
-      <Component Id="comp_RUBY_PATH" Guid="41323950-CC4E-4641-AF26-4CEB6E537D83">
+      <Component Id="comp_RUBY_PATH" Guid="B7BC5302-0364-4F99-B99B-FA7B46E54434">
         <Environment Id="Environment" Name="PATH" Action="set" Part="last" System="yes" Value="[INSTALLDIR]bin" />
       </Component>
     </DirectoryRef>
     <Icon Id="RubyDocIcon" SourceFile="..\icons\ruby-doc.ico" />
-    <UI />
   </Fragment>
 </Wix>
