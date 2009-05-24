@@ -41,6 +41,13 @@ In case you don't use OCI for this, you need:
 - Zlib extension and DLL (zlib1.dll) available in the PATH (could be in system32
 or your RUby bin directory)
 
+=== Build options:
+without specifying any options, 1.8.6 is built.
+rake ruby19 builds 1.9.1
+rake CHECKOUT=1 builds 1.8.6 svn latest
+rake ruby19 CHECKOUT=1 builds 1.9.1 svn latest
+rake ruby19 CHECKOUT=1 TRUNK=1 builds 1.9 trunk latest (1.9.2dev).
+
 NOTE: Avoid extracting this project into a PATH with spaces, MSYS have issues
 mounting fstab for MinGW.
 
