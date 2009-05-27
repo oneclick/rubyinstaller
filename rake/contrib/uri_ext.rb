@@ -113,9 +113,10 @@ module URI
         # file and then move over.
         modified = File.stat(target).mtime if File.exist?(target)
         temp = nil
-        Tempfile.open(File.basename(target)) do |temp|
-          temp.binmode
-          read(options.merge(:modified => modified)) { |chunk| temp.write chunk }
+        Tempfile.open(File.basename(target)) do |tf|
+          tf.binmode
+          read(options.merge(:modified => modified)) { |chunk| tf.write chunk }
+          temp = tf
         end
         FileUtils.mkpath(File.dirname(target))
         FileUtils.move(temp.path, target)
