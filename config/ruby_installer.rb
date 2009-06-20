@@ -108,6 +108,12 @@ module RubyInstaller
       ]
     )
 
+    # alter at runtime the checkout and versions of 1.9
+    if ENV['TRUNK'] then
+      Ruby19.version = '1.9.2-dev'
+      Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/trunk'
+    end
+
     Zlib = OpenStruct.new(
       :release => "official",
       :version => "1.2.3",
