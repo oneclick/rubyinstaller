@@ -56,7 +56,16 @@ namespace(:tools) do
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
 
-    task :install => [package.target, interpreter.install_target] do
+    task :install18 => [package.target, RubyInstaller::Ruby18.target] do
+      do_install RubyInstaller::RubyGems, RubyInstaller::Ruby18
+    end
+
+    task :install19 => [package.target, RubyInstaller::Ruby19.target] do
+      do_install RubyInstaller::RubyGems, RubyInstaller::Ruby19
+    end
+
+    private
+    def do_install(package, interpreter)
       new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
       ENV.delete("RUBYOPT")
@@ -96,6 +105,15 @@ end
 
 task :rubygems => [
   'tools:rubygems:download_or_checkout',
-  'tools:rubygems:extract',
-  'tools:rubygems:install'
+  'tools:rubygems:extract'
+]
+
+task :rubygems18 => [
+  'rubygems',
+  'tools:rubygems:install18'
+]
+
+task :rubygems19 => [
+  'rubygems',
+  'tools:rubygems:install19'
 ]

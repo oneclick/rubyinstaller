@@ -175,6 +175,9 @@ task :ruby19 => [
   'interpreter:ruby19:install'
 ]
 
+# Add rubygems to the chain
+task :ruby19 => [:rubygems19]
+
 # add Pure Readline to the chain
 unless ENV['READLINE']
   task :ruby19 => [:rbreadline]

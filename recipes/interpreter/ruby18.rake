@@ -176,7 +176,7 @@ task :ruby18 => [
 ]
 
 # Add rubygems to the chain
-task :ruby18 => [:rubygems]
+task :ruby18 => [:rubygems18]
 
 # add Pure Readline to the chain
 unless ENV['READLINE']
