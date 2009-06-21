@@ -71,7 +71,8 @@ packages.each do |pkg|
 
     wix_files = pkg.wix_files.map { |f| File.join(pkg.source, f) }
 
-    file pkg.target => ['pkg', *wix_files ] do
+    # packaging requires wix
+    file pkg.target => [:wix, 'pkg', *wix_files ] do
       Rake::Task["#{pkg.namespace}:compile"].invoke
       cd pkg.source do
         wixobj = pkg.wix_files.map { |f| f.ext('wixobj') }
@@ -88,7 +89,6 @@ packages.each do |pkg|
     
   end
 
-  # packaging requires wix
   task :package => [:wix]
 
   desc "compile #{pkg.namespace} msi"
