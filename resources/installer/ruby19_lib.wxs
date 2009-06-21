@@ -255,7 +255,6 @@
                 <File Id="file_RUBY_LIB_291" Name="nkf.so" Source="..\..\sandbox\ruby19_mingw\lib\ruby\1.9.1\i386-mingw32\nkf.so" />
                 <File Id="file_RUBY_LIB_292" Name="openssl.so" Source="..\..\sandbox\ruby19_mingw\lib\ruby\1.9.1\i386-mingw32\openssl.so" />
                 <File Id="file_RUBY_LIB_293" Name="rbconfig.rb" Source="..\..\sandbox\ruby19_mingw\lib\ruby\1.9.1\i386-mingw32\rbconfig.rb" />
-                <File Id="file_RUBY_LIB_294" Name="readline.so" Source="..\..\sandbox\ruby19_mingw\lib\ruby\1.9.1\i386-mingw32\readline.so" />
                 <File Id="file_RUBY_LIB_295" Name="ripper.so" Source="..\..\sandbox\ruby19_mingw\lib\ruby\1.9.1\i386-mingw32\ripper.so" />
                 <File Id="file_RUBY_LIB_296" Name="sdbm.so" Source="..\..\sandbox\ruby19_mingw\lib\ruby\1.9.1\i386-mingw32\sdbm.so" />
                 <File Id="file_RUBY_LIB_297" Name="socket.so" Source="..\..\sandbox\ruby19_mingw\lib\ruby\1.9.1\i386-mingw32\socket.so" />
