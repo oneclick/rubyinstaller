@@ -268,7 +268,7 @@ module RubyInstaller
     Runtime19 = OpenStruct.new(
       :version => RubyInstaller::Ruby19.version,
       :ruby_version_source => RubyInstaller::Ruby19.target,
-      :rubygems_version_source => RubyInstaller::Ruby19.target,
+      :rubygems_version_source => RubyInstaller::RubyGems.target,
       :namespace => 'runtime19',
       :source => 'resources/installer',
       :package_name => 'rubyinstaller',
