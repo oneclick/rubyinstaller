@@ -200,7 +200,7 @@ module RubyInstaller
     RubyGems = OpenStruct.new(
       :release => 'official',
       :version => '1.3.4',
-      :url => 'http://rubyforge.org/frs/download.php/57644',
+      :url => 'http://rubyforge.org/frs/download.php/57643',
       :checkout => 'svn://rubyforge.org/var/svn/rubygems/trunk',
       :checkout_target => 'downloads/rubygems',
       :target => 'sandbox/rubygems',
