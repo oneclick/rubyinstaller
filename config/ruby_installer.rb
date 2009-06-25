@@ -213,26 +213,7 @@ module RubyInstaller
       ]
     )
 
-    Wix = OpenStruct.new(
-      :release => 'stable',
-      :version => '2.0.5805.1',
-      :url => 'http://downloads.sourceforge.net/wix',
-      :target => 'sandbox/wix',
-      :files => [
-        'wix-2.0.5805.0-binaries.zip'
-      ]
-    )
-    
-    Paraffin = OpenStruct.new(
-      :release => 'stable',
-      :version => '2.0.5805.1',
-      :url => 'http://www.wintellect.com/cs/files/folders/4332/download.aspx',
-      :target => RubyInstaller::Wix.target,
-      :files => [
-        'Paraffin-1.03.zip'
-      ]
-    )
-
+=begin
     Runtime18 = OpenStruct.new(
       :version => RubyInstaller::Ruby18.version,
       :ruby_version_source => RubyInstaller::Ruby18.target,
@@ -264,38 +245,6 @@ module RubyInstaller
       ],
       :config_file => 'config.wxi.erb'
     )
-
-    Runtime19 = OpenStruct.new(
-      :version => RubyInstaller::Ruby19.version,
-      :ruby_version_source => RubyInstaller::Ruby19.target,
-      :rubygems_version_source => RubyInstaller::RubyGems.target,
-      :namespace => 'runtime19',
-      :source => 'resources/installer',
-      :package_name => 'rubyinstaller',
-      :wix_config => {
-          'ProductCode'=> "B1664535-125A-4164-851E-138DEC80B5D2",
-          'UpgradeCode'=> "51626686-9EBF-48c5-A575-7C255DE3B5BF",
-          'Year' =>  "2009",
-          'ProductName' =>  "Ruby Installer #{RubyInstaller::Ruby19.version}",
-          'ProductVersion' =>  "",
-          'InstallName' =>  "RubyInstaller",
-          'InstallId' =>  "Ruby19",
-          'ProductURL' =>  "http://rubyinstaller.rubyforge.org/",
-          'RuntimeTitle' =>  "Standard Ruby",
-          'RuntimeDescription' =>  "Standard package including Ruby and libraries required for proper behavior of the language",
-          'RubyTitle' =>  "Ruby",
-          'RubyVersion' =>  "",
-          'RubyDescription' =>  "Matz Ruby Implementation and standard library",
-          'RubyGemsVersion' =>  ""
-        },
-      :wix_files => [
-        'main.wxs',
-        'ruby19_bin.wxs',
-        'ruby19_include.wxs',
-        'ruby19_lib.wxs',
-        'ruby19_env.wxs'
-      ],
-      :config_file => 'config.wxi.erb'
-    )
+=end
   end
 end
