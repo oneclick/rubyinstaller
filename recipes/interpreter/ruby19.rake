@@ -166,6 +166,7 @@ end
 # add compiler and dependencies to the mix
 task :ruby19 => [:compiler, :dependencies]
 
+desc "compile Ruby 1.9"
 task :ruby19 => [
   'interpreter:ruby19:download_or_checkout',
   'interpreter:ruby19:extract',
