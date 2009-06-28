@@ -67,7 +67,7 @@ directory 'pkg'
 
     # installer
     file "pkg/#{installer_pkg}.exe",
-      :needs => ['pkg', :innosetup, *files] do
+      :needs => ['pkg', *files] do
 
       InnoSetup.iscc("resources/installer/rubyinstaller.iss",
         :ruby_version => info[:version],
@@ -81,7 +81,7 @@ directory 'pkg'
     # define the packaging task for the version
     namespace "ruby#{namespace_ver}" do
       desc "generate #{installer_pkg}.exe"
-      task :package, :needs => ["pkg/#{installer_pkg}.exe"]
+      task :package, :needs => [:innosetup, "pkg/#{installer_pkg}.exe"]
 
       desc "install #{installer_pkg}.exe"
       task :install, :needs => [:package] do
