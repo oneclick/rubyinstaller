@@ -58,6 +58,8 @@ VersionInfoDescription=Ruby Programming Language for Windows
 VersionInfoTextVersion={#RubyFullVersion}
 VersionInfoVersion={#RubyVersion}.{#RubyPatch}
 UninstallDisplayIcon={app}\bin\ruby.exe
+WizardImageFile=compiler:wizmodernimage-is.bmp
+WizardSmallImageFile={#SourcePath}\wizard-logo.bmp
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
