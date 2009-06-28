@@ -44,7 +44,6 @@ AppVerName={#InstallerName}
 AppPublisher={#InstallerPublisher}
 AppPublisherURL={#InstallerHomepage}
 AppVersion={#RubyFullVersion}
-AppCopyright=(c) 2009 {#InstallerPublisher}
 DefaultGroupName={#InstallerName}
 DisableProgramGroupPage=true
 LicenseFile=LICENSE.rtf
