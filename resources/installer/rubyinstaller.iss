@@ -4,10 +4,14 @@
 ; PRE-CHECK
 ; Verify if both RubyPath and RubyVersion are defined
 ; by ISCC using /d parameter:
-;  iscc rubyinstaller.iss /dRubyVersion=X.Y.Z /dRubyPath=sandbox/ruby18_mingw
+;  iscc rubyinstaller.iss /dRubyVersion=X.Y.Z /dRubyPatch=123 /dRubyPath=sandbox/ruby18_mingw
 
 #if Defined(RubyVersion) == 0
   #error Please provide a RubyVersion definition using /d parameter.
+#endif
+
+#if Defined(RubyPatch) == 0
+  #error Please provide a RubyPatch levle definition using /d parameter.
 #endif
 
 #if Defined(RubyPath) == 0
@@ -20,23 +24,17 @@
 
 ; Grab MAJOR.MINOR info from RubyVersion (1.8)
 #define RubyMajorMinor Copy(RubyVersion, 1, 3)
-
-; DEFAULTS
-; Define the default target directory where Ruby will be installed
-#define InstallerTarget "Ruby"
+#define RubyFullVersion RubyVersion + 'p' + RubyPatch
 
 ; Build Installer details using above values
-#define InstallerName "Ruby " + RubyVersion
+#define InstallerName "Ruby " + RubyFullVersion
 #define InstallerPublisher "RubyInstaller Project"
 #define InstallerHomepage "http://rubyinstaller.org"
 
 ; INCLUDE
 ; Include version specific definitions
 #define InstallerSpecificFile "config-" + RubyMajorMinor + ".iss"
-#if FileExists(InstallerSpecificFile)
-  #include InstallerSpecificFile
-#endif
-#undef InstallerSpecificFile
+#include InstallerSpecificFile
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -47,16 +45,13 @@ AppPublisher={#InstallerPublisher}
 AppPublisherURL={#InstallerHomepage}
 AppSupportURL={#InstallerHomepage}
 AppUpdatesURL={#InstallerHomepage}
-DefaultDirName={sd}\{#InstallerTarget}
 DefaultGroupName={#InstallerName}
 DisableProgramGroupPage=true
 LicenseFile=LICENSE.rtf
-OutputDir={#SourcePath}\..\..\pkg
-OutputBaseFilename=rubyinstaller-{#RubyVersion}
 Compression=lzma/ultra64
 SolidCompression=true
 VersionInfoCompany={#InstallerPublisher}
-VersionInfoTextVersion={#InstallerName}
+VersionInfoTextVersion={#RubyFullVersion}
 VersionInfoCopyright=(c) 2009 {#InstallerPublisher}
 DisableFinishedPage=true
 AlwaysShowComponentsList=false
