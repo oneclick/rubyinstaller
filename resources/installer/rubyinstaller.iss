@@ -66,11 +66,13 @@ Name: english; MessagesFile: compiler:Default.isl
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: ..\..\{#RubyPath}\*; DestDir: {app}; Flags: recursesubdirs createallsubdirs
+Source: setrbvars.bat; DestDir: {app}\bin
 
 [Icons]
 Name: {group}\Documentation\Getting Started; Filename: http://www.ruby-doc.org/gettingstarted/
 Name: {group}\Documentation\Standard Library; Filename: http://www.ruby-doc.org/stdlib/
 Name: {group}\Documentation\User's Guide; Filename: http://www.ruby-doc.org/docs/UsersGuide/rg/
-Name: {group}\Interactive Ruby (console); Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
+Name: {group}\Interactive Ruby; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
 Name: {group}\RubyGems Documentation Server; Filename: {app}\bin\gem.bat; Parameters: server; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
+Name: {group}\Start Command Prompt with Ruby; Filename: {sys}\cmd.exe; Parameters: /E:ON /K {app}\bin\setrbvars.bat; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists
 Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
