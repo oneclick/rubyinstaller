@@ -51,7 +51,6 @@ LicenseFile=LICENSE.rtf
 Compression=lzma/ultra64
 SolidCompression=true
 AlwaysShowComponentsList=false
-FlatComponentsList=false
 DisableReadyPage=true
 InternalCompressLevel=ultra64
 VersionInfoCompany={#InstallerPublisher}
@@ -59,6 +58,7 @@ VersionInfoCopyright=(c) 2009 {#InstallerPublisher}
 VersionInfoDescription=Ruby Programming Language for Windows
 VersionInfoTextVersion={#RubyFullVersion}
 VersionInfoVersion={#RubyVersion}.{#RubyPatch}
+UninstallDisplayIcon={app}\bin\ruby.exe
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
@@ -68,4 +68,9 @@ Name: english; MessagesFile: compiler:Default.isl
 Source: ..\..\{#RubyPath}\*; DestDir: {app}; Flags: recursesubdirs createallsubdirs
 
 [Icons]
+Name: {group}\Documentation\Getting Started; Filename: http://www.ruby-doc.org/gettingstarted/
+Name: {group}\Documentation\Standard Library; Filename: http://www.ruby-doc.org/stdlib/
+Name: {group}\Documentation\User's Guide; Filename: http://www.ruby-doc.org/docs/UsersGuide/rg/
+Name: {group}\Interactive Ruby (console); Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
+Name: {group}\RubyGems Documentation Server; Filename: {app}\bin\gem.bat; Parameters: server; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
 Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
