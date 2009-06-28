@@ -24,7 +24,7 @@
 
 ; Grab MAJOR.MINOR info from RubyVersion (1.8)
 #define RubyMajorMinor Copy(RubyVersion, 1, 3)
-#define RubyFullVersion RubyVersion + 'p' + RubyPatch
+#define RubyFullVersion RubyVersion + '-p' + RubyPatch
 
 ; Build Installer details using above values
 #define InstallerName "Ruby " + RubyFullVersion
@@ -43,21 +43,22 @@ AppName={#InstallerName}
 AppVerName={#InstallerName}
 AppPublisher={#InstallerPublisher}
 AppPublisherURL={#InstallerHomepage}
-AppSupportURL={#InstallerHomepage}
-AppUpdatesURL={#InstallerHomepage}
+AppVersion={#RubyFullVersion}
+AppCopyright=(c) 2009 {#InstallerPublisher}
 DefaultGroupName={#InstallerName}
 DisableProgramGroupPage=true
 LicenseFile=LICENSE.rtf
 Compression=lzma/ultra64
 SolidCompression=true
-VersionInfoCompany={#InstallerPublisher}
-VersionInfoTextVersion={#RubyFullVersion}
-VersionInfoCopyright=(c) 2009 {#InstallerPublisher}
-DisableFinishedPage=true
 AlwaysShowComponentsList=false
 FlatComponentsList=false
 DisableReadyPage=true
 InternalCompressLevel=ultra64
+VersionInfoCompany={#InstallerPublisher}
+VersionInfoCopyright=(c) 2009 {#InstallerPublisher}
+VersionInfoDescription=Ruby Programming Language for Windows
+VersionInfoTextVersion={#RubyFullVersion}
+VersionInfoVersion={#RubyVersion}.{#RubyPatch}
 
 [Languages]
 Name: english; MessagesFile: compiler:Default.isl
