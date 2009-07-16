@@ -1,0 +1,5 @@
+=== preview2 (unreleased)
+
+* Give priority to Ruby in the PATH. Fixes #26534
+
+=== preview1 / 2009-06-28
