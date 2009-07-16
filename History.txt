@@ -1,5 +1,6 @@
 === preview2 (unreleased)
 
+* Installers no longer require admin rights. Fixes #26474
 * Give priority to Ruby in the PATH. Fixes #26534
 
 === preview1 / 2009-06-28
