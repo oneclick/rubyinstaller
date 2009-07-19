@@ -91,7 +91,6 @@ module RubyInstaller
       :install_target => 'sandbox/ruby19_mingw',
       :configure_options => [
         '--enable-shared',
-        '--with-winsock2',
         '--disable-install-doc'
       ],
       :files => [
