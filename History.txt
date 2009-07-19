@@ -2,5 +2,8 @@
 
 * Installers no longer require admin rights. Fixes #26474
 * Give priority to Ruby in the PATH. Fixes #26534
+* Cleared warning when building Ruby (1.9 uses Winsock2 by default). [deepj]
 
 === preview1 / 2009-06-28
+
+* Released
