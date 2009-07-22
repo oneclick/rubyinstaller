@@ -1,8 +1,9 @@
-require 'rubygems'
-# require 'rdoc/rdoc'
-$LOAD_PATH.unshift(File.join(RubyInstaller::ROOT, '../rdoc_chm/lib'))
-require 'rdoc/generator/chm'
 require 'erb'
+require 'rubygems'
+
+gem 'rdoc', '>= 2.4'
+require 'rdoc/rdoc'
+
 
 {:ruby18, RubyInstaller::Ruby18, 
 :ruby19, RubyInstaller::Ruby19}.each do |version, package|
@@ -23,7 +24,8 @@ require 'erb'
           "#{version}-stdlib" => {
             :file  => "#{version}-stdlib.chm",
             :title => 'Ruby Standard Library API Reference',
-            :files  => ['./lib', './ext']
+            :files => ['./lib', './ext'],
+            :opts  => ["-x", "./lib/rdoc"]
           },
           'readme' => {
             :file  => "index.html",
