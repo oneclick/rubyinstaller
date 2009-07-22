@@ -7,16 +7,20 @@
 <OBJECT type="text/site properties">
 	<param name="ImageType" value="Folder">
 </OBJECT>
-<% @rdocs.each do |key, rdoc| %>
+<% rdocs.each do |key, rdoc| %>
 <UL>
-	<LI> <OBJECT type="text/sitemap">
-		<param name="Name" value="<%= rdoc[:title] %>">
-		</OBJECT>
-	<OBJECT type="text/sitemap">
-		<param name="Merge" value="<%= rdoc[:file] %>::\contents.hhc">
-
-		</OBJECT>
-    </LI>
+	<LI><OBJECT type="text/sitemap">
+		    <param name="Name" value="<%= rdoc[:title] %>">
+<% if rdoc[:file] =~ /\.chm$/ %> 
+      </OBJECT>
+      <OBJECT type="text/sitemap">
+        <param name="Name" value="<%= rdoc[:file] %>::/contents.hhc">
+        <param name="Merge" value="<%= rdoc[:file] %>::/contents.hhc">
+      </OBJECT>
+<% else %>
+        <param name="Local" value="<%= rdoc[:file] %>">
+      </OBJECT>
+<% end %>
 </UL>
 
 <% end %>
