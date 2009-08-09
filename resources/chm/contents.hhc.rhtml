@@ -3,25 +3,22 @@
 <HEAD>
 <meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
 <!-- Sitemap 1.0 -->
-</HEAD><BODY>
-<OBJECT type="text/site properties">
-	<param name="ImageType" value="Folder">
-</OBJECT>
-<% rdocs.each do |key, rdoc| %>
-<UL>
-	<LI><OBJECT type="text/sitemap">
-		    <param name="Name" value="<%= rdoc[:title] %>">
-<% if rdoc[:file] =~ /\.chm$/ %> 
-      </OBJECT>
-      <OBJECT type="text/sitemap">
-        <param name="Name" value="<%= rdoc[:file] %>::/contents.hhc">
-        <param name="Merge" value="<%= rdoc[:file] %>::/contents.hhc">
-      </OBJECT>
-<% else %>
-        <param name="Local" value="<%= rdoc[:file] %>">
-      </OBJECT>
-<% end %>
-</UL>
-
-<% end %>
-</BODY></HTML>
+</HEAD>
+  <BODY>
+    <OBJECT type="text/site properties">
+      <param name="ImageType" value="Folder">
+    </OBJECT><% rdocs.each do |name, rdoc| %>
+    <UL>
+      <LI><OBJECT type="text/sitemap">
+            <param name="Name" value="<%= rdoc[:title] %>"><% if rdoc[:file] =~ /\.chm$/ %> 
+            <param name="Local" value="<%= rdoc[:file] %>::/index.html">
+          </OBJECT>
+          <OBJECT type="text/sitemap">
+            <param name="Name" value="<%= rdoc[:file] %>::/contents.hhc">
+            <param name="Merge" value="<%= rdoc[:file] %>::/contents.hhc">
+          </OBJECT><% else %>
+            <param name="Local" value="<%= rdoc[:file] %>">
+          </OBJECT><% end %>
+    </UL><% end %>
+  </BODY>
+</HTML>

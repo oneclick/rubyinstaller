@@ -18,23 +18,24 @@ require 'rdoc/rdoc'
       rdocs={
           "#{version}-core" => {
             :file  => "#{version}-core.chm",
-            :title => 'Ruby Core API Reference',
+            :title => "Ruby #{package.version} Core API Reference",
             :files => Dir[File.join(RubyInstaller::ROOT, package.target, "*.c")].map{|f| File.basename(f) },
           },
           "#{version}-stdlib" => {
             :file  => "#{version}-stdlib.chm",
-            :title => 'Ruby Standard Library API Reference',
+            :title => "Ruby #{package.version} Standard Library API Reference",
             :files => ['./lib', './ext'],
             :opts  => ["-x", "./lib/rdoc"]
-          },
-          'readme' => {
-            :file  => "index.html",
-            :title => 'README',
-            :files => ['README'],
-            :opts   => ['--main=README']
           }
         }
-  
+
+#           'readme' => {
+#             :file  => "index.html",
+#             :title => 'README',
+#             :files => ['README'],
+#             :opts   => ['--main=README']
+#           }  
+
       rdocs.each do |name, chm|
         
         chm_file = File.join(target,chm[:file])
@@ -62,13 +63,26 @@ require 'rdoc/rdoc'
         :file  => File.join(target, "#{version.to_s}.chm")
       )
 
-      file meta_chm.file do  
-        cp_r Dir.glob(File.join(RubyInstaller::ROOT, 'resources', 'chm', '*.rhtml')), target
+      task :readme do
+        cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'readme.rdoc'), '.'
+        op = op = File.join(target, 'README')
+      
+        #create documentation          
+        args = default_opts + ['--op',op,'--title', 'README', 'README.rdoc']  
+        rdoc = RDoc::RDoc.new
+        rdoc.document(args)
+        cp_r File.join(op, 'images'), target
+        cp_r File.join(op, 'js'), target
+        cp File.join(op, 'rdoc.css'), target
+        cp File.join(op, 'README_rdoc.html'), File.join(target, 'index.html')
+      end
+
+      file meta_chm.file => :readme do
         cd target do
           meta_chm.files = Dir['*.html']
           meta_chm.merge_files = Dir['*.chm']
-          Dir['*.rhtml'].each do |rhtml_file| 
-            File.open(File.basename(rhtml_file, '.rhtml'),'w+') do |output_file| 
+          Dir[File.join(RubyInstaller::ROOT, 'resources', 'chm', '*.rhtml')].each do |rhtml_file| 
+            File.open(File.basename(rhtml_file, '.rhtml'),'w+') do |output_file|
               output = ERB.new(File.read(rhtml_file), 0).result(binding)
               output_file.write(output)
             end
