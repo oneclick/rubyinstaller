@@ -1,12 +1,11 @@
 require 'erb'
 require 'rubygems'
 
-gem 'rdoc', '>= 2.4'
 require 'rdoc/rdoc'
 
 
-{:ruby18, RubyInstaller::Ruby18, 
-:ruby19, RubyInstaller::Ruby19}.each do |version, package|
+{:ruby18 => RubyInstaller::Ruby18, 
+:ruby19 => RubyInstaller::Ruby19}.each do |version, package|
   namespace(version) do
     
     target = File.join(RubyInstaller::ROOT, 'sandbox', 'doc', File.basename(package.target) )
@@ -28,13 +27,6 @@ require 'rdoc/rdoc'
             :opts  => ["-x", "./lib/rdoc"]
           }
         }
-
-#           'readme' => {
-#             :file  => "index.html",
-#             :title => 'README',
-#             :files => ['README'],
-#             :opts   => ['--main=README']
-#           }  
 
       rdocs.each do |name, chm|
         
@@ -58,11 +50,6 @@ require 'rdoc/rdoc'
 
       end
       
-      meta_chm = OpenStruct.new(
-        :title => "Ruby #{package.version} Help file",
-        :file  => File.join(target, "#{version.to_s}.chm")
-      )
-
       task :readme do
         cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'readme.rdoc'), '.'
         op = op = File.join(target, 'README')
@@ -76,6 +63,12 @@ require 'rdoc/rdoc'
         cp File.join(op, 'rdoc.css'), target
         cp File.join(op, 'README_rdoc.html'), File.join(target, 'index.html')
       end
+
+      meta_chm = OpenStruct.new(
+        :title => "Ruby #{package.version} Help file",
+        :file  => File.join(target, "#{version.to_s}.chm")
+      )
+
 
       file meta_chm.file => :readme do
         cd target do
