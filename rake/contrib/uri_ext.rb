@@ -184,7 +184,7 @@ module URI
         else
           truncated = file_name
         end
-        progress_bar.format = "#{truncated}: %3d%% %s %s/%s %s"
+        progress_bar.format = "#{CGI.unescape(truncated)}: %3d%% %s %s/%s %s"
         progress_bar.format_arguments = [:percentage, :bar, :bytes, :total, :stat]
         progress_bar.bar_mark = "o"
 
