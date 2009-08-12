@@ -7,7 +7,7 @@
   <BODY>
     <OBJECT type="text/site properties">
       <param name="ImageType" value="Folder">
-    </OBJECT><% rdocs.each do |name, rdoc| %>
+    </OBJECT><% rdocs.each do |rdoc| %>
     <UL>
       <LI><OBJECT type="text/sitemap">
             <param name="Name" value="<%= rdoc[:title] %>"><% if rdoc[:file] =~ /\.chm$/ %> 

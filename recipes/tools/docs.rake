@@ -1,48 +1,64 @@
 require 'erb'
 require 'rubygems'
 
-require 'rdoc/rdoc'
+require 'rdoc/generator/chm'
 
 
-{:ruby18 => RubyInstaller::Ruby18, 
-:ruby19 => RubyInstaller::Ruby19}.each do |version, package|
+[RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |package|
+
   namespace(version) do
+
+    short_ver    =   package.version.gsub('.', '')[0..1]
+    version      =   "ruby#{short_ver}"  
+    version_dir  = File.basename(package.target)
+    doc_dir      = File.join(RubyInstaller::ROOT, 'sandbox', 'doc')
+    target       = File.join(doc_dir, version_dir)
     
-    target = File.join(RubyInstaller::ROOT, 'sandbox', 'doc', File.basename(package.target) )
+    core_glob    = File.join(RubyInstaller::ROOT, package.target, "*.c")
+    core_files   = Dir[core_glob].map{|f| File.basename(f) }
     
+    stdlib_files = ['./lib', './ext']
+
+
+    rdocs=[
+            {
+              :file  => "#{version}-core.chm",
+              :title => "Ruby #{package.version} Core",
+              :files => core_files,
+            },
+            {
+              :file  => "#{version}-stdlib.chm",
+              :title => "Ruby #{package.version} Standard Library",
+              :files => stdlib_files,
+              :opts  => ["-x", "./lib/rdoc"]
+            }
+          ]
+  
     namespace(:docs) do
 
       default_opts = ['--line-numbers', '--format=chm']
-  
-      rdocs={
-          "#{version}-core" => {
-            :file  => "#{version}-core.chm",
-            :title => "Ruby #{package.version} Core API Reference",
-            :files => Dir[File.join(RubyInstaller::ROOT, package.target, "*.c")].map{|f| File.basename(f) },
-          },
-          "#{version}-stdlib" => {
-            :file  => "#{version}-stdlib.chm",
-            :title => "Ruby #{package.version} Standard Library API Reference",
-            :files => ['./lib', './ext'],
-            :opts  => ["-x", "./lib/rdoc"]
-          }
-        }
 
-      rdocs.each do |name, chm|
+      rdocs.each do |chm|
         
         chm_file = File.join(target,chm[:file])
         
         file chm_file do
           cd package.target do
-            op = File.join(target, name)
-          
+            dirname = File.basename(chm_file,'.chm')
+            op_dir  = File.join(target, dirname)
+            title   = "#{chm[:title]} API Reference"
+            
             #create documentation          
-            args = default_opts + (chm[:opts] || []) + ['--title',chm[:title],'--op',op] + chm[:files]  
+            args = default_opts + 
+                  (chm[:opts] || []) + 
+                  ['--title', title ,'--op',op_dir] + 
+                  chm[:files]  
+                  
             rdoc = RDoc::RDoc.new
             rdoc.document(args)
             
             
-            cp File.join(op, File.basename(chm[:file])), chm_file
+            cp File.join(op_dir, File.basename(chm[:file])), chm_file
           end
         end
         
@@ -51,17 +67,17 @@ require 'rdoc/rdoc'
       end
       
       task :readme do
-        cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'readme.rdoc'), '.'
-        op = op = File.join(target, 'README')
+        cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README.rdoc'), '.'
+        op_dir = File.join(target, 'README')
       
         #create documentation          
-        args = default_opts + ['--op',op,'--title', 'README', 'README.rdoc']  
+        opts = ['--op',op_dir,'--title', 'RubyInstaller', 'README.rdoc']  
         rdoc = RDoc::RDoc.new
-        rdoc.document(args)
-        cp_r File.join(op, 'images'), target
-        cp_r File.join(op, 'js'), target
-        cp File.join(op, 'rdoc.css'), target
-        cp File.join(op, 'README_rdoc.html'), File.join(target, 'index.html')
+        rdoc.document(default_opts + opts)
+        cp_r File.join(op_dir, 'images'), target
+        cp_r File.join(op_dir, 'js'), target
+        cp File.join(op_dir, 'rdoc.css'), target
+        cp File.join(op_dir, 'README_rdoc.html'), File.join(target, 'index.html')
       end
 
       meta_chm = OpenStruct.new(
@@ -72,16 +88,23 @@ require 'rdoc/rdoc'
 
       file meta_chm.file => :readme do
         cd target do
+          
           meta_chm.files = Dir['*.html']
           meta_chm.merge_files = Dir['*.chm']
-          Dir[File.join(RubyInstaller::ROOT, 'resources', 'chm', '*.rhtml')].each do |rhtml_file| 
+          source = File.join(RubyInstaller::ROOT, 'resources', 'chm', '*.rhtml')
+          
+          Dir[source].each do |rhtml_file| 
+          
             File.open(File.basename(rhtml_file, '.rhtml'),'w+') do |output_file|
+              p rhtml_file
               output = ERB.new(File.read(rhtml_file), 0).result(binding)
               output_file.write(output)
             end
+          
           end
   
-          Dir['*.hhp'].each{|hhp| system(RDoc::Generator::CHM::HHC_PATH, hhp) }
+          Dir['*.hhp'].each{|hhp| system(RDoc::Compiler::CHM::HHC_PATH, hhp) }
+        
         end
 
       end
