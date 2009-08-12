@@ -1,24 +1,25 @@
 require 'erb'
 require 'rubygems'
 
-require 'rdoc/generator/chm'
+gem 'rdoc', '>= 2.4'
+require 'rdoc/rdoc'
 
 
 [RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |package|
 
+  short_ver    = package.version.gsub('.', '')[0..1]
+  version      = "ruby#{short_ver}"  
+  version_dir  = File.basename(package.target)
+  doc_dir      = File.join(RubyInstaller::ROOT, 'sandbox', 'doc')
+  target       = File.join(doc_dir, version_dir)
+  
+  core_glob    = File.join(RubyInstaller::ROOT, package.target, "*.c")
+  core_files   = Dir[core_glob].map{|f| File.basename(f) }
+  
+  stdlib_files = ['./lib', './ext']
+
+
   namespace(version) do
-
-    short_ver    =   package.version.gsub('.', '')[0..1]
-    version      =   "ruby#{short_ver}"  
-    version_dir  = File.basename(package.target)
-    doc_dir      = File.join(RubyInstaller::ROOT, 'sandbox', 'doc')
-    target       = File.join(doc_dir, version_dir)
-    
-    core_glob    = File.join(RubyInstaller::ROOT, package.target, "*.c")
-    core_files   = Dir[core_glob].map{|f| File.basename(f) }
-    
-    stdlib_files = ['./lib', './ext']
-
 
     rdocs=[
             {
@@ -67,17 +68,17 @@ require 'rdoc/generator/chm'
       end
       
       task :readme do
-        cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README.rdoc'), '.'
+        cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README'), '.'
         op_dir = File.join(target, 'README')
       
         #create documentation          
-        opts = ['--op',op_dir,'--title', 'RubyInstaller', 'README.rdoc']  
+        opts = ['--op',op_dir,'--title', 'RubyInstaller', 'README']  
         rdoc = RDoc::RDoc.new
         rdoc.document(default_opts + opts)
         cp_r File.join(op_dir, 'images'), target
         cp_r File.join(op_dir, 'js'), target
         cp File.join(op_dir, 'rdoc.css'), target
-        cp File.join(op_dir, 'README_rdoc.html'), File.join(target, 'index.html')
+        cp File.join(op_dir, 'README.html'), File.join(target, 'index.html')
       end
 
       meta_chm = OpenStruct.new(
