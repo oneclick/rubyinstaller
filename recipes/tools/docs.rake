@@ -11,6 +11,22 @@ rescue Gem::LoadError
   interpreters = []
 end
 
+namespace :docs do
+  task :htmlhelp do
+    executable = 'hhc.exe'
+    path = File.join(ENV['ProgramFiles'], 'HTML Help Workshop', executable)
+    unless File.exist?(path) && File.executable?(path)
+      puts <<-EOT
+To generate CHM documentation you need Microsoft's Html Help Workshop installed.
+
+You can download a copy for free from:
+
+    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/htmlhelp/html/hwMicrosoftHTMLHelpDownloads.asp
+EOT
+      fail "HtmlHelp is required"
+    end
+  end
+end
 interpreters.each do |package|
 
   short_ver    = package.version.gsub('.', '')[0..1]
@@ -124,7 +140,7 @@ interpreters.each do |package|
     end
      
     desc "build docs for #{version}"
-    task :docs => ["docs:docs", "docs:meta_doc"]
+    task :docs => ["docs:htmlhelp", "docs:docs", "docs:meta_doc"]
 
 
     desc "rebuild docs for #{version}"
