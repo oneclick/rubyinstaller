@@ -1,11 +1,17 @@
 require 'erb'
 require 'rubygems'
 
-gem 'rdoc', '>= 2.4'
-require 'rdoc/rdoc'
+interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19]
 
+begin
+  gem 'rdoc', '>= 2.4.0'
+  require 'rdoc/rdoc'
+  gem 'rdoc_chm', '>= 2.4.0'
+rescue Gem::LoadError
+  interpreters = []
+end
 
-[RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |package|
+interpreters.each do |package|
 
   short_ver    = package.version.gsub('.', '')[0..1]
   version      = "ruby#{short_ver}"  
@@ -126,8 +132,4 @@ require 'rdoc/rdoc'
 
   end
 
-
 end
-
-
-
