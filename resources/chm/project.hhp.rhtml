@@ -1,0 +1,23 @@
+[OPTIONS]
+Auto Index=Yes
+Compatibility=1.1 or later
+Compiled file=<%= File.basename(meta_chm.file) %>
+Contents file=contents.hhc
+Display compile progress=No
+Default topic=index.html
+Language=0x409 English (United States)
+Title=<%= meta_chm.title %>
+Full-text search=Yes
+Index file=index.hhk
+
+[FILES] <% meta_chm.files.each do |file| %>
+<%= file %>
+<% end %>
+
+[MERGE FILES] <% meta_chm.merge_files.each do |merge_file| %>
+<%= merge_file %>
+
+<% end %>
+
+[INFOTYPES]
+
