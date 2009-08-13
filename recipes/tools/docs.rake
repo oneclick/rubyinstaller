@@ -8,6 +8,11 @@ begin
   require 'rdoc/rdoc'
   gem 'rdoc_chm', '>= 2.4.0'
 rescue Gem::LoadError
+  if Rake.application.options.show_tasks
+    puts "You need the rdoc and rdoc_chm gems installed"
+    puts "in order to build the docs tasks."
+    puts
+  end
   interpreters = []
 end
 
