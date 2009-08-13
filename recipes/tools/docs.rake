@@ -126,7 +126,7 @@ interpreters.each do |package|
           
           end
   
-          Dir['*.hhp'].each{|hhp| system(RDoc::Compiler::CHM::HHC_PATH, hhp) }
+          Dir['*.hhp'].each{|hhp| system(RDoc::Generator::CHM::HHC_PATH, hhp) }
         
         end
 
