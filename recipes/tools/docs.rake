@@ -97,13 +97,18 @@ interpreters.each do |package|
       task :readme do
         cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README'), '.'
         op_dir = File.join(target, 'README')
-      
-        #create documentation          
-        opts = ['--op',op_dir,'--title', 'RubyInstaller', 'README']  
+
+        #create documentation
+        opts = ['--op', op_dir,'--title', 'RubyInstaller', 'README']
         rdoc = RDoc::RDoc.new
         rdoc.document(default_opts + opts)
-        cp_r File.join(op_dir, 'images'), target
-        cp_r File.join(op_dir, 'js'), target
+
+        images = File.join(op_dir, 'images')
+        js = File.join(op_dir, 'js')
+
+        cp_r(images, target) if File.exist?(images)
+        cp_r(js, target) if File.exist?(js)
+
         cp File.join(op_dir, 'rdoc.css'), target
         cp File.join(op_dir, 'README.html'), File.join(target, 'index.html')
       end
