@@ -66,7 +66,9 @@ directory 'pkg'
       'resources/installer/changes.txt'
     ]
 
-    file 'resources/installer/changes.txt', :needs => ['pkg'] do |t|
+    file 'resources/installer/changes.txt', 
+      :needs => ['pkg', 'History.txt'] do |t|
+
       contents = File.read('History.txt')
       latest = contents.split(/^(===+ .*)/)[1..2].join.strip
 
