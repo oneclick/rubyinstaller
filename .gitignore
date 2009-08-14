@@ -1,11 +1,7 @@
 *.kpf
 *.log
-*.msi
-*.wixobj
 downloads
 pkg
-resources/installer/*.diff
-resources/installer/*.PARAFFIN
-resources/installer/config.*.wxi
+resources/installer/changes.txt
 sandbox
 README

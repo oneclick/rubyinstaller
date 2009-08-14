@@ -62,8 +62,18 @@ directory 'pkg'
 
     files = FileList[
       "resources/installer/rubyinstaller.iss",
-      "resources/installer/config-#{major_minor}.iss"
+      "resources/installer/config-#{major_minor}.iss",
+      'resources/installer/changes.txt'
     ]
+
+    file 'resources/installer/changes.txt', :needs => ['pkg'] do |t|
+      contents = File.read('History.txt')
+      latest = contents.split(/^(===+ .*)/)[1..2].join.strip
+
+      when_writing('Generating changes file...') do
+        File.open(t.name, 'w') { |f| f.write latest }
+      end
+    end
 
     # installer
     file "pkg/#{installer_pkg}.exe",

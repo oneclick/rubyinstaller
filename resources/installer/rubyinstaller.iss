@@ -47,6 +47,7 @@ AppVersion={#RubyFullVersion}
 DefaultGroupName={#InstallerName}
 DisableProgramGroupPage=true
 LicenseFile=LICENSE.rtf
+InfoAfterFile=changes.txt
 Compression=lzma/ultra64
 SolidCompression=true
 AlwaysShowComponentsList=false
