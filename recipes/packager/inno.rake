@@ -67,7 +67,7 @@ directory 'pkg'
 
     # installer
     file "pkg/#{installer_pkg}.exe",
-      :needs => ['pkg', "ruby#{namespace_ver}:docs", *files] do
+      :needs => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
 
       InnoSetup.iscc("resources/installer/rubyinstaller.iss",
         :ruby_version => info[:version],

@@ -150,7 +150,7 @@ interpreters.each do |package|
     end
      
     desc "build docs for #{version}"
-    task :docs => ["docs:htmlhelp", "docs:docs", "docs:meta_doc"]
+    task :docs => ["docs:htmlhelp", "#{version}:docs:docs", "#{version}:docs:meta_doc"]
 
 
     desc "rebuild docs for #{version}"

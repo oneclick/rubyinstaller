@@ -196,5 +196,15 @@ module RubyInstaller
         'rubygems-1.3.4.tgz'
       ]
     )
+
+    Book = OpenStruct.new(
+      :release => 'official',
+      :version => '2009-04-18',
+      :url => 'http://www.sapphiresteel.com/IMG/zip',
+      :target => 'sandbox/book',
+      :files => [
+        'book-of-ruby.zip'
+      ]
+    )
   end
 end

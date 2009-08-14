@@ -8,4 +8,4 @@ DefaultDirName={sd}\Ruby19
 Source: ..\..\sandbox\doc\ruby_1_9\*.chm; DestDir: {app}\doc
 
 [Icons]
-Name: {group}\Documentation\Ruby 1.9 API Reference; Filename: {app}\doc\ruby19.chm
+Name: {group}\Documentation\Ruby 1.9 API Reference; Filename: {app}\doc\ruby19.chm; Flags: createonlyiffileexists
