@@ -180,10 +180,8 @@ task :ruby19 => [
 task :ruby19 => [:rubygems19]
 
 # add Pure Readline to the chain
-unless ENV['READLINE']
-  task :ruby19 => [:rbreadline]
-  task :ruby19 => ['dependencies:rbreadline:install19']
-end
+task :ruby19 => [:rbreadline]
+task :ruby19 => ['dependencies:rbreadline:install19']
 
 task :check19   => ['interpreter:ruby19:check']
 task :irb19     => ['interpreter:ruby19:irb']

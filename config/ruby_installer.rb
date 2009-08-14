@@ -70,7 +70,6 @@ module RubyInstaller
         'ruby-1.8.6-p368.tar.bz2'
       ],
       :dependencies => [
-        'readline5.dll',
         'zlib1.dll',
         'libeay32.dll',
         'libssl32.dll',
@@ -97,7 +96,6 @@ module RubyInstaller
         'ruby-1.9.1-p129.tar.bz2'
       ],
       :dependencies => [
-        #'readline5.dll',
         'zlib1.dll',
         'libeay32.dll',
         'libssl32.dll',
@@ -120,19 +118,6 @@ module RubyInstaller
       :target => RubyInstaller::MinGW.target,
       :files => [
         'zlib123-dll.zip'
-      ]
-    )
-    
-    # FIXME: using direct mirror for Readline since GnuWin32 seems failing
-    # to grab a correct link (stack level too deep due redirections)
-    Readline = OpenStruct.new(
-      :release => "official",
-      :version => "5.0",
-      :url => "http://downloads.sourceforge.net/sourceforge/gnuwin32",
-      :target => RubyInstaller::MinGW.target,
-      :files => [
-        'readline-5.0-bin.zip',
-        'readline-5.0-lib.zip'
       ]
     )
 
@@ -211,39 +196,5 @@ module RubyInstaller
         'rubygems-1.3.4.tgz'
       ]
     )
-
-=begin
-    Runtime18 = OpenStruct.new(
-      :version => RubyInstaller::Ruby18.version,
-      :ruby_version_source => RubyInstaller::Ruby18.target,
-      :rubygems_version_source => RubyInstaller::RubyGems.target,
-      :namespace => 'runtime18',
-      :source => 'resources/installer',
-      :package_name => 'rubyinstaller',
-      :wix_config => {
-          'ProductCode'=> "D7BFC0DB-2D60-4905-AFD4-87D05D70D7F2",
-          'UpgradeCode'=> "419CB0D6-C20E-4553-B415-698427244883",
-          'Year' =>  "2008-2009",
-          'ProductName' =>  "Ruby Installer #{RubyInstaller::Ruby18.version}",
-          'ProductVersion' =>  "",
-          'InstallName' =>  "RubyInstaller",
-          'InstallId' =>  "Ruby",
-          'ProductURL' =>  "http://rubyinstaller.rubyforge.org/",
-          'RuntimeTitle' =>  "Standard Ruby",
-          'RuntimeDescription' =>  "Standard package including Ruby and libraries required for proper behavior of the language",
-          'RubyTitle' =>  "Ruby + RubyGems",
-          'RubyVersion' =>  "",
-          'RubyDescription' =>  "Matz Ruby Implementation, standard library and RubyGems",
-          'RubyGemsVersion' =>  ""
-        },
-      :wix_files => [
-        'main.wxs',
-        'ruby18_bin.wxs',
-        'ruby18_lib.wxs',
-        'ruby18_env.wxs'
-      ],
-      :config_file => 'config.wxi.erb'
-    )
-=end
   end
 end
