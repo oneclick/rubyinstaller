@@ -1,0 +1,37 @@
+# CONTRIBUTORS
+#
+# This file tries to detail all the developers, users and 3rd parties
+# that contributed to materialize this project
+#
+# Please feel free to add yourself or details, but keep the file in
+# as YAML formatted document. Thank you.
+
+---
+
+- Gordon Thiesfeld
+  - Extraction tools and tasks
+  - Chef master (recipes for WiX, Documentation and others)
+  - Ruby bug hunter
+- Lars Christensen
+  - PDCurses recipe author
+  - GDBM recipe author
+  - Improvements in Ruby build recipes
+- Roger Pack
+  - Edge case tester
+  - Recipes documenter and corrector
+- Timothy Elliott
+  - URI download improvements
+  - Global recipe improvements and cleanup
+- Park Heesob
+  - Rb-Readline port from GNU
+  - Rb-Readline patches
+- Daniel Berger
+  - Rb-Readline test case
+- Bosko Ivanisevic
+  - RubyGem recipe improvements
+- deepj
+  - Ruby 1.9 recipe improvements
+- Huw Collingbourne, SapphireSteel Software
+  - The Book of Ruby PDF
+- Luis Lavena
+  - Lots of small stuff
