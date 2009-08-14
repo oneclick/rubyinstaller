@@ -5,6 +5,7 @@
 * Cleared warning when building Ruby (1.9 uses Winsock2 by default). [deepj]
 * Solve issues with broken SourceForge mirrors (CGI unescape). GH-3 [rogerdpack]
 * Bundles Core and Standard Library documentation as CHM. Feature Request #16782 [vertiginous]
+* Bundles The Book of Ruby. Courtesy of Huw Collingbourne, SapphireSteel Software.
 
 === preview1 / 2009-06-28
 
