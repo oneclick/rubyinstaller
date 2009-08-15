@@ -54,7 +54,7 @@ module RubyInstaller
 
     Ruby18 = OpenStruct.new(
       :release => "preview1",
-      :version => "1.8.6-p368",
+      :version => "1.8.6-p383",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6',
       :checkout_target => 'downloads/ruby_1_8',
@@ -67,7 +67,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.8.6-p368.tar.bz2'
+        'ruby-1.8.6-p383.tar.bz2'
       ],
       :dependencies => [
         'zlib1.dll',
