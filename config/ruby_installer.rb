@@ -53,8 +53,7 @@ module RubyInstaller
     )
 
     Ruby18 = OpenStruct.new(
-      :release => "preview1",
-      :version => "1.8.6-p368",
+      :version => "1.8.6-p383",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6',
       :checkout_target => 'downloads/ruby_1_8',
@@ -67,7 +66,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.8.6-p368.tar.bz2'
+        'ruby-1.8.6-p383.tar.bz2'
       ],
       :dependencies => [
         'zlib1.dll',
@@ -80,8 +79,7 @@ module RubyInstaller
     )
 
     Ruby19 = OpenStruct.new(
-      :release => "stable",
-      :version => "1.9.1-p129",
+      :version => "1.9.1-p243",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1',
       :checkout_target => 'downloads/ruby_1_9',
@@ -93,7 +91,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.9.1-p129.tar.bz2'
+        'ruby-1.9.1-p243.tar.bz2'
       ],
       :dependencies => [
         'zlib1.dll',
@@ -183,8 +181,8 @@ module RubyInstaller
 
     RubyGems = OpenStruct.new(
       :release => 'official',
-      :version => '1.3.4',
-      :url => 'http://rubyforge.org/frs/download.php/57643',
+      :version => '1.3.5',
+      :url => 'http://rubyforge.org/frs/download.php/60718',
       :checkout => 'svn://rubyforge.org/var/svn/rubygems/trunk',
       :checkout_target => 'downloads/rubygems',
       :target => 'sandbox/rubygems',
@@ -193,7 +191,17 @@ module RubyInstaller
         '--no-rdoc'
       ],
       :files => [
-        'rubygems-1.3.4.tgz'
+        'rubygems-1.3.5.tgz'
+      ]
+    )
+
+    Book = OpenStruct.new(
+      :release => 'official',
+      :version => '2009-04-18',
+      :url => 'http://www.sapphiresteel.com/IMG/zip',
+      :target => 'sandbox/book',
+      :files => [
+        'book-of-ruby.zip'
       ]
     )
   end

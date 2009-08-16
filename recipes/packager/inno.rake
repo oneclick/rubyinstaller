@@ -58,17 +58,29 @@ directory 'pkg'
     version       = "#{info[:version]}-p#{info[:patchlevel]}"
     major_minor   = info[:version][0..2]
     namespace_ver = major_minor.sub('.', '')
+    version       << "-#{ENV['RELEASE']}" if ENV['RELEASE']
     installer_pkg = "rubyinstaller-#{version}"
 
     files = FileList[
       "resources/installer/rubyinstaller.iss",
-      "resources/installer/config-#{major_minor}.iss"
+      "resources/installer/config-#{major_minor}.iss",
+      'resources/installer/changes.txt'
     ]
+
+    file 'resources/installer/changes.txt', 
+      :needs => ['pkg', 'History.txt'] do |t|
+
+      contents = File.read('History.txt')
+      latest = contents.split(/^(===+ .*)/)[1..2].join.strip
+
+      when_writing('Generating changes file...') do
+        File.open(t.name, 'w') { |f| f.write latest }
+      end
+    end
 
     # installer
     file "pkg/#{installer_pkg}.exe",
-      :needs => ['pkg', "ruby#{namespace_ver}:docs", *files] do
-
+      :needs => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
       InnoSetup.iscc("resources/installer/rubyinstaller.iss",
         :ruby_version => info[:version],
         :ruby_patch   => info[:patchlevel],

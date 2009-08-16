@@ -155,7 +155,6 @@ interpreters.each do |package|
     desc "build docs for #{version}"
     task :docs, :needs => ["docs:htmlhelp", "docs:rdocs", meta_chm.file]
 
-
     desc "rebuild docs for #{version}"
     task :redocs, :needs => [:clobber_docs, :docs]
 

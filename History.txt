@@ -1,10 +1,22 @@
-=== preview2 (unreleased)
+=== preview2 / 2009-08-16
 
 * Installers no longer require admin rights. Fixes #26474
 * Give priority to Ruby in the PATH. Fixes #26534
 * Cleared warning when building Ruby (1.9 uses Winsock2 by default). [deepj]
 * Solve issues with broken SourceForge mirrors (CGI unescape). GH-3 [rogerdpack]
 * Bundles Core and Standard Library documentation as CHM. Feature Request #16782 [vertiginous]
+=======
+* New features:
+  * Bundles Core and Standard Library documentation as CHM.
+    Feature Request #16782 [vertiginous]
+  * Bundles The Book of Ruby. Courtesy of Huw Collingbourne.
+
+* Enhancements:
+  * Upgraded RubyGems version to 1.3.5
+
+* Bugfixes:
+  * Installers no longer require admin rights. Fixes #26474
+  * Give priority to Ruby in the PATH. Fixes #26534
 
 === preview1 / 2009-06-28
 

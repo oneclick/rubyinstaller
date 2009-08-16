@@ -8,4 +8,4 @@ DefaultDirName={sd}\Ruby
 Source: ..\..\sandbox\doc\ruby_1_8\*.chm; DestDir: {app}\doc
 
 [Icons]
-Name: {group}\Documentation\Ruby 1.8 API Reference; Filename: {app}\doc\ruby18.chm
+Name: {group}\Documentation\Ruby 1.8 API Reference; Filename: {app}\doc\ruby18.chm; Flags: createonlyiffileexists
