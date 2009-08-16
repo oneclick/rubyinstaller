@@ -53,7 +53,6 @@ module RubyInstaller
     )
 
     Ruby18 = OpenStruct.new(
-      :release => "preview1",
       :version => "1.8.6-p383",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6',
@@ -80,7 +79,6 @@ module RubyInstaller
     )
 
     Ruby19 = OpenStruct.new(
-      :release => "stable",
       :version => "1.9.1-p243",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1',

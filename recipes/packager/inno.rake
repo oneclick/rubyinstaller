@@ -58,6 +58,7 @@ directory 'pkg'
     version       = "#{info[:version]}-p#{info[:patchlevel]}"
     major_minor   = info[:version][0..2]
     namespace_ver = major_minor.sub('.', '')
+    version       << "-#{ENV['RELEASE']}" if ENV['RELEASE']
     installer_pkg = "rubyinstaller-#{version}"
 
     files = FileList[
