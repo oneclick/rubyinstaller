@@ -44,7 +44,10 @@ In case you don't use OCI for this, you need:
 - Ruby 1.8.5 at least (mswin32 or mingw32 implementation will work) -- Not cygwin!
 - Rake 0.7.3 or greater
 - Zlib extension and DLL (zlib1.dll) available in the PATH (could be in system32
-or your RUby bin directory)
+or your Ruby bin directory)
+
+Innosetup 5 is required to compile the installer. The InnoSetup QuickStart Pack 
+5.3.3 contains all of the required components.
 
 === Build options:
 without specifying any options, 1.8.6 is built.
