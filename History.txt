@@ -1,8 +1,12 @@
-=== preview2 / (unreleased)
+=== preview2 / 2009-08-16
+
+* New features:
+  * Bundles Core and Standard Library documentation as CHM.
+    Feature Request #16782 [vertiginous]
+  * Bundles The Book of Ruby. Courtesy of Huw Collingbourne.
 
 * Enhancements:
-  * Bundles Core and Standard Library documentation as CHM. Feature Request #16782 [vertiginous]
-  * Bundles The Book of Ruby. Courtesy of Huw Collingbourne, SapphireSteel Software.
+  * Upgraded RubyGems version to 1.3.5
 
 * Bugfixes:
   * Installers no longer require admin rights. Fixes #26474
