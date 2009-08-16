@@ -94,6 +94,7 @@ namespace(:interpreter) do
 
     task :install => [package.install_target] do
       full_install_target = File.expand_path(File.join(RubyInstaller::ROOT, package.install_target))
+      full_install_target_nodrive = full_install_target.gsub(/\A[a-z]:/i, '')
 
       # perform make install
       cd package.build_target do
@@ -114,7 +115,12 @@ namespace(:interpreter) do
 
       # remove path reference to sandbox (after install!!!)
       rbconfig = File.join(package.install_target, 'lib/ruby/1.8/i386-mingw32/rbconfig.rb')
-      contents = File.read(rbconfig).gsub(/#{Regexp.escape(full_install_target)}/) { |match| "" }
+      contents = File.read(rbconfig).
+        gsub(/#{Regexp.escape(full_install_target)}/) { |match| "" }.
+        gsub(/#{Regexp.escape(full_install_target_nodrive)}/) { |match| "" }.
+        gsub('$(DESTDIR)', '$(exec_prefix)').
+        gsub('CONFIG["exec_prefix"] = "$(exec_prefix)"', 'CONFIG["exec_prefix"] = "$(prefix)"')
+
       File.open(rbconfig, 'w') { |f| f.write(contents) }
 
       # replace the batch files with new and path-clean stubs
