@@ -70,8 +70,6 @@ module RubyInstaller
       ],
       :dependencies => [
         'zlib1.dll',
-        'libeay32.dll',
-        'libssl32.dll',
         'libiconv2.dll',
         'pdcurses.dll',
         'gdbm3.dll'
@@ -95,8 +93,6 @@ module RubyInstaller
       ],
       :dependencies => [
         'zlib1.dll',
-        'libeay32.dll',
-        'libssl32.dll',
         'libiconv2.dll',
         'pdcurses.dll',
         'gdbm3.dll'
