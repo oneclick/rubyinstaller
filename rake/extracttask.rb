@@ -40,7 +40,11 @@ def extract(file, target, options = {})
 
     contents.each do |c|
       puts "** Moving out #{c} from #{folder} and drop into #{target}" if Rake.application.options.trace
-      FileUtils.mv File.join(target, folder, c), target, :force => true
+      if File.directory? File.join(target, c)
+        FileUtils.cp_r File.join(target, folder, c), target
+      else
+        FileUtils.mv File.join(target, folder, c), target, :force => true
+      end
     end
     
     # remove the now empty folder
