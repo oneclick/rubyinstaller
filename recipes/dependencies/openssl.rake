@@ -40,15 +40,12 @@ namespace(:dependencies) do
     # Prepare sources for compilation
     task :prepare => ['dependencies:openssl:extract', :compiler, :zlib] do
       patches = Dir.glob("#{package.patches}/*.patch").sort
-      relative = (['..'] * package.target.split('/').size).join('/')
-      cd package.target do
-        patches.each do |patch|
-          msys_sh "patch -p1 < #{relative}/#{patch}"
-        end
-        cd 'test' do
-          cp 'dummytest.c', 'jpaketest.c'
-          cp 'dummytest.c', 'mdc2test.c'
-          cp 'dummytest.c', 'rc5test.c'
+      patches.each do |patch|
+        msys_sh "patch -p1 -d #{package.target} < #{patch}"
+      end
+      cd File.join(package.target, 'test') do
+        ['jpaketest.c', 'mdc2test.c', 'rc5test.c'].each do |file|
+          cp 'dummytest.c', file
         end
       end
       touch configure # ensure configure as the first step
