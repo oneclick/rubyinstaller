@@ -29,6 +29,11 @@
   - Rb-Readline test case
 - Bosko Ivanisevic
   - RubyGem recipe improvements
+- Alexey Borzenkov
+  - OpenSSL recipe and proper builds
+- Jon Maken
+  - Website implementation and coordination
+  - Documentation Semi-God
 - deepj
   - Ruby 1.9 recipe improvements
 - Huw Collingbourne, SapphireSteel Software
