@@ -1,3 +1,8 @@
+=== rc1
+
+* Enhancements:
+  * Upgraded pure-ruby Readline to 0.2.0
+
 === preview2 / 2009-08-16
 
 * New features:
