@@ -1,6 +1,21 @@
 require 'tmpdir'
 require 'fileutils'
 
+def mv_r(src, dest, options = {})
+  if File.directory? src
+    d = File.directory?(dest) ? File.join(dest, File.basename(src)) : dest
+    if File.directory? d
+      Dir.glob(File.join(src, '*')).each do |s|
+        mv_r(s, d, options)
+      end
+    else
+      FileUtils.mv(src, dest, options)
+    end
+  else
+    FileUtils.mv(src, dest, options)
+  end
+end
+
 def extract(file, target, options = {})
   fail unless File.directory?(target)
   
@@ -40,7 +55,7 @@ def extract(file, target, options = {})
 
     contents.each do |c|
       puts "** Moving out #{c} from #{folder} and drop into #{target}" if Rake.application.options.trace
-      FileUtils.mv File.join(target, folder, c), target, :force => true
+      mv_r File.join(target, folder, c), target
     end
     
     # remove the now empty folder

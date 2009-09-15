@@ -70,8 +70,6 @@ module RubyInstaller
       ],
       :dependencies => [
         'zlib1.dll',
-        'libeay32.dll',
-        'libssl32.dll',
         'libiconv2.dll',
         'pdcurses.dll',
         'gdbm3.dll'
@@ -95,8 +93,6 @@ module RubyInstaller
       ],
       :dependencies => [
         'zlib1.dll',
-        'libeay32.dll',
-        'libssl32.dll',
         'libiconv2.dll',
         'pdcurses.dll',
         'gdbm3.dll'
@@ -147,14 +143,23 @@ module RubyInstaller
     )
 
     OpenSsl = OpenStruct.new(
-      :url => "http://downloads.sourceforge.net/gnuwin32",
-      :version => '0.9.8h-1',
-      :target => RubyInstaller::MinGW.target,
+      :url => 'http://www.openssl.org/source',
+      :version => '0.9.8k',
+      :target => 'sandbox/openssl',
+      :patches => 'resources/patches/openssl',
+      :shared => true,
+      :dllnames => {
+        :libcrypto => 'libeay32-0.9.8-msvcrt.dll',
+        :libssl => 'ssleay32-0.9.8-msvcrt.dll',
+      },
       :files => [
-        'openssl-0.9.8h-1-bin.zip',
-        'openssl-0.9.8h-1-lib.zip'
+        'openssl-0.9.8k.tar.gz',
       ]
     )
+    [Ruby18, Ruby19].each do |ruby|
+      ruby.dependencies << OpenSsl.dllnames[:libcrypto]
+      ruby.dependencies << OpenSsl.dllnames[:libssl]
+    end
 
     Iconv = OpenStruct.new(
       :release => 'official',
