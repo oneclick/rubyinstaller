@@ -61,9 +61,14 @@ interpreters.each do |package|
               :opts  => ["-x", "./lib/rdoc"]
             }
           ]
-  
-    namespace(:docs) do
 
+      meta_chm = OpenStruct.new(
+        :title => "Ruby #{package.version} Help file",
+        :file  => File.join(target, "#{version}.chm")
+      )
+        
+    namespace(:docs) do
+      
       default_opts = ['--line-numbers', '--format=chm']
 
       rdocs.each do |chm|
@@ -76,7 +81,7 @@ interpreters.each do |package|
             op_dir  = File.join(target, dirname)
             title   = "#{chm[:title]} API Reference"
             
-            #create documentation          
+            # create documentation          
             args = default_opts + 
                   (chm[:opts] || []) + 
                   ['--title', title ,'--op',op_dir] + 
@@ -90,36 +95,36 @@ interpreters.each do |package|
           end
         end
         
-        task :docs => chm_file
+        task :rdocs, :needs => chm_file
 
       end
       
-      task :readme do
-        cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README'), '.'
-        op_dir = File.join(target, 'README')
-
-        #create documentation
-        opts = ['--op', op_dir,'--title', 'RubyInstaller', 'README']
-        rdoc = RDoc::RDoc.new
-        rdoc.document(default_opts + opts)
-
-        images = File.join(op_dir, 'images')
-        js = File.join(op_dir, 'js')
-
-        cp_r(images, target) if File.exist?(images)
-        cp_r(js, target) if File.exist?(js)
-
-        cp File.join(op_dir, 'rdoc.css'), target
-        cp File.join(op_dir, 'README.html'), File.join(target, 'index.html')
+      index = File.join(target, 'index.html')
+      
+      file index do
+        cd target do
+          cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README.txt'), '.'
+          op_dir = File.join(target, 'README')
+  
+          # create documentation
+          opts = ['--op', op_dir,'--title', 'RubyInstaller', 'README.txt']
+          rdoc = RDoc::RDoc.new
+          rdoc.document(default_opts + opts)
+  
+          images = File.join(op_dir, 'images')
+          js = File.join(op_dir, 'js')
+  
+          cp_r(images, target) if File.exist?(images)
+          cp_r(js, target) if File.exist?(js)
+  
+          cp File.join(op_dir, 'rdoc.css'), target
+          cp File.join(op_dir, 'README_txt.html'), index
+        end
       end
 
-      meta_chm = OpenStruct.new(
-        :title => "Ruby #{package.version} Help file",
-        :file  => File.join(target, "#{version.to_s}.chm")
-      )
-
-
-      file meta_chm.file => :readme do
+      file meta_chm.file, 
+        :needs => File.join(target, 'index.html') do
+        
         cd target do
           
           meta_chm.files = Dir['*.html']
@@ -129,7 +134,6 @@ interpreters.each do |package|
           Dir[source].each do |rhtml_file| 
           
             File.open(File.basename(rhtml_file, '.rhtml'),'w+') do |output_file|
-              p rhtml_file
               output = ERB.new(File.read(rhtml_file), 0).result(binding)
               output_file.write(output)
             end
@@ -142,19 +146,17 @@ interpreters.each do |package|
 
       end
      
-      task :meta_doc => meta_chm.file
     end
 
     task :clobber_docs do
       rm_rf target
     end
-     
+    
     desc "build docs for #{version}"
-    task :docs => ["docs:htmlhelp", "#{version}:docs:docs", "#{version}:docs:meta_doc"]
-
+    task :docs, :needs => ["docs:htmlhelp", "docs:rdocs", meta_chm.file]
 
     desc "rebuild docs for #{version}"
-    task :redocs => [:clobber_docs, :docs]
+    task :redocs, :needs => [:clobber_docs, :docs]
 
   end
 
