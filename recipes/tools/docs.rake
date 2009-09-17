@@ -6,7 +6,7 @@ interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19]
 begin
   gem 'rdoc', '>= 2.4.0'
   require 'rdoc/rdoc'
-  gem 'rdoc_chm', '>= 2.4.0'
+  gem 'rdoc_chm', '>= 2.4.2'
 rescue Gem::LoadError
   if Rake.application.options.show_tasks
     puts "You need the rdoc and rdoc_chm gems installed"
