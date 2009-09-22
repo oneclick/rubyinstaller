@@ -1,9 +1,52 @@
-* Generate manifest information for following components:
-  # Sandboxed Ruby (sandbox/ruby_mingw)
-  # MinGW (GCC and binutils)
-  # MSYS
+Laundry Checklist
 
-* Try getting Readline 5.0 (or 5.2) working and passing all test
-  (test/test_readline.rb)
+Release Candidate 1 / 2009-09-27
 
-* Implements all the dependencies required by Setup.nt extensions.
+[ ] Ruby
+  [ ] Dependencies
+    [*] Bugfixes for rb-readline (Luis)
+    [ ] Updated OpenSSL (from forked repository)
+  [ ] Cleanup recipes (from forked repository)
+
+[ ] Installer
+  [ ] Signed Installers
+  [ ] Fix PATH prepend issues during uninstall
+  [ ] Ensure .rb/.rbw association is restored during uninstall
+
+Release Candidate 2
+
+[ ] Write better README than one in repository. State virtues and limitations
+[ ] Installer
+  [ ] Integrate modular installer recipes
+  [ ] Better Links for Documentation folder (use GitHub Issues and rank them)
+
+Roadmap Features / No ETA
+
+[ ] Documentation
+  [ ] move config stuff from recipes/tools/docs.rake to config/ruby_installer.rb
+
+[ ] Installer
+  [ ] Detect previous installation of application and offer removal
+
+[ ] Website
+  [ ] Complete HTML + CSS templates (Pavel)
+  [ ] Prototype HTML + CSS templates and solicit final feedback
+
+[ ] Infrastructure
+  [ ] Complete and test new recipe DSL
+
+[ ] Development Kit (DevKit gem)
+  [ ] Update recipes for GCC 3.4.5 r3 and MSYS 1.0.11 (using new DSL)
+  [ ] Wrap recipes in DevKit gem
+    [ ] Installation mechanism independent of Ruby installation
+    [ ] Simplified update
+    [ ] Simplified switch of different GCC versions
+  [ ] Testing
+
+[ ] Ruby
+  [ ] Extend build process to cover other extensions from Setup.nt
+
+--
+
+X = Completed
+* = Partially implemented
