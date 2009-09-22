@@ -4,12 +4,12 @@ Release Candidate 1 / 2009-09-27
 
 [ ] Ruby
   [ ] Dependencies
-    [*] Bugfixes for rb-readline (Luis)
-    [ ] Updated OpenSSL (from forked repository)
-  [ ] Cleanup recipes (from forked repository)
+    [X] Bugfixes for rb-readline (Luis)
+    [X] Updated OpenSSL (from forked repository)
+  [*] Cleanup recipes (from forked repository)
 
 [ ] Installer
-  [ ] Signed Installers
+  [*] Signed Installers
   [ ] Fix PATH prepend issues during uninstall
   [ ] Ensure .rb/.rbw association is restored during uninstall
 
