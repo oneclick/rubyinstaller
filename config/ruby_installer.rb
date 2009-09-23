@@ -72,7 +72,8 @@ module RubyInstaller
         'zlib1.dll',
         'libiconv2.dll',
         'pdcurses.dll',
-        'gdbm3.dll'
+        'gdbm3.dll',
+        'dbm3.dll'
       ]
     )
 
@@ -95,7 +96,8 @@ module RubyInstaller
         'zlib1.dll',
         'libiconv2.dll',
         'pdcurses.dll',
-        'gdbm3.dll'
+        'gdbm3.dll',
+        'dbm3.dll'
       ]
     )
 

@@ -33,11 +33,14 @@ namespace(:dependencies) do
     task :prepare => [package.target] do
       # gdbm needs some adjustments.
       # move gdbm-dll.h from source to include
+      # move ndbm.h from source to include
+      # move dbm.h from source to include
       cd File.join(RubyInstaller::ROOT, package.target) do
-        files = Dir.glob(File.join('src', 'gdbm', '*', 'gdbm-*-src', 'gdbm-dll.h'))
-        fail "Multiple gdbm-dll.h files found." unless files.size == 1
-        gdbm_dll_h = files[0]
-        cp gdbm_dll_h, 'include'
+        ['gdbm-dll.h', 'ndbm.h', 'dbm.h'].each do |file|
+          files = Dir.glob(File.join('src', 'gdbm', '*', 'gdbm-*-src', file))
+          fail "#{files.size} #{file} files found." unless files.size == 1
+          cp files[0], 'include'
+        end
       end
     end
   end
