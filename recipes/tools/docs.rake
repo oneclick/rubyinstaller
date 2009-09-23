@@ -32,132 +32,124 @@ EOT
     end
   end
 end
-interpreters.each do |package|
 
+interpreters.each do |package|
   short_ver    = package.version.gsub('.', '')[0..1]
-  version      = "ruby#{short_ver}"  
+  version      = "ruby#{short_ver}"
   version_dir  = File.basename(package.target)
   doc_dir      = File.join(RubyInstaller::ROOT, 'sandbox', 'doc')
   target       = File.join(doc_dir, version_dir)
-  
+
   core_glob    = File.join(RubyInstaller::ROOT, package.target, "*.c")
-  core_files   = Dir[core_glob].map{|f| File.basename(f) }
-  
+  core_files   = Dir.glob(core_glob).map{ |f| File.basename(f) }
+
   stdlib_files = ['./lib', './ext']
 
+  default_opts = ['--line-numbers', '--format=chm']
 
-  namespace(version) do
+  # build file dependencies
+  rdocs = [
+    {
+      :file  => "#{version}-core.chm",
+      :title => "Ruby #{package.version} Core",
+      :files => core_files,
+    },
+    {
+      :file  => "#{version}-stdlib.chm",
+      :title => "Ruby #{package.version} Standard Library",
+      :files => stdlib_files,
+      :opts  => ["-x", "./lib/rdoc"]
+    }
+  ]
 
-    rdocs=[
-            {
-              :file  => "#{version}-core.chm",
-              :title => "Ruby #{package.version} Core",
-              :files => core_files,
-            },
-            {
-              :file  => "#{version}-stdlib.chm",
-              :title => "Ruby #{package.version} Standard Library",
-              :files => stdlib_files,
-              :opts  => ["-x", "./lib/rdoc"]
-            }
-          ]
+  meta_chm = OpenStruct.new(
+    :title => "Ruby #{package.version} Help file",
+    :file  => File.join(target, "#{version}.chm")
+  )
 
-      meta_chm = OpenStruct.new(
-        :title => "Ruby #{package.version} Help file",
-        :file  => File.join(target, "#{version}.chm")
-      )
-        
-    namespace(:docs) do
-      
-      default_opts = ['--line-numbers', '--format=chm']
+  rdocs.each do |chm|
+    chm_file = File.join(target, chm[:file])
 
-      rdocs.each do |chm|
-        
-        chm_file = File.join(target,chm[:file])
-        
-        file chm_file do
-          cd package.target do
-            dirname = File.basename(chm_file,'.chm')
-            op_dir  = File.join(target, dirname)
-            title   = "#{chm[:title]} API Reference"
-            
-            # create documentation          
-            args = default_opts + 
-                  (chm[:opts] || []) + 
-                  ['--title', title ,'--op',op_dir] + 
-                  chm[:files]  
-                  
-            rdoc = RDoc::RDoc.new
-            rdoc.document(args)
-            
-            
-            cp File.join(op_dir, File.basename(chm[:file])), chm_file
-          end
-        end
-        
-        task :rdocs, :needs => chm_file
+    file chm_file do
+      cd package.target do
+        dirname = File.basename(chm_file, '.chm')
+        op_dir  = File.join(target, dirname)
+        title   = "#{chm[:title]} API Reference"
 
+        # create documentation
+        args = default_opts + 
+              (chm[:opts] || []) +
+              ['--title', title, '--op', op_dir] +
+              chm[:files]
+
+        rdoc = RDoc::RDoc.new
+        rdoc.document(args)
+
+        cp File.join(op_dir, File.basename(chm[:file])), chm_file
       end
-      
-      index = File.join(target, 'index.html')
-      
-      file index do
-        cd target do
-          cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README.txt'), '.'
-          op_dir = File.join(target, 'README')
-  
-          # create documentation
-          opts = ['--op', op_dir,'--title', 'RubyInstaller', 'README.txt']
-          rdoc = RDoc::RDoc.new
-          rdoc.document(default_opts + opts)
-  
-          images = File.join(op_dir, 'images')
-          js = File.join(op_dir, 'js')
-  
-          cp_r(images, target) if File.exist?(images)
-          cp_r(js, target) if File.exist?(js)
-  
-          cp File.join(op_dir, 'rdoc.css'), target
-          cp File.join(op_dir, 'README_txt.html'), index
-        end
-      end
-
-      file meta_chm.file, 
-        :needs => File.join(target, 'index.html') do
-        
-        cd target do
-          
-          meta_chm.files = Dir['*.html']
-          meta_chm.merge_files = Dir['*.chm']
-          source = File.join(RubyInstaller::ROOT, 'resources', 'chm', '*.rhtml')
-          
-          Dir[source].each do |rhtml_file| 
-          
-            File.open(File.basename(rhtml_file, '.rhtml'),'w+') do |output_file|
-              output = ERB.new(File.read(rhtml_file), 0).result(binding)
-              output_file.write(output)
-            end
-          
-          end
-  
-          Dir['*.hhp'].each{|hhp| system(RDoc::Generator::CHM::HHC_PATH, hhp) }
-        
-        end
-
-      end
-     
     end
 
+    # meta package depends on individual chm files
+    file meta_chm.file, :needs => [chm_file]
+  end
+
+  # generate index
+  index = File.join(target, 'index.html')
+
+  file index do
+    cd target do
+      cp File.join(RubyInstaller::ROOT, 'resources', 'chm', 'README.txt'), '.'
+      op_dir = File.join(target, 'README')
+
+      # create documentation
+      opts = ['--op', op_dir, '--title', 'RubyInstaller', 'README.txt']
+      rdoc = RDoc::RDoc.new
+      rdoc.document(default_opts + opts)
+
+      images = File.join(op_dir, 'images')
+      js = File.join(op_dir, 'js')
+
+      cp_r(images, target) if File.exist?(images)
+      cp_r(js, target) if File.exist?(js)
+
+      cp File.join(op_dir, 'rdoc.css'), target
+      cp File.join(op_dir, 'README_txt.html'), index
+    end
+  end
+
+  # add index to the metapackge dependency
+  file meta_chm.file, :needs => [index]
+
+  # generate meta package
+  file meta_chm.file do
+    cd target do
+
+      meta_chm.files = Dir.glob('*.html')
+      meta_chm.merge_files = Dir.glob('*.chm')
+      source = File.join(RubyInstaller::ROOT, 'resources', 'chm', '*.rhtml')
+
+      Dir.glob(source).each do |rhtml_file|
+        File.open(File.basename(rhtml_file, '.rhtml'), 'w') do |output_file|
+          output = ERB.new(File.read(rhtml_file), 0).result(binding)
+          output_file.write(output)
+        end
+      end
+
+      Dir.glob('*.hhp').each do |hhp|
+        system RDoc::Generator::CHM::HHC_PATH, hhp
+      end
+    end
+  end
+
+  namespace version do
     task :clobber_docs do
       rm_rf target
     end
-    
+
     desc "build docs for #{version}"
-    task :docs, :needs => ["docs:htmlhelp", "docs:rdocs", meta_chm.file]
+    task :docs, :needs => ['docs:htmlhelp', meta_chm.file]
 
     desc "rebuild docs for #{version}"
     task :redocs, :needs => [:clobber_docs, :docs]
-
   end
-
 end
