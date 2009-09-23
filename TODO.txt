@@ -2,16 +2,17 @@ Laundry Checklist
 
 Release Candidate 1 / 2009-09-27
 
-[ ] Ruby
-  [ ] Dependencies
+[X] Ruby
+  [X] Dependencies
     [X] Bugfixes for rb-readline (Luis)
     [X] Updated OpenSSL (from forked repository)
-  [*] Cleanup recipes (from forked repository)
+    [X] Bring GDBM (from forked repository)
+  [X] Cleanup recipes (from forked repository)
 
 [ ] Installer
-  [*] Signed Installers
+  [*] Signed Installers (Luis)
   [ ] Fix PATH prepend issues during uninstall
-  [ ] Ensure .rb/.rbw association is restored during uninstall
+  [*] Ensure .rb/.rbw association is restored during uninstall (Jon)
 
 Release Candidate 2
 
