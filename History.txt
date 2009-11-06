@@ -9,12 +9,6 @@
 
 === preview2 / 2009-08-16
 
-* Installers no longer require admin rights. Fixes #26474
-* Give priority to Ruby in the PATH. Fixes #26534
-* Cleared warning when building Ruby (1.9 uses Winsock2 by default). [deepj]
-* Solve issues with broken SourceForge mirrors (CGI unescape). GH-3 [rogerdpack]
-* Bundles Core and Standard Library documentation as CHM. Feature Request #16782 [vertiginous]
-=======
 * New features:
   * Bundles Core and Standard Library documentation as CHM.
     Feature Request #16782 [vertiginous]
