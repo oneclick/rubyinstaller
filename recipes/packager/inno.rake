@@ -33,12 +33,13 @@ module InnoSetup
     cmd << "/dRubyPath=#{options[:ruby_path]}"
     cmd << "/o#{options[:output]}" if options[:output]
     cmd << "/f#{options[:filename]}" if options[:filename]
+    cmd << '/s"risigntool=signtool.exe $p"' if options[:sign]
 
     sh cmd.join(' ')
   end
 end
 
-# A fake task for now that ensures innosetup is no the PATH,
+# A fake task for now that ensures innosetup is on the PATH,
 # and if not, add %ProgramFiles%\Inno Setup 5
 task :innosetup do
   unless InnoSetup.present?
@@ -49,6 +50,31 @@ task :innosetup do
   end
 
   fail "You need InnoSetup installed" unless InnoSetup.present?
+end
+
+# Certificate signing tool (signtool.exe) check
+# TODO: move this out
+
+module SignTool
+  EXECUTABLE = "signtool.exe"
+
+  def self.present?
+    ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+      return true if File.exist?(File.join(path, EXECUTABLE)) && File.executable?(File.join(path, EXECUTABLE))
+    end
+    false
+  end
+end
+
+task :signtool do
+  unless SignTool.present?
+    fail "You need #{SignTool::EXECUTABLE} present to sign your installer"
+  end
+end
+
+# if SIGNED was specified, chain signtool verification to innosetup check
+if ENV['SIGNED'] then
+  task :innosetup, :needs => [:signtool]
 end
 
 directory 'pkg'
@@ -86,7 +112,8 @@ directory 'pkg'
         :ruby_patch   => info[:patchlevel],
         :ruby_path    => pkg.install_target,
         :output       => 'pkg',
-        :filename     => installer_pkg
+        :filename     => installer_pkg,
+        :sign         => ENV['SIGNED']
       )
     end
 

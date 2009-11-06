@@ -3,6 +3,9 @@
 * Enhancements:
   * Upgraded pure-ruby Readline to 0.2.0
   * Bundle OpenSSL 0.9.8k in cooperative mode (MSVCRT build) [snaury]
+  * Installers now offer option to modify PATH [jonforums]
+  * Installers now register file association [jonforums]
+  * Installers that you can trust: shipping now signed
 
 === preview2 / 2009-08-16
 
