@@ -1,4 +1,4 @@
-=== rc1
+=== rc1 / 2009-11-10
 
 * Enhancements:
   * Upgraded pure-ruby Readline to 0.2.0
