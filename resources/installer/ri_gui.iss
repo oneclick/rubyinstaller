@@ -1,7 +1,7 @@
 // RubyInstaller Inno Setup GUI Customizations
 //
 // Copyright (c) 2009 Jon Maken
-// Revision: 11/04/2009 11:07:27 AM
+// Revision: 11/23/2009 3:35:36 PM
 // License: MIT
 
 var
@@ -15,6 +15,34 @@ end;
 function IsModifyPath(): Boolean;
 begin
   Result := PathChkBox.Checked;
+end;
+
+procedure ParseSilentTasks();
+var
+  I, N: Integer;
+  Param: String;
+  Tasks: TStringList;
+begin
+  {* parse command line args for silent install tasks *}
+  for I := 0 to ParamCount do
+  begin
+    Param := AnsiUppercase(ParamStr(I));
+    if Pos('/TASKS', Param) <> 0 then
+    begin
+      Param := Trim(Copy(Param, Pos('=', Param) + 1, Length(Param)));
+      try
+        // TODO check for too many tasks to prevent overflow??
+        Tasks := StrToList(Param, ',');
+        for N := 0 to Tasks.Count - 1 do
+          case Trim(Tasks.Strings[N]) of
+            'MODPATH': PathChkBox.State := cbChecked;
+            'ASSOCFILES': PathExtChkBox.State := cbChecked;
+          end;
+      finally
+        Tasks.Free;
+      end;
+    end;
+  end;
 end;
 
 procedure URLText_OnClick(Sender: TObject);
@@ -62,6 +90,8 @@ begin
   PathExtChkBox.Left := ScaleX(18);
   PathExtChkBox.Width := Page.SurfaceWidth;
   PathExtChkBox.Height := ScaleY(17);
+
+  ParseSilentTasks;
 
 
   {* Labels and links back to RubyInstaller project pages *}
