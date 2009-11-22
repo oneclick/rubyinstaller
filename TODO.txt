@@ -6,6 +6,7 @@ Release Candidate 2
 [ ] User requested features (http://answers.polldaddy.com/poll/2233856/)
 [ ] Installer
   [ ] Integrate modular installer recipes
+  [ ] Allow installer to accept flags in silent installations (Jon)
   [ ] Better Links for Documentation folder (use GitHub Issues and rank them)
 
 Roadmap Features / No ETA
