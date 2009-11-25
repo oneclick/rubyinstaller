@@ -2,24 +2,24 @@ Laundry Checklist
 
 Release Candidate 2
 
-[ ] Write better README than one in repository. State virtues and limitations
-[ ] User requested features (http://answers.polldaddy.com/poll/2233856/)
+[*] User requested features (http://answers.polldaddy.com/poll/2233856/)
 [ ] Installer
-  [ ] Integrate modular installer recipes
-  [ ] Allow installer to accept flags in silent installations (Jon)
+  [*] Allow installer to accept flags in silent installations (Jon)
   [ ] Better Links for Documentation folder (use GitHub Issues and rank them)
 
 Roadmap Features / No ETA
 
 [ ] Documentation
+  [ ] Write better README than one in repository. State virtues and limitations
   [ ] move config stuff from recipes/tools/docs.rake to config/ruby_installer.rb
 
 [ ] Installer
   [ ] Detect previous installation of application and offer removal
+  [ ] Integrate modular installer recipes
 
 [ ] Website
-  [ ] Complete HTML + CSS templates (Pavel)
-  [ ] Prototype HTML + CSS templates and solicit final feedback
+  [X] Complete HTML + CSS templates (Pavel)
+  [*] Prototype HTML + CSS templates and solicit final feedback
 
 [ ] Infrastructure
   [ ] Complete and test new recipe DSL
