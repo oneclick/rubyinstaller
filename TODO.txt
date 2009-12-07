@@ -32,6 +32,8 @@ Roadmap Features / No ETA
     [ ] Simplified switch of different GCC versions
   [ ] Testing
 
+[ ] Binary debug RubyInstaller builds to aid bug root cause identification
+
 [ ] Ruby
   [ ] Extend build process to cover other extensions from Setup.nt
 
