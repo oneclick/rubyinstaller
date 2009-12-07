@@ -1,3 +1,8 @@
+=== (in Git)
+
+* Enhancements:
+  * Improved silent installations [jonforums]
+
 === rc1 / 2009-11-10
 
 * Enhancements:
