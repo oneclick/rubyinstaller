@@ -1,63 +1,75 @@
-== MinGW Ruby Installer: Bootstrapping Recipes
+== MinGW RubyInstaller: Bootstrapping Build Recipes
 
-This project attempts to generate a development sandbox that will be used to
-compile Ruby and it's components using MinGW tools. Our goal is to offer a 
-simplified way to boost your productivity and ease the path for anyone who 
-would like to contribute to the Ruby Installer for Windows.
+This project attempts to generate a development sandbox that can be used to
+compile Ruby and it's components using the freely available MinGW toolchain.
+Our goal is to offer a simplified way to boost your productivity when building
+Ruby from source code on your Windows system, and ease the path for anyone
+wishing to contribute to the RubyInstaller for Windows project.
 
-These are a work-in-progress collection of Rake recipes that download, compile
-and check MinGW utils required to build Ruby (1.8 and 1.9 at this time) and it's 
-dependencies.
+This project is a work-in-progress collection of Rake build recipes that download
+and verify the MinGW utilities required to compile and build a Ruby interpreter
+(MRI 1.8 and 1.9 at this time) and it's core components and dependencies.
 
-It depends on Rake (a Ruby make tool) and you can find most of the recipes for
-each component inside recipes/ directory.
+=== 7 Second Quick Start:
 
-Layout and organization explained:
+Ensure you are connected to the Internet, open a Command Prompt, 'cd' to the
+project root directory, and type one of:
 
-The recipes are distributed in the following layout:
+rake          # builds MRI 1.8.6
+rake ruby19   # builds MRI 1.9.1
 
-compiler/*.rake: here resides the recipes to download and prepare the compiler
-to be used to build the interpreter (MinGW for now).
+=== Project Directory Organization:
 
-interpreter/*.rake: the idea is to provide a series of recipes that would allow 
-one to build other interpreters besides Matz's Ruby (Rubinius, JRuby, etc).
+The Rake build recipes are distributed inside the project's recipes/ directory
+using the following sub-directory structure:
 
-dependencies/*.rake: this contains the dependencies needed to be downloaded,
+compiler/*.rake: the recipes to download and prepare the native code compiler
+(MinGW for now) that will be used to build the Ruby interpreter.
+
+dependencies/*.rake: the recipes contains the dependencies needed to be downloaded,
 compiled and included for the interpreter to work properly. At this time zlib,
-rb-readline,  gdbm, iconv, pdcurses, and openssl are included.
+rb-readline, gdbm, iconv, pdcurses, and openssl are included.
 
-packager/*.rake: here we will store the basic recipes to generate installer
-packages (using the Innosetup toolset) or any other kind of package.
+extract_utils/*.rake: the low-level archive extraction utility recipes used by
+other core build recipes.
 
-tools/*.rake: this is where the additional components of the installer are 
-located.  Currently, there are recipes for the rubygems package management
-system, an RDoc based MS HTML Help file, and the book "The Little Book of Ruby"
+interpreter/*.rake: the recipes to build the Matz's Ruby Interpreter and, in 
+the future, other Ruby interpreters (Rubinius, JRuby, etc).
+
+packager/*.rake: the recipes use to generate Windows installer packages
+(currently the Innosetup toolset) and other kinds of packages.
+
+tools/*.rake: the recipes for the additional components of the installer.
+Currently, recipes exist for the RubyGems package management system, the creation
+of RDoc-based MS HTML Help (CHM) files, and the book "The Little Book of Ruby"
 courtesy of Huw Collingbourne.
 
 === Requirements:
 
-At this time you require to have a working Ruby installation (current stable
-One-Click installer release is enough).
+At this time you need to have a working Ruby installation (the current stable
+One-Click Installer release is enough).
 
-In case you don't use OCI for this, you need:
+In case you don't have the OCI installed, you will need:
 
-- Ruby 1.8.5 at least (mswin32 or mingw32 implementation will work) -- Not cygwin!
+- Ruby 1.8.5 or greater (mswin32 or mingw32 implementation will work) -- Not cygwin!
 - Rake 0.7.3 or greater
 - Zlib extension and DLL (zlib1.dll) available in the PATH (could be in system32
 or your Ruby bin directory)
 
-Innosetup 5 is required to compile the installer. The InnoSetup QuickStart Pack 
-5.3.3 contains all of the required components.
+Innosetup 5 is required to compile and build the Windows installer. The InnoSetup
+QuickStart Pack 5.3.3+ contains all of the required components.
 
-=== Build options:
-without specifying any options, 1.8.6 is built.
+=== Build Task Examples:
+
+rake                             # builds 1.8.6 [default build task]
+rake ruby18                      # builds 1.8.6
 rake ruby19                      # builds 1.9.1
 rake CHECKOUT=1                  # builds 1.8.6 svn latest
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.2dev).
 
-NOTE: Avoid extracting this project into a PATH with spaces, MSYS has issues
-mounting fstab for MinGW.
+NOTE: Avoid extracting this project into a PATH containing spaces as the MSYS
+environment has issues correctly mounting /etc/fstab entries for MinGW.
 
-NOTE: On Vista, run the rake task from an administrator command prompt or "/bin/patch"
-will fail during the build.
+NOTE: On Vista or Windows 7, run the rake task from an administrator command
+prompt or "/bin/patch" will fail during the build.
