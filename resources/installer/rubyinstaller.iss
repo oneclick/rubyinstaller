@@ -73,7 +73,9 @@ WizardSmallImageFile={#SourcePath}\wizard-logo.bmp
 PrivilegesRequired=lowest
 ChangesAssociations=yes
 ChangesEnvironment=yes
+#if Defined(risigntool)
 SignTool=risigntool sign /a /d $q{#InstallerName}$q /du $q{#InstallerHomepage}$q /t $qhttp://timestamp.comodoca.com/authenticode$q $f
+#endif
 
 [Languages]
 Name: en; MessagesFile: compiler:Default.isl
