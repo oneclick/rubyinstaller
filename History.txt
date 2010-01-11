@@ -2,6 +2,10 @@
 
 * Enhancements:
   * Improved silent installations [jonforums]
+  * Lowered privileges (high UAC will no longer prompt unless forced)
+
+* Bugfixes:
+  * Modify and cleanup File associations properly for non-admins
 
 === rc1 / 2009-11-10
 
