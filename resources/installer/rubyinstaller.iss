@@ -73,7 +73,7 @@ WizardSmallImageFile={#SourcePath}\wizard-logo.bmp
 PrivilegesRequired=lowest
 ChangesAssociations=yes
 ChangesEnvironment=yes
-#if Defined(risigntool)
+#if Defined(SignPackage) == 1
 SignTool=risigntool sign /a /d $q{#InstallerName}$q /du $q{#InstallerHomepage}$q /t $qhttp://timestamp.comodoca.com/authenticode$q $f
 #endif
 

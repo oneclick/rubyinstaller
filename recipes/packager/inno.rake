@@ -33,7 +33,10 @@ module InnoSetup
     cmd << "/dRubyPath=#{options[:ruby_path]}"
     cmd << "/o#{options[:output]}" if options[:output]
     cmd << "/f#{options[:filename]}" if options[:filename]
-    cmd << '/s"risigntool=signtool.exe $p"' if options[:sign]
+    if options[:sign] then
+      cmd << "/dSignPackage=1"
+      cmd << '/s"risigntool=signtool.exe $p"' 
+    end
 
     sh cmd.join(' ')
   end
