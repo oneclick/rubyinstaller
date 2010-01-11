@@ -51,7 +51,7 @@ procedure ModifyPathish(NewData: Array of String; RegValue, Delim: String);
 var
   NeedRegChange: Boolean;
   RootKey: Integer;
-  SubKey, OrigData, NewPathish, Tmp: String;
+  SubKey, OrigData, NewPathish, Tmp, TmpExpandable: String;
   PathishList: TStringList;
 begin
   RootKey := GetUserHive;
@@ -60,6 +60,13 @@ begin
   try
     RegQueryStringValue(RootKey, SubKey, RegValue, OrigData);
     Log('Original ' + AnsiUppercase(RegValue) + ': ' + OrigData);
+
+    // ensure originally empty users PATHEXT also contains system values
+    if (RootKey = HKCU) and (AnsiUppercase(RegValue) = 'PATHEXT') and (OrigData = '') then
+    begin
+      Log('Empty HKCU ' + AnsiUppercase(RegValue) + ', prepending %PATHEXT% to new value');
+      OrigData := ('%' + RegValue + '%');
+    end;
 
     PathishList := StrToList(OrigData, Delim);
 
@@ -80,7 +87,9 @@ begin
       begin
         if RegQueryStringValue(RootKey, SubKey, RegValue, Tmp) then
         begin
-          if Tmp = '' then
+          // If the key is empty or expandable version (%RegValue%), remove it.
+          TmpExpandable := '%' + RegValue + '%';
+          if (Tmp = '') or (Tmp = TmpExpandable) then
           begin
             RegDeleteValue(RootKey, SubKey, RegValue);
             Log('uninstaller deleted empty ' + AnsiUppercase(RegValue) +
