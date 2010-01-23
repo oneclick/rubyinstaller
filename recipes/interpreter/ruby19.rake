@@ -50,14 +50,14 @@ namespace(:interpreter) do
       when ENV['LOCAL']
         cp_r(File.join(ENV['LOCAL'], '.'), package.target, :verbose => true, :remove_destination => true)
       when ENV['CHECKOUT']
+        cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
+      else
         # grab the files from the download task
         files = Rake::Task['interpreter:ruby19:download'].prerequisites
 
         files.each { |f|
           extract(File.join(RubyInstaller::ROOT, f), package.target)
         }
-      else
-        cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
       end
     end
 
