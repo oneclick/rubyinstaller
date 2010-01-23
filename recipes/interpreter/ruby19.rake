@@ -35,8 +35,10 @@ namespace(:interpreter) do
       end
     end
 
-    task :download_or_checkout do
-      if ENV['CHECKOUT'] then
+    task :sources do
+      case
+      when ENV['LOCAL']
+      when ENV['CHECKOUT']
         Rake::Task['interpreter:ruby19:checkout'].invoke
       else
         Rake::Task['interpreter:ruby19:download'].invoke
@@ -44,11 +46,13 @@ namespace(:interpreter) do
     end
 
     task :extract => [:extract_utils, package.target] do
-      # grab the files from the download task
-      files = Rake::Task['interpreter:ruby19:download'].prerequisites
+      case
+      when ENV['LOCAL']
+        cp_r(File.join(ENV['LOCAL'], '.'), package.target, :verbose => true, :remove_destination => true)
+      when ENV['CHECKOUT']
+        # grab the files from the download task
+        files = Rake::Task['interpreter:ruby19:download'].prerequisites
 
-      # use the checkout copy instead of the packaged file
-      unless ENV['CHECKOUT']
         files.each { |f|
           extract(File.join(RubyInstaller::ROOT, f), package.target)
         }
@@ -56,7 +60,6 @@ namespace(:interpreter) do
         cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
       end
     end
-    ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
 
     task :prepare => [package.build_target] do
       cd RubyInstaller::ROOT do
@@ -168,7 +171,7 @@ task :ruby19 => [:compiler, :dependencies]
 
 desc "compile Ruby 1.9"
 task :ruby19 => [
-  'interpreter:ruby19:download_or_checkout',
+  'interpreter:ruby19:sources',
   'interpreter:ruby19:extract',
   'interpreter:ruby19:prepare',
   'interpreter:ruby19:configure',
