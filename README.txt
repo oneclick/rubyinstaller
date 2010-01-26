@@ -55,6 +55,7 @@ rake ruby19                      # builds 1.9.1
 rake CHECKOUT=1                  # builds 1.8.6 svn latest
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.2dev).
+rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
 
 NOTE: Avoid extracting this project into a PATH with spaces, MSYS has issues
 mounting fstab for MinGW.
