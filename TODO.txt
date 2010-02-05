@@ -3,11 +3,10 @@ Laundry Checklist
 Release Candidate 2
 
 [X] User requested features (http://answers.polldaddy.com/poll/2233856/)
-[ ] Split batch files for irb, erb, etc under Ruby 1.9 release (Luis)
-[ ] Installer
-  [*] Allow installer to accept flags in silent installations (Jon)
-  [ ] Better management of user-level PATHEXT variable (Jon)
-  [ ] Better Links for Documentation folder (use GitHub Issues and rank them)
+[X] Split batch files for irb, erb, etc under Ruby 1.9 release (Luis)
+[X] Installer
+  [X] Allow installer to accept flags in silent installations (Jon)
+  [X] Better management of user-level PATHEXT variable (Jon)
 
 Roadmap Features / No ETA
 
@@ -18,6 +17,7 @@ Roadmap Features / No ETA
 [ ] Installer
   [ ] Detect previous installation of application and offer removal
   [ ] Integrate modular installer recipes
+  [ ] Better Links for Documentation folder (use GitHub Issues and rank them)
 
 [ ] Website
   [X] Complete HTML + CSS templates (Pavel)
