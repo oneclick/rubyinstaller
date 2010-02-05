@@ -1,4 +1,4 @@
-=== (in Git)
+=== rc2 / 2010-02-10
 
 * Enhancements:
   * Improved silent installations [jonforums]
