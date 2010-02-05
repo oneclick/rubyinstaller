@@ -4,6 +4,7 @@
   * Improved silent installations [jonforums]
   * Lowered privileges (high UAC will no longer prompt unless forced)
   * Upgraded Ruby 1.9.1 to patchlevel 378.
+  * Upgraded Ruby 1.8.6 to patchlevel 398.
 
 * Bugfixes:
   * Modify and cleanup File associations properly for non-admins
