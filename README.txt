@@ -63,6 +63,7 @@ QuickStart Pack 5.3.3+ contains all of the required components.
 
 rake                             # builds 1.8.6 [default build task]
 rake ruby18                      # builds 1.8.6
+rake ruby18 NEWER=1              # builds 1.8.7 instead of compatible 1.8.6
 rake ruby19                      # builds 1.9.1
 rake CHECKOUT=1                  # builds 1.8.6 svn latest
 rake LOCAL="c:\myruby18"         # builds 1.8.6 from sources at "c:\myruby18"

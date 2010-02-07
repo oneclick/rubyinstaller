@@ -77,6 +77,13 @@ module RubyInstaller
       ]
     )
 
+    # switch to Ruby 1.8.7 for "1.8" branch at runtime
+    if ENV['NEWER'] then
+      Ruby18.version = '1.8.7-p249'
+      Ruby18.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6'
+      Ruby18.files = ['ruby-1.8.7-p249.tar.bz2']
+    end
+
     Ruby19 = OpenStruct.new(
       :version => "1.9.1-p378",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
