@@ -42,9 +42,10 @@
 #define CurrentYear GetDateTimeString('yyyy', '', '')
 
 ; INCLUDE
-; Include version specific definitions
-#define InstallerSpecificFile "config-" + RubyMajorMinor + ".iss"
-#include InstallerSpecificFile
+; Include dynamically created version specific definitions
+#include "config.iss"
+
+#define RubyInstallerId "MRI (" + RubyVersion + ")"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -135,8 +136,42 @@ Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
 #include "util.iss"
 #include "ri_gui.iss"
 
+procedure ModifyIdentification(const InstallerID: String; const IsInstalling: Boolean);
+var
+  RootKey: Integer;
+  SubKeyBase, SubKey: String;
+begin
+  RootKey := GetUserHive;
+  SubKeyBase := 'Software\RubyInstaller';
+  SubKey := SubKeyBase + '\' + InstallerID;
+
+  if IsInstalling then
+  begin
+    // TODO revisit unconditional delete when implementing existing
+    // installer detection/removal logic and upgrade/patch installers
+    if RegDeleteKeyIncludingSubkeys(RootKey, SubKey) then
+      Log('Deleted existing RubyInstaller 3rd-party info key ' + SubKey);
+
+    RegWriteStringValue(RootKey, SubKey, 'InstallLocation', ExpandConstant('{app}'));
+    RegWriteStringValue(RootKey, SubKey, 'InstallDate', GetDateTimeString('yyyymmdd', #0 , #0));
+    RegWriteStringValue(RootKey, SubKey, 'PatchLevel', ExpandConstant('{#RubyPatch}'));
+    RegWriteStringValue(RootKey, SubKey, 'BuildToolchain', 'mingw');
+    Log('Added RubyInstaller 3rd-party info values to ' + SubKey);
+  end else
+  begin
+    {* unconditionally delete RubyInstaller 3rd-party info when uninstalling *}
+    if RegDeleteKeyIncludingSubkeys(RootKey, SubKey) then
+      Log('Deleted RubyInstaller 3rd-party info key ' + SubKey);
+
+    if RegDeleteKeyIfEmpty(RootKey, SubKeyBase) then
+      Log('Deleted entire RubyInstaller 3rd-party info structure at ' + SubKeyBase);
+  end;
+end;
+
 procedure CurStepChanged(const CurStep: TSetupStep);
 begin
+
+  // TODO move into ssPostInstall just after install completes?
   if CurStep = ssInstall then
   begin
     if UsingWinNT then
@@ -148,10 +183,17 @@ begin
 
       if IsAssociated then
         ModifyFileExts(['.rb', '.rbw']);
+
     end else
       MsgBox('Looks like you''ve got on older, unsupported Windows version.' #13 +
              'Proceeding with a reduced feature set installation.',
              mbInformation, MB_OK);
+  end;
+
+  if CurStep = ssPostInstall then
+  begin
+    if UsingWinNT then
+      ModifyIdentification(ExpandConstant('{#RubyInstallerId}'), True);
   end;
 end;
 
@@ -162,6 +204,8 @@ begin
     SetPreviousData(PreviousDataKey, 'PathModified', 'yes');
   if IsAssociated then
     SetPreviousData(PreviousDataKey, 'FilesAssociated', 'yes');
+
+  SetPreviousData(PreviousDataKey, 'RubyInstallerId', ExpandConstant('{#RubyInstallerId}'));
 end;
 
 procedure CurUninstallStepChanged(const CurUninstallStep: TUninstallStep);
@@ -175,6 +219,8 @@ begin
 
       if GetPreviousData('FilesAssociated', 'no') = 'yes' then
         ModifyFileExts(['.rb', '.rbw']);
+
+      ModifyIdentification(ExpandConstant('{#RubyInstallerId}'), False);
     end;
   end;
 end;
