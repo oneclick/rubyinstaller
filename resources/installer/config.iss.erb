@@ -1,0 +1,11 @@
+; Ruby <%= version %> Configuration File.
+
+[Setup]
+AppId={<%= guid %>
+DefaultDirName={sd}\Ruby<%= version_xyz.gsub('.', '') %>
+
+[Files]
+Source: ..\..\sandbox\doc\ruby_<%= major_minor.sub('.', '_') %>\*.chm; DestDir: {app}\doc
+
+[Icons]
+Name: {group}\Documentation\Ruby <%= version %> API Reference; Filename: {app}\doc\ruby<%= major_minor.sub('.', '') %>.chm; Flags: createonlyiffileexists
