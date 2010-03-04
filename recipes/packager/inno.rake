@@ -1,3 +1,5 @@
+require 'erb'
+
 module RubyTools
   # read C definitions from 'target' file and return
   # a hash of values
@@ -14,32 +16,12 @@ end
 # TODO: port this to it's own innosetup recipe
 module InnoSetup
   EXECUTABLE = "iscc.exe"
-  # FIXME cleanup placeholders and test template bindings
-  VERSIONED_CONFIG =<<EOT
-; Ruby <%= options[:version] %> Configuration File.
-
-[Setup]
-AppId={<%= pkg.installer_guid %>
-DefaultDirName={sd}\Ruby<%= options[:version].sub('.', '') %>
-
-[Files]
-Source: ..\..\sandbox\doc\ruby_<%= major_minor.sub('.', '_') %>\*.chm; DestDir: {app}\doc
-
-[Icons]
-Name: {group}\Documentation\Ruby <%= options[:version] %> API Reference; Filename: {app}\doc\ruby<%= major_minor.sub('.', '') %>.chm; Flags: createonlyiffileexists
-EOT
 
   def self.present?
     ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
       return true if File.exist?(File.join(path, EXECUTABLE)) && File.executable?(File.join(path, EXECUTABLE))
     end
     false
-  end
-
-  # FIXME implement
-  def self.prepare(options={})
-    puts "creating v#{options[:version]} config.iss file..."
-    # TODO use erb/erubis VERSIONED_CONFIG template to write config file 
   end
 
   def self.iscc(script, *args)
@@ -105,6 +87,7 @@ directory 'pkg'
 [RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |pkg|
   if info = RubyTools.ruby_version(File.join(pkg.target, 'version.h'))
     version       = "#{info[:version]}-p#{info[:patchlevel]}"
+    version_xyz   = info[:version]
     major_minor   = info[:version][0..2]
     namespace_ver = major_minor.sub('.', '')
     version       << "-#{ENV['RELEASE']}" if ENV['RELEASE']
@@ -113,10 +96,19 @@ directory 'pkg'
     # FIXME remove config-#{major_minor}.iss as this file is dynamically
     #       created in installer file task below
     files = FileList[
-      "resources/installer/rubyinstaller.iss",
-      "resources/installer/config-#{major_minor}.iss",
-      'resources/installer/changes.txt'
+      'resources/installer/rubyinstaller.iss',
+      "resources/installer/config-#{version_xyz}.iss"
     ]
+
+    file "resources/installer/config-#{version_xyz}.iss",
+      :needs => ['resources/installer/config.iss.erb'] do |t|
+      guid = pkg.installer_guid
+      contents = ERB.new(File.read(t.prerequisites.first)).result(binding)
+
+      when_writing("Generating #{t.name}") do
+        File.open(t.name, 'w') { |f| f.write contents }
+      end
+    end
 
     file 'resources/installer/changes.txt', 
       :needs => ['pkg', 'History.txt'] do |t|
@@ -132,8 +124,6 @@ directory 'pkg'
     # installer
     file "pkg/#{installer_pkg}.exe",
       :needs => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
-
-      InnoSetup.prepare :ruby_version => info[:version]
 
       InnoSetup.iscc("resources/installer/rubyinstaller.iss",
         :ruby_version => info[:version],

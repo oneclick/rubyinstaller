@@ -43,7 +43,8 @@
 
 ; INCLUDE
 ; Include dynamically created version specific definitions
-#include "config.iss"
+#define InstallerConfigFile "config-" + RubyVersion + ".iss"
+#include InstallerConfigFile
 
 #define RubyInstallerId "MRI (" + RubyVersion + ")"
 
