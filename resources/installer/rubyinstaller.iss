@@ -46,7 +46,7 @@
 #define InstallerConfigFile "config-" + RubyVersion + ".iss"
 #include InstallerConfigFile
 
-#define RubyInstallerId "MRI (" + RubyVersion + ")"
+#define RubyInstallerId "MRI " + RubyVersion
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -126,6 +126,22 @@ Root: HKCU; Subkey: Software\Classes\RubyWFile; ValueType: string; ValueName: ; 
 Root: HKCU; Subkey: Software\Classes\RubyWFile\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\bin\rubyw.exe,0; Check: IsNotAdmin and IsAssociated
 Root: HKCU; Subkey: Software\Classes\RubyWFile\shell\open\command; ValueType: string; ValueData: """{app}\bin\rubyw.exe"" ""%1"" %*"; Check: IsNotAdmin and IsAssociated
 
+; RubyInstaller identification for admin
+Root: HKLM; Subkey: Software\RubyInstaller; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletekey; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: InstallLocation ; ValueData: {app}; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: InstallDate ; ValueData: {code:GetInstallDate}; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: PatchLevel ; ValueData: {#RubyPatch}; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: BuildPlatform ; ValueData: {#RubyBuildPlatform}; Check: IsAdmin
+
+; RubyInstaller identification for non-admin
+Root: HKCU; Subkey: Software\RubyInstaller; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletekey; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: InstallLocation ; ValueData: {app}; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: InstallDate ; ValueData: {code:GetInstallDate}; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: PatchLevel ; ValueData: {#RubyPatch}; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerId}; ValueType: string; ValueName: BuildPlatform ; ValueData: {#RubyBuildPlatform}; Check: IsNotAdmin
+
 [Icons]
 Name: {group}\Documentation\The Book of Ruby; Filename: {app}\doc\bookofruby.pdf; Flags: createonlyiffileexists
 Name: {group}\Interactive Ruby; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
@@ -137,36 +153,9 @@ Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
 #include "util.iss"
 #include "ri_gui.iss"
 
-procedure ModifyIdentification(const InstallerID: String; const IsInstalling: Boolean);
-var
-  RootKey: Integer;
-  SubKeyBase, SubKey: String;
+function GetInstallDate(Param: String): String;
 begin
-  RootKey := GetUserHive;
-  SubKeyBase := 'Software\RubyInstaller';
-  SubKey := SubKeyBase + '\' + InstallerID;
-
-  if IsInstalling then
-  begin
-    // TODO revisit unconditional delete when implementing existing
-    // installer detection/removal logic and upgrade/patch installers
-    if RegDeleteKeyIncludingSubkeys(RootKey, SubKey) then
-      Log('Deleted existing RubyInstaller 3rd-party info key ' + SubKey);
-
-    RegWriteStringValue(RootKey, SubKey, 'InstallLocation', ExpandConstant('{app}'));
-    RegWriteStringValue(RootKey, SubKey, 'InstallDate', GetDateTimeString('yyyymmdd', #0 , #0));
-    RegWriteStringValue(RootKey, SubKey, 'PatchLevel', ExpandConstant('{#RubyPatch}'));
-    RegWriteStringValue(RootKey, SubKey, 'BuildToolchain', 'mingw');
-    Log('Added RubyInstaller 3rd-party info values to ' + SubKey);
-  end else
-  begin
-    {* unconditionally delete RubyInstaller 3rd-party info when uninstalling *}
-    if RegDeleteKeyIncludingSubkeys(RootKey, SubKey) then
-      Log('Deleted RubyInstaller 3rd-party info key ' + SubKey);
-
-    if RegDeleteKeyIfEmpty(RootKey, SubKeyBase) then
-      Log('Deleted entire RubyInstaller 3rd-party info structure at ' + SubKeyBase);
-  end;
+  Result := GetDateTimeString('yyyymmdd', #0 , #0);
 end;
 
 procedure CurStepChanged(const CurStep: TSetupStep);
@@ -189,12 +178,6 @@ begin
       MsgBox('Looks like you''ve got on older, unsupported Windows version.' #13 +
              'Proceeding with a reduced feature set installation.',
              mbInformation, MB_OK);
-  end;
-
-  if CurStep = ssPostInstall then
-  begin
-    if UsingWinNT then
-      ModifyIdentification(ExpandConstant('{#RubyInstallerId}'), True);
   end;
 end;
 
@@ -221,7 +204,6 @@ begin
       if GetPreviousData('FilesAssociated', 'no') = 'yes' then
         ModifyFileExts(['.rb', '.rbw']);
 
-      ModifyIdentification(ExpandConstant('{#RubyInstallerId}'), False);
     end;
   end;
 end;
