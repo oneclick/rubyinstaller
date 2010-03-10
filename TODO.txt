@@ -18,6 +18,7 @@ Roadmap Features / No ETA
   [ ] Detect previous installation of application and offer removal
   [ ] Integrate modular installer recipes
   [ ] Better Links for Documentation folder (use GitHub Issues and rank them)
+  [ ] Make #define RubyBuildPlatform dynamic rather than hard-coded
 
 [ ] Website
   [X] Complete HTML + CSS templates (Pavel)
