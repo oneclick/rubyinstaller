@@ -117,7 +117,7 @@ module RubyInstaller
     Zlib = OpenStruct.new(
       :release => "official",
       :version => "1.2.3",
-      :url => "http://www.zlib.net",
+      :url => "http://github.com/downloads/oneclick/rubyinstaller",
       :target => RubyInstaller::MinGW.target,
       :files => [
         'zlib123-dll.zip'
