@@ -15,7 +15,7 @@ and verify the MinGW utilities required to compile and build a Ruby interpreter
 Ensure you are connected to the Internet, open a Command Prompt, 'cd' to the
 project root directory, and type one of:
 
-rake          # builds MRI 1.8.6
+rake          # builds MRI 1.8.7
 rake ruby19   # builds MRI 1.9.1
 
 === Project Directory Organization:
@@ -61,18 +61,23 @@ QuickStart Pack 5.3.3+ contains all of the required components.
 
 === Build Task Examples:
 
-rake                             # builds 1.8.6 [default build task]
-rake ruby18                      # builds 1.8.6
-rake ruby18 NEWER=1              # builds 1.8.7 instead of compatible 1.8.6
+rake                             # builds 1.8.7 [default build task]
+rake ruby18                      # builds 1.8.7
+rake ruby18 COMPAT=1             # builds 1.8.6
 rake ruby19                      # builds 1.9.1
-rake CHECKOUT=1                  # builds 1.8.6 svn latest
-rake LOCAL="c:\myruby18"         # builds 1.8.6 from sources at "c:\myruby18"
+rake CHECKOUT=1                  # builds 1.8.7 svn latest (branch ruby_1_8_7)
+rake LOCAL="c:\myruby18"         # builds 1.8.x from sources at "c:\myruby18"
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.2dev)
 rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
 
-NOTE: Avoid extracting this project into a PATH containing spaces as the MSYS
+You can combine COMPAT and CHECKOUT to build Ruby 1.8.6 directly from the
+Subversion repository.
+
+=== Known Issues
+
+Avoid running this project into a PATH containing spaces as the MSYS
 environment has issues correctly mounting /etc/fstab entries for MinGW.
 
-NOTE: On Vista or Windows 7, run the rake task from an administrator command
+On Vista or Windows 7, run the rake task from an administrator command
 prompt or "/bin/patch" will fail during the build.

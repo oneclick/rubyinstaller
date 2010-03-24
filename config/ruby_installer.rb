@@ -53,9 +53,9 @@ module RubyInstaller
     )
 
     Ruby18 = OpenStruct.new(
-      :version => "1.8.6-p398",
+      :version => '1.8.7-p249',
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
-      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6',
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_7',
       :checkout_target => 'downloads/ruby_1_8',
       :target => 'sandbox/ruby_1_8',
       :build_target => 'sandbox/ruby18_build',
@@ -66,7 +66,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.8.6-p398.tar.bz2'
+        'ruby-1.8.7-p249.tar.bz2'
       ],
       :dependencies => [
         'zlib1.dll',
@@ -78,10 +78,10 @@ module RubyInstaller
     )
 
     # switch to Ruby 1.8.7 for "1.8" branch at runtime
-    if ENV['NEWER'] then
-      Ruby18.version = '1.8.7-p249'
+    if ENV['COMPAT'] then
+      Ruby18.version = '1.8.6-p398'
       Ruby18.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6'
-      Ruby18.files = ['ruby-1.8.7-p249.tar.bz2']
+      Ruby18.files = ['ruby-1.8.6-p398.tar.bz2']
     end
 
     Ruby19 = OpenStruct.new(
