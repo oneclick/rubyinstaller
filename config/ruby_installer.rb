@@ -181,6 +181,15 @@ module RubyInstaller
       ]
     )
 
+    LibFFI = OpenStruct.new(
+      :url => 'http://github.com/atgreen/libffi/tarball/v3.0.9',
+      :version => '3.0.9',
+      :target => 'sandbox/libffi',
+      :files => [
+        'libffi-3.0.9.tar.gz',
+      ]
+    )
+
     Iconv = OpenStruct.new(
       :release => 'official',
       :version => "1.9.2-1",
