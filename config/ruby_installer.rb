@@ -171,6 +171,16 @@ module RubyInstaller
       ruby.dependencies << OpenSsl.dllnames[:libssl]
     end
 
+    LibYAML = OpenStruct.new(
+      :url => 'http://pyyaml.org/download/libyaml',
+      :version => '0.1.3',
+      :target => 'sandbox/yaml',
+      :patches => 'resources/patches/yaml',
+      :files => [
+        'yaml-0.1.3.tar.gz',
+      ]
+    )
+
     Iconv = OpenStruct.new(
       :release => 'official',
       :version => "1.9.2-1",
