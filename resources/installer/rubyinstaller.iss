@@ -42,9 +42,11 @@
 #define CurrentYear GetDateTimeString('yyyy', '', '')
 
 ; INCLUDE
-; Include version specific definitions
-#define InstallerSpecificFile "config-" + RubyMajorMinor + ".iss"
-#include InstallerSpecificFile
+; Include dynamically created version specific definitions
+#define InstallerConfigFile "config-" + RubyVersion + ".iss"
+#include InstallerConfigFile
+
+#define RubyInstallerBaseId "MRI"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -124,6 +126,24 @@ Root: HKCU; Subkey: Software\Classes\RubyWFile; ValueType: string; ValueName: ; 
 Root: HKCU; Subkey: Software\Classes\RubyWFile\DefaultIcon; ValueType: string; ValueName: ; ValueData: {app}\bin\rubyw.exe,0; Check: IsNotAdmin and IsAssociated
 Root: HKCU; Subkey: Software\Classes\RubyWFile\shell\open\command; ValueType: string; ValueData: """{app}\bin\rubyw.exe"" ""%1"" %*"; Check: IsNotAdmin and IsAssociated
 
+; RubyInstaller identification for admin
+Root: HKLM; Subkey: Software\RubyInstaller; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletekey; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: InstallLocation ; ValueData: {app}; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: InstallDate ; ValueData: {code:GetInstallDate}; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: PatchLevel ; ValueData: {#RubyPatch}; Check: IsAdmin
+Root: HKLM; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: BuildPlatform ; ValueData: {#RubyBuildPlatform}; Check: IsAdmin
+
+; RubyInstaller identification for non-admin
+Root: HKCU; Subkey: Software\RubyInstaller; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletevalue uninsdeletekeyifempty; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: ; ValueData: ; Flags: uninsdeletekey; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: InstallLocation ; ValueData: {app}; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: InstallDate ; ValueData: {code:GetInstallDate}; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: PatchLevel ; ValueData: {#RubyPatch}; Check: IsNotAdmin
+Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: BuildPlatform ; ValueData: {#RubyBuildPlatform}; Check: IsNotAdmin
+
 [Icons]
 Name: {group}\Documentation\The Book of Ruby; Filename: {app}\doc\bookofruby.pdf; Flags: createonlyiffileexists
 Name: {group}\Interactive Ruby; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
@@ -135,8 +155,15 @@ Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
 #include "util.iss"
 #include "ri_gui.iss"
 
+function GetInstallDate(Param: String): String;
+begin
+  Result := GetDateTimeString('yyyymmdd', #0 , #0);
+end;
+
 procedure CurStepChanged(const CurStep: TSetupStep);
 begin
+
+  // TODO move into ssPostInstall just after install completes?
   if CurStep = ssInstall then
   begin
     if UsingWinNT then
@@ -148,6 +175,7 @@ begin
 
       if IsAssociated then
         ModifyFileExts(['.rb', '.rbw']);
+
     end else
       MsgBox('Looks like you''ve got on older, unsupported Windows version.' #13 +
              'Proceeding with a reduced feature set installation.',
@@ -162,6 +190,8 @@ begin
     SetPreviousData(PreviousDataKey, 'PathModified', 'yes');
   if IsAssociated then
     SetPreviousData(PreviousDataKey, 'FilesAssociated', 'yes');
+
+  SetPreviousData(PreviousDataKey, 'RubyInstallerId', ExpandConstant('{#RubyInstallerBaseId}\#{RubyVersion}'));
 end;
 
 procedure CurUninstallStepChanged(const CurUninstallStep: TUninstallStep);
@@ -175,6 +205,7 @@ begin
 
       if GetPreviousData('FilesAssociated', 'no') = 'yes' then
         ModifyFileExts(['.rb', '.rbw']);
+
     end;
   end;
 end;

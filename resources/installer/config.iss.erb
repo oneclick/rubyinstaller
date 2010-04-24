@@ -1,0 +1,14 @@
+; Ruby <%= version %> Configuration File.
+
+; TODO update to parse from source file/dir, potentially move to main script
+#define RubyBuildPlatform "i386-mingw32"
+
+[Setup]
+AppId={<%= guid %>
+DefaultDirName={sd}\Ruby<%= version_xyz.gsub('.', '') %>
+
+[Files]
+Source: ..\..\sandbox\doc\ruby_<%= major_minor.sub('.', '_') %>\*.chm; DestDir: {app}\doc
+
+[Icons]
+Name: {group}\Documentation\Ruby <%= version %> API Reference; Filename: {app}\doc\ruby<%= major_minor.sub('.', '') %>.chm; Flags: createonlyiffileexists

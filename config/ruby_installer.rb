@@ -74,14 +74,16 @@ module RubyInstaller
         'pdcurses.dll',
         'gdbm3.dll',
         'dbm3.dll'
-      ]
+      ],
+      :installer_guid => '{F6377277-9DF1-4a1f-A487-CB5D34DCD793}'
     )
 
-    # switch to Ruby 1.8.7 for "1.8" branch at runtime
+    # switch to Ruby 1.8.6 for "1.8" branch at runtime
     if ENV['COMPAT'] then
       Ruby18.version = '1.8.6-p398'
       Ruby18.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6'
       Ruby18.files = ['ruby-1.8.6-p398.tar.bz2']
+      Ruby18.installer_guid = '{CE65B110-8786-47EA-A4A0-05742F29C221}'
     end
 
     Ruby19 = OpenStruct.new(
@@ -105,10 +107,12 @@ module RubyInstaller
         'pdcurses.dll',
         'gdbm3.dll',
         'dbm3.dll'
-      ]
+      ],
+      :installer_guid => '{11233A17-BFFC-434A-8FC8-2E93369AF008}'
     )
 
     # alter at runtime the checkout and versions of 1.9
+    # TODO define distinct GUID for dev versions?
     if ENV['TRUNK'] then
       Ruby19.version = '1.9.2-dev'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/trunk'

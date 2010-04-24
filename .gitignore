@@ -2,6 +2,7 @@
 *.log
 downloads
 pkg
+resources/installer/config-*.iss
 resources/installer/changes.txt
 sandbox
 README
