@@ -59,7 +59,7 @@ AppVersion={#RubyFullVersion}
 DefaultGroupName={#InstallerName}
 DisableProgramGroupPage=true
 LicenseFile=LICENSE.txt
-Compression=lzma/ultra64
+Compression=lzma2/ultra64
 SolidCompression=true
 AlwaysShowComponentsList=false
 DisableReadyPage=true
@@ -191,7 +191,7 @@ begin
   if IsAssociated then
     SetPreviousData(PreviousDataKey, 'FilesAssociated', 'yes');
 
-  SetPreviousData(PreviousDataKey, 'RubyInstallerId', ExpandConstant('{#RubyInstallerBaseId}\#{RubyVersion}'));
+  SetPreviousData(PreviousDataKey, 'RubyInstallerId', ExpandConstant('{#RubyInstallerBaseId}\{#RubyVersion}'));
 end;
 
 procedure CurUninstallStepChanged(const CurUninstallStep: TUninstallStep);
