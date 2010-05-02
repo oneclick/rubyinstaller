@@ -57,7 +57,7 @@ In case you don't have the OCI installed, you will need:
 or your Ruby bin directory)
 
 Innosetup 5 is required to compile and build the Windows installer. The InnoSetup
-QuickStart Pack 5.3.3+ contains all of the required components.
+QuickStart Pack 5.3.9+ contains all of the required components.
 
 === Build Task Examples:
 
