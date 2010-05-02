@@ -1,3 +1,8 @@
+=== 2010-04-??
+
+* Enhancements:
+  * Installers now record version information in the registry [jonforums]
+
 === rc2 / 2010-02-07
 
 * Enhancements:
