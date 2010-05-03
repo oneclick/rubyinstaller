@@ -61,9 +61,9 @@ module RubyInstaller
       :build_target => 'sandbox/ruby18_build',
       :install_target => 'sandbox/ruby18_mingw',
       :configure_options => [
-        '--enable-shared',
         '--with-winsock2',
-        '--disable-install-doc'
+        '--disable-install-doc',
+        "CFLAGS='-g -O2 -DFD_SETSIZE=256'"
       ],
       :files => [
         'ruby-1.8.7-p249.tar.bz2'

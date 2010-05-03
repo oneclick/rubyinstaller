@@ -1,7 +1,8 @@
-=== 2010-04-??
+=== Final / 2010-05-??
 
 * Enhancements:
   * Installers now record version information in the registry [jonforums]
+  * Increase file descriptors for 1.8.x based compilations. Fixes #27465.
 
 === rc2 / 2010-02-07
 
