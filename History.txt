@@ -4,6 +4,7 @@
   * Installers now record version information in the registry [jonforums]
   * Increase file descriptors for 1.8.x based compilations. Fixes #27465.
   * Upgraded ZLib to 1.2.5
+  * Upgraded OpenSSL 0.9.8n
 
 === rc2 / 2010-02-07
 
