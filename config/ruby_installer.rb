@@ -201,7 +201,7 @@ module RubyInstaller
       :release => 'official',
       :version => '1.3.5',
       :url => 'http://rubyforge.org/frs/download.php/60718',
-      :checkout => 'svn://rubyforge.org/var/svn/rubygems/trunk',
+      :checkout => 'http://rubygems.rubyforge.org/svn/trunk',
       :checkout_target => 'downloads/rubygems',
       :target => 'sandbox/rubygems',
       :configure_options => [
