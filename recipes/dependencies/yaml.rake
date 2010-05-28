@@ -34,7 +34,8 @@ namespace(:dependencies) do
     task :prepare => ['dependencies:yaml:extract', :compiler] do
       patches = Dir.glob("#{package.patches}/*.patch").sort
       patches.each do |patch|
-        msys_sh "patch -p1 -d #{package.target} < #{patch}"
+        cmd = "git apply --directory=#{package.target} #{patch}"
+        `#{cmd}`
       end
     end
 
