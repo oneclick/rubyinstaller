@@ -1,18 +1,6 @@
 require 'ostruct'
 
 module RubyInstaller
-  module Version
-    unless defined?(MAJOR)
-      MAJOR = 3
-      MINOR = 0
-      REVISION = 0
-    end
-
-    unless defined?(STRING)
-      STRING = [MAJOR, MINOR, REVISION].join('.')
-    end
-  end
-
   unless defined?(ROOT)
     # Root folder
     ROOT = File.expand_path(File.join(File.dirname(__FILE__), ".."))
