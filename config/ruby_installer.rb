@@ -75,9 +75,9 @@ module RubyInstaller
     end
 
     Ruby19 = OpenStruct.new(
-      :version => "1.9.1-p378",
+      :version => "1.9.2-preview3",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
-      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1',
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_2',
       :checkout_target => 'downloads/ruby_1_9',
       :target => 'sandbox/ruby_1_9',
       :build_target => 'sandbox/ruby19_build',
@@ -87,7 +87,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.9.1-p378.tar.bz2'
+        'ruby-1.9.2-preview3.tar.bz2'
       ],
       :dependencies => [
         'zlib1.dll',
@@ -99,10 +99,18 @@ module RubyInstaller
       :installer_guid => '{11233A17-BFFC-434A-8FC8-2E93369AF008}'
     )
 
+    # COMPAT mode for Ruby 1.9.1
+    # TODO: define GUID for dev versions?
+    if ENV['COMPAT'] then
+      Ruby19.version = '1.9.1-p378'
+      Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1'
+      Ruby19.files = ['ruby-1.9.1-p378.tar.bz2']
+    end
+
     # alter at runtime the checkout and versions of 1.9
     # TODO define distinct GUID for dev versions?
     if ENV['TRUNK'] then
-      Ruby19.version = '1.9.2-dev'
+      Ruby19.version = '1.9.3'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/trunk'
     end
 
