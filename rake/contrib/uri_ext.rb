@@ -179,11 +179,12 @@ module URI
           end
         end
         # Squeeze the filename into 30 characters.
-        if file_name.size > 30
-          base, ext = File.basename(file_name), File.extname(file_name)
+        unescaped = CGI.unescape(file_name)
+        if unescaped.size > 30
+          base, ext = File.basename(unescaped), File.extname(unescaped)
           truncated = "#{base[0..26-ext.to_s.size]}..#{ext}"
         else
-          truncated = file_name
+          truncated = unescaped
         end
         progress_bar.format = "#{truncated}: %3d%% %s %s/%s %s"
         progress_bar.format_arguments = [:percentage, :bar, :bytes, :total, :stat]
