@@ -59,6 +59,6 @@ task :ffi => [
   'dependencies:ffi:install'
 ]
 
-if ENV['TRUNK'] && ENV['FFI'] then
+unless ENV['COMPAT']
   task :dependencies => [:ffi]
 end

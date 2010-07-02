@@ -69,6 +69,6 @@ task :yaml => [
 ]
 
 
-if ENV['TRUNK'] then
+unless ENV['COMPAT']
   task :dependencies => [:yaml]
 end
