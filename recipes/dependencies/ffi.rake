@@ -33,7 +33,7 @@ namespace(:dependencies) do
     # Prepare sources for compilation
     task :configure => ['dependencies:ffi:extract', :compiler] do
       cd package.target do
-        msys_sh "./configure --prefix=/mingw"
+        msys_sh "./configure #{package.configure_options.join(' ')} --prefix=/mingw"
       end
     end
 
