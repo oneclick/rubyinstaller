@@ -176,6 +176,10 @@ module RubyInstaller
       :version => '0.1.3',
       :target => 'sandbox/yaml',
       :patches => 'resources/patches/yaml',
+      :configure_options => [
+        '--enable-static',
+        '--disable-shared'
+      ],
       :files => [
         'yaml-0.1.3.tar.gz',
       ]
