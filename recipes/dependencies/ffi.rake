@@ -6,16 +6,16 @@ namespace(:dependencies) do
     package = RubyInstaller::LibFFI
     directory package.target
     CLEAN.include(package.target)
-    
+
     # Put files for the :download task
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
       file_target = "downloads/#{f}"
       download file_target => file_source
-      
+
       # depend on downloads directory
       file file_target => "downloads"
-      
+
       # download task need these files as pre-requisites
       task :download => file_target
     end
