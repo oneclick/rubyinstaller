@@ -33,7 +33,7 @@ rb-readline, gdbm, iconv, pdcurses, and openssl are included.
 extract_utils/*.rake: the low-level archive extraction utility recipes used by
 other core build recipes.
 
-interpreter/*.rake: the recipes to build the Matz's Ruby Interpreter and, in 
+interpreter/*.rake: the recipes to build the Matz's Ruby Interpreter and, in
 the future, other Ruby interpreters (Rubinius, JRuby, etc).
 
 packager/*.rake: the recipes use to generate Windows installer packages
@@ -64,11 +64,12 @@ QuickStart Pack 5.3.9+ contains all of the required components.
 rake                             # builds 1.8.7 [default build task]
 rake ruby18                      # builds 1.8.7
 rake ruby18 COMPAT=1             # builds 1.8.6
-rake ruby19                      # builds 1.9.1
+rake ruby19                      # builds 1.9.2
+rake ruby19 COMPAT=1             # builds 1.9.1
 rake CHECKOUT=1                  # builds 1.8.7 svn latest (branch ruby_1_8_7)
 rake LOCAL="c:\myruby18"         # builds 1.8.x from sources at "c:\myruby18"
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
-rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.2dev)
+rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.3)
 rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
 
 You can combine COMPAT and CHECKOUT to build Ruby 1.8.6 directly from the
