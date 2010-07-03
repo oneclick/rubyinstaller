@@ -30,6 +30,15 @@ namespace(:dependencies) do
       }
     end
 
+    # Apply patches
+    task :prepare => ['dependencies:ffi:extract', :compiler] do
+      patches = Dir.glob("#{package.patches}/*.patch").sort
+      patches.each do |patch|
+        cmd = "git apply --directory=#{package.target} #{patch}"
+        `#{cmd}`
+      end
+    end
+
     # Prepare sources for compilation
     task :configure => ['dependencies:ffi:extract', :compiler] do
       cd package.target do
@@ -54,6 +63,7 @@ end
 task :ffi => [
   'dependencies:ffi:download',
   'dependencies:ffi:extract',
+  'dependencies:ffi:prepare',
   'dependencies:ffi:configure',
   'dependencies:ffi:compile',
   'dependencies:ffi:install'

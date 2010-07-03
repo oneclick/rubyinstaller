@@ -189,6 +189,7 @@ module RubyInstaller
       :url => 'http://github.com/atgreen/libffi/tarball/v3.0.9',
       :version => '3.0.9',
       :target => 'sandbox/libffi',
+      :patches => 'resources/patches/libffi',
       :configure_options => [
         '--enable-static',
         '--disable-shared'
