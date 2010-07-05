@@ -60,17 +60,10 @@ var
   URLText, TmpLabel: TNewStaticText;
 begin
 
-  {* Main wizard page colorization *}
-
-  // light green = $00eafcf5
-  WizardForm.InnerPage.Color := $00fafaff;
-  WizardForm.Color := clWhite;
-
-
   {* Path and file association task check boxes *}
 
   Page := PageFromID(wpSelectDir);
-  
+
   PathChkBox := TCheckBox.Create(Page);
   PathChkBox.Parent := Page.Surface;
   PathChkBox.State := cbUnchecked;
