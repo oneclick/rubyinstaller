@@ -70,5 +70,5 @@ task :yaml => [
 
 
 unless ENV['COMPAT']
-  task :dependencies => [:yaml]
+  task :dependencies => [:yaml] unless ENV['NODEPS']
 end

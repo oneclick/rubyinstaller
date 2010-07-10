@@ -70,5 +70,5 @@ task :ffi => [
 ]
 
 unless ENV['COMPAT']
-  task :dependencies => [:ffi]
+  task :dependencies => [:ffi] unless ENV['NODEPS']
 end

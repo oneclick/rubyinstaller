@@ -53,4 +53,4 @@ task :zlib => [
   'dependencies:zlib:prepare'
 ]
 
-task :dependencies => [:zlib]
+task :dependencies => [:zlib] unless ENV['NODEPS']

@@ -52,4 +52,4 @@ task :gdbm => [
   'dependencies:gdbm:prepare'
 ]
 
-task :dependencies => [:gdbm]
+task :dependencies => [:gdbm] unless ENV['NODEPS']

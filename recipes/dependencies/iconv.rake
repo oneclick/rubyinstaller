@@ -52,4 +52,4 @@ task :iconv => [
   'dependencies:iconv:prepare'
 ]
 
-task :dependencies => [:iconv]
+task :dependencies => [:iconv] unless ENV['NODEPS']
