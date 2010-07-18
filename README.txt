@@ -30,6 +30,10 @@ dependencies/*.rake: the recipes contains the dependencies needed to be download
 compiled and included for the interpreter to work properly. At this time zlib,
 rb-readline, gdbm, iconv, pdcurses, and openssl are included.
 
+devkit/*.rake: the recipes for downloading the MSYS/MinGW/TDM artifacts needed
+to build a Windows Installer and 7-Zip archive to be used by end users to build
+native C-based RubyGem extensions.
+
 extract_utils/*.rake: the low-level archive extraction utility recipes used by
 other core build recipes.
 
@@ -71,6 +75,10 @@ rake LOCAL="c:\myruby18"         # builds 1.8.x from sources at "c:\myruby18"
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.3)
 rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
+
+rake devkit                      # builds a DevKit (TDM 4.5.0) Installer
+rake devkit DKVER=3.4.5          # builds a DevKit (MinGW 3.4.5) Installer
+rake devkit 7Z=1                 # builds a DevKit Installer and 7-Zip archive
 
 You can combine COMPAT and CHECKOUT to build Ruby 1.8.6 directly from the
 Subversion repository.
