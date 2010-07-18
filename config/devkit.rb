@@ -52,7 +52,7 @@ module DevKitInstaller
   MSYS = OpenStruct.new(
     :version => '1.0.15',
     :url_1 => 'http://downloads.sourceforge.net/mingw',
-    :target => 'sandbox/devkit/msys',
+    :target => 'sandbox/devkit',
     :files => {
       :url_1 => [
         'msysCORE-1.0.15-1-msys-1.0.15-bin.tar.lzma',
@@ -61,7 +61,7 @@ module DevKitInstaller
         'coreutils-5.97-3-msys-1.0.13-ext.tar.lzma',
         'libiconv-1.13.1-2-msys-1.0.13-dll-2.tar.lzma',
         'libintl-0.17-2-msys-dll-8.tar.lzma',
-        'libtermcap-0.20050421_1-2-msys-1.0.13-dll-0.tar.lzma.tar',
+        'libtermcap-0.20050421_1-2-msys-1.0.13-dll-0.tar.lzma',
         'make-3.81-3-msys-1.0.13-bin.tar.lzma',
         'perl-5.6.1_2-2-msys-1.0.13-bin.tar.lzma',
         'zlib-1.2.3-2-msys-1.0.13-dll.tar.lzma',
