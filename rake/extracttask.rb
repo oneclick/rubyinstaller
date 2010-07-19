@@ -72,3 +72,14 @@ def seven_zip(target, file)
   puts "** Extracting #{file} into #{target}" if Rake.application.options.trace
   sh "\"#{File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))}\" x -y -o\"#{target}\" \"#{file}\" > NUL"
 end
+
+#TODO confirm function returns false upon failing 7-Zip integrity test
+def seven_zip_valid?(target)
+  puts "** 7-Zip integrity checking '#{target}'" if Rake.application.options.trace
+  sh "\"#{File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))}\" t \"#{target}\" > NUL"
+end
+
+def seven_zip_build(source, target)
+  puts "** Building 7-Zip archive from '#{source}'" if Rake.application.options.trace
+  sh "\"#{File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))}\" a \"#{target}\" \"#{source}\"> NUL"
+end
