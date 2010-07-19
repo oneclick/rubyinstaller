@@ -3,11 +3,11 @@ require 'rake/clean'
 
 namespace(:devkit) do
   namespace(:mingw) do
-    dk_version = ENV['DKVER'] || '4.5.0'
+    ENV['DKVER'] ||= '4.5.0'
 
     package = nil
     DevKitInstaller::MinGWs.each do |m|
-      package = m if m.version == dk_version
+      package = m if m.version == ENV['DKVER']
     end
     fail '[FAIL] unable to find correct MinGW version config' if package.nil?
 
