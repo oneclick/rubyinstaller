@@ -1,6 +1,11 @@
 require 'tmpdir'
 require 'fileutils'
 
+module RubyInstaller
+  # absolute path to 7-Zip so it can be working dir agnostic
+  SEVEN_ZIP = File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))
+end
+
 def mv_r(src, dest, options = {})
   if File.directory? src
     d = File.directory?(dest) ? File.join(dest, File.basename(src)) : dest
@@ -76,10 +81,10 @@ end
 #TODO confirm function returns false upon failing 7-Zip integrity test
 def seven_zip_valid?(target)
   puts "** 7-Zip integrity checking '#{target}'" if Rake.application.options.trace
-  sh "\"#{File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))}\" t \"#{target}\" > NUL"
+  sh "\"#{RubyInstaller::SEVEN_ZIP}\" t \"#{target}\" > NUL"
 end
 
 def seven_zip_build(source, target)
   puts "** Building 7-Zip archive from '#{source}'" if Rake.application.options.trace
-  sh "\"#{File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))}\" a \"#{target}\" \"#{source}\"> NUL"
+  sh "\"#{RubyInstaller::SEVEN_ZIP}\" a -mx=9 \"#{target}\" \"#{source}\" > NUL"
 end
