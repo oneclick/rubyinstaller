@@ -169,6 +169,7 @@ module URI
     # The block is yielded with a progress object that implements a single method.
     # Call << for each block of bytes down/uploaded.
     def with_progress_bar(enable, file_name, size) #:nodoc:
+      file_name = CGI.unescape(file_name)
       if enable && $stdout.isatty
         progress_bar = Console::ProgressBar.new(file_name, size)
         # Extend the progress bar so we can display count/total.
@@ -184,7 +185,7 @@ module URI
         else
           truncated = file_name
         end
-        progress_bar.format = "#{CGI.unescape(truncated)}: %3d%% %s %s/%s %s"
+        progress_bar.format = "#{truncated}: %3d%% %s %s/%s %s"
         progress_bar.format_arguments = [:percentage, :bar, :bytes, :total, :stat]
         progress_bar.bar_mark = "o"
 
