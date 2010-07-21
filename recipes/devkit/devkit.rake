@@ -6,9 +6,10 @@ task :devkit => ['devkit:msys', 'devkit:mingw', 'pkg'] do
 
 
   # copy helper scripts to DevKit sandbox
-  #TODO implement dk.rb copy
-  FileUtils.cp(File.join(RubyInstaller::ROOT, 'resources', 'devkit', 'devkitvars.cmd'),
+  DevKitInstaller::DevKit.setup_scripts.each do |s|
+    FileUtils.cp(File.join(RubyInstaller::ROOT, 'resources', 'devkit', s),
               'sandbox/devkit')
+  end
 
   Dir.chdir('sandbox/devkit') do
     seven_zip_build(

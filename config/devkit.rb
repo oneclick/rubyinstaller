@@ -2,7 +2,11 @@ require 'ostruct'
 
 module DevKitInstaller
   DevKit = OpenStruct.new(
-    :installer_guid => '{D25478D4-72AE-40BF-829F-2C8CE49E2EE8}'
+    :installer_guid => '{D25478D4-72AE-40BF-829F-2C8CE49E2EE8}',
+    :setup_scripts => [
+      'devkitvars.cmd',
+      'dk.rb'
+    ]
   )
 
   MinGWs = [] << OpenStruct.new(
