@@ -81,7 +81,8 @@ module DevKitInstaller
         'findutils-4.4.2-2-msys-1.0.13-bin.tar.lzma',
         'sed-4.2.1-2-msys-1.0.13-bin.tar.lzma',
         'gawk-3.1.7-2-msys-1.0.13-bin.tar.lzma',
-        'grep-2.5.4-2-msys-1.0.13-bin.tar.lzma'
+        'grep-2.5.4-2-msys-1.0.13-bin.tar.lzma',
+        'less-436-2-msys-1.0.13-bin.tar.lzma'
       ],
     }
   )
