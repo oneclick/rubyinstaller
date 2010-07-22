@@ -143,10 +143,10 @@ Unable to find RubyGems in site_ruby. Falling back to installing
 gcc, g++, make, and sh into #{path}
 EOT
         STUB_CMDS.each do |command|
-          target = File.join(path, 'bin', "#{command}.cmd")
+          target = File.join(path, 'bin', "#{command}.bat")
 
           if File.exist?(target)
-            puts "Renaming #{command}.cmd to #{command}.cmd.orig..."
+            puts "Renaming #{command}.bat to #{command}.bat.orig..."
             File.rename(target, "#{target}.orig")
           end
 
