@@ -53,6 +53,7 @@ EOT
   def self.gem_override(dk_root=DEVKIT_ROOT)
     d = dk_root.gsub('/', '\\\\\\')
 <<-EOT
+# override 'gem install' to enable RubyInstaller DevKit usage
 Gem.pre_install do |i|
   unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
     puts 'Temporarily enhancing PATH to include DevKit...'
@@ -165,18 +166,13 @@ EOT
             content = File.read(target)
             unless content.include?('DevKit')
               puts '[INFO] Updating existing RubyGems override...'
-              File.open(target, 'a') do |f|
-                f.write("\n# override 'gem install' to enable RubyInstaller DevKit usage\n")
-                f.write(gem_override)
-              end
+              File.open(target, 'a') { |f| f.write(gem_override) }
             else
               puts '[INFO] RubyGems override already in place, skipping.'
             end
           else
             puts "[INFO] Installing #{target}..."
-            File.open(target, 'w') do |f|
-              f.write(gem_override)
-            end
+            File.open(target, 'w') { |f| f.write(gem_override) }
           end
         end
       end
