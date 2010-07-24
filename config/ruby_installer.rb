@@ -148,7 +148,8 @@ module RubyInstaller
         :url => "http://downloads.sourceforge.net/sevenzip",
         :target => 'sandbox/extract_utils',
         :files => [
-          '7za465.zip'
+          '7za465.zip',
+          '7z465.msi'
         ]
     )
 

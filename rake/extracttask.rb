@@ -84,7 +84,13 @@ def seven_zip_valid?(target)
   sh "\"#{RubyInstaller::SEVEN_ZIP}\" t \"#{target}\" > NUL"
 end
 
-def seven_zip_build(source, target)
-  puts "** Building 7-Zip archive from '#{source}'" if Rake.application.options.trace
-  sh "\"#{RubyInstaller::SEVEN_ZIP}\" a -mx=9 \"#{target}\" \"#{source}\" > NUL"
+def seven_zip_get(source, item, target)
+  puts "** Extracting '#{item}' from '#{source}' into '#{target}'" if Rake.application.options.trace
+  sh "\"#{RubyInstaller::SEVEN_ZIP}\" e \"#{source}\" -o\"#{target}\" \"#{item}\" > NUL"
+end
+
+def seven_zip_build(source, target, options={})
+  puts "** Building '#{target}' from '#{source}'" if Rake.application.options.trace
+  sfx_arg = '-sfx7z.sfx' if options[:sfx]
+  sh "\"#{RubyInstaller::SEVEN_ZIP}\" a -mx=9 #{sfx_arg} \"#{target}\" \"#{source}\" > NUL"
 end

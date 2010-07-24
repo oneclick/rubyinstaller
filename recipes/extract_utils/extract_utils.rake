@@ -19,10 +19,21 @@ namespace(:extract_utils) do
   end
   
   task :extract_utils => [:download, package.target] do
-    package.files.each do |f|
+    msi_regex = /\.msi$/
+    msis = package.files.select { |i| i =~ msi_regex }
+    fail 'Only one .msi allowed for RubyInstaller::ExtractUtils.files' if msis.length != 1
+
+    zips = package.files.reject { |i| i =~ msi_regex }
+
+    zips.each do |f|
       filename = "downloads/#{f}"
       Zip.fake_unzip(filename, /\.exe|\.dll$/, package.target)
     end
+
+    # assume 7za.exe can extract individual files from MSI's
+    msi = "downloads/#{msis.first}"
+    seven_zip_get(msi, '_7z.sfx', package.target)
+    File.rename("#{package.target}/_7z.sfx", "#{package.target}/7z.sfx")
   end
 end
 
