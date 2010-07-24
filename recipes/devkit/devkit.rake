@@ -13,20 +13,21 @@ task :devkit => ['devkit:msys', 'devkit:mingw', 'pkg'] do
 
   # build a 7-Zip archive and/or a self-extracting archive
   Dir.chdir('sandbox/devkit') do
-    seven_zip_build(
-      '*',
-      File.join(RubyInstaller::ROOT,
-                'pkg',
-                "DevKit-#{ENV['DKVER']}-#{Time.now.strftime('%Y%m%d')}.7z"
-      )
-    ) if sevenz_archive
+    archive_base = "DevKit-#{ENV['DKVER']}-#{Time.now.strftime('%Y%m%d-%H%M')}"
 
-    seven_zip_build(
-      '*',
-      File.join(RubyInstaller::ROOT, 'pkg',
-                "DevKit-#{ENV['DKVER']}-#{Time.now.strftime('%Y%m%d')}-sfx.exe"),
-      :sfx => true
-    ) if sevenz_sfx
+    seven_zip_build('*',
+                    File.join(RubyInstaller::ROOT, 'pkg', "#{archive_base}.7z"))
+
+    if sevenz_sfx
+      Dir.chdir(RubyInstaller::ROOT) do
+        cmd = 'copy /b %s + %s %s' % [
+          'sandbox\extract_utils\7z.sfx',
+          "pkg\\#{archive_base}.7z",
+          "pkg\\#{archive_base}-sfx.exe"
+        ]
+        sh "#{cmd} > NUL"
+      end
+    end
 
   end if sevenz_archive || sevenz_sfx
 end
