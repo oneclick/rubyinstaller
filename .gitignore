@@ -1,6 +1,7 @@
 *.kpf
 *.log
 downloads
+override
 pkg
 resources/installer/config-*.iss
 resources/installer/changes.txt
