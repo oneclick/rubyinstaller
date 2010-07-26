@@ -75,7 +75,7 @@ module RubyInstaller
     end
 
     Ruby19 = OpenStruct.new(
-      :version => "1.9.2-rc1",
+      :version => "1.9.2-rc2",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_2',
       :checkout_target => 'downloads/ruby_1_9',
@@ -87,7 +87,7 @@ module RubyInstaller
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.9.2-rc1.tar.bz2'
+        'ruby-1.9.2-rc2.tar.bz2'
       ],
       :dependencies => [
         'zlib1.dll',
@@ -226,7 +226,7 @@ module RubyInstaller
       :release => 'official',
       :version => '1.3.7',
       :url => 'http://rubyforge.org/frs/download.php/70696',
-      :checkout => 'http://rubygems.rubyforge.org/svn/trunk',
+      :checkout => 'http://github.com/rubygems/rubygems.git',
       :checkout_target => 'downloads/rubygems',
       :target => 'sandbox/rubygems',
       :configure_options => [

@@ -13,21 +13,23 @@ namespace(:tools) do
       file_source = "#{package.url}/#{f}"
       file_target = "downloads/#{f}"
       download file_target => file_source
-      
+
       # depend on downloads directory
       file file_target => "downloads"
-      
+
       # download task need these files as pre-requisites
       task :download => file_target
     end
 
     task :checkout => "downloads" do
       cd RubyInstaller::ROOT do
-        # If is there already a checkout, update instead of checkout"
-        if File.exist?(File.join(RubyInstaller::ROOT, package.checkout_target, '.svn'))
-          sh "svn update #{package.checkout_target}"
+        # If is there already a checkout, update instead of checkout
+        if File.exist?(File.join(RubyInstaller::ROOT, package.checkout_target, '.git'))
+          Dir.chdir(package.checkout_target) do
+            sh "git checkout master && git pull"
+          end
         else
-          sh "svn co #{package.checkout} #{package.checkout_target}"
+          sh "git clone #{package.checkout} #{package.checkout_target}"
         end
       end
     end
