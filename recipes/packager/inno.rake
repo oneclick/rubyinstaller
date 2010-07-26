@@ -24,15 +24,19 @@ module InnoSetup
     false
   end
 
+  # TODO: refactor to convert options hash to /d{hash_key}={hash_value}
+  #       unless {hash_key} == :output || :filename
+  # TODO: borrow some proven snake_case -> CamelCase code for converting
+  #       the hash keys to /d args
   def self.iscc(script, *args)
     cmd = []
     options = args.last || {}
 
     cmd << EXECUTABLE
     cmd << script
-    cmd << "/dRubyVersion=#{options[:ruby_version]}"
-    cmd << "/dRubyPatch=#{options[:ruby_patch]}"
-    cmd << "/dRubyPath=#{options[:ruby_path]}"
+    cmd << "/dRubyVersion=#{options[:ruby_version]}" if options[:ruby_version]
+    cmd << "/dRubyPatch=#{options[:ruby_patch]}" if options[:ruby_patch]
+    cmd << "/dRubyPath=#{options[:ruby_path]}" if options[:ruby_path]
     cmd << "/o#{options[:output]}" if options[:output]
     cmd << "/f#{options[:filename]}" if options[:filename]
     if options[:sign] then
