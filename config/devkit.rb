@@ -3,6 +3,9 @@ require 'ostruct'
 module DevKitInstaller
   DevKit = OpenStruct.new(
     :installer_guid => '{D25478D4-72AE-40BF-829F-2C8CE49E2EE8}',
+    :inno_script => 'resources/devkit/devkit.iss',
+    :inno_config => 'resources/devkit/dk_config.iss',
+    :inno_config_erb => 'resources/devkit/dk_config.iss.erb',
     :setup_scripts => [
       'devkitvars.bat',
       'dk.rb'
