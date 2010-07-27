@@ -179,8 +179,10 @@ task :ruby19 => [
   'interpreter:ruby19:install'
 ]
 
-# Add rubygems to the chain
-task :ruby19 => [:rubygems19]
+# Add rubygems to the chain (if needed)
+if ENV['COMPAT'] then
+  task :ruby19 => [:rubygems19]
+end
 
 # add Pure Readline to the chain
 task :ruby19 => [:rbreadline]
