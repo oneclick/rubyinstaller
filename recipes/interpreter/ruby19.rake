@@ -10,16 +10,16 @@ namespace(:interpreter) do
     CLEAN.include(package.target)
     CLEAN.include(package.build_target)
     CLEAN.include(package.install_target)
-    
+
     # Put files for the :download task
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
       file_target = "downloads/#{f}"
       download file_target => file_source
-      
+
       # depend on downloads directory
       file file_target => "downloads"
-      
+
       # download task need these files as pre-requisites
       task :download => file_target
     end
@@ -88,7 +88,7 @@ namespace(:interpreter) do
     end
 
     task :configure => makefile
-    
+
     task :compile => makefile do
       cd package.build_target do
         msys_sh "make"
@@ -102,14 +102,14 @@ namespace(:interpreter) do
       cd package.build_target do
         msys_sh "make install"
       end
-      
+
       # verbatim copy the binaries listed in package.dependencies
       package.dependencies.each do |dep|
         Dir.glob("#{RubyInstaller::MinGW.target}/**/#{dep}").each do |path|
           cp path, File.join(package.install_target, "bin")
         end
       end
-      
+
       # copy original scripts from ruby_1_8 to install_target
       Dir.glob("#{package.target}/bin/*").each do |path|
         cp path, File.join(package.install_target, "bin")

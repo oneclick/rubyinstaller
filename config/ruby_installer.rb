@@ -100,7 +100,6 @@ module RubyInstaller
     )
 
     # COMPAT mode for Ruby 1.9.1
-    # TODO: define GUID for dev versions?
     if ENV['COMPAT'] then
       Ruby19.version = '1.9.1-p429'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1'
