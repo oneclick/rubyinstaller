@@ -31,8 +31,7 @@ module DevKitInstaller
         'autoconf2.5-2.64-1-mingw32-bin.tar.lzma',
         'autoconf-7-1-mingw32-bin.tar.lzma',
         'gdb-7.1-2-mingw32-bin.tar.gz',
-        'libexpat-2.0.1-1-mingw32-dll-1.tar.gz',
-        'bsdtar-2.8.3-1-mingw32-bin.tar.bz2'
+        'libexpat-2.0.1-1-mingw32-dll-1.tar.gz'
       ],
     }
   )
@@ -52,8 +51,7 @@ module DevKitInstaller
         'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
         'autoconf2.5-2.64-1-mingw32-bin.tar.lzma',
         'autoconf-7-1-mingw32-bin.tar.lzma',
-        'gdb-6.8-mingw-3.tar.bz2',
-        'bsdtar-2.8.3-1-mingw32-bin.tar.bz2'
+        'gdb-6.8-mingw-3.tar.bz2'
       ]
     }
   )
