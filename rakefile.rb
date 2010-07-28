@@ -8,6 +8,9 @@ rescue LoadError
   require 'rake'
 end
 
+# Add extensions to core Ruby classes
+require 'rake/core_extensions'
+
 # Added download task from buildr
 require 'rake/downloadtask'
 require 'rake/extracttask'
