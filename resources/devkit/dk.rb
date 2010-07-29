@@ -135,13 +135,14 @@ EOT
 
     rubies.each do |path|
       site_ruby = Dir.glob("#{path}/lib/ruby/site_ruby/**/rubygems")
+      core_ruby = Dir.glob("#{path}/lib/ruby/**/rubygems")
 
-      # inject stubs if no RubyGems in site_ruby, making backups of
-      # any existing stubs
-      if site_ruby.empty?
+      # inject stubs if RubyGems isn't in site_ruby or core ruby, making
+      # backups of any existing stubs
+      if site_ruby.empty? && core_ruby.empty?
         puts <<-EOT
-Unable to find RubyGems in site_ruby. Falling back to installing
-gcc, g++, make, and sh into #{path}
+Unable to find RubyGems in site_ruby or core Ruby. Falling back
+to installing gcc, g++, make, and sh into #{path}
 EOT
         STUB_CMDS.each do |command|
           target = File.join(path, 'bin', "#{command}.bat")
@@ -156,9 +157,13 @@ EOT
           end
         end
       else
+        # either or both site_ruby or core_ruby contains RubyGems; favor
+        # injecting RubyGems override into site_ruby over core_ruby
+        target_ruby = site_ruby.empty? ? core_ruby : site_ruby
+
         # inject RubyGems override file into proper site_ruby location
         # appending an existing override file
-        site_ruby.each do |folder|
+        target_ruby.each do |folder|
           target = File.join(folder, 'defaults', 'operating_system.rb')
           FileUtils.mkdir_p File.dirname(target)
 
@@ -168,7 +173,7 @@ EOT
               puts '[INFO] Updating existing RubyGems override...'
               File.open(target, 'a') { |f| f.write(gem_override) }
             else
-              puts '[INFO] RubyGems override already in place, skipping.'
+              puts "[INFO] RubyGems override already in place for #{path}, skipping."
             end
           else
             puts "[INFO] Installing #{target}..."
