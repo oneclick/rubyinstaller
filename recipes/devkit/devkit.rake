@@ -62,6 +62,7 @@ task :devkit => ['devkit:msys', 'devkit:mingw', 'pkg'] do |t|
   end if sevenz_archive || sevenz_sfx
 
   # build a Windows Installer
-  Rake::Task['devkit:installer'].invoke(archive_base)
+  # TODO enable after finishing DevKit GUI code
+  #Rake::Task['devkit:installer'].invoke(archive_base)
 
 end
