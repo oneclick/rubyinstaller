@@ -11,15 +11,15 @@ end
 # Add extensions to core Ruby classes
 require 'rake/core_extensions'
 
-# Added download task from buildr
-require 'rake/downloadtask'
-require 'rake/extracttask'
-
 # RubyInstaller configuration data
 require 'config/ruby_installer'
 
 # DevKit configuration data
 require 'config/devkit'
+
+# Added download task from buildr
+require 'rake/downloadtask'
+require 'rake/extracttask'
 
 # Allow build configuration overrides if override/build_config.rb file
 # exists in the RubyInstaller project root directory

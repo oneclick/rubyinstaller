@@ -1,10 +1,4 @@
-require 'tmpdir'
 require 'fileutils'
-
-module RubyInstaller
-  # absolute path to 7-Zip so it can be working dir agnostic
-  SEVEN_ZIP = File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))
-end
 
 def mv_r(src, dest, options = {})
   if File.directory? src
@@ -24,20 +18,15 @@ end
 def extract(file, target, options = {})
   fail unless File.directory?(target)
   
-  # create a temporary folder used to extract files there
-  tmpdir = File.expand_path(File.join(Dir.tmpdir, "extract_sandbox_#{$$}"))
-  FileUtils.mkpath(tmpdir) unless File.exist?(tmpdir)
-
-  # based on filetypes, extract the intermediate file into the temporary folder
+  # based on filetypes, extract the files
   case file
-    # tar.z, tar.gz and tar.bz2 contains .tar files inside, extract into 
-    # temp first
+    # tar.z, tar.gz, tar.bz2 and tar.lzma contains .tar files inside, use bsdtar to
+    # extract the files directly to target directory without the need to first
+    # extract to a temporary directory as when using 7za.exe
     when /(^.+\.tar)\.z$/, /(^.+\.tar)\.gz$/, /(^.+\.tar)\.bz2$/, /(^.+\.tar)\.lzma$/
-      seven_zip tmpdir, file
-      seven_zip target, File.join(tmpdir, File.basename($1))
+      bsd_tar_extract(target, file)
     when /(^.+)\.tgz$/
-      seven_zip tmpdir, file
-      seven_zip target, File.join(tmpdir, "#{File.basename($1)}.tar")
+      bsd_tar_extract(target, file)
     when /(^.+\.zip$)/
       seven_zip(target, $1)
     else
@@ -67,15 +56,11 @@ def extract(file, target, options = {})
     puts "** Removing #{folder}" if Rake.application.options.trace
     FileUtils.rm_rf File.join(target, folder)
   end
-
-  # remove the temporary directory
-  puts "** Removing #{tmpdir}" if Rake.application.options.trace
-  FileUtils.rm_rf tmpdir
 end
 
 def seven_zip(target, file)
   puts "** Extracting #{file} into #{target}" if Rake.application.options.trace
-  sh "\"#{File.expand_path(File.join('sandbox/extract_utils', '7za.exe'))}\" x -y -o\"#{target}\" \"#{file}\" > NUL"
+  sh "\"#{RubyInstaller::SEVEN_ZIP}\" x -y -o\"#{target}\" \"#{file}\" > NUL"
 end
 
 #TODO confirm function returns false upon failing 7-Zip integrity test
@@ -93,4 +78,12 @@ def seven_zip_build(source, target, options={})
   puts "** Building '#{target}' from '#{source}'" if Rake.application.options.trace
   sfx_arg = '-sfx7z.sfx' if options[:sfx]
   sh "\"#{RubyInstaller::SEVEN_ZIP}\" a -mx=9 #{sfx_arg} \"#{target}\" \"#{source}\" > NUL"
+end
+
+def bsd_tar_extract(target, file)
+  puts "** Extracting #{file} into #{target}" if Rake.application.options.trace
+  absolute_file = File.expand_path(file)
+  Dir.chdir(target) do
+    sh "\"#{RubyInstaller::BSD_TAR}\" -xf \"#{absolute_file}\" > NUL"
+  end
 end
