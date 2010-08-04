@@ -24,17 +24,45 @@ module InnoSetup
     false
   end
 
+  # Generates and runs the shell command required to build an InnoSetup
+  # installer. An option hash provided as the last argument will have all
+  # its keys (except :output, :filename, and :sign) converted into Inno
+  # command line /d name/value pairs.
+  #
+  # The option hash must use lower cased symbols (underlined for multiple
+  # words) which will be converted to UpperCamelCase command line args.
+  #
+  # Example - the following method call
+  #
+  #   InnoSetup.iscc('rubyinstaller.iss',
+  #     :ruby_version => '1.9.2',
+  #     :ruby_patch   => '429',
+  #     :ruby_path    => 'sandbox/ruby',
+  #     :output       => 'pkg',
+  #     :filename     => 'rubyinstaller-1.9.2-p429',
+  #     :sign         => ENV['SIGNED']
+  #   )
+  #
+  # will be converted into a shell command line similar to:
+  #
+  #   iscc.exe rubyinstaller.iss /dRubyPatch=429 /dRubyPath=sandbox/ruby
+  #       /dRubyVersion=1.9.2 /opkg /frubyinstaller-1.9.2-p429
+  #
   def self.iscc(script, *args)
+    non_arg_options = [:output, :filename, :sign]
     cmd = []
     options = args.last || {}
 
     cmd << EXECUTABLE
     cmd << script
-    cmd << "/dRubyVersion=#{options[:ruby_version]}"
-    cmd << "/dRubyPatch=#{options[:ruby_patch]}"
-    cmd << "/dRubyPath=#{options[:ruby_path]}"
+
+    options.each do |k,v|
+      cmd << "/d#{k.to_s.camelcase}=#{v}" unless non_arg_options.include?(k)
+    end unless options.empty?
+
     cmd << "/o#{options[:output]}" if options[:output]
     cmd << "/f#{options[:filename]}" if options[:filename]
+
     if options[:sign] then
       cmd << "/dSignPackage=1"
       cmd << '/s"risigntool=signtool.exe $p"' 

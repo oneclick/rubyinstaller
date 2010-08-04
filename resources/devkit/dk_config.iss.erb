@@ -1,0 +1,38 @@
+; DevKit configuration file
+; Copyright 2010 Jon Maken
+; Template Revision: 07/24/2010 3:22:14 PM
+; Generated: <%= Time.now.strftime('%m/%d/%Y %H:%M') %>
+
+#define InstallerName "DevKit"
+#define DevKitVersion "<%= dk_version %>"
+#define DevKitFullVersion DevKitVersion + "-" + GetDateTimeString("yyyymmdd-hhnn", "", "")
+#define DevKitPath "sandbox\devkit"
+#define DevKitPresence DevKitPath + "\msys.bat"
+
+#define InstallerPublisher "RubyInstaller Team"
+#define InstallerHome "http://rubyinstaller.org"
+#define InstallerUpdates "http://rubyinstaller.org/downloads"
+#define InstallerSupport "http://groups.google.com/group/rubyinstaller"
+
+#define CurrentYear GetDateTimeString("yyyy", "", "")
+
+; Verify script has a properly configured environment
+#ifnexist DevKitPresence
+  #error No DevKit found, please create the DevKit artifacts
+#endif
+
+[Setup]
+AppId={<%= guid %>
+AppName={#InstallerName}
+AppVersion={#DevKitVersion}
+AppPublisher={#InstallerPublisher}
+AppPublisherURL={#InstallerHome}
+AppSupportURL={#InstallerSupport}
+AppUpdatesURL={#InstallerUpdates}
+
+VersionInfoDescription={#InstallerName} Installer
+VersionInfoCopyright=Copyright (c) {#CurrentYear} {#InstallerPublisher}
+VersionInfoVersion=1.0.0.0
+
+DefaultDirName={sd}\DevKit-{#DevKitVersion}
+OutputBaseFilename={#InstallerName}-{#DevKitFullVersion}

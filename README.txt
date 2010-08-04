@@ -10,7 +10,14 @@ This project is a work-in-progress collection of Rake build recipes that downloa
 and verify the MinGW utilities required to compile and build a Ruby interpreter
 (MRI 1.8 and 1.9 at this time) and it's core components and dependencies.
 
-=== 7 Second Quick Start:
+The recipes also build a DevKit package that, when combined with a RubyInstaller
+installation, enables Windows users to easily build and use many of the native
+C-based RubyGems extensions that may not yet have a binary RubyGem. The DevKit
+(available as a Windows Installer and normal 7-Zip and self-extracting archives)
+provides an easy-to-install compiler and build system, and convenient setup helper
+scripts.
+
+=== 7-Second Quick Start:
 
 Ensure you are connected to the Internet, open a Command Prompt, 'cd' to the
 project root directory, and type one of:
@@ -30,6 +37,10 @@ dependencies/*.rake: the recipes contains the dependencies needed to be download
 compiled and included for the interpreter to work properly. At this time zlib,
 rb-readline, gdbm, iconv, pdcurses, and openssl are included.
 
+devkit/*.rake: the recipes for downloading the MSYS/MinGW/TDM artifacts needed
+to build native C-based RubyGem extensions. The recipes conveniently package the
+artifacts into a Windows Installer, and normal 7-Zip and self-extracting archives.
+
 extract_utils/*.rake: the low-level archive extraction utility recipes used by
 other core build recipes.
 
@@ -43,6 +54,12 @@ tools/*.rake: the recipes for the additional components of the installer.
 Currently, recipes exist for the RubyGems package management system, the creation
 of RDoc-based MS HTML Help (CHM) files, and the book "The Little Book of Ruby"
 courtesy of Huw Collingbourne.
+
+The recipe configuration files are distributed in the config/ sub-directory of
+the project's root directory. To override the default configuration, create an
+override/build_config.rb file in the project's root directory. See the default
+config/ruby_installer.rb and config/devkit.rb configuration files for values that
+can be overridden.
 
 === Requirements:
 
@@ -71,6 +88,11 @@ rake LOCAL="c:\myruby18"         # builds 1.8.x from sources at "c:\myruby18"
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.3)
 rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
+
+rake devkit                      # builds Installer (TDM 4.5.0)
+rake devkit DKVER=3.4.5          # builds Installer (MinGW 3.4.5)
+rake devkit 7Z=1                 # builds Installer and 7-Zip archive
+rake devkit SFX=1                # builds Installer and self-extracting archive
 
 You can combine COMPAT and CHECKOUT to build Ruby 1.8.6 directly from the
 Subversion repository.
