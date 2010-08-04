@@ -141,7 +141,7 @@ EOT
     rubies = YAML.load_file(CONFIG_FILE)
 
     rubies.each do |path|
-      unless Dir.exists?(File.expand_path(path))
+      unless File.directory?(File.expand_path(path))
         puts "[ERROR] Invalid directory '#{path}', skipping."
         next
       end
