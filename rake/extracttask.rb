@@ -24,9 +24,9 @@ def extract(file, target, options = {})
     # extract the files directly to target directory without the need to first
     # extract to a temporary directory as when using 7za.exe
     when /(^.+\.tar)\.z$/, /(^.+\.tar)\.gz$/, /(^.+\.tar)\.bz2$/, /(^.+\.tar)\.lzma$/
-      bsd_tar_extract(target, file)
+      bsd_tar_extract(target, file, options)
     when /(^.+)\.tgz$/
-      bsd_tar_extract(target, file)
+      bsd_tar_extract(target, file, options)
     when /(^.+\.zip$)/
       seven_zip(target, $1)
     else
@@ -80,10 +80,16 @@ def seven_zip_build(source, target, options={})
   sh "\"#{RubyInstaller::SEVEN_ZIP}\" a -mx=9 #{sfx_arg} \"#{target}\" \"#{source}\" > NUL 2>&1"
 end
 
-def bsd_tar_extract(target, file)
+def bsd_tar_extract(target, file, options = {})
+  block = if options[:noerror]
+    lambda { |ok, status|
+      ok or warn "We detected some errors with status (#{status.exitstatus})"
+    }
+  end
+
   puts "** Extracting #{file} into #{target}" if Rake.application.options.trace
   absolute_file = File.expand_path(file)
   Dir.chdir(target) do
-    sh "\"#{RubyInstaller::BSD_TAR}\" -xf \"#{absolute_file}\" > NUL 2>&1"
+    sh "\"#{RubyInstaller::BSD_TAR}\" -xf \"#{absolute_file}\" > NUL 2>&1", &block
   end
 end

@@ -26,7 +26,7 @@ namespace(:dependencies) do
       files = Rake::Task['dependencies:openssl:download'].prerequisites
 
       files.each { |f|
-        extract(File.join(RubyInstaller::ROOT, f), package.target)
+        extract(File.join(RubyInstaller::ROOT, f), package.target, :noerror => true)
       }
     end
 
