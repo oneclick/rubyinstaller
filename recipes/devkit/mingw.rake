@@ -2,15 +2,16 @@ require 'rake'
 require 'rake/clean'
 
 namespace(:devkit) do
-  dkver = ENV['DKVER'] || '4.5.0'
+  dk_version = ENV['DKVER'] ||= '4.5.0'
 
   namespace(:mingw) do
-    package = DevKitInstaller::MinGWs.find { |m| m.version == dkver }
+    package = DevKitInstaller::MinGWs.find { |m| m.version == dk_version }
     fail '[FAIL] unable to find correct MinGW version config' unless package
 
     directory package.target
     CLEAN.include(package.target)
 
+    dt = checkpoint(:mingw, :download)
     package.files.each do |k,v|
       v.each do |f|
         #TODO handle exception when no corresponding URL defined on package
@@ -22,19 +23,20 @@ namespace(:devkit) do
         file file_target => "downloads"
 
         # download task needs the packages files as pre-requisites
-        task :download => file_target
+        dt.enhance [file_target]
       end
     end
+    task :download => dt
 
-    task :extract => [:extract_utils, :download, package.target] do
-      # extract each of the packages files into the target dir
-      # if archive passes 7-Zip integrity test
-      Rake::Task['devkit:mingw:download'].prerequisites.each do |f|
+    # extract each of the packages files into the target dir
+    # if archive passes 7-Zip integrity test
+    et = checkpoint(:mingw, :extract) do
+      dt.prerequisites.each do |f|
         fail "[FAIL] corrupt '#{f}' archive" unless seven_zip_valid?(f)
         extract(File.join(RubyInstaller::ROOT, f), package.target)
       end
     end
-
+    task :extract => [:extract_utils, :download, package.target, et]
   end
 
   task :mingw => ['devkit:msys']
