@@ -165,9 +165,15 @@ module RubyInstaller
     OpenSsl = OpenStruct.new(
       :url => 'http://www.openssl.org/source',
       :version => '0.9.8n',
-      :target => 'sandbox/openssl',
+      :target => 'sandbox/src-openssl',
+      :install_target => 'sandbox/openssl',
       :patches => 'resources/patches/openssl',
-      :shared => true,
+      :configure_options => [
+        'mingw',
+        'shared',
+        'zlib-dynamic' #,
+        #'-DOPENSSL_NO_CAPIENG'
+      ],
       :dllnames => {
         :libcrypto => 'libeay32-0.9.8-msvcrt.dll',
         :libssl => 'ssleay32-0.9.8-msvcrt.dll',
@@ -198,7 +204,7 @@ module RubyInstaller
     LibFFI = OpenStruct.new(
       :url => 'http://github.com/atgreen/libffi/tarball/v3.0.9',
       :version => '3.0.9',
-      :target => 'sandbox/libffi-src',
+      :target => 'sandbox/src-libffi',
       :install_target => 'sandbox/libffi',
       :patches => 'resources/patches/libffi',
       :configure_options => [
