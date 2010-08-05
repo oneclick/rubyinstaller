@@ -225,7 +225,7 @@ module RubyInstaller
       :release => 'official',
       :version => '1.8.3-1',
       :url => "http://downloads.sourceforge.net/gnuwin32",
-      :target => RubyInstaller::MinGW.target,
+      :target => 'sandbox/gdbm',
       :files => [
         'gdbm-1.8.3-1-bin.zip',
         'gdbm-1.8.3-1-lib.zip',
