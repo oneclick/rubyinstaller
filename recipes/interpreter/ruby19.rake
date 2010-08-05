@@ -77,13 +77,13 @@ namespace(:interpreter) do
 
     file configurescript => [ package.target ] do
       cd package.target do
-        msys_sh "autoconf"
+        sh "sh -c \"autoconf\""
       end
     end
 
     file makefile => [ package.build_target, configurescript ] do
       cd package.build_target do
-        msys_sh "../ruby_1_9/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
+        sh "sh -c \"../ruby_1_9/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
       end
     end
 
@@ -91,7 +91,7 @@ namespace(:interpreter) do
 
     task :compile => makefile do
       cd package.build_target do
-        msys_sh "make"
+        sh "make"
       end
     end
 
@@ -100,7 +100,7 @@ namespace(:interpreter) do
 
       # perform make install
       cd package.build_target do
-        msys_sh "make install"
+        sh "make install"
       end
 
       # verbatim copy the binaries listed in package.dependencies
@@ -133,7 +133,7 @@ namespace(:interpreter) do
       new_ruby = File.join(RubyInstaller::ROOT, package.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
       ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
       cd package.build_target do
-        msys_sh "make check"
+        sh "make check"
       end
     end
 
