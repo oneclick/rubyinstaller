@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# Ensure '.' is in the LOAD_PATH in Ruby 1.9.2
+$LOAD_PATH.unshift File.expand_path(File.dirname(__FILE__))
+
 # Load Rake
 begin
   require 'rake'
