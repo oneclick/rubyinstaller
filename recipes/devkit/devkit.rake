@@ -27,6 +27,21 @@ namespace(:devkit) do
     )
   end
 
+  # Prepend DevKit to the PATH
+  task :env => ['devkit:msys', 'devkit:mingw'] do
+    dk_version = ENV['DKVER'] ||= '4.5.0'
+    msys = DevKitInstaller::MSYS
+    mingw = DevKitInstaller::MinGWs.find { |m| m.version == dk_version }
+    fail '[FAIL] unable to find correct MinGW version config' unless mingw
+
+    msys_path = File.join(RubyInstaller::ROOT, msys.target).gsub(File::SEPARATOR, File::ALT_SEPARATOR)
+    mingw_path = File.join(RubyInstaller::ROOT, mingw.target).gsub(File::SEPARATOR, File::ALT_SEPARATOR)
+
+    unless ENV['PATH'].include?("#{mingw_path}\\bin")
+      puts 'Temporarily enhancing PATH to include DevKit...'
+      ENV['PATH'] = "#{msys_path}\\bin;#{mingw_path}\\bin;" + ENV['PATH']
+    end
+  end
 end
 
 desc 'build DevKit installer and 7z archives.'
