@@ -198,7 +198,8 @@ module RubyInstaller
     LibFFI = OpenStruct.new(
       :url => 'http://github.com/atgreen/libffi/tarball/v3.0.9',
       :version => '3.0.9',
-      :target => 'sandbox/libffi',
+      :target => 'sandbox/libffi-src',
+      :install_target => 'sandobx/libffi',
       :patches => 'resources/patches/libffi',
       :configure_options => [
         '--enable-static',

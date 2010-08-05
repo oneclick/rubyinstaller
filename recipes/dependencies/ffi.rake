@@ -8,6 +8,7 @@ namespace(:dependencies) do
     CLEAN.include(package.target)
 
     # Put files for the :download task
+    dt = checkpoint(:ffi, :download)
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
       file_target = "downloads/#{f}"
@@ -17,44 +18,45 @@ namespace(:dependencies) do
       file file_target => "downloads"
 
       # download task need these files as pre-requisites
-      task :download => file_target
+      dt.enhance [file_target]
     end
+    task :download => dt
 
     # Prepare the :sandbox, it requires the :download task
-    task :extract => [:extract_utils, :download, package.target] do
-      # grab the files from the download task
-      files = Rake::Task['dependencies:ffi:download'].prerequisites
-
-      files.each { |f|
+    et = checkpoint(:ffi, :extract) do
+      dt.prerequisites.each { |f|
         extract(File.join(RubyInstaller::ROOT, f), package.target)
       }
     end
+    task :extract => [:extract_utils, :download, package.target, et]
 
     # Apply patches
-    task :prepare => ['dependencies:ffi:extract', :compiler] do
+    pt = checkpoint(:ffi, :prepare) do
       patches = Dir.glob("#{package.patches}/*.patch").sort
       patches.each do |patch|
-        cmd = "git apply --directory=#{package.target} #{patch}"
-        `#{cmd}`
+        sh "git apply --directory=#{package.target} #{patch}"
       end
     end
+    task :prepare => [:extract, pt]
 
     # Prepare sources for compilation
-    task :configure => ['dependencies:ffi:extract', :compiler] do
+    ct = checkpoint(:ffi, :configure) do
+      install_target = File.join(RubyInstaller::ROOT, package.install_target)
       cd package.target do
-        msys_sh "./configure #{package.configure_options.join(' ')} --prefix=/mingw"
+        sh "sh -c ./configure #{package.configure_options.join(' ')} --prefix=#{install_target}"
       end
     end
+    task :configure => [:prepare, :compiler, ct]
 
     task :compile => :configure do
       cd package.target do
-        msys_sh "make"
+        sh "make"
       end
     end
 
     task :install => :compile do
       cd package.target do
-        msys_sh "make install"
+        sh "make install"
       end
     end
   end
