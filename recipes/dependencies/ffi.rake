@@ -63,11 +63,8 @@ namespace(:dependencies) do
     task :install => [:compile, it]
 
     task :activate => [:compile] do
-      cpath = File.join(RubyInstaller::ROOT, package.install_target, 'include')
-      lib = File.join(RubyInstaller::ROOT, package.install_target, 'lib')
       puts "Activating libffi version #{package.version}"
-      append_env(:cpath, cpath)
-      append_env(:library_path, lib)
+      activate(package.install_target)
     end
   end
 end
