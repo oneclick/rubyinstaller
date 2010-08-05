@@ -4,7 +4,7 @@ namespace(:extract_utils) do
   package = RubyInstaller::ExtractUtils
   directory package.target
   CLEAN.include(package.target)
-  
+
   # Put files for the :download task
   package.files.each do |k,v|
     v.each do |f|
@@ -20,7 +20,7 @@ namespace(:extract_utils) do
       task :download => file_target
     end
   end
-  
+
   task :extract_utils => [:download, package.target] do
     msi_regex = /\.msi$/
     msis = []
@@ -40,9 +40,11 @@ namespace(:extract_utils) do
     end
 
     # assume 7za.exe can extract individual files from MSI's
-    msi = "downloads/#{msis.first}"
-    seven_zip_get(msi, '_7z.sfx', package.target)
-    File.rename("#{package.target}/_7z.sfx", "#{package.target}/7z.sfx")
+    unless File.exist?("#{package.target}/7z.sfx")
+      msi = "downloads/#{msis.first}"
+      seven_zip_get(msi, '_7z.sfx', package.target)
+      File.rename("#{package.target}/_7z.sfx", "#{package.target}/7z.sfx")
+    end
   end
 end
 
