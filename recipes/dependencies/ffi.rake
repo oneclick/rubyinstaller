@@ -34,7 +34,7 @@ namespace(:dependencies) do
     pt = checkpoint(:ffi, :prepare) do
       patches = Dir.glob("#{package.patches}/*.patch").sort
       patches.each do |patch|
-        sh "git apply --directory=#{package.target} #{patch}"
+        sh "git apply --directory #{package.target} #{patch}"
       end
     end
     task :prepare => [:extract, pt]
@@ -43,21 +43,31 @@ namespace(:dependencies) do
     ct = checkpoint(:ffi, :configure) do
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
       cd package.target do
-        sh "sh -c ./configure #{package.configure_options.join(' ')} --prefix=#{install_target}"
+        sh "sh -c \"./configure #{package.configure_options.join(' ')} --prefix=#{install_target}\""
       end
     end
     task :configure => [:prepare, :compiler, ct]
 
-    task :compile => :configure do
+    mt = checkpoint(:ffi, :make) do
       cd package.target do
         sh "make"
       end
     end
+    task :compile => [:configure, mt]
 
-    task :install => :compile do
+    it = checkpoint(:ffi, :install) do
       cd package.target do
         sh "make install"
       end
+    end
+    task :install => [:compile, it]
+
+    task :activate => [:compile] do
+      cpath = File.join(RubyInstaller::ROOT, package.install_target, 'include')
+      lib = File.join(RubyInstaller::ROOT, package.install_target, 'lib')
+      puts "Activating libffi version #{package.version}"
+      append_env(:cpath, cpath)
+      append_env(:library_path, lib)
     end
   end
 end
@@ -68,7 +78,8 @@ task :ffi => [
   'dependencies:ffi:prepare',
   'dependencies:ffi:configure',
   'dependencies:ffi:compile',
-  'dependencies:ffi:install'
+  'dependencies:ffi:install',
+  'dependencies:ffi:activate'
 ]
 
 unless ENV['COMPAT']
