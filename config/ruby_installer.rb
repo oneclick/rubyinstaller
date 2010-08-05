@@ -122,7 +122,7 @@ module RubyInstaller
       :release => "alternate",
       :version => "1.2.5",
       :url => "http://github.com/downloads/oneclick/rubyinstaller",
-      :target => RubyInstaller::MinGW.target,
+      :target => 'sandbox/zlib',
       :files => [
         'zlib125-dll.zip'
       ]
