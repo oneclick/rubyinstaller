@@ -2,14 +2,11 @@ require 'rake'
 require 'rake/clean'
 
 namespace(:devkit) do
-  namespace(:mingw) do
-    ENV['DKVER'] ||= '4.5.0'
+  dkver = ENV['DKVER'] || '4.5.0'
 
-    package = nil
-    DevKitInstaller::MinGWs.each do |m|
-      package = m if m.version == ENV['DKVER']
-    end
-    fail '[FAIL] unable to find correct MinGW version config' if package.nil?
+  namespace(:mingw) do
+    package = DevKitInstaller::MinGWs.find { |m| m.version == dkver }
+    fail '[FAIL] unable to find correct MinGW version config' unless package
 
     directory package.target
     CLEAN.include(package.target)
