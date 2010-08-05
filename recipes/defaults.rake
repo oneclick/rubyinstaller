@@ -13,4 +13,5 @@ task :check
 desc "Test drive the sandbox (using IRB)."
 task :irb
 
-# TODO: specs
+# Use DevKit in the PATH
+task :compiler => ['devkit:env']
