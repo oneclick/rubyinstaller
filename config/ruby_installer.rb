@@ -190,7 +190,8 @@ module RubyInstaller
     LibYAML = OpenStruct.new(
       :url => 'http://pyyaml.org/download/libyaml',
       :version => '0.1.3',
-      :target => 'sandbox/yaml',
+      :target => 'sandbox/src-libyaml',
+      :install_target => 'sandbox/libyaml',
       :patches => 'resources/patches/yaml',
       :configure_options => [
         '--enable-static',
