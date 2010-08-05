@@ -9,6 +9,7 @@ end
 
 def activate(path)
   vars = {
+    :path => File.join(RubyInstaller::ROOT, path, 'bin'),
     :cpath => File.join(RubyInstaller::ROOT, path, 'include'),
     :library_path => File.join(RubyInstaller::ROOT, path, 'lib')
   }

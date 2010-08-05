@@ -214,7 +214,7 @@ module RubyInstaller
       :release => 'official',
       :version => "1.9.2-1",
       :url => "http://downloads.sourceforge.net/gnuwin32",
-      :target => RubyInstaller::MinGW.target,
+      :target => 'sandbox/iconv',
       :files => [
         'libiconv-1.9.2-1-bin.zip',
         'libiconv-1.9.2-1-lib.zip'
