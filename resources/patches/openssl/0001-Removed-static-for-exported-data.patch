@@ -1,0 +1,25 @@
+From f992a241e197a77f4cf88e856be3768896411b4c Mon Sep 17 00:00:00 2001
+From: Luis Lavena <luislavena@gmail.com>
+Date: Fri, 6 Aug 2010 18:56:16 -0300
+Subject: [PATCH] Removed static for exported data.
+
+---
+ e_os2.h |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/e_os2.h b/e_os2.h
+index 9da0b65..6daad83 100644
+--- a/e_os2.h
++++ b/e_os2.h
+@@ -264,7 +264,7 @@ extern "C" {
+ # define OPENSSL_IMPLEMENT_GLOBAL(type,name)			     \
+ 	extern type _hide_##name;				     \
+ 	type *_shadow_##name(void) { return &_hide_##name; }	     \
+-	static type _hide_##name
++	type _hide_##name
+ # define OPENSSL_DECLARE_GLOBAL(type,name) type *_shadow_##name(void)
+ # define OPENSSL_GLOBAL_REF(name) (*(_shadow_##name()))
+ #else
+-- 
+1.7.1.msysgit.0
+

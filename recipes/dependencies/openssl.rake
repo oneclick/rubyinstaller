@@ -56,7 +56,6 @@ namespace(:dependencies) do
 
     mt = checkpoint(:openssl, :make) do
       cd package.target do
-        sh "make build_libs"
         sh "make"
         sh "perl util/mkdef.pl 32 libeay > libeay32.def"
         sh "dllwrap --dllname #{package.dllnames[:libcrypto]} --output-lib libcrypto.dll.a --def libeay32.def libcrypto.a -lwsock32 -lgdi32"
@@ -67,9 +66,9 @@ namespace(:dependencies) do
     task :compile => [:configure, mt]
 
     it = checkpoint(:openssl, :install) do
-      target = File.join(RubyInstaller::ROOT, RubyInstaller::MinGW.install_target)
+      target = File.join(RubyInstaller::ROOT, RubyInstaller::OpenSsl.install_target)
       cd package.target do
-        msys_sh "make install_sw"
+        sh "make install_sw"
         # these are not handled by make install
         mkdir_p "#{target}/bin"
         cp package.dllnames[:libcrypto], "#{target}/bin"
@@ -93,7 +92,8 @@ task :openssl => [
   'dependencies:openssl:extract',
   'dependencies:openssl:prepare',
   'dependencies:openssl:compile',
-  'dependencies:openssl:install'
+  'dependencies:openssl:install',
+  'dependencies:openssl:activate'
 ]
 
-#task :dependencies => [:openssl] unless ENV['NODEPS']
+task :dependencies => [:openssl] unless ENV['NODEPS']
