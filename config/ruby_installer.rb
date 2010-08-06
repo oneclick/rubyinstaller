@@ -94,11 +94,10 @@ module RubyInstaller
         'ruby-1.9.2-rc2.tar.bz2'
       ],
       :dependencies => [
-        'zlib1.dll',
-        'libiconv2.dll',
-        'pdcurses.dll',
-        'gdbm3.dll',
-        'dbm3.dll'
+        :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib
+      ],
+      :excludes => [
+        'libcharset1.dll'
       ],
       :installer_guid => '{BD5F3A9C-22D5-4C1D-AEA0-ED1BE83A1E67}'
     )
@@ -180,10 +179,6 @@ module RubyInstaller
         'openssl-0.9.8o.tar.gz',
       ]
     )
-    [Ruby18, Ruby19].each do |ruby|
-      ruby.dependencies << OpenSsl.dllnames[:libcrypto]
-      ruby.dependencies << OpenSsl.dllnames[:libssl]
-    end
 
     LibYAML = OpenStruct.new(
       :url => 'http://pyyaml.org/download/libyaml',

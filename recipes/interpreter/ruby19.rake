@@ -75,13 +75,13 @@ namespace(:interpreter) do
     makefile = File.join(package.build_target, 'Makefile')
     configurescript = File.join(package.target, 'configure')
 
-    file configurescript => [ package.target ] do
+    file configurescript => [ package.target, :compiler ] do
       cd package.target do
         sh "sh -c \"autoconf\""
       end
     end
 
-    file makefile => [ package.build_target, configurescript ] do
+    file makefile => [ package.build_target, configurescript, :compiler, *package.dependencies ] do
       cd package.build_target do
         sh "sh -c \"../ruby_1_9/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
       end
@@ -95,7 +95,7 @@ namespace(:interpreter) do
       end
     end
 
-    task :install => [package.install_target] do
+    task :install => [package.install_target, *package.dependencies ] do
       full_install_target = File.expand_path(File.join(RubyInstaller::ROOT, package.install_target))
 
       # perform make install
@@ -103,10 +103,14 @@ namespace(:interpreter) do
         sh "make install"
       end
 
-      # verbatim copy the binaries listed in package.dependencies
+      # copy the DLLs from the listed dependencies
+      paths = ENV['PATH'].split(';')
       package.dependencies.each do |dep|
-        Dir.glob("#{RubyInstaller::MinGW.target}/**/#{dep}").each do |path|
-          cp path, File.join(package.install_target, "bin")
+        if dir = paths.find { |p| p =~ /#{dep.to_s}/ }
+          Dir.glob("#{File.expand_path(dir)}/*.dll").each do |path|
+            next if package.excludes.include?(File.basename(path))
+            cp path, File.join(package.install_target, "bin")
+          end
         end
       end
 
@@ -165,9 +169,6 @@ SCRIPT
     end
   end
 end
-
-# add compiler and dependencies to the mix
-task :ruby19 => [:compiler, :dependencies]
 
 desc "compile Ruby 1.9"
 task :ruby19 => [
