@@ -15,3 +15,7 @@ task :irb
 
 # Use DevKit in the PATH
 task :compiler => ['devkit:env']
+
+# Only unique cleanups
+CLEAN.uniq!
+CLOBBER.uniq!
