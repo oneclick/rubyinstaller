@@ -61,11 +61,10 @@ module RubyInstaller
         'ruby-1.8.7-p299.tar.bz2'
       ],
       :dependencies => [
-        'zlib1.dll',
-        'libiconv2.dll',
-        'pdcurses.dll',
-        'gdbm3.dll',
-        'dbm3.dll'
+        :gdbm, :iconv, :openssl, :pdcurses, :zlib
+      ],
+      :excludes => [
+        'libcharset1.dll'
       ],
       :installer_guid => '{F6377277-9DF1-4a1f-A487-CB5D34DCD793}'
     )

@@ -10,16 +10,16 @@ namespace(:interpreter) do
     CLEAN.include(package.target)
     CLEAN.include(package.build_target)
     CLEAN.include(package.install_target)
-    
+
     # Put files for the :download task
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
       file_target = "downloads/#{f}"
       download file_target => file_source
-      
+
       # depend on downloads directory
       file file_target => "downloads"
-      
+
       # download task need these files as pre-requisites
       task :download => file_target
     end
@@ -61,7 +61,7 @@ namespace(:interpreter) do
       end
     end
 
-    task :prepare => [package.build_target] do
+    task :prepare => [package.build_target, *package.dependencies] do
       cd RubyInstaller::ROOT do
         cp_r(Dir.glob('resources/icons/*.ico'), package.build_target, :verbose => true)
       end
@@ -75,27 +75,27 @@ namespace(:interpreter) do
     makefile = File.join(package.build_target, 'Makefile')
     configurescript = File.join(package.target, 'configure')
 
-    file configurescript => [ package.target ] do
+    file configurescript => [ package.target, :compiler ] do
       cd package.target do
         msys_sh "autoconf"
       end
     end
 
-    file makefile => [ package.build_target, configurescript ] do
+    file makefile => [ package.build_target, configurescript, :compiler, *package.dependencies ] do
       cd package.build_target do
         msys_sh "../ruby_1_8/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
       end
     end
 
     task :configure => makefile
-    
+
     task :compile => makefile do
       cd package.build_target do
         msys_sh "make"
       end
     end
 
-    task :install => [package.install_target] do
+    task :install => [package.install_target, *package.dependencies] do
       full_install_target = File.expand_path(File.join(RubyInstaller::ROOT, package.install_target))
       full_install_target_nodrive = full_install_target.gsub(/\A[a-z]:/i, '')
 
@@ -103,14 +103,18 @@ namespace(:interpreter) do
       cd package.build_target do
         msys_sh "make install"
       end
-      
-      # verbatim copy the binaries listed in package.dependencies
+
+      # copy the DLLs from the listed dependencies
+      paths = ENV['PATH'].split(';')
       package.dependencies.each do |dep|
-        Dir.glob("#{RubyInstaller::MinGW.target}/**/#{dep}").each do |path|
-          cp path, File.join(package.install_target, "bin")
+        if dir = paths.find { |p| p =~ /#{dep.to_s}/ }
+          Dir.glob("#{File.expand_path(dir)}/*.dll").each do |path|
+            next if package.excludes.include?(File.basename(path))
+            cp path, File.join(package.install_target, "bin")
+          end
         end
       end
-      
+
       # copy original scripts from ruby_1_8 to install_target
       Dir.glob("#{package.target}/bin/*").each do |path|
         cp path, File.join(package.install_target, "bin")
@@ -171,9 +175,6 @@ SCRIPT
     end
   end
 end
-
-# add compiler and dependencies to the mix
-task :ruby18 => [:compiler, :dependencies]
 
 desc "compile Ruby 1.8"
 task :ruby18 => [
