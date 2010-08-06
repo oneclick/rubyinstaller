@@ -64,7 +64,7 @@ namespace(:dependencies) do
     task :install => [:compile, it]
 
     task :activate => [:compile] do
-      puts "Activating libffi version #{package.version}"
+      puts "Activating libyaml version #{package.version}"
       activate(package.install_target)
     end
   end
