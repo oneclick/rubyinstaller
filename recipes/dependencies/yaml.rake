@@ -6,6 +6,7 @@ namespace(:dependencies) do
     package = RubyInstaller::LibYAML
     directory package.target
     CLEAN.include(package.target)
+    CLEAN.include(package.install_target)
 
     # Put files for the :download task
     dt = checkpoint(:yaml, :download)

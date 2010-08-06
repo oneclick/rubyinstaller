@@ -6,6 +6,7 @@ namespace(:dependencies) do
     package = RubyInstaller::LibFFI
     directory package.target
     CLEAN.include(package.target)
+    CLEAN.include(package.install_target)
 
     # Put files for the :download task
     dt = checkpoint(:ffi, :download)
