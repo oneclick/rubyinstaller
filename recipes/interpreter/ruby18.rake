@@ -4,7 +4,6 @@ require 'rake/clean'
 namespace(:interpreter) do
   namespace(:ruby18) do
     package = RubyInstaller::Ruby18
-    directory package.target
     directory package.build_target
     directory package.install_target
     CLEAN.include(package.target)
@@ -45,15 +44,18 @@ namespace(:interpreter) do
       end
     end
 
-    task :extract => [:extract_utils, package.target] do
+    task :extract => [:extract_utils] do
       case
       when ENV['LOCAL']
-        cp_r(File.join(ENV['LOCAL'], '.'), package.target, :verbose => true, :remove_destination => true)
+        package.target = File.expand_path(File.join(ENV['LOCAL'], '.'))
       when ENV['CHECKOUT']
-        cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
+        package.target = File.expand_path(package.checkout_target)
       else
         # grab the files from the download task
         files = Rake::Task['interpreter:ruby18:download'].prerequisites
+
+        # ensure target directory exist
+        mkdir_p package.target
 
         files.each { |f|
           extract(File.join(RubyInstaller::ROOT, f), package.target)
@@ -65,43 +67,39 @@ namespace(:interpreter) do
       cd RubyInstaller::ROOT do
         cp_r(Dir.glob('resources/icons/*.ico'), package.build_target, :verbose => true)
       end
-
-      # FIXME: Readline is not working, remove it for now.
-      cd package.target do
-        rm_f 'test/readline/test_readline.rb'
-      end
     end
 
-    makefile = File.join(package.build_target, 'Makefile')
-    configurescript = File.join(package.target, 'configure')
+    task :configure => [package.build_target, :compiler, *package.dependencies] do
+      source_path = Pathname.new(File.expand_path(package.target))
+      build_path = Pathname.new(File.expand_path(package.build_target))
 
-    file configurescript => [ package.target, :compiler ] do
-      cd package.target do
-        msys_sh "autoconf"
+      relative_path = source_path.relative_path_from(build_path)
+
+      # working with a checkout, generate configure
+      unless File.exist?(File.join(package.target, 'configure'))
+        cd package.target do
+          sh "sh -c \"autoconf\""
+        end
       end
-    end
 
-    file makefile => [ package.build_target, configurescript, :compiler, *package.dependencies ] do
       cd package.build_target do
-        msys_sh "../ruby_1_8/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
+        sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
       end
     end
 
-    task :configure => makefile
-
-    task :compile => makefile do
+    task :compile => [:configure, :compiler, *package.dependencies] do
       cd package.build_target do
-        msys_sh "make"
+        sh "make"
       end
     end
 
-    task :install => [package.install_target, *package.dependencies] do
+    task :install => [ package.install_target, *package.dependencies ] do
       full_install_target = File.expand_path(File.join(RubyInstaller::ROOT, package.install_target))
       full_install_target_nodrive = full_install_target.gsub(/\A[a-z]:/i, '')
 
       # perform make install
       cd package.build_target do
-        msys_sh "make install"
+        sh "make install"
       end
 
       # copy the DLLs from the listed dependencies
@@ -121,6 +119,17 @@ namespace(:interpreter) do
       end
 
       # remove path reference to sandbox (after install!!!)
+      rbconfig = Dir.glob("#{package.install_target}/lib/**/rbconfig.rb").first
+      contents = File.read(rbconfig).gsub(/#{Regexp.escape(full_install_target)}/) { |match| "" }
+      File.open(rbconfig, 'w') { |f| f.write(contents) }
+
+      # replace the batch files with new and path-clean stubs
+      Dir.glob("#{package.install_target}/bin/*.bat").each do |bat|
+        File.open(bat, 'w') do |f|
+          f.write batch_stub
+        end
+      end
+
       rbconfig = File.join(package.install_target, 'lib/ruby/1.8/i386-mingw32/rbconfig.rb')
       contents = File.read(rbconfig).
         gsub(/#{Regexp.escape(full_install_target)}/) { |match| "" }.
