@@ -140,16 +140,6 @@ namespace(:interpreter) do
       end
     end
 
-    task :manifest do
-      manifest = File.open(File.join(package.build_target, "manifest"), 'w')
-      cd package.install_target do
-        Dir.glob("**/*").each do |f|
-          manifest.puts(f) unless File.directory?(f)
-        end
-      end
-      manifest.close
-    end
-
     task :irb do
       cd File.join(package.install_target, 'bin') do
         sh "irb.bat"
