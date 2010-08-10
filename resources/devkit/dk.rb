@@ -6,6 +6,7 @@ module DevKitInstaller
 
   DEVKIT_ROOT = File.expand_path(File.dirname(__FILE__))
 
+  # TODO add JRuby installer registry key
   REG_KEYS = [
     'Software\RubyInstaller\MRI',
     'Software\RubyInstaller\Rubinius'
@@ -63,6 +64,18 @@ end
 EOT
   end
   private_class_method :gem_override
+
+  def self.devkit_lib(dk_root=DEVKIT_ROOT)
+    d = dk_root.gsub('/', '\\\\\\')
+<<-EOT
+# enable RubyInstaller DevKit usage as a vendorable helper library
+unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
+  puts 'Temporarily enhancing PATH to include DevKit...'
+  ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
+end
+EOT
+  end
+  private_class_method :devkit_lib
 
   def self.scan_for(key)
     ris = []
@@ -122,10 +135,10 @@ EOT
     if File.exists?(File.expand_path(CONFIG_FILE))
       File.open(CONFIG_FILE, 'r') do |f|
         puts <<-EOT
-Based upon the results contained in your '#{CONFIG_FILE}' config
-file resulting from running 'ruby dk.rb init' and any of your
-customizations, DevKit functionality will be injected into the
-following Rubies when you run 'ruby dk.rb install'.
+Based upon the settings in the '#{CONFIG_FILE}' file generated
+from running 'ruby dk.rb init' and any of your customizations,
+DevKit functionality will be injected into the following Rubies
+when you run 'ruby dk.rb install'.
 
 EOT
         puts YAML.load(f.read)
@@ -146,12 +159,13 @@ EOT
         next
       end
 
-      site_ruby = Dir.glob("#{path}/lib/ruby/site_ruby/**/rubygems")
-      core_ruby = Dir.glob("#{path}/lib/ruby/**/rubygems")
+      site_ruby = Dir.glob("#{path}/lib/ruby/site_ruby")
+      site_rubygems = Dir.glob("#{path}/lib/ruby/site_ruby/**/rubygems")
+      core_rubygems = Dir.glob("#{path}/lib/ruby/**/rubygems")
 
       # inject stubs if RubyGems isn't in site_ruby or core ruby, making
       # backups of any existing stubs
-      if site_ruby.empty? && core_ruby.empty?
+      if site_rubygems.empty? && core_rubygems.empty?
         puts <<-EOT
 Unable to find RubyGems in site_ruby or core Ruby. Falling back
 to installing gcc, g++, make, and sh into #{path}
@@ -169,9 +183,9 @@ EOT
           end
         end
       else
-        # either (or both) site_ruby or core_ruby contains RubyGems; favor
-        # injecting RubyGems override into site_ruby over core_ruby
-        target_ruby = site_ruby.empty? ? core_ruby : site_ruby
+        # either (or both) site_rubygems or core_rubygems contains RubyGems;
+        # favor injecting override into site_rubygems over core_rubygems
+        target_ruby = site_rubygems.empty? ? core_rubygems : site_rubygems
 
         # inject RubyGems override file into proper site_ruby location
         # appending an existing override file
@@ -192,6 +206,27 @@ EOT
             File.open(target, 'w') { |f| f.write(gem_override) }
           end
         end
+      end
+
+      # inject DevKit PATH helper into site_ruby (allows for overriding)
+      # for the 'ruby -rdevkit extconf.rb' use case.
+      # TODO more robust JRuby check since can't assume JRuby is running
+      #      this script?
+      jruby_site_shared = File.join(site_ruby, 'shared')
+      if File.directory?(jruby_site_shared) && File.exist?(File.join(path, 'bin', 'jruby.bat'))
+        site_ruby =  jruby_site_shared
+      end
+
+      target = File.join(site_ruby, 'devkit.rb')
+      if File.exist?(target)
+        # Be paranoid about our 'site_ruby/devkit.rb' namespace. Either
+        # someone else has collided with it, or we've already written the
+        # helper lib. Warn the developer and skip rather than overwriting
+        # or appending.
+        puts "[WARN] DevKit helper library already exists for #{path}, skipping."
+      else
+        puts "[INFO] Installing #{target}"
+        File.open(target, 'w') { |f| f.write(devkit_lib) }
       end
     end
   end
