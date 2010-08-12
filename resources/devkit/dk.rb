@@ -86,13 +86,14 @@ EOT
             # read the install location if a version subkey
             if skey =~ /\d\.\d\.\d/
               ri_key.open(skey) do |ver_key|
-                ris << ver_key['InstallLocation'].gsub('\\', '/')
+                ri_root = ver_key['InstallLocation'].gsub('\\', '/')
+                puts '[INFO] found RubyInstaller v%s at %s' % [ skey, ri_root ]
+                ris << ri_root
               end
             end
           end
         end
-      rescue Win32::Registry::Error => ex
-        $stderr.puts '[INFO] unable to open %s\%s...' % [hive.keyname, key]
+      rescue Win32::Registry::Error
       end
     end
     ris
@@ -109,6 +110,12 @@ EOT
     # get all known installed Ruby root dirs and write the root dirs
     # to 'config.yml', overwriting any existing config file.
     ir = installed_rubies
+    puts <<-EOT
+
+Initialization complete! Please review and modify the auto-generated
+'config.yml' file to ensure it contains the root directories to all
+of the installed Rubies you want enhanced by the DevKit.
+EOT
 
     File.open(CONFIG_FILE, 'w') do |f|
       f.write <<-EOT
