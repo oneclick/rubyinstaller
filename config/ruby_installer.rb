@@ -105,9 +105,9 @@ module RubyInstaller
 
     # COMPAT mode for Ruby 1.9.1
     if ENV['COMPAT'] then
-      Ruby19.version = '1.9.1-p429'
+      Ruby19.version = '1.9.1-p430'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1'
-      Ruby19.files = ['ruby-1.9.1-p429.tar.bz2']
+      Ruby19.files = ['ruby-1.9.1-p430.tar.bz2']
       Ruby19.installer_guid = '{11233A17-BFFC-434A-8FC8-2E93369AF008}'
     end
 
