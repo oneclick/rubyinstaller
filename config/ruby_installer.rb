@@ -45,7 +45,7 @@ module RubyInstaller
     )
 
     Ruby18 = OpenStruct.new(
-      :version => '1.8.7-p299',
+      :version => '1.8.7-p302',
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_7',
       :checkout_target => 'downloads/ruby_1_8',
@@ -58,7 +58,7 @@ module RubyInstaller
         "CFLAGS='-g -O2 -DFD_SETSIZE=256'"
       ],
       :files => [
-        'ruby-1.8.7-p299.tar.bz2'
+        'ruby-1.8.7-p302.tar.bz2'
       ],
       :dependencies => [
         'zlib1.dll',
