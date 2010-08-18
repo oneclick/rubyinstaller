@@ -1,3 +1,10 @@
+=== 2010-08-18
+
+* Enhancements:
+  * Upgraded Ruby 1.9.2 to final (p0)
+  * Speed up compilation process (reduce copy over copy)
+  * Usage of extracted devkit to compile everything
+
 === Final / 2010-06-06
 
 * Enhancements:
