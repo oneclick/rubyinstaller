@@ -23,6 +23,8 @@ require 'config/devkit'
 # Added download task from buildr
 require 'rake/downloadtask'
 require 'rake/extracttask'
+require 'rake/checkpoint'
+require 'rake/env'
 
 # Allow build configuration overrides if override/build_config.rb file
 # exists in the RubyInstaller project root directory

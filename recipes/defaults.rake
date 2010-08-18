@@ -13,4 +13,9 @@ task :check
 desc "Test drive the sandbox (using IRB)."
 task :irb
 
-# TODO: specs
+# Use DevKit in the PATH
+task :compiler => ['devkit:env']
+
+# Only unique cleanups
+CLEAN.uniq!
+CLOBBER.uniq!

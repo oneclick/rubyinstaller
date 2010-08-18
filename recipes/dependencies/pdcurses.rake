@@ -8,6 +8,7 @@ namespace(:dependencies) do
     CLEAN.include(package.target)
 
     # Put files for the :download task
+    dt = checkpoint(:pdcurses, :download)
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
       file_target = "downloads/#{f}"
@@ -17,26 +18,34 @@ namespace(:dependencies) do
       file file_target => "downloads"
 
       # download task need these files as pre-requisites
-      task :download => file_target
+      dt.enhance [file_target]
     end
+    task :download => dt
 
     # Prepare the :sandbox, it requires the :download task
-    task :extract => [:extract_utils, :download, package.target] do
-      # grab the files from the download task
-      files = Rake::Task['dependencies:pdcurses:download'].prerequisites
-
-      files.each { |f|
+    et = checkpoint(:pdcurses, :extract) do
+      dt.prerequisites.each { |f|
         extract(File.join(RubyInstaller::ROOT, f), package.target)
       }
     end
+    task :extract => [:extract_utils, :download, package.target, et]
 
-    task :prepare => [package.target] do
-      # pdcurses needs some relocation of files
+    # pdcurses needs some relocation of files
+    pt = checkpoint(:pdcurses, :prepare) do
       cd File.join(RubyInstaller::ROOT, package.target) do
+        mkdir 'bin'
+        mkdir 'include'
+        mkdir 'lib'
         mv 'pdcurses.dll', 'bin'
         mv [ 'panel.h', 'curses.h' ], 'include'
-        mv 'pdcurses.lib', 'lib/libcurses.a'
+        mv 'pdcurses.lib', 'lib'
       end
+    end
+    task :prepare => [:extract, pt]
+
+    task :activate => [:prepare] do
+      puts "Activating pdcurses version #{package.version}"
+      activate(package.target)
     end
   end
 end
@@ -44,7 +53,8 @@ end
 task :pdcurses => [
   'dependencies:pdcurses:download',
   'dependencies:pdcurses:extract',
-  'dependencies:pdcurses:prepare'
+  'dependencies:pdcurses:prepare',
+  'dependencies:pdcurses:activate'
 ]
 
 task :dependencies => [:pdcurses] unless ENV['NODEPS']

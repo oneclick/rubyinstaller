@@ -9,6 +9,7 @@ namespace(:dependencies) do
     CLEAN.include(package.target)
 
     # Put files for the :download task
+    dt = checkpoint(:zlib, :download)
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
       file_target = "downloads/#{f}"
@@ -18,31 +19,37 @@ namespace(:dependencies) do
       file file_target => "downloads"
 
       # download task need these files as pre-requisites
-      task :download => file_target
+      dt.enhance [file_target]
     end
+    task :download => dt
 
     # Prepare the :sandbox, it requires the :download task
-    task :extract => [:extract_utils, :download, package.target] do
-      # grab the files from the download task
-      files = Rake::Task['dependencies:zlib:download'].prerequisites
-
-      files.each { |f|
+    et = checkpoint(:zlib, :extract) do
+      dt.prerequisites.each { |f|
         extract(File.join(RubyInstaller::ROOT, f), package.target)
       }
     end
+    task :extract => [:extract_utils, :download, package.target, et]
 
-    task :prepare => [package.target] do
-      # zlib needs some relocation of files
-      # remove test/*.exe
-      # remove *.txt
-      # move zlib1.dll to bin
+    # zlib needs some relocation of files
+    # remove test/*.exe
+    # remove *.txt
+    # move zlib1.dll to bin
+    pt = checkpoint(:zlib, :prepare) do
       cd File.join(RubyInstaller::ROOT, package.target) do
         rm_rf "test"
         Dir.glob("*.txt").each do |path|
           rm_f path
         end
+        mkdir 'bin'
         mv "zlib1.dll", "bin"
       end
+    end
+    task :prepare => [:extract, pt]
+
+    task :activate => [:prepare] do
+      puts "Activating zlib version #{package.version}"
+      activate(package.target)
     end
   end
 end
@@ -50,7 +57,8 @@ end
 task :zlib => [
   'dependencies:zlib:download',
   'dependencies:zlib:extract',
-  'dependencies:zlib:prepare'
+  'dependencies:zlib:prepare',
+  'dependencies:zlib:activate'
 ]
 
 task :dependencies => [:zlib] unless ENV['NODEPS']
