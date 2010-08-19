@@ -45,7 +45,7 @@ interpreters.each do |package|
 
   stdlib_files = ['./lib', './ext']
 
-  default_opts = ['--line-numbers', '--format=chm']
+  default_opts = ['--format=chm']
 
   # build file dependencies
   rdocs = [
@@ -77,7 +77,7 @@ interpreters.each do |package|
         title   = "#{chm[:title]} API Reference"
 
         # create documentation
-        args = default_opts + 
+        args = default_opts +
               (chm[:opts] || []) +
               ['--title', title, '--op', op_dir] +
               chm[:files]
