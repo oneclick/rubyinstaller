@@ -84,7 +84,7 @@ namespace(:interpreter) do
       end
 
       cd package.build_target do
-        sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --enable-shared --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
+        sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
       end
     end
 
