@@ -96,5 +96,3 @@ task :openssl => [
   'dependencies:openssl:install',
   'dependencies:openssl:activate'
 ]
-
-task :dependencies => [:openssl] unless ENV['NODEPS']

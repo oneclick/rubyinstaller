@@ -79,7 +79,3 @@ task :ffi => [
   'dependencies:ffi:install',
   'dependencies:ffi:activate'
 ]
-
-unless ENV['COMPAT']
-  task :dependencies => [:ffi] unless ENV['NODEPS']
-end

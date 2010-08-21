@@ -118,6 +118,12 @@ module RubyInstaller
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/trunk'
     end
 
+    # do not build or prepare any dependency library
+    if ENV['NODEPS'] then
+      Ruby18.dependencies.clear
+      Ruby19.dependencies.clear
+    end
+
     Zlib = OpenStruct.new(
       :release => "alternate",
       :version => "1.2.5",

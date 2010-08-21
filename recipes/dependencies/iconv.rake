@@ -58,5 +58,3 @@ task :iconv => [
   'dependencies:iconv:prepare',
   'dependencies:iconv:activate'
 ]
-
-task :dependencies => [:iconv] unless ENV['NODEPS']

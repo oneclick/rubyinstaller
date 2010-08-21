@@ -56,5 +56,3 @@ task :pdcurses => [
   'dependencies:pdcurses:prepare',
   'dependencies:pdcurses:activate'
 ]
-
-task :dependencies => [:pdcurses] unless ENV['NODEPS']

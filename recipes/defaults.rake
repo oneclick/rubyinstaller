@@ -1,9 +1,6 @@
 require 'rake'
 require 'rake/clean'
 
-# Placeholder for NODEPS usage.
-task :dependencies
-
 desc "Build Ruby 1.8"
 task :default => [:ruby18]
 

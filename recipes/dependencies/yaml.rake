@@ -78,8 +78,3 @@ task :yaml => [
   'dependencies:yaml:install',
   'dependencies:yaml:activate'
 ]
-
-
-unless ENV['COMPAT']
-  task :dependencies => [:yaml] unless ENV['NODEPS']
-end
