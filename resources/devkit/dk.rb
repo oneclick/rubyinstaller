@@ -154,11 +154,19 @@ EOT
       puts <<-EOT
 Unable to find '#{CONFIG_FILE}'.  Have you run 'ruby dk.rb init' yet?
 EOT
+      exit(-2)
     end
   end
 
   def self.install
-    rubies = YAML.load_file(CONFIG_FILE)
+    begin
+      rubies = YAML.load_file(CONFIG_FILE)
+    rescue
+      puts <<-EOT
+Error loading '#{CONFIG_FILE}'.  Have you run 'ruby dk.rb init' yet?
+EOT
+      exit(-2)
+    end
 
     rubies.each do |path|
       unless File.directory?(File.expand_path(path))
