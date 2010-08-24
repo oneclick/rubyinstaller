@@ -133,7 +133,7 @@ EOT
 # - C:/ruby192dev
 #
 EOT
-      f.write(ir.to_yaml)
+      unless ir.empty? then f.write(ir.to_yaml) else f.write("---\n") end
     end
   end
   private_class_method :init
@@ -164,6 +164,14 @@ EOT
     rescue
       puts <<-EOT
 Error loading '#{CONFIG_FILE}'.  Have you run 'ruby dk.rb init' yet?
+EOT
+      exit(-2)
+    end
+
+    unless rubies.is_a?(Array) && !rubies.empty?
+      puts <<-EOT
+Invalid configuration or no Rubies listed. Please fix '#{CONFIG_FILE}'
+and rerun 'ruby dk.rb install'
 EOT
       exit(-2)
     end
