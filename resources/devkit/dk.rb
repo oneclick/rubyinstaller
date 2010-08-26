@@ -177,7 +177,9 @@ EOT
     end
 
     rubies.each do |path|
-      unless File.directory?(File.expand_path(path))
+      path = File.expand_path(path)
+
+      unless File.directory?(path)
         puts "[ERROR] Invalid directory '#{path}', skipping."
         next
       end
