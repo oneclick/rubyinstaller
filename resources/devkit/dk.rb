@@ -29,7 +29,7 @@ each of the Ruby installations on your Windows system. The
 DevKit enables you to build many of the available native
 C-based RubyGems that don't yet have a binary gem.
 
-Usage: ruby dk.rb COMMAND
+Usage: ruby dk.rb COMMAND [options]
 
 where COMMAND is one of:
 
@@ -37,6 +37,9 @@ where COMMAND is one of:
   review   review DevKit install plan
   install  install required DevKit executables
 
+and [options] are:
+
+  -U, --upgrade  overwrite existing helper scripts
 EOT
   end
 
@@ -148,7 +151,14 @@ DevKit functionality will be injected into the following Rubies
 when you run 'ruby dk.rb install'.
 
 EOT
-        puts YAML.load(f.read)
+        #puts YAML.load(f.read)
+        rubies = YAML.load(f.read)
+        if rubies.is_a?(Array)
+          rubies.each { |i| puts File.expand_path(i) }
+        else
+          puts "Invalid configuration. Please fix '#{CONFIG_FILE}.'"
+          exit(-2)
+        end
       end
     else
       puts <<-EOT
@@ -224,7 +234,19 @@ EOT
               puts '[INFO] Updating existing RubyGems override.'
               File.open(target, 'a') { |f| f.write(gem_override) }
             else
-              puts "[INFO] RubyGems override already in place for #{path}, skipping."
+              puts "[INFO] RubyGems override already in place for #{path}, skipping." unless $options[:upgrade]
+
+              if $options[:upgrade]
+                puts <<-EOT
+[INFO] RubyGems override alreading in place for #{path}.
+
+Since the override file may contain more than just DevKit
+functionality, you'll need to manually upgrade by replacing
+just the DevKit code with the following:
+
+#{gem_override}
+EOT
+              end
             end
           else
             puts "[INFO] Installing #{target}"
@@ -248,7 +270,13 @@ EOT
         # someone else has collided with it, or we've already written the
         # helper lib. Warn the developer and skip rather than overwriting
         # or appending.
-        puts "[WARN] DevKit helper library already exists for #{path}, skipping."
+        puts "[WARN] DevKit helper library already exists for #{path}, skipping." unless $options[:upgrade]
+
+        if $options[:upgrade]
+          puts "[INFO] Upgrading (with backup) the DevKit helper library for #{path}."
+          File.rename(target, "#{target}.orig")
+          File.open(target, 'w') { |f| f.write(devkit_lib) }
+        end
       else
         puts "[INFO] Installing #{target}"
         File.open(target, 'w') { |f| f.write(devkit_lib) }
@@ -269,11 +297,16 @@ EOT
 end
 
 if __FILE__ == $0
-  DevKitInstaller.usage_and_exit if ARGV.empty?
+  if ARGV.empty? || ARGV.delete('--help') || ARGV.delete('-h')
+    DevKitInstaller.usage_and_exit
+  end
 
   cmd = ARGV.delete('init') ||
         ARGV.delete('review') ||
         ARGV.delete('install')
+
+  $options ||= {}
+  $options[:upgrade] = ARGV.delete('--upgrade') || ARGV.delete('-U')
 
   DevKitInstaller.usage_and_exit unless ARGV.empty?
 
