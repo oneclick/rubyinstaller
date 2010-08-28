@@ -27,7 +27,7 @@ module DevKitInstaller
 Configures an MSYS/MinGW based Development Kit (DevKit) for
 each of the Ruby installations on your Windows system. The
 DevKit enables you to build many of the available native
-C-based RubyGems that don't yet have a binary gem.
+RubyGems that don't yet have a binary gem.
 
 Usage: ruby dk.rb COMMAND [options]
 
@@ -37,11 +37,16 @@ where COMMAND is one of:
   review   review DevKit install plan
   install  install required DevKit executables
 
-and [options] are:
+and 'install' [options] are:
 
-  -U, --upgrade  overwrite existing helper scripts
+  -f, --force  overwrite existing helper scripts
 EOT
   end
+
+  def self.timestamp
+    Time.now.strftime('%Y%m%d%H%M%S')
+  end
+  private_class_method :timestamp
 
   def self.stub_for(cmd, dk_root=DEVKIT_ROOT)
 <<-EOT
@@ -151,7 +156,6 @@ DevKit functionality will be injected into the following Rubies
 when you run 'ruby dk.rb install'.
 
 EOT
-        #puts YAML.load(f.read)
         rubies = YAML.load(f.read)
         if rubies.is_a?(Array)
           rubies.each { |i| puts File.expand_path(i) }
@@ -209,8 +213,8 @@ EOT
           target = File.join(path, 'bin', "#{command}.bat")
 
           if File.exist?(target)
-            puts "Renaming #{command}.bat to #{command}.bat.orig"
-            File.rename(target, "#{target}.orig")
+            puts "Creating backup of #{command}.bat"
+            File.rename(target, "#{target}.#{timestamp}")
           end
 
           File.open(target, 'w') do |f|
@@ -223,7 +227,8 @@ EOT
         target_ruby = site_rubygems.empty? ? core_rubygems : site_rubygems
 
         # inject RubyGems override file into proper site_ruby location
-        # appending an existing override file
+        # appending an existing override file if it doesn't already contain
+        # DevKit specific code.
         target_ruby.each do |folder|
           target = File.join(folder, 'defaults', 'operating_system.rb')
           FileUtils.mkdir_p File.dirname(target)
@@ -234,18 +239,21 @@ EOT
               puts '[INFO] Updating existing RubyGems override.'
               File.open(target, 'a') { |f| f.write(gem_override) }
             else
-              puts "[INFO] RubyGems override already in place for #{path}, skipping." unless $options[:upgrade]
+              puts "[INFO] RubyGems override already exists for #{path}, skipping." unless $options[:force]
 
-              if $options[:upgrade]
+              if $options[:force]
                 puts <<-EOT
-[INFO] RubyGems override alreading in place for #{path}.
+[INFO] RubyGems override already exists for #{path}, updating.
 
-Since the override file may contain more than just DevKit
-functionality, you'll need to manually upgrade by replacing
-just the DevKit code with the following:
+=== IMPORTANT ===
+A backup of the original override file has been created. As the
+original may have contained important non-DevKit behavior, please
+review both and modify the new file to include any previously
+existing functionality from the original.
 
-#{gem_override}
 EOT
+                File.rename(target, "#{target}.#{timestamp}")
+                File.open(target, 'w') { |f| f.write(gem_override) }
               end
             end
           else
@@ -270,11 +278,11 @@ EOT
         # someone else has collided with it, or we've already written the
         # helper lib. Warn the developer and skip rather than overwriting
         # or appending.
-        puts "[WARN] DevKit helper library already exists for #{path}, skipping." unless $options[:upgrade]
+        puts "[WARN] DevKit helper library already exists for #{path}, skipping." unless $options[:force]
 
-        if $options[:upgrade]
-          puts "[INFO] Upgrading (with backup) the DevKit helper library for #{path}."
-          File.rename(target, "#{target}.orig")
+        if $options[:force]
+          puts "[INFO] Updating (with backup) the DevKit helper library for #{path}."
+          File.rename(target, "#{target}.#{timestamp}")
           File.open(target, 'w') { |f| f.write(devkit_lib) }
         end
       else
@@ -306,7 +314,7 @@ if __FILE__ == $0
         ARGV.delete('install')
 
   $options ||= {}
-  $options[:upgrade] = ARGV.delete('--upgrade') || ARGV.delete('-U')
+  $options[:force] = ARGV.delete('--force') || ARGV.delete('-f')
 
   DevKitInstaller.usage_and_exit unless ARGV.empty?
 
