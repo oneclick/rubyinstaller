@@ -90,6 +90,37 @@ EOT
   end
   private_class_method :devkit_lib
 
+  def self.update_gem_override(target)
+    in_section = false
+    bkup = "#{target}.#{timestamp}"
+    File.rename(target, bkup)
+
+    # copy existing gem override except for old DevKit content
+    begin
+      File.open(bkup, 'r') do |src|
+        File.open(target, 'w') do |tgt|
+          src.each_line do |src_line|
+            case src_line
+            when /^# #{DEVKIT_START}/
+              in_section = true
+            when /^# #{DEVKIT_END}/
+              in_section = false
+              next
+            end
+            tgt.puts(src_line) unless in_section
+          end
+
+          # append new DevKit content
+          tgt.write(gem_override)
+        end
+      end
+    rescue
+      # restore backup if anything went wrong
+      FileUtils.cp(bkup, target)
+    end
+  end
+  private_class_method :update_gem_override
+
   def self.scan_for(key)
     ris = []
     [Win32::Registry::HKEY_LOCAL_MACHINE, Win32::Registry::HKEY_CURRENT_USER].each do |hive|
@@ -244,21 +275,11 @@ EOT
               puts '[INFO] Updating existing RubyGems override.'
               File.open(target, 'a') { |f| f.write(gem_override) }
             else
-              puts "[INFO] RubyGems override already exists for #{path}, skipping." unless $options[:force]
+              puts "[INFO] Skipping existing RubyGems override for #{path}." unless $options[:force]
 
               if $options[:force]
-                puts <<-EOT
-[INFO] RubyGems override already exists for #{path}, updating.
-
-=== IMPORTANT ===
-A backup of the original override file has been created. As the
-original may have contained important non-DevKit behavior, please
-review both and modify the new file to include any previously
-existing functionality from the original.
-
-EOT
-                File.rename(target, "#{target}.#{timestamp}")
-                File.open(target, 'w') { |f| f.write(gem_override) }
+                puts "[INFO] Updating (with backup) existing RubyGems override for #{path}."
+                update_gem_override(target)
               end
             end
           else
@@ -286,7 +307,7 @@ EOT
         puts "[WARN] DevKit helper library already exists for #{path}, skipping." unless $options[:force]
 
         if $options[:force]
-          puts "[INFO] Updating (with backup) the DevKit helper library for #{path}."
+          puts "[INFO] Updating (with backup) DevKit helper library for #{path}."
           File.rename(target, "#{target}.#{timestamp}")
           File.open(target, 'w') { |f| f.write(devkit_lib) }
         end
