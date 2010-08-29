@@ -38,7 +38,7 @@ namespace(:dependencies) do
         mkdir 'lib'
         mv 'pdcurses.dll', 'bin'
         mv [ 'panel.h', 'curses.h' ], 'include'
-        mv 'pdcurses.lib', 'lib'
+        mv 'pdcurses.lib', 'lib/libcurses.a'
       end
     end
     task :prepare => [:extract, pt]
