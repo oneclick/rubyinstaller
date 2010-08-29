@@ -5,6 +5,8 @@ require 'fileutils'
 module DevKitInstaller
 
   DEVKIT_ROOT = File.expand_path(File.dirname(__FILE__))
+  DEVKIT_START = ':DK-BEG:'
+  DEVKIT_END = ':DK-END:'
 
   # TODO add JRuby installer registry key
   REG_KEYS = [
@@ -62,13 +64,16 @@ EOT
   def self.gem_override(dk_root=DEVKIT_ROOT)
     d = dk_root.gsub('/', '\\\\\\')
 <<-EOT
-# override 'gem install' to enable RubyInstaller DevKit usage
-Gem.pre_install do |i|
-  unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
-    puts 'Temporarily enhancing PATH to include DevKit...'
-    ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
+# #{DEVKIT_START} override 'gem install' to enable RubyInstaller DevKit usage
+Gem.pre_install do |gem_installer|
+  unless gem_installer.spec.extensions.empty?
+    unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
+      puts 'Temporarily enhancing PATH to include DevKit...'
+      ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
+    end
   end
 end
+# #{DEVKIT_END}
 EOT
   end
   private_class_method :gem_override
