@@ -58,12 +58,21 @@ namespace(:tools) do
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
 
-    task :install18 => [package.target, RubyInstaller::Ruby18.target] do
+    task :install18 => [package.target, RubyInstaller::Ruby18.install_target] do
       do_install RubyInstaller::RubyGems, RubyInstaller::Ruby18
     end
 
-    task :install19 => [package.target, RubyInstaller::Ruby19.target] do
+    task :install19 => [package.target, RubyInstaller::Ruby19.install_target] do
       do_install RubyInstaller::RubyGems, RubyInstaller::Ruby19
+      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby19
+    end
+
+    task :hook18 => [package.target, RubyInstaller::Ruby18.install_target] do
+      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby18
+    end
+
+    task :hook19 => [package.target, RubyInstaller::Ruby19.install_target] do
+      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby19
     end
 
     private
@@ -102,6 +111,21 @@ TEXT
             "#!/usr/bin/env ruby"
           end
           File.open(script, 'w') { |f| f.write(contents) }
+        end
+      end
+    end
+
+    def copy_devkit_hook(package, interpreter)
+      root = File.join(interpreter.install_target, 'lib')
+
+      # look out for rubygems
+      Dir.glob("#{root}/**/rubygems").each do |path|
+        # ensure defaults exists
+        mkdir_p File.join(path, 'defaults')
+
+        # copy cargo
+        package.hooks.each do |f|
+          cp f, File.join(path, 'defaults')
         end
       end
     end

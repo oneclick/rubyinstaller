@@ -171,6 +171,9 @@ if ENV['COMPAT'] then
   task :ruby19 => [:rubygems19]
 end
 
+# Add RubyGems operating system customization
+task :ruby19 => ['tools:rubygems:hook19']
+
 # add Pure Readline to the chain
 task :ruby19 => [:rbreadline]
 task :ruby19 => ['dependencies:rbreadline:install19']
