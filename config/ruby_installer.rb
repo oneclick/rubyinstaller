@@ -137,10 +137,21 @@ module RubyInstaller
         'rubinius-1.0.1-20100603.tar.gz'
       ],
       :dependencies => [
-        :ffi, :iconv, :openssl, :zlib
+        :pthreads, :ffi, :iconv, :openssl, :zlib
       ],
       :excludes => [
         'libcharset1.dll'
+      ]
+    )
+
+    PThreads = OpenStruct.new(
+      :release => 'mingw32',
+      :version => "2.8.0-3",
+      :url => "http://downloads.sourceforge.net/mingw",
+      :target => 'sandbox/pthreads-win32',
+      :files => [
+        'libpthread-2.8.0-3-mingw32-dll-2.tar.lzma',
+        'pthreads-w32-2.8.0-3-mingw32-dev.tar.lzma'
       ]
     )
 
