@@ -47,8 +47,10 @@ namespace(:interpreter) do
     end
 
     task :configure => [:extract, :compiler, *package.dependencies] do
-      cd package.target do
-        ruby "configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
+      unless uptodate?(File.join(package.target, 'config.rb'), [File.join(package.target, 'configure')])
+        cd package.target do
+          ruby "configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}"
+        end
       end
     end
 
@@ -85,6 +87,6 @@ task :rbx => [
   'interpreter:rbx:sources',
   'interpreter:rbx:extract',
   'interpreter:rbx:configure',
-#  'interpreter:rbx:compile',
+  'interpreter:rbx:compile',
 #  'interpreter:rbx:install'
 ]
