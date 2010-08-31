@@ -102,6 +102,26 @@ module RubyInstaller
       :installer_guid => '{BD5F3A9C-22D5-4C1D-AEA0-ED1BE83A1E67}'
     )
 
+    Rubinius = OpenStruct.new(
+      :version => "1.0.1-20100603",
+      :url => "http://asset.rubini.us",
+      :target => 'sandbox/rbx',
+      :install_target => 'sandbox/rbx_mingw',
+      :configure_options => [
+        '--disable-llvm',
+        '--skip-system'
+      ],
+      :files => [
+        'rubinius-1.0.1-20100603.tar.gz'
+      ],
+      :dependencies => [
+        :ffi, :iconv, :openssl, :zlib
+      ],
+      :excludes => [
+        'libcharset1.dll'
+      ]
+    )
+
     # COMPAT mode for Ruby 1.9.1
     if ENV['COMPAT'] then
       Ruby19.version = '1.9.1-p430'
