@@ -256,12 +256,7 @@ module RubyInstaller
       ],
       :hooks => [
         'resources/rubygems/operating_system.rb'
-      ],
-      :operating_system => {
-        :source => 'resources/rubygems/operating_system.rb',
-        :target18 => File.join(RubyInstaller::ROOT, RubyInstaller::Ruby18.install_target, "lib/ruby/site_ruby/1.8/rubygems/defaults").gsub(File::SEPARATOR, File::ALT_SEPARATOR),
-        :target19 => File.join(RubyInstaller::ROOT, RubyInstaller::Ruby19.install_target, "lib/ruby/1.9.1/rubygems/defaults").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
-      }
+      ]
     )
 
     Book = OpenStruct.new(
