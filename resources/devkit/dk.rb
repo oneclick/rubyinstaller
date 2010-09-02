@@ -271,9 +271,15 @@ EOT
 
           if File.exist?(target)
             content = File.read(target)
-            unless content.include?('DevKit')
+            case
+            when content !~ /^#.*DevKit/o
+              # handle original and new token-based comments
               puts "[INFO] Updating existing gem override for '#{path}'"
               File.open(target, 'a') { |f| f.write(gem_override) }
+            when content =~ /^# #{DEVKIT_START} missing DevKit/o
+              # replace missing DevKit/build tool convenience notice
+              puts "[INFO] Updating convenience notice gem override for '#{path}'"
+              update_gem_override(target)
             else
               puts "[INFO] Skipping existing gem override for '#{path}'" unless $options[:force]
 
@@ -282,6 +288,7 @@ EOT
                 update_gem_override(target)
               end
             end
+
           else
             puts "[INFO] Installing '#{target}'"
             File.open(target, 'w') { |f| f.write(gem_override) }

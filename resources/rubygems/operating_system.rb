@@ -1,4 +1,4 @@
-# :DK-BEG:
+# :DK-BEG: missing DevKit/build tool convenience notice
 Gem.pre_install do |gem_installer|
   unless gem_installer.spec.extensions.empty?
     have_tools = %w{gcc make sh}.all? do |t|
