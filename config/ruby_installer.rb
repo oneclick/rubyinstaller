@@ -137,7 +137,7 @@ module RubyInstaller
         'rubinius-1.0.1-20100603.tar.gz'
       ],
       :dependencies => [
-        :pthreads, :ffi, :iconv, :openssl, :zlib
+        :pthreads, :ffi, :dlfcn, :iconv, :openssl, :zlib
       ],
       :excludes => [
         'libcharset1.dll'
@@ -152,6 +152,22 @@ module RubyInstaller
       :files => [
         'libpthread-2.8.0-3-mingw32-dll-2.tar.lzma',
         'pthreads-w32-2.8.0-3-mingw32-dev.tar.lzma'
+      ]
+    )
+
+    DLfcn = OpenStruct.new(
+      :release => 'official',
+      :version => 'r19',
+      :url => 'http://dlfcn-win32.googlecode.com/files',
+      :target => 'sandbox/src-dlfcn-win32',
+      :install_target => 'sandbox/dlfcn-win32',
+      :patches => 'resources/patches/dlfcn',
+      :configure_options => [
+        '--enable-static',
+        '--disable-shared'
+      ],
+      :files => [
+        'dlfcn-win32-r19.tar.bz2'
       ]
     )
 
