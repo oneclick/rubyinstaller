@@ -29,7 +29,7 @@ namespace(:devkit) do
 
   # Prepend DevKit to the PATH
   task :env => ['devkit:msys', 'devkit:mingw'] do
-    dk_version = ENV['DKVER'] ||= '4.5.0'
+    dk_version = ENV['DKVER'] ||= DevKitInstaller::DEFAULT_VERSION
     msys = DevKitInstaller::MSYS
     mingw = DevKitInstaller::MinGWs.find { |m| m.version == dk_version }
     fail '[FAIL] unable to find correct MinGW version config' unless mingw

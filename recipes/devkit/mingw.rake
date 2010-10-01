@@ -2,7 +2,7 @@ require 'rake'
 require 'rake/clean'
 
 namespace(:devkit) do
-  dk_version = ENV['DKVER'] ||= '4.5.0'
+  dk_version = ENV['DKVER'] ||= DevKitInstaller::DEFAULT_VERSION
 
   namespace(:mingw) do
     package = DevKitInstaller::MinGWs.find { |m| m.version == dk_version }

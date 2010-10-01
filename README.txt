@@ -89,7 +89,7 @@ rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.3)
 rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
 
-rake devkit                      # builds Installer (TDM 4.5.0)
+rake devkit                      # builds Installer (TDM 4.5.1)
 rake devkit DKVER=3.4.5          # builds Installer (MinGW 3.4.5)
 rake devkit 7Z=1                 # builds Installer and 7-Zip archive
 rake devkit SFX=1                # builds Installer and self-extracting archive

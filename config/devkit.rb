@@ -1,6 +1,9 @@
 require 'ostruct'
 
 module DevKitInstaller
+
+  DEFAULT_VERSION = '4.5.1'
+
   DevKit = OpenStruct.new(
     :installer_guid => '{D25478D4-72AE-40BF-829F-2C8CE49E2EE8}',
     :inno_script => 'resources/devkit/devkit.iss',
@@ -8,29 +11,30 @@ module DevKitInstaller
     :inno_config_erb => 'resources/devkit/dk_config.iss.erb',
     :setup_scripts => [
       'devkitvars.bat',
+      'devkitvars.ps1',
       'dk.rb'
     ]
   )
 
   MinGWs = [] << OpenStruct.new(
-    :version => '4.5.0',
+    :version => '4.5.1',
     :url_1 => 'http://downloads.sourceforge.net/tdm-gcc',
     :url_2 => 'http://downloads.sourceforge.net/mingw',
     :target => 'sandbox/devkit/mingw',
     :files => {
       :url_1 => [
-        'gcc-4.5.0-tdm-1-core.tar.lzma',
-        'gcc-4.5.0-tdm-1-c++.tar.lzma',
+        'gcc-4.5.1-tdm-1-core.tar.lzma',
+        'gcc-4.5.1-tdm-1-c++.tar.lzma',
       ],
       :url_2 => [
         'binutils-2.20.51-1-mingw32-bin.tar.lzma',
         'mingwrt-3.18-mingw32-dev.tar.gz',
         'mingwrt-3.18-mingw32-dll.tar.gz',
-        'w32api-3.14-mingw32-dev.tar.gz',
+        'w32api-3.15-1-mingw32-dev.tar.lzma',
         'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
-        'autoconf2.5-2.64-1-mingw32-bin.tar.lzma',
-        'autoconf-7-1-mingw32-bin.tar.lzma',
-        'gdb-7.1-2-mingw32-bin.tar.gz',
+        'autoconf2.5-2.67-1-mingw32-bin.tar.lzma',
+        'autoconf-9-1-mingw32-bin.tar.lzma',
+        'gdb-7.2-1-mingw32-bin.tar.lzma',
         'libexpat-2.0.1-1-mingw32-dll-1.tar.gz'
       ],
     }
@@ -57,13 +61,13 @@ module DevKitInstaller
   )
 
   MSYS = OpenStruct.new(
-    :version => '1.0.15',
+    :version => '1.0.16',
     :url_1 => 'http://downloads.sourceforge.net/mingw',
     :target => 'sandbox/devkit',
     :files => {
       :url_1 => [
-        'msysCORE-1.0.15-1-msys-1.0.15-bin.tar.lzma',
-        'msysCORE-1.0.15-1-msys-1.0.15-ext.tar.lzma',
+        'msysCORE-1.0.16-1-msys-1.0.16-bin.tar.lzma',
+        'msysCORE-1.0.16-1-msys-1.0.16-ext.tar.lzma',
         'coreutils-5.97-3-msys-1.0.13-bin.tar.lzma',
         'coreutils-5.97-3-msys-1.0.13-ext.tar.lzma',
         'libiconv-1.13.1-2-msys-1.0.13-dll-2.tar.lzma',
@@ -86,7 +90,10 @@ module DevKitInstaller
         'gawk-3.1.7-2-msys-1.0.13-bin.tar.lzma',
         'grep-2.5.4-2-msys-1.0.13-bin.tar.lzma',
         'less-436-2-msys-1.0.13-bin.tar.lzma',
-        'diffutils-2.8.7.20071206cvs-3-msys-1.0.13-bin.tar.lzma'
+        'diffutils-2.8.7.20071206cvs-3-msys-1.0.13-bin.tar.lzma',
+        'texinfo-4.13a-2-msys-1.0.13-bin.tar.lzma',
+        'libmagic-5.04-1-msys-1.0.13-dll-1.tar.lzma',
+        'file-5.04-1-msys-1.0.13-bin.tar.lzma'
       ],
     }
   )
