@@ -93,7 +93,8 @@ module DevKitInstaller
         'diffutils-2.8.7.20071206cvs-3-msys-1.0.13-bin.tar.lzma',
         'texinfo-4.13a-2-msys-1.0.13-bin.tar.lzma',
         'libmagic-5.04-1-msys-1.0.13-dll-1.tar.lzma',
-        'file-5.04-1-msys-1.0.13-bin.tar.lzma'
+        'file-5.04-1-msys-1.0.13-bin.tar.lzma',
+        'mintty-0.9.1-1-msys-1.0.16-bin.tar.lzma'
       ],
     }
   )
