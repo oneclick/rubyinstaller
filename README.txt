@@ -23,7 +23,7 @@ Ensure you are connected to the Internet, open a Command Prompt, 'cd' to the
 project root directory, and type one of:
 
 rake          # builds MRI 1.8.7
-rake ruby19   # builds MRI 1.9.1
+rake ruby19   # builds MRI 1.9.2
 
 === Project Directory Organization:
 
@@ -56,10 +56,12 @@ of RDoc-based MS HTML Help (CHM) files, and the book "The Little Book of Ruby"
 courtesy of Huw Collingbourne.
 
 The recipe configuration files are distributed in the config/ sub-directory of
-the project's root directory. To override the default configuration, create an
-override/build_config.rb file in the project's root directory. See the default
-config/ruby_installer.rb and config/devkit.rb configuration files for values that
-can be overridden.
+the project's root directory. Configuration files for different DevKit compilers
+are distributed in the config/dkcompilers/ sub-directory.
+
+To override the default configuration, create an override/build_config.rb file
+in the project's root directory. See the default config/ruby_installer.rb and
+config/devkit.rb configuration files for values that can be overridden.
 
 === Requirements:
 
@@ -89,13 +91,33 @@ rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.3)
 rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
 
+You can combine COMPAT and CHECKOUT to build Ruby 1.8.6 directly from the
+Subversion repository.
+
+=== DevKit Build Task Examples:
+
 rake devkit                      # builds Installer (TDM 4.5.1)
-rake devkit DKVER=3.4.5          # builds Installer (MinGW 3.4.5)
+rake devkit DKVER=tdm-32-4.5.0   # builds Installer (TDM 32-bit 4.5.0)
 rake devkit 7Z=1                 # builds Installer and 7-Zip archive
 rake devkit SFX=1                # builds Installer and self-extracting archive
 
-You can combine COMPAT and CHECKOUT to build Ruby 1.8.6 directly from the
-Subversion repository.
+While the only officially supported DevKit's are the versions available for
+download at http://rubyinstaller.org/downloads both the RubyInstaller and
+DevKit recipes are flexible enough to allow one to use any one of the compiler
+toolchains configured in the config/dkcompilers subdirectory. To use a specific
+compiler toolchain, simply pass rake the appropriate DKVER=vendor-width-version
+command line value as part of your rake task invocation. For example:
+
+rake devkit DKVER=llvm-32-2.8
+
+==== DevKit Compiler Toolchains:
+
+Compiler     DKVER Value
+--------     -----------
+tdm          tdm-32-4.5.1, tdm-32-4.5.0
+mingw        mingw-32-3.4.5
+mingw-w64    mingw64-32-4.4.5, mingw64-64-4.4.5
+llvm         llvm-32-2.8
 
 === Known Issues
 
