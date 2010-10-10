@@ -1,8 +1,14 @@
 require 'ostruct'
 
+# load DevKit compiler definitions
+Dir.glob("#{RubyInstaller::ROOT}/config/dkcompilers/*.rb").sort.each do |compiler|
+  puts "Loading #{File.basename(compiler)}" if Rake.application.options.trace
+  require compiler
+end
+
 module DevKitInstaller
 
-  DEFAULT_VERSION = '4.5.1'
+  DEFAULT_VERSION = 'tdm-32-4.5.1'
 
   DevKit = OpenStruct.new(
     :installer_guid => '{D25478D4-72AE-40BF-829F-2C8CE49E2EE8}',
@@ -14,50 +20,6 @@ module DevKitInstaller
       'devkitvars.ps1',
       'dk.rb'
     ]
-  )
-
-  MinGWs = [] << OpenStruct.new(
-    :version => '4.5.1',
-    :url_1 => 'http://downloads.sourceforge.net/tdm-gcc',
-    :url_2 => 'http://downloads.sourceforge.net/mingw',
-    :target => 'sandbox/devkit/mingw',
-    :files => {
-      :url_1 => [
-        'gcc-4.5.1-tdm-1-core.tar.lzma',
-        'gcc-4.5.1-tdm-1-c++.tar.lzma',
-      ],
-      :url_2 => [
-        'binutils-2.20.51-1-mingw32-bin.tar.lzma',
-        'mingwrt-3.18-mingw32-dev.tar.gz',
-        'mingwrt-3.18-mingw32-dll.tar.gz',
-        'w32api-3.15-1-mingw32-dev.tar.lzma',
-        'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
-        'autoconf2.5-2.67-1-mingw32-bin.tar.lzma',
-        'autoconf-9-1-mingw32-bin.tar.lzma',
-        'gdb-7.2-1-mingw32-bin.tar.lzma',
-        'libexpat-2.0.1-1-mingw32-dll-1.tar.gz'
-      ],
-    }
-  )
-
-  MinGWs << OpenStruct.new(
-    :version => '3.4.5',
-    :url_1 => 'http://downloads.sourceforge.net/mingw',
-    :target => 'sandbox/devkit/mingw',
-    :files => {
-      :url_1 => [
-        'mingwrt-3.15.2-mingw32-dll.tar.gz',
-        'mingwrt-3.15.2-mingw32-dev.tar.gz',
-        'w32api-3.13-mingw32-dev.tar.gz',
-        'binutils-2.19.1-mingw32-bin.tar.gz',
-        'gcc-core-3.4.5-20060117-3.tar.gz',
-        'gcc-g++-3.4.5-20060117-3.tar.gz',
-        'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
-        'autoconf2.5-2.64-1-mingw32-bin.tar.lzma',
-        'autoconf-7-1-mingw32-bin.tar.lzma',
-        'gdb-6.8-mingw-3.tar.bz2'
-      ]
-    }
   )
 
   MSYS = OpenStruct.new(
@@ -98,4 +60,5 @@ module DevKitInstaller
       ],
     }
   )
+
 end
