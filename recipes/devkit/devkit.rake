@@ -31,7 +31,7 @@ namespace(:devkit) do
   task :env => ['devkit:msys', 'devkit:mingw'] do
     dk_version = ENV['DKVER'] ||= DevKitInstaller::DEFAULT_VERSION
     msys = DevKitInstaller::MSYS
-    mingw = DevKitInstaller::COMPILERS[dk_version.to_sym]
+    mingw = DevKitInstaller::COMPILERS[dk_version]
     fail '[FAIL] unable to find correct MinGW version config' unless mingw
 
     msys_path = File.join(RubyInstaller::ROOT, msys.target).gsub(File::SEPARATOR, File::ALT_SEPARATOR)

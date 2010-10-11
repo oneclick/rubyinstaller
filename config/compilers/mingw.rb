@@ -1,8 +1,8 @@
 module DevKitInstaller
 
-  COMPILERS[:'mingw-32-3.4.5'] =
+  COMPILERS['mingw-32-3.4.5'] =
     OpenStruct.new(
-      :version => :'mingw-32-3.4.5',
+      :version => 'mingw-32-3.4.5',
       :programs => nil,
       :program_prefix => nil,
       :url_1 => 'http://downloads.sourceforge.net/mingw',

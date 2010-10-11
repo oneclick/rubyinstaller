@@ -1,8 +1,8 @@
 module DevKitInstaller
 
-  COMPILERS[:'llvm-32-2.8'] =
+  COMPILERS['llvm-32-2.8'] =
     OpenStruct.new(
-      :version => :'llvm-32-2.8',
+      :version => 'llvm-32-2.8',
       :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => 'llvm',
       :url_1 => 'http://llvm.org/releases/2.8',

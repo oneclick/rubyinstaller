@@ -5,7 +5,7 @@ namespace(:devkit) do
   dk_version = ENV['DKVER'] ||= DevKitInstaller::DEFAULT_VERSION
 
   namespace(:mingw) do
-    package = DevKitInstaller::COMPILERS[dk_version.to_sym]
+    package = DevKitInstaller::COMPILERS[dk_version]
     fail '[FAIL] unable to find correct MinGW version config' unless package
 
     directory package.target
