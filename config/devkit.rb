@@ -1,7 +1,7 @@
 require 'ostruct'
 
 # load DevKit compiler definitions
-Dir.glob("#{RubyInstaller::ROOT}/config/dkcompilers/*.rb").sort.each do |compiler|
+Dir.glob("#{RubyInstaller::ROOT}/config/compilers/*.rb").sort.each do |compiler|
   puts "Loading #{File.basename(compiler)}" if Rake.application.options.trace
   require compiler
 end

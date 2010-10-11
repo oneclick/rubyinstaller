@@ -57,7 +57,7 @@ courtesy of Huw Collingbourne.
 
 The recipe configuration files are distributed in the config/ sub-directory of
 the project's root directory. Configuration files for different DevKit compilers
-are distributed in the config/dkcompilers/ sub-directory.
+are distributed in the config/compilers/ sub-directory.
 
 To override the default configuration, create an override/build_config.rb file
 in the project's root directory. See the default config/ruby_installer.rb and
@@ -104,16 +104,17 @@ rake devkit SFX=1                # builds Installer and self-extracting archive
 While the only officially supported DevKit's are the versions available for
 download at http://rubyinstaller.org/downloads both the RubyInstaller and
 DevKit recipes are flexible enough to allow one to use any one of the compiler
-toolchains configured in the config/dkcompilers subdirectory. To use a specific
-compiler toolchain, simply pass rake the appropriate DKVER=vendor-width-version
+toolchains configured in the config/compilers/ subdirectory. To use a specific
+compiler toolchain, simply pass rake the appropriate DKVER=vendor-bits-version
 command line value as part of your rake task invocation. For example:
 
-rake devkit DKVER=llvm-32-2.8
+rake devkit dkver=llvm-32-2.8
+rake ruby19 dkver=tdm-32-4.5.0
 
 ==== DevKit Compiler Toolchains:
 
-Compiler     DKVER Value
---------     -----------
+Compiler     DKVER Values
+
 tdm          tdm-32-4.5.1, tdm-32-4.5.0
 mingw        mingw-32-3.4.5
 mingw-w64    mingw64-32-4.4.5, mingw64-64-4.4.5
