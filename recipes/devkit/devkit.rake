@@ -11,6 +11,12 @@ CLEAN.include(DevKitInstaller::DevKit.inno_config)
 directory 'pkg'
 
 namespace(:devkit) do
+
+  # canonicalize DevKit compiler version and check if version is supported
+  ENV['DKVER'] = ENV['DKVER'].nil? ? DevKitInstaller::DEFAULT_VERSION.downcase : ENV['DKVER'].downcase
+  fail '[FAIL] invalid DKVER value provided' unless DevKitInstaller::VALID_COMPILERS.include?(ENV['DKVER'])
+
+  # build Inno Setup script file from template
   file DevKitInstaller::DevKit.inno_config => [DevKitInstaller::DevKit.inno_config_erb] do |t|
     # template data
     guid = DevKitInstaller::DevKit.installer_guid
@@ -29,9 +35,8 @@ namespace(:devkit) do
 
   # Prepend DevKit to the PATH and setup name prefixed build executables
   task :env => ['devkit:msys', 'devkit:mingw'] do
-    dk_version = ENV['DKVER'] ||= DevKitInstaller::DEFAULT_VERSION
     msys = DevKitInstaller::MSYS
-    mingw = DevKitInstaller::COMPILERS[dk_version]
+    mingw = DevKitInstaller::COMPILERS[ENV['DKVER']]
     fail '[FAIL] unable to find correct MinGW version config' unless mingw
 
     msys_path = File.join(RubyInstaller::ROOT, msys.target).gsub(File::SEPARATOR, File::ALT_SEPARATOR)
