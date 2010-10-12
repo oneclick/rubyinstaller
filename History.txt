@@ -1,3 +1,8 @@
+=== (In Git)
+
+* Enhancements:
+  * Discourage users to attempt installing Ruby into Program Files. GH-34
+
 === 2010-08-18
 
 * Enhancements:
