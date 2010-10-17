@@ -47,13 +47,9 @@ namespace(:devkit) do
       ENV['PATH'] = "#{msys_path}\\bin;#{mingw_path}\\bin;" + ENV['PATH']
     end
 
-    # TODO can we put the prefixed programs (e.g. i686-w64-mingw32-{gcc,g++,cpp}) into
-    #      ENV["{CC,CXX,CPP}"] and get all configure's to pick them up?
-    # TODO check out using configure's --host option as alternative to above
-    # TODO check mingw-w64 binaries already providing {gcc,g++,cpp}.exe...conflicts!?
-    # TODO update operating_system.rb and devkit.rb appropriately
-    # TODO beware failures due to windres assuming 'gcc' is the preprocessor.
-    #      fix is -> WINDRES := windres --preprocessor="$(CC) -E -xc" -DRC_INVOKED
+    # TODO move ENV updates to an 'activate' task
+    # TODO check mingw-w64 (32-bit) binaries for existing {gcc,g++,cpp}.exe conflicts
+    # TODO update operating_system.rb/devkit.rb at DevKit build time for ENV vars
     if mingw.program_prefix
       ['CC','CXX','CPP'].zip([:gcc,:'g++',:cpp]) do |exe|
         ENV[exe[0]] = "#{mingw.program_prefix}-#{exe[1]}" if mingw.programs.include?(exe[1])
