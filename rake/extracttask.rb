@@ -83,7 +83,7 @@ end
 def bsd_tar_extract(target, file, options = {})
   block = if options[:noerror]
     lambda { |ok, status|
-      ok or warn "We detected some errors with status (#{status.exitstatus})"
+      ok or warn "We detected some errors with status (#{status.exitstatus}) but we ignore them."
     }
   end
 
