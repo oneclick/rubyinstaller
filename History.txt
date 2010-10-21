@@ -2,7 +2,6 @@
 
 * Enhancements:
   * Discourage users to attempt installing Ruby into Program Files. GH-34
-  * Upgrade rb-readline to 0.2.2
 
 === 2010-08-18
 

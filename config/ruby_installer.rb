@@ -136,11 +136,11 @@ module RubyInstaller
 
     PureReadline = OpenStruct.new(
       :release => 'experimental',
-      :version => '0.5.2-0.2.2',
+      :version => '0.5.2-0.2.0',
       :url => 'http://cloud.github.com/downloads/luislavena/rb-readline',
       :target => 'sandbox/rb-readline',
       :files => [
-        'rb-readline-0.2.2.zip'
+        'rb-readline-0.2.0.zip'
       ]
     )
 
