@@ -26,11 +26,13 @@ require 'rake/extracttask'
 require 'rake/checkpoint'
 require 'rake/env'
 
-# Allow build configuration overrides if override/build_config.rb file
-# exists in the RubyInstaller project root directory
-begin
-  require 'override/build_config'
-rescue LoadError
+# scan all override definitions and load them
+Dir.glob('override/*.rb').sort.each do |f|
+  begin
+    require f
+  rescue StandardError => e
+    warn "WARN: Problem loading #{f}: #{e.message}"
+  end
 end
 
 Dir.glob("#{RubyInstaller::ROOT}/recipes/**/*.rake").sort.each do |ext|
