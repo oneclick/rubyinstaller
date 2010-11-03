@@ -145,11 +145,11 @@ module RubyInstaller
     )
 
     PdCurses = OpenStruct.new(
-      :version => '3.3',
+      :version => '3.4',
       :url => "http://downloads.sourceforge.net/pdcurses",
       :target => 'sandbox/pdcurses',
       :files => [
-        'pdc33dll.zip'
+        'pdc34dll.zip'
       ]
     )
 
