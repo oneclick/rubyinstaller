@@ -101,6 +101,3 @@ Subversion repository.
 
 Avoid running this project into a PATH containing spaces as the MSYS
 environment has issues correctly mounting /etc/fstab entries for MinGW.
-
-On Vista or Windows 7, run the rake task from an administrator command
-prompt or "/bin/patch" will fail during the build.
