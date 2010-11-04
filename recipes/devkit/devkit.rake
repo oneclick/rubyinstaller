@@ -33,8 +33,9 @@ namespace(:devkit) do
     )
   end
 
-  # Prepend DevKit to the PATH and setup name prefixed build executables
-  task :env => ['devkit:msys', 'devkit:mingw'] do
+  # Prepend DevKit to the PATH and inject prefixed toolchain executable names
+  # into ENV to support alternative compiler tools
+  task :activate => ['devkit:msys', 'devkit:mingw'] do
     msys = DevKitInstaller::MSYS
     mingw = DevKitInstaller::COMPILERS[ENV['DKVER']]
     fail '[FAIL] unable to find correct MinGW version config' unless mingw
@@ -47,9 +48,6 @@ namespace(:devkit) do
       ENV['PATH'] = "#{msys_path}\\bin;#{mingw_path}\\bin;" + ENV['PATH']
     end
 
-    # TODO move ENV updates to an 'activate' task
-    # TODO check mingw-w64 (32-bit) binaries for existing {gcc,g++,cpp}.exe conflicts
-    # TODO update operating_system.rb/devkit.rb at DevKit build time for ENV vars
     if mingw.program_prefix
       ['CC','CXX','CPP'].zip([:gcc,:'g++',:cpp]) do |exe|
         ENV[exe[0]] = "#{mingw.program_prefix}-#{exe[1]}" if mingw.programs.include?(exe[1])
@@ -58,6 +56,8 @@ namespace(:devkit) do
   end
 end
 
+# TODO create dk.rb.erb to add alternate toolchain ENV vars (build time)
+#      to self.gem_override and self.devkit_lib
 desc 'build DevKit installer and 7z archives.'
 task :devkit => ['devkit:msys', 'devkit:mingw', 'pkg'] do |t|
   sevenz_archive = ENV['7Z'] ? true : false
