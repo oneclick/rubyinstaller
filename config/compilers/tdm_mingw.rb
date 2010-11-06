@@ -3,7 +3,7 @@ module DevKitInstaller
   COMPILERS['tdm-32-4.5.1'] =
     OpenStruct.new(
       :version => 'tdm-32-4.5.1',
-      :programs => nil,
+      :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => nil,
       :url_1 => 'http://downloads.sourceforge.net/tdm-gcc',
       :url_2 => 'http://downloads.sourceforge.net/mingw',

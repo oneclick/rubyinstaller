@@ -1,30 +1,42 @@
-begin
-  require 'erubis/tiny'
-  DkEruby = Erubis::TinyEruby
-rescue LoadError
-  require 'erb'
-  DkEruby = ERB
-end
+require 'erb'
 
 CLEAN.include(DevKitInstaller::DevKit.inno_config)
+CLEAN.include(DevKitInstaller::DevKit.install_script)
 
 directory 'pkg'
+
+# build Ruby-based DevKit installer script file from template
+file DevKitInstaller::DevKit.install_script => [DevKitInstaller::DevKit.install_script_erb] do |t|
+  mingw = DevKitInstaller::COMPILERS[ENV['DKVER']]
+  fail '[FAIL] unable to find correct MinGW version config' unless mingw
+
+  # build ENV tool name template data
+  tool_names = {}
+  ['CC','CXX','CPP'].zip([:gcc,:'g++',:cpp]) do |exe|
+    prefix = mingw.program_prefix.nil? ? nil : "#{mingw.program_prefix}-"
+    tool_names[exe[0]] = "#{prefix}#{exe[1]}" if mingw.programs.include?(exe[1])
+  end
+
+  content = ERB.new(File.read(t.prerequisites.first), 0, '-').result(binding)
+  File.open(t.name, 'w') { |f| f.write(content) }
+end
+
+# build Inno Setup script file from template
+file DevKitInstaller::DevKit.inno_config => [DevKitInstaller::DevKit.inno_config_erb] do |t|
+  # template data
+  guid = DevKitInstaller::DevKit.installer_guid
+  dk_version = ENV['DKVER']
+
+  content = ERB.new(File.read(t.prerequisites.first)).result(binding)
+  File.open(t.name, 'w') { |f| f.write(content) }
+end
+
 
 namespace(:devkit) do
 
   # canonicalize DevKit compiler version and check if version is supported
   ENV['DKVER'] = ENV['DKVER'].nil? ? DevKitInstaller::DEFAULT_VERSION.downcase : ENV['DKVER'].downcase
   fail '[FAIL] invalid DKVER value provided' unless DevKitInstaller::VALID_COMPILERS.include?(ENV['DKVER'])
-
-  # build Inno Setup script file from template
-  file DevKitInstaller::DevKit.inno_config => [DevKitInstaller::DevKit.inno_config_erb] do |t|
-    # template data
-    guid = DevKitInstaller::DevKit.installer_guid
-    dk_version = ENV['DKVER']
-
-    content = DkEruby.new(File.read(t.prerequisites.first)).result(binding)
-    File.open(t.name, 'w') { |f| f.write(content) }
-  end
 
   task :installer, [:target] => [DevKitInstaller::DevKit.inno_config, :innosetup] do |t, args|
     InnoSetup.iscc(DevKitInstaller::DevKit.inno_script,
@@ -56,10 +68,9 @@ namespace(:devkit) do
   end
 end
 
-# TODO create dk.rb.erb to add alternate toolchain ENV vars (build time)
-#      to self.gem_override and self.devkit_lib
-desc 'build DevKit installer and 7z archives.'
-task :devkit => ['devkit:msys', 'devkit:mingw', 'pkg'] do |t|
+
+desc 'Build DevKit installer and/or archives.'
+task :devkit => ['devkit:msys', 'devkit:mingw', DevKitInstaller::DevKit.install_script, 'pkg'] do |t|
   sevenz_archive = ENV['7Z'] ? true : false
   sevenz_sfx = ENV['SFX'] ? true : false
 
