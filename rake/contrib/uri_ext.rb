@@ -284,7 +284,10 @@ module URI
       else
         http = Net::HTTP.new(host, port)
       end
-      http.use_ssl = true if self.instance_of? URI::HTTPS
+      if self.instance_of? URI::HTTPS
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      end
       yield http
     end
   end  
