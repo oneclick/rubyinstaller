@@ -21,9 +21,24 @@ namespace(:interpreter) do
       task :download => file_target
     end
 
+    task :checkout => "downloads" do
+      cd RubyInstaller::ROOT do
+        # If is there already a checkout, update instead of checkout
+        if File.exist?(File.join(RubyInstaller::ROOT, package.checkout_target, '.git'))
+          Dir.chdir(package.checkout_target) do
+            sh "cmd /c \"git checkout #{package.branch} && git pull\""
+          end
+        else
+          sh "git clone #{package.checkout} #{package.checkout_target} --branch #{package.branch}"
+        end
+      end
+    end
+
     task :sources do
       case
       when ENV['LOCAL']
+      when ENV['CHECKOUT']
+        Rake::Task['interpreter:rbx:checkout'].invoke
       else
         Rake::Task['interpreter:rbx:download'].invoke
       end
@@ -33,6 +48,8 @@ namespace(:interpreter) do
       case
       when ENV['LOCAL']
         package.target = File.expand_path(File.join(ENV['LOCAL'], '.'))
+      when ENV['CHECKOUT']
+        package.target = File.expand_path(package.checkout_target)
       else
         # grab the files from the download task
         files = Rake::Task['interpreter:rbx:download'].prerequisites

@@ -127,6 +127,9 @@ module RubyInstaller
     Rubinius = OpenStruct.new(
       :version => "1.0.1-20100603",
       :url => "http://asset.rubini.us",
+      :checkout => 'https://github.com/evanphx/rubinius.git',
+      :branch => 'multiverse',
+      :checkout_target => 'downloads/rbx',
       :target => 'sandbox/rbx',
       :install_target => 'sandbox/rbx_mingw',
       :configure_options => [
