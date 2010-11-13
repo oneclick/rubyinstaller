@@ -66,8 +66,12 @@ namespace(:devkit) do
       end
     end
   end
-end
 
+  task :sh => [:activate] do
+    sh_exe = File.join(RubyInstaller::ROOT, DevKitInstaller::MSYS.target, 'bin', 'sh.exe')
+    exec sh_exe
+  end
+end
 
 desc 'Build DevKit installer and/or archives.'
 task :devkit => ['devkit:msys', 'devkit:mingw', DevKitInstaller::DevKit.install_script, 'pkg'] do |t|
