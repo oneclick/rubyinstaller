@@ -14,13 +14,6 @@ module DevKitInstaller
     'Software\RubyInstaller\Rubinius'
   ]
 
-  STUB_CMDS = [
-    'gcc',
-    'g++',
-    'make',
-    'sh'
-  ]
-
   CONFIG_FILE = 'config.yml'
 
   def self.usage
@@ -244,25 +237,13 @@ EOT
       site_rubygems = Dir.glob("#{path}/lib/ruby/site_ruby/**/rubygems")
       core_rubygems = Dir.glob("#{path}/lib/ruby/**/rubygems")
 
-      # inject stubs if RubyGems isn't in site_ruby or core ruby, making
-      # backups of any existing stubs
+      # Warn and exit if unable to find a RubyGems installation
       if site_rubygems.empty? && core_rubygems.empty?
         puts <<-EOT
-Unable to find RubyGems in site_ruby or core Ruby. Falling back
-to installing gcc, g++, make, and sh into #{path}
+[ERROR] Unable to find RubyGems in site_ruby or core Ruby. Please
+install RubyGems and rerun 'ruby dk.rb install'.
 EOT
-        STUB_CMDS.each do |command|
-          target = File.join(path, 'bin', "#{command}.bat")
-
-          if File.exist?(target)
-            puts "Creating backup of '#{command}.bat'"
-            File.rename(target, "#{target}.#{timestamp}")
-          end
-
-          File.open(target, 'w') do |f|
-            f.write(stub_for(command))
-          end
-        end
+        exit(-2)
       else
         # either (or both) site_rubygems or core_rubygems contains RubyGems;
         # favor injecting override into site_rubygems over core_rubygems
