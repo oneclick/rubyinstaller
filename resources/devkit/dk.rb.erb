@@ -64,8 +64,9 @@ Gem.pre_install do |gem_installer|
       Gem.ui.say 'Temporarily enhancing PATH to include DevKit...' if Gem.configuration.verbose
       ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
     end
+    ENV['RI_DEVKIT'] = '#{d}'
 <% tool_names.each_pair do |k,v| -%>
-  <%= 'ENV[\'%s\'] = \'%s\'' % [k,v] %>
+    <%= 'ENV[\'%s\'] = \'%s\'' % [k,v] %>
 <% end -%>
   end
 end
@@ -82,6 +83,7 @@ unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
   puts 'Temporarily enhancing PATH to include DevKit...'
   ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
 end
+ENV['RI_DEVKIT'] = '#{d}'
 <% tool_names.each_pair do |k,v| -%>
 <%= 'ENV[\'%s\'] = \'%s\'' % [k,v] %>
 <% end -%>

@@ -3,5 +3,5 @@
 :: DevKit for compiling native Ruby extensions
 @ECHO OFF
 ECHO Adding the DevKit to PATH...
-SET DEVKIT=%~dp0
-SET PATH=%DEVKIT%bin;%DEVKIT%mingw\bin;%PATH%
+SET RI_DEVKIT=%~dp0
+SET PATH=%RI_DEVKIT%bin;%RI_DEVKIT%mingw\bin;%PATH%
