@@ -43,17 +43,6 @@ EOT
   end
   private_class_method :timestamp
 
-  def self.stub_for(cmd, dk_root=DEVKIT_ROOT)
-<<-EOT
-@ECHO OFF
-SETLOCAL
-SET DEVKIT=#{dk_root.gsub('/','\\')}
-SET PATH=%DEVKIT%\\bin;%DEVKIT%\\mingw\\bin;%PATH%
-#{cmd}.exe %*
-EOT
-  end
-  private_class_method :stub_for
-
   def self.gem_override(dk_root=DEVKIT_ROOT)
     d = dk_root.gsub('/', '\\\\\\')
 <<-EOT
