@@ -149,12 +149,9 @@ namespace(:interpreter) do
       end
     end
 
-    # makes the installed ruby the first in the path and use if for the tests!
-    task :check do
-      new_ruby = File.join(RubyInstaller::ROOT, package.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
-      ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
+    task :check => [:compiler] do
       cd package.build_target do
-        msys_sh "make check"
+        sh "make check"
       end
     end
 
