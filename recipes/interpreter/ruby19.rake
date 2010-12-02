@@ -70,7 +70,9 @@ namespace(:interpreter) do
       end
     end
 
-    task :configure => [package.build_target, :compiler, *package.dependencies] do
+    task :dependencies => package.dependencies
+
+    task :configure => [package.build_target, :compiler, :dependencies] do
       source_path = Pathname.new(File.expand_path(package.target))
       build_path = Pathname.new(File.expand_path(package.build_target))
 
@@ -88,13 +90,13 @@ namespace(:interpreter) do
       end
     end
 
-    task :compile => [:configure, :compiler, *package.dependencies] do
+    task :compile => [:configure, :compiler, :dependencies] do
       cd package.build_target do
         sh "make"
       end
     end
 
-    task :install => [ package.install_target, *package.dependencies ] do
+    task :install => [package.install_target, :dependencies] do
       full_install_target = File.expand_path(File.join(RubyInstaller::ROOT, package.install_target))
 
       # perform make install
@@ -165,6 +167,10 @@ task :ruby19 => [
   'interpreter:ruby19:compile',
   'interpreter:ruby19:install'
 ]
+
+namespace :ruby19 do
+  task :dependencies => ['interpreter:ruby19:dependencies']
+end
 
 # Add rubygems to the chain (if needed)
 if ENV['COMPAT'] then

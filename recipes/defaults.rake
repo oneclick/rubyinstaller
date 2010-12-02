@@ -10,8 +10,8 @@ task :check
 desc "Test drive the sandbox (using IRB)."
 task :irb
 
-# Use DevKit in the PATH
-task :compiler => ['devkit:env']
+# Bring DevKit onto PATH before building
+task :compiler => ['devkit:activate']
 
 # Only unique cleanups
 CLEAN.uniq!

@@ -63,13 +63,15 @@ namespace(:interpreter) do
       end
     end
 
-    task :prepare => [package.build_target, *package.dependencies] do
+    task :dependencies => package.dependencies
+
+    task :prepare => [package.build_target, :dependencies] do
       cd RubyInstaller::ROOT do
         cp_r(Dir.glob('resources/icons/*.ico'), package.build_target, :verbose => true)
       end
     end
 
-    task :configure => [package.build_target, :compiler, *package.dependencies] do
+    task :configure => [package.build_target, :compiler, :dependencies] do
       source_path = Pathname.new(File.expand_path(package.target))
       build_path = Pathname.new(File.expand_path(package.build_target))
 
@@ -87,13 +89,13 @@ namespace(:interpreter) do
       end
     end
 
-    task :compile => [:configure, :compiler, *package.dependencies] do
+    task :compile => [:configure, :compiler, :dependencies] do
       cd package.build_target do
         sh "make"
       end
     end
 
-    task :install => [ package.install_target, *package.dependencies ] do
+    task :install => [package.install_target, :dependencies] do
       full_install_target = File.expand_path(File.join(RubyInstaller::ROOT, package.install_target))
       full_install_target_nodrive = full_install_target.gsub(/\A[a-z]:/i, '')
 
@@ -184,6 +186,10 @@ task :ruby18 => [
   'interpreter:ruby18:compile',
   'interpreter:ruby18:install'
 ]
+
+namespace :ruby18 do
+  task :dependencies => ['interpreter:ruby18:dependencies']
+end
 
 # Add rubygems to the chain
 task :ruby18 => [:rubygems18]

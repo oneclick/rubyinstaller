@@ -14,13 +14,6 @@ module DevKitInstaller
     'Software\RubyInstaller\Rubinius'
   ]
 
-  STUB_CMDS = [
-    'gcc',
-    'g++',
-    'make',
-    'sh'
-  ]
-
   CONFIG_FILE = 'config.yml'
 
   def self.usage
@@ -50,17 +43,6 @@ EOT
   end
   private_class_method :timestamp
 
-  def self.stub_for(cmd, dk_root=DEVKIT_ROOT)
-<<-EOT
-@ECHO OFF
-SETLOCAL
-SET DEVKIT=#{dk_root.gsub('/','\\')}
-SET PATH=%DEVKIT%\\bin;%DEVKIT%\\mingw\\bin;%PATH%
-#{cmd}.exe %*
-EOT
-  end
-  private_class_method :stub_for
-
   def self.gem_override(dk_root=DEVKIT_ROOT)
     d = dk_root.gsub('/', '\\\\\\')
 <<-EOT
@@ -68,9 +50,13 @@ EOT
 Gem.pre_install do |gem_installer|
   unless gem_installer.spec.extensions.empty?
     unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
-      puts 'Temporarily enhancing PATH to include DevKit...'
+      Gem.ui.say 'Temporarily enhancing PATH to include DevKit...' if Gem.configuration.verbose
       ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
     end
+    ENV['RI_DEVKIT'] = '#{d}'
+<% tool_names.each_pair do |k,v| -%>
+    <%= 'ENV[\'%s\'] = \'%s\'' % [k,v] %>
+<% end -%>
   end
 end
 # #{DEVKIT_END}
@@ -86,6 +72,10 @@ unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
   puts 'Temporarily enhancing PATH to include DevKit...'
   ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
 end
+ENV['RI_DEVKIT'] = '#{d}'
+<% tool_names.each_pair do |k,v| -%>
+<%= 'ENV[\'%s\'] = \'%s\'' % [k,v] %>
+<% end -%>
 EOT
   end
   private_class_method :devkit_lib
@@ -238,25 +228,13 @@ EOT
       site_rubygems = Dir.glob("#{path}/lib/ruby/site_ruby/**/rubygems")
       core_rubygems = Dir.glob("#{path}/lib/ruby/**/rubygems")
 
-      # inject stubs if RubyGems isn't in site_ruby or core ruby, making
-      # backups of any existing stubs
+      # Warn and exit if unable to find a RubyGems installation
       if site_rubygems.empty? && core_rubygems.empty?
         puts <<-EOT
-Unable to find RubyGems in site_ruby or core Ruby. Falling back
-to installing gcc, g++, make, and sh into #{path}
+[ERROR] Unable to find RubyGems in site_ruby or core Ruby. Please
+install RubyGems and rerun 'ruby dk.rb install'.
 EOT
-        STUB_CMDS.each do |command|
-          target = File.join(path, 'bin', "#{command}.bat")
-
-          if File.exist?(target)
-            puts "Creating backup of '#{command}.bat'"
-            File.rename(target, "#{target}.#{timestamp}")
-          end
-
-          File.open(target, 'w') do |f|
-            f.write(stub_for(command))
-          end
-        end
+        exit(-2)
       else
         # either (or both) site_rubygems or core_rubygems contains RubyGems;
         # favor injecting override into site_rubygems over core_rubygems

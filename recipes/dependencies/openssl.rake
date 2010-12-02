@@ -57,11 +57,15 @@ namespace(:dependencies) do
 
     mt = checkpoint(:openssl, :make) do
       cd package.target do
+        # ensure dllwrap uses the correct compiler executable as its driver
+        compiler = DevKitInstaller::COMPILERS[ENV['DKVER']]
+        driver = compiler.program_prefix.nil? ? '': "--driver-name #{compiler.program_prefix}-gcc"
+
         sh "make"
         sh "perl util/mkdef.pl 32 libeay > libeay32.def"
-        sh "dllwrap --dllname #{package.dllnames[:libcrypto]} --output-lib libcrypto.dll.a --def libeay32.def libcrypto.a -lwsock32 -lgdi32"
+        sh "dllwrap --dllname #{package.dllnames[:libcrypto]} #{driver} --output-lib libcrypto.dll.a --def libeay32.def libcrypto.a -lwsock32 -lgdi32"
         sh "perl util/mkdef.pl 32 ssleay > ssleay32.def"
-        sh "dllwrap --dllname #{package.dllnames[:libssl]} --output-lib libssl.dll.a --def ssleay32.def libssl.a libcrypto.dll.a"
+        sh "dllwrap --dllname #{package.dllnames[:libssl]} #{driver} --output-lib libssl.dll.a --def ssleay32.def libssl.a libcrypto.dll.a"
       end
     end
     task :compile => [:configure, mt]
