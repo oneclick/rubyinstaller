@@ -209,6 +209,23 @@ module RubyInstaller
       ]
     )
 
+    Tk = OpenStruct.new(
+      :version => '8.5.9',
+      :url => "http://downloads.sourceforge.net/tcl",
+      :target => 'sandbox/src-tk',
+      :install_target => 'sandbox/tk',
+      :configure_options => [
+        '--enable-static',
+        '--disable-shared'
+      ],
+      :files => [
+        'tk8.5.9-src.tar.gz'
+      ],
+      :dependencies => [
+        :tcl
+      ]
+    )
+
     Iconv = OpenStruct.new(
       :release => 'official',
       :version => "1.9.2-1",
