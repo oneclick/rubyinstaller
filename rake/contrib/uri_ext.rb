@@ -285,8 +285,13 @@ module URI
         http = Net::HTTP.new(host, port)
       end
       if self.instance_of? URI::HTTPS
+        cacert = "downloads/#{RubyInstaller::Certificate.file}"
         http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        if File.exist?(cacert)
+          http.ca_file = cacert
+        else
+          http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        end
       end
       yield http
     end

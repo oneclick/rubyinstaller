@@ -9,6 +9,12 @@ module RubyInstaller
     SEVEN_ZIP = File.expand_path(File.join(ROOT, 'sandbox', 'extract_utils', '7za.exe'))
     BSD_TAR = File.expand_path(File.join(ROOT, 'sandbox', 'extract_utils', 'basic-bsdtar.exe'))
 
+    # SSL Certificates
+    Certificate = OpenStruct.new(
+      :url  => 'http://curl.haxx.se/ca',
+      :file => 'cacert.pem'
+    )
+
     # MinGW files
     MinGW = OpenStruct.new(
       :release => 'current',
