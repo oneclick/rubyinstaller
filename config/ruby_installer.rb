@@ -15,41 +15,6 @@ module RubyInstaller
       :file => 'cacert.pem'
     )
 
-    # MinGW files
-    MinGW = OpenStruct.new(
-      :release => 'current',
-      :version => '3.4.5',
-      :url => "http://downloads.sourceforge.net/mingw",
-      :target => 'sandbox/mingw',
-      :files => [
-        'mingwrt-3.15.2-mingw32-dll.tar.gz',
-        'mingwrt-3.15.2-mingw32-dev.tar.gz',
-        'w32api-3.13-mingw32-dev.tar.gz',
-        'binutils-2.19.1-mingw32-bin.tar.gz',
-        'gcc-core-3.4.5-20060117-3.tar.gz',
-        'gcc-g++-3.4.5-20060117-3.tar.gz',
-        'gdb-6.8-mingw-3.tar.bz2'
-      ]
-    )
-
-    MSYS = OpenStruct.new(
-      :release => 'technology-preview',
-      :version => '1.0.11',
-      :url => "http://downloads.sourceforge.net/mingw",
-      :target => 'sandbox/msys',
-      :files => [
-        'msysCORE-1.0.11-20080826.tar.gz',
-        'findutils-4.3.0-MSYS-1.0.11-3-bin.tar.gz',
-        'MSYS-1.0.11-20090120-dll.tar.gz',
-        'tar-1.19.90-MSYS-1.0.11-2-bin.tar.gz',
-        'autoconf2.5-2.61-1-bin.tar.bz2',
-        'autoconf-4-1-bin.tar.bz2',
-        'perl-5.6.1-MSYS-1.0.11-1.tar.bz2',
-        'crypt-1.1-1-MSYS-1.0.11-1.tar.bz2',
-        'bison-2.3-MSYS-1.0.11-1.tar.bz2'
-      ]
-    )
-
     Ruby18 = OpenStruct.new(
       :version => '1.8.7-p302',
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
