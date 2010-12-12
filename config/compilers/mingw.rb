@@ -16,8 +16,10 @@ module DevKitInstaller
           'gcc-core-3.4.5-20060117-3.tar.gz',
           'gcc-g++-3.4.5-20060117-3.tar.gz',
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
-          'autoconf2.5-2.64-1-mingw32-bin.tar.lzma',
-          'autoconf-7-1-mingw32-bin.tar.lzma',
+          'autoconf2.5-2.67-1-mingw32-bin.tar.lzma',
+          'autoconf-9-1-mingw32-bin.tar.lzma',
+          'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
+          'automake-4-1-mingw32-bin.tar.lzma',
           'gdb-6.8-mingw-3.tar.bz2'
         ]
       }

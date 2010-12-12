@@ -21,8 +21,11 @@ module DevKitInstaller
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.67-1-mingw32-bin.tar.lzma',
           'autoconf-9-1-mingw32-bin.tar.lzma',
+          'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
+          'automake-4-1-mingw32-bin.tar.lzma',
           'gdb-7.2-1-mingw32-bin.tar.lzma',
-          'libexpat-2.0.1-1-mingw32-dll-1.tar.gz'
+          'libexpat-2.0.1-1-mingw32-dll-1.tar.gz',
+          'libtool-2.4-1-mingw32-bin.tar.lzma'
         ],
       }
     )
@@ -48,8 +51,11 @@ module DevKitInstaller
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.64-1-mingw32-bin.tar.lzma',
           'autoconf-7-1-mingw32-bin.tar.lzma',
+          'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
+          'automake-4-1-mingw32-bin.tar.lzma',
           'gdb-7.1-2-mingw32-bin.tar.gz',
-          'libexpat-2.0.1-1-mingw32-dll-1.tar.gz'
+          'libexpat-2.0.1-1-mingw32-dll-1.tar.gz',
+          'libtool-2.4-1-mingw32-bin.tar.lzma'
         ],
       }
     )
@@ -73,7 +79,10 @@ module DevKitInstaller
         :url_2 => [
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.67-1-mingw32-bin.tar.lzma',
-          'autoconf-9-1-mingw32-bin.tar.lzma'
+          'autoconf-9-1-mingw32-bin.tar.lzma',
+          'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
+          'automake-4-1-mingw32-bin.tar.lzma',
+          'libtool-2.4-1-mingw32-bin.tar.lzma'
         ],
       }
     )
