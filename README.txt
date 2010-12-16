@@ -104,12 +104,17 @@ rake devkit SFX=1                # builds Installer and self-extracting archive
 While the only officially supported DevKit's are the versions available for
 download at http://rubyinstaller.org/downloads both the RubyInstaller and
 DevKit recipes are flexible enough to allow one to use any one of the compiler
-toolchains configured in the config/compilers/ subdirectory. To use a specific
-compiler toolchain, simply pass rake the appropriate DKVER=vendor-bits-version
-command line value as part of your rake task invocation. For example:
+toolchains configured in the config/compilers/ subdirectory.
 
-rake devkit dkver=llvm-32-2.8
+To use or build a specific compiler toolchain, pass rake the appropriate
+DKVER=vendor-bits-version command line value as part of your rake task
+invocation. For example:
+
+rake devkit sfx=1 dkver=llvm-32-2.8
 rake ruby19 dkver=tdm-32-4.5.0
+
+If you built a custom DevKit as in the first example, look in the pkg/
+subdirectory for your DevKit artifact.
 
 ==== DevKit Compiler Toolchains:
 
