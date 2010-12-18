@@ -78,7 +78,7 @@ namespace(:interpreter) do
       relative_path = source_path.relative_path_from(build_path)
 
       # working with a checkout, generate configure
-      unless File.exist?(File.join(package.target, 'configure'))
+      unless uptodate?(File.join(package.target, 'configure'), [File.join(package.target, 'configure.in')])
         cd package.target do
           sh "sh -c \"autoconf\""
         end
