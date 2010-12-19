@@ -60,6 +60,7 @@ namespace(:tools) do
 
     task :install18 => [package.target, RubyInstaller::Ruby18.install_target] do
       do_install RubyInstaller::RubyGems, RubyInstaller::Ruby18
+      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby18
     end
 
     task :install19 => [package.target, RubyInstaller::Ruby19.install_target] do
