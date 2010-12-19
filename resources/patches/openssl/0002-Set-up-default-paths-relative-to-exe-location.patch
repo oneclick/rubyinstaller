@@ -1,0 +1,89 @@
+From 71d34b3bb348017028904c8cff56c1ab1960556a Mon Sep 17 00:00:00 2001
+From: Peter Weldon <peter.weldon@null.net>
+Date: Sun, 19 Dec 2010 12:18:57 -0800
+Subject: [PATCH] Set up default paths relative to exe location
+
+---
+ crypto/x509/x509_def.c |   56 +++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 files changed, 55 insertions(+), 1 deletions(-)
+
+diff --git a/crypto/x509/x509_def.c b/crypto/x509/x509_def.c
+index e0ac151..c43ec88 100644
+--- a/crypto/x509/x509_def.c
++++ b/crypto/x509/x509_def.c
+@@ -61,6 +61,7 @@
+ #include <openssl/crypto.h>
+ #include <openssl/x509.h>
+ 
++#if !defined(_WIN32)
+ const char *X509_get_default_private_dir(void)
+ 	{ return(X509_PRIVATE_DIR); }
+ 	
+@@ -72,10 +73,63 @@ const char *X509_get_default_cert_dir(void)
+ 
+ const char *X509_get_default_cert_file(void)
+ 	{ return(X509_CERT_FILE); }
++#else
++#include <windows.h>
++
++const char* get_module_path(void) {
++  static char path[MAX_PATH];
++  char* p;
++
++  if(*path == 0) {
++    if(GetModuleFileNameA(NULL, path, MAX_PATH) == 0) {
++      _snprintf(path, MAX_PATH, "%s", OPENSSLDIR);
++    }
++    else {
++      p = strrchr(path, '\\');
++      if(p) *p = 0;
++      p = strrchr(path, '\\');
++      if(p) *p = 0;
++    }
++  }
++
++  return path;
++}
++
++const char* get_path(char* path, const char* append)
++{
++  if(*path == 0) {
++    _snprintf(path, MAX_PATH, "%s\\openssl\\%s", get_module_path(), append);
++  }
++  return path;
++}
++
++const char *X509_get_default_private_dir(void) {
++  static char path[MAX_PATH];
++
++  return get_path(path, "/private");
++}
++
++const char *X509_get_default_cert_area(void) {
++  static char path[MAX_PATH];
++
++  return get_path(path, "");
++}
++
++const char *X509_get_default_cert_dir(void) {
++  static char path[MAX_PATH];
++
++  return get_path(path, "/certs");
++}
++
++const char *X509_get_default_cert_file(void) {
++  static char path[MAX_PATH];
++
++  return get_path(path, "/cert.pem");
++}
++#endif
+ 
+ const char *X509_get_default_cert_dir_env(void)
+ 	{ return(X509_CERT_DIR_EVP); }
+ 
+ const char *X509_get_default_cert_file_env(void)
+ 	{ return(X509_CERT_FILE_EVP); }
+-
+-- 
+1.7.1.msysgit.0
+
