@@ -68,6 +68,11 @@ namespace(:interpreter) do
       cd RubyInstaller::ROOT do
         cp_r(Dir.glob('resources/icons/*.ico'), package.build_target, :verbose => true)
       end
+
+      patches = Dir.glob("#{package.patches}/*.patch").sort
+      patches.each do |patch|
+        sh "git apply --directory #{package.target} #{patch}"
+      end
     end
 
     task :dependencies => package.dependencies
