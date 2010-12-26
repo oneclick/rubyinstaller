@@ -1,4 +1,4 @@
-=== (In Git)
+=== 2010-12-25
 
 * Enhancements:
   * Upgraded Ruby 1.8.7 to patchlevel 330
