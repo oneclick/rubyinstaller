@@ -66,7 +66,7 @@ module RubyInstaller
         'ruby-1.9.2-p180.tar.bz2'
       ],
       :dependencies => [
-        :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib
+        :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib, :tk
       ],
       :excludes => [
         'libcharset1.dll'
