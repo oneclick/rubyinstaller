@@ -84,6 +84,11 @@ module RubyInstaller
       Ruby19.installer_guid = '{11233A17-BFFC-434A-8FC8-2E93369AF008}'
     end
 
+    # Don't patch with LOCAL
+    if ENV['LOCAL'] then
+      Ruby19.patches = nil
+    end
+
     # alter at runtime the checkout and versions of 1.9
     # TODO define distinct GUID for dev versions?
     if ENV['TRUNK'] then
