@@ -81,7 +81,7 @@ begin
         'PATHEXT': RegWriteExpandStringValue(RootKey, SubKey, 'PATHEXT', NewPathish);
       end;
       Log(AnsiUppercase(RegValue) + ' updated to: ' + NewPathish);
-      
+
       // remove values if empty after uninstaller reverts its mods
       if IsUninstaller then
       begin
@@ -135,7 +135,7 @@ begin
     // multiple entries
     begin
       TmpPath := SrcString;
-      // clean up a leading ';' pathological case if it exists 
+      // clean up a leading ';' pathological case if it exists
       if Pos(Delim, TmpPath) = 1 then TmpPath := Copy(TmpPath, 2, Length(TmpPath));
       while (Pos(Delim, TmpPath) > 0) do
       begin
