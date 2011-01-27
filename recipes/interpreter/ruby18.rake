@@ -34,6 +34,11 @@ namespace(:interpreter) do
       end
     end
 
+    task :clean do
+      rm_rf package.target
+      rm_rf package.install_target
+    end
+
     task :sources do
       case
       when ENV['LOCAL']
@@ -188,6 +193,7 @@ task :ruby18 => [
 
 namespace :ruby18 do
   task :dependencies => ['interpreter:ruby18:dependencies']
+  task :clean => ['interpreter:ruby19:clean']
 end
 
 # Add rubygems to the chain
