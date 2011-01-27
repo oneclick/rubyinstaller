@@ -36,7 +36,7 @@ namespace(:interpreter) do
     end
 
     task :clean do
-      rm_rf package.target
+      rm_rf package.build_target
       rm_rf package.install_target
     end
 

@@ -35,7 +35,7 @@ namespace(:interpreter) do
     end
 
     task :clean do
-      rm_rf package.target
+      rm_rf package.build_target
       rm_rf package.install_target
     end
 
@@ -193,7 +193,7 @@ task :ruby18 => [
 
 namespace :ruby18 do
   task :dependencies => ['interpreter:ruby18:dependencies']
-  task :clean => ['interpreter:ruby19:clean']
+  task :clean => ['interpreter:ruby18:clean']
 end
 
 # Add rubygems to the chain
