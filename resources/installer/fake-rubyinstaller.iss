@@ -1,7 +1,7 @@
 ; Fake Ruby Installer - InnoSetup Script
 ; This script is used to build fake RubyInstallers for Windows for testing purposes
-; Copyright (c) 2009-2010 Jon Maken
-; Revision: 03/06/2010 5:57:10 PM
+; Copyright (c) 2009-2011 Jon Maken
+; Revision: 01/29/2011 2:31:03 PM
 ; License: MIT
 
 ; PRE-CHECK
@@ -9,7 +9,7 @@
 ; /d command line arguments.
 ;
 ;  Usage example:
-;  iscc rubyinstaller-fake.iss /dRubyVersion=X.Y.Z /dRubyPatch=123 /dRubyPath=sandbox/fake
+;  iscc fake-rubyinstaller.iss /dRubyVersion=X.Y.Z /dRubyPatch=123 /dRubyPath=sandbox/fake
 ;                              [/dInstVersion=26-OCT-2009]
 
 #if Defined(RubyVersion) == 0
@@ -94,7 +94,6 @@ DiskSpaceMBLabel=Required free disk space: ~[mb] MB
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: ..\..\{#RubyPath}\*; DestDir: {app}; Flags: recursesubdirs createallsubdirs
-Source: ..\..\sandbox\book\bookofruby.pdf; DestDir: {app}\doc
 Source: setrbvars.bat; DestDir: {app}\bin
 
 [Registry]
