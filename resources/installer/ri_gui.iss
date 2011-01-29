@@ -142,6 +142,29 @@ begin
   URLText.Font.Color := clBlue;
   URLText.OnClick := @URLText_OnClick;
 
+  TmpLabel := TNewStaticText.Create(HostPage);
+  TmpLabel.Parent := HostPage;
+  TmpLabel.Top := ScaleY(245);
+  TmpLabel.Left := ScaleX(176);
+  TmpLabel.AutoSize := True;
+  TmpLabel.Caption := 'How about a toolkit for building native C RubyGems?';
+
+  TmpLabel := TNewStaticText.Create(HostPage);
+  TmpLabel.Parent := HostPage;
+  TmpLabel.Top := ScaleY(260);
+  TmpLabel.Left := ScaleX(176);
+  TmpLabel.AutoSize := True;
+  TmpLabel.Caption := 'DevKit:';
+
+  URLText := TNewStaticText.Create(HostPage);
+  URLText.Parent := HostPage;
+  URLText.Top := TmpLabel.Top;
+  URLText.Left := TmpLabel.Left + TmpLabel.Width + ScaleX(4);
+  URLText.AutoSize := True;
+  URLText.Caption := 'http://rubyinstaller.org/add-ons/devkit';
+  URLText.Cursor := crHand;
+  URLText.Font.Color := clBlue;
+  URLText.OnClick := @URLText_OnClick;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
