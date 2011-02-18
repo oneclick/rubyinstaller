@@ -74,6 +74,12 @@ namespace(:interpreter) do
       cd RubyInstaller::ROOT do
         cp_r(Dir.glob('resources/icons/*.ico'), package.build_target, :verbose => true)
       end
+
+      unless ENV['LOCAL'] || ENV['CHECKOUT']
+        Dir.chdir package.target do
+          FileUtils.rm_f 'test/readline/test_readline.rb'
+        end
+      end
     end
 
     task :configure => [package.build_target, :compiler, :dependencies] do
