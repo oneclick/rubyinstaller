@@ -2,6 +2,7 @@
 
 * Enhancements:
   * Upgraded Ruby 1.9.2 to patchlevel 180
+  * Upgraded RubyGems to 1.5.2 on all versions of Ruby
   * Upgraded rb-readline to version 0.4.0
   * Upgraded RubyGems to 1.5.0 for Ruby 1.8.x
 

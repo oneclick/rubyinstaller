@@ -193,10 +193,8 @@ namespace :ruby19 do
   task :clean => ['interpreter:ruby19:clean']
 end
 
-# Add rubygems to the chain (if needed)
-if ENV['COMPAT'] then
-  task :ruby19 => [:rubygems19]
-end
+# Add rubygems to the chain
+task :ruby19 => [:rubygems19]
 
 # Add RubyGems operating system customization
 task :ruby19 => ['tools:rubygems:hook19']
