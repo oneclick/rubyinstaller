@@ -128,5 +128,6 @@ llvm         llvm-32-2.8
 
 === Known Issues
 
-Avoid running this project into a PATH containing spaces as the MSYS
+* Avoid running this project into a PATH containing spaces as the MSYS
 environment has issues correctly mounting /etc/fstab entries for MinGW.
+* If you see 'error: patch failed: sandbox/src-openssl/e_os2.h:264', then you need to set git's autocrlf option to false. See here for more: https://github.com/oneclick/rubyinstaller/wiki/Troubleshooting#patch_failed 
