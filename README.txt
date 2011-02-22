@@ -25,6 +25,10 @@ project root directory, and type one of:
 rake          # builds MRI 1.8.7
 rake ruby19   # builds MRI 1.9.2
 
+Note: If you see an error involving 'patches failed to apply,' you need to set git's 'autocrlf' option:
+
+git config --global core.autocrlf false
+
 === Project Directory Organization:
 
 The Rake build recipes are distributed inside the project's recipes/ directory
