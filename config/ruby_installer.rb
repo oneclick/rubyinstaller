@@ -102,6 +102,103 @@ module RubyInstaller
       Ruby19.dependencies.clear
     end
 
+    # Begin Shoes deps
+
+    Shoes = OpenStruct.new(
+      :release => 'policeman',
+      :version => '3.1',
+      :url => 'http://shoesrb.com/',
+      :checkout => 'git://github.com/shoes/shoes',
+      :checkout_target => 'sandbox/shoes',
+      :target => 'sandbox/shoes',
+      :build_target => 'sandbox/shoes_build',
+      :install_target => 'sandbox/shoes_mingw',
+      :configure_options => [],
+      :files => [
+	'shoes3.tar.gz'
+      ]
+    )
+
+    Git = OpenStruct.new(
+      :url => 'http://msysgit.googlecode.com/files',
+      :target => 'sandbox/msysgit',
+      :files => ['PortableGit-1.6.2.1-preview20090322.exe']
+    )
+
+    Glib = OpenStruct.new(
+      :url => "http://ftp.gnome.org/pub/gnome/binaries/win32/glib/2.24",
+      :version => '2.24.0-2',
+      :target => "sandbox/mingw",
+      :files => [
+	'glib-dev_2.24.0-2_win32.zip',
+	'glib_2.24.0-2_win32.zip'
+    ]
+    )
+
+    Cairo = OpenStruct.new(
+      :url => "http://ftp.gnome.org/pub/gnome/binaries/win32/dependencies",
+      :version => '1.8.10-1',
+      :target => "sandbox/mingw",
+      :files => [
+	'cairo-dev_1.8.10-1_win32.zip',
+	'cairo_1.8.10-1_win32.zip'
+    ]
+    )
+
+    Pango = OpenStruct.new(
+      :url => "http://ftp.gnome.org/pub/gnome/binaries/win32/pango/1.28",
+      :version => '1.28.0-1',
+      :target => "sandbox/mingw",
+      :files => [
+        'pango-dev_1.28.0-1_win32.zip',
+        'pango_1.28.0-1_win32.zip'
+      ]
+    )
+
+    Winhttp = OpenStruct.new(
+      :url => "http://www.holymonkey.com/shoes-packages",
+      :target => "sandbox/mingw",
+      :files => ['winhttp.zip']
+    )
+
+    LibJpeg = OpenStruct.new(
+      :url => "http://www.rin-shun.com/shoes/MinGW/downloads/",
+      :version => '8b',
+      :target => 'sandbox/mingw',
+      :files => [
+        'libjpeg_v8_bin_lib_include.zip'
+      ]
+    )
+
+    LibUnGif = OpenStruct.new(
+      :url => "http://easynews.dl.sourceforge.net/gnuwin32",
+      :version => '',
+      :target => "sandbox/mingw",
+      :files => [
+        'libungif-4.1.4-bin.zip',
+        'libungif-4.1.4-lib.zip'
+      ]
+    )
+
+    PortAudio = OpenStruct.new(
+      :url => "http://www.portaudio.com/archives",
+      :target => 'sandbox/portaudio',
+      :install_target => "sandbox/mingw",
+      :files => ['pa_snapshot.tar.gz']
+    )
+
+    Sqlite = OpenStruct.new(
+      :url => "http://www.sqlite.org",
+      :target => 'sandbox/sqlite3',
+      :files => [
+        'sqlitedll-3_6_23_1.zip',
+        'sqlite-amalgamation-3_6_23_1.zip'
+      ]
+    )
+
+
+    # end Shoes deps
+
     Zlib = OpenStruct.new(
       :release => "alternate",
       :version => "1.2.5",
