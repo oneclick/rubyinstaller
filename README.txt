@@ -121,7 +121,7 @@ subdirectory for your DevKit artifact.
 Compiler     DKVER Values
 
 tdm          tdm-32-4.5.1 (*), tdm-32-4.5.0, tdm-64-4.5.1
-mingw        mingw-32-3.4.5
+mingw        mingw-32-4.5.2, mingw-32-3.4.5
 llvm         llvm-32-2.8
 
 (*) = current default build toolchain
