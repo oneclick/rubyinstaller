@@ -18,7 +18,7 @@ module DevKitInstaller
           'binutils-2.21-3-mingw32-bin.tar.lzma',
           'mingwrt-3.18-mingw32-dev.tar.gz',
           'mingwrt-3.18-mingw32-dll.tar.gz',
-          'w32api-3.17-1-mingw32-dev.tar.lzma',
+          'w32api-3.17-2-mingw32-dev.tar.lzma',
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.67-1-mingw32-bin.tar.lzma',
           'autoconf-9-1-mingw32-bin.tar.lzma',
