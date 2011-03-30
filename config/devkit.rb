@@ -8,7 +8,7 @@ end
 
 module DevKitInstaller
 
-  DEFAULT_VERSION = 'tdm-32-4.5.1'
+  DEFAULT_VERSION = 'tdm-32-4.5.2'
 
   DevKit = OpenStruct.new(
     :installer_guid => '{D25478D4-72AE-40BF-829F-2C8CE49E2EE8}',
