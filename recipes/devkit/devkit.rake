@@ -12,7 +12,7 @@ file DevKitInstaller::DevKit.install_script => [DevKitInstaller::DevKit.install_
 
   # build ENV tool name template data
   tool_names = {}
-  ['CC','CXX','CPP'].zip([:gcc,:'g++',:cpp]) do |exe|
+  ['CC','CXX','CPP','WINDRES'].zip([:gcc,:'g++',:cpp,:windres]) do |exe|
     prefix = mingw.program_prefix.nil? ? nil : "#{mingw.program_prefix}-"
     tool_names[exe[0]] = "#{prefix}#{exe[1]}" if mingw.programs.include?(exe[1])
   end
@@ -61,7 +61,7 @@ namespace(:devkit) do
     end
 
     if mingw.program_prefix
-      ['CC','CXX','CPP'].zip([:gcc,:'g++',:cpp]) do |exe|
+      ['CC','CXX','CPP','WINDRES'].zip([:gcc,:'g++',:cpp,:windres]) do |exe|
         ENV[exe[0]] = "#{mingw.program_prefix}-#{exe[1]}" if mingw.programs.include?(exe[1])
       end
     end
