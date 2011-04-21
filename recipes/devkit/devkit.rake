@@ -63,7 +63,7 @@ namespace(:devkit) do
     # Fragile --host alternative that currently allows the llvm-gcc and i686-w64-mingw32
     # toolchains to build libffi, ???.
     if mingw.program_prefix
-      ['CC','CXX','CPP','WINDRES','AR'].zip([:gcc,:'g++',:cpp,:windres,:ar]) do |exe|
+      ['CC','CXX','CPP','WINDRES','AR','NM'].zip([:gcc,:'g++',:cpp,:windres,:ar,:nm]) do |exe|
         ENV[exe[0]] = "#{mingw.program_prefix}-#{exe[1]}" if mingw.programs.include?(exe[1])
       end
     end
