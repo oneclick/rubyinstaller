@@ -3,7 +3,7 @@ module DevKitInstaller
   COMPILERS['mingw64-32-4.5.3'] =
     OpenStruct.new(
       :version => 'mingw64-32-4.5.3',
-      :programs => [ :gcc, :cpp, :'g++', :windres, :ar, :nm ],
+      :programs => [ :gcc,:cpp,:'g++',:windres,:ar,:as,:nm,:ranlib,:objdump,:objcopy,:ld,:strip,:dllwrap,:dlltool ],
       :program_prefix => 'i686-w64-mingw32',
       :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
       :url_2 => 'http://downloads.sourceforge.net/mingw',
