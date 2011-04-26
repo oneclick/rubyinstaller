@@ -6,6 +6,9 @@
   * Upgraded RubyGems to 1.5.2 on all versions of Ruby
   * Upgraded rb-readline to version 0.4.0
 
+* Bugfixes:
+  * Be specific about version of RDoc and RDoc CHM required. GH-58
+
 === 2010-12-25
 
 * Enhancements:
