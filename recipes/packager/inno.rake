@@ -18,10 +18,12 @@ module InnoSetup
   EXECUTABLE = "iscc.exe"
 
   def self.present?
-    ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-      return true if File.exist?(File.join(path, EXECUTABLE)) && File.executable?(File.join(path, EXECUTABLE))
+    candidate = ENV['PATH'].split(File::PATH_SEPARATOR).detect do |path|
+      File.exist?(File.join(path, EXECUTABLE)) &&
+        File.executable?(File.join(path, EXECUTABLE))
     end
-    false
+
+    return true if candidate
   end
 
   # Generates and runs the shell command required to build an InnoSetup
@@ -37,7 +39,7 @@ module InnoSetup
   #   InnoSetup.iscc('rubyinstaller.iss',
   #     :ruby_version => '1.9.2',
   #     :ruby_patch   => '429',
-  #     :ruby_path    => 'sandbox/ruby',
+  #     :ruby_path    => File.expand_path('sandbox/ruby'),
   #     :output       => 'pkg',
   #     :filename     => 'rubyinstaller-1.9.2-p429',
   #     :sign         => ENV['SIGNED']
@@ -45,7 +47,7 @@ module InnoSetup
   #
   # will be converted into a shell command line similar to:
   #
-  #   iscc.exe rubyinstaller.iss /dRubyPatch=429 /dRubyPath=sandbox/ruby
+  #   iscc.exe rubyinstaller.iss /dRubyPatch=429 /dRubyPath=C:/.../sandbox/ruby
   #       /dRubyVersion=1.9.2 /opkg /frubyinstaller-1.9.2-p429
   #
   def self.iscc(script, *args)
@@ -92,10 +94,12 @@ module SignTool
   EXECUTABLE = "signtool.exe"
 
   def self.present?
-    ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-      return true if File.exist?(File.join(path, EXECUTABLE)) && File.executable?(File.join(path, EXECUTABLE))
+    candidate = ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+      File.exist?(File.join(path, EXECUTABLE)) &&
+        File.executable?(File.join(path, EXECUTABLE))
     end
-    false
+
+    return true if candidate
   end
 end
 
@@ -156,7 +160,7 @@ directory 'pkg'
       InnoSetup.iscc("resources/installer/rubyinstaller.iss",
         :ruby_version => info[:version],
         :ruby_patch   => info[:patchlevel],
-        :ruby_path    => pkg.install_target,
+        :ruby_path    => File.expand_path(pkg.install_target),
         :output       => 'pkg',
         :filename     => installer_pkg,
         :sign         => ENV['SIGNED']

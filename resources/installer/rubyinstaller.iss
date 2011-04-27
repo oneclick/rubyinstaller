@@ -98,7 +98,7 @@ en.DiskSpaceMBLabel=Required free disk space: ~[mb] MB
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: ..\..\{#RubyPath}\*; DestDir: {app}; Flags: recursesubdirs createallsubdirs
+Source: {#RubyPath}\*; DestDir: {app}; Flags: recursesubdirs createallsubdirs
 Source: ..\..\sandbox\book\bookofruby.pdf; DestDir: {app}\doc
 Source: setrbvars.bat; DestDir: {app}\bin
 

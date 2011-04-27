@@ -75,8 +75,7 @@ In case you don't have the OCI installed, you will need:
 - Zlib extension and DLL (zlib1.dll) available in the PATH (could be in system32
 or your Ruby bin directory)
 
-Innosetup 5 is required to compile and build the Windows installer. The InnoSetup
-QuickStart Pack 5.3.9+ contains all of the required components.
+Innosetup 5.4.2 is required to compile and build the Windows installer.
 
 === Build Task Examples:
 
