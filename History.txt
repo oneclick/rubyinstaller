@@ -9,6 +9,9 @@
 * Bugfixes:
   * Be specific about version of RDoc and RDoc CHM required. GH-58
 
+* Deprecations:
+  * Installers now enforces Windows XP as minimum OS. GH-54
+
 === 2010-12-25
 
 * Enhancements:
