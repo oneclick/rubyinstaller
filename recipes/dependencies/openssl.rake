@@ -63,7 +63,7 @@ namespace(:dependencies) do
 
         sh "make"
         sh "perl util/mkdef.pl 32 libeay > libeay32.def"
-        sh "dllwrap --dllname #{package.dllnames[:libcrypto]} #{driver} --output-lib libcrypto.dll.a --def libeay32.def libcrypto.a -lwsock32 -lgdi32"
+        sh "dllwrap --dllname #{package.dllnames[:libcrypto]} #{driver} --output-lib libcrypto.dll.a --def libeay32.def libcrypto.a -lcrypt32 -lwsock32 -lgdi32"
         sh "perl util/mkdef.pl 32 ssleay > ssleay32.def"
         sh "dllwrap --dllname #{package.dllnames[:libssl]} #{driver} --output-lib libssl.dll.a --def ssleay32.def libssl.a libcrypto.dll.a"
       end

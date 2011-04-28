@@ -148,20 +148,21 @@ module RubyInstaller
 
     OpenSsl = OpenStruct.new(
       :url => 'http://mirrors.ibiblio.org/pub/mirrors/openssl/source',
-      :version => '0.9.8r',
+      :version => '1.0.0d',
       :target => 'sandbox/src-openssl',
       :install_target => 'sandbox/openssl',
       :patches => 'resources/patches/openssl',
       :configure_options => [
         'mingw',
-        'zlib-dynamic'
+        'zlib-dynamic',
+        '-lcrypt32'
       ],
       :dllnames => {
-        :libcrypto => 'libeay32-0.9.8-msvcrt.dll',
-        :libssl => 'ssleay32-0.9.8-msvcrt.dll',
+        :libcrypto => 'libeay32-1.0.0-msvcrt.dll',
+        :libssl => 'ssleay32-1.0.0-msvcrt.dll',
       },
       :files => [
-        'openssl-0.9.8r.tar.gz',
+        'openssl-1.0.0d.tar.gz',
       ]
     )
 
