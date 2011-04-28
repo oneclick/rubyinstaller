@@ -154,8 +154,7 @@ module RubyInstaller
       :patches => 'resources/patches/openssl',
       :configure_options => [
         'mingw',
-        'zlib-dynamic',
-        '-lcrypt32'
+        'zlib-dynamic'
       ],
       :dllnames => {
         :libcrypto => 'libeay32-1.0.0-msvcrt.dll',
