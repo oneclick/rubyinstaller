@@ -7,6 +7,7 @@
   * Upgraded rb-readline to version 0.4.0
   * Upgraded OpenSSL to 1.0.0d on all versions of Ruby
   * Build Ruby using GCC 4.5.2 (TDM-1 release)
+  * Enable unsupported builds with 32-bit MinGW-w64
 
 * Bugfixes:
   * Be specific about version of RDoc and RDoc CHM required. GH-58
