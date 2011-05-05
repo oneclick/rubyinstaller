@@ -48,6 +48,8 @@ namespace(:dependencies) do
 
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
       configure_options = package.configure_options.join(' ')
+      configure_options << " "
+      configure_options << DevKitInstaller.openssl_configure_options.join(' ')
       configure_options << " --prefix=#{install_target}"
       cd package.target do
         sh "perl ./Configure #{configure_options}"

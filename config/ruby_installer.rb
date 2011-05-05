@@ -153,7 +153,6 @@ module RubyInstaller
       :install_target => 'sandbox/openssl',
       :patches => 'resources/patches/openssl',
       :configure_options => [
-        'mingw',
         'zlib-dynamic'
       ],
       :dllnames => {
