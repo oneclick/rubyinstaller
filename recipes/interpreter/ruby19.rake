@@ -104,8 +104,13 @@ namespace(:interpreter) do
       end
 
       unless uptodate?(File.join(package.build_target, 'Makefile'), [File.join(package.target, 'configure')])
+        install_target = File.join(RubyInstaller::ROOT, package.install_target)
+        configure_options = package.configure_options.join(' ')
+        configure_options << " "
+        configure_options << DevKitInstaller.configure_options.join(' ')
+        configure_options << " --prefix=#{install_target}"
         cd package.build_target do
-          sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
+          sh "sh -c \"#{relative_path}/configure #{configure_options}\""
         end
       end
     end
