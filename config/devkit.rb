@@ -67,4 +67,13 @@ module DevKitInstaller
   def compiler
     COMPILERS[ENV['DKVER']]
   end
+
+  def configure_options
+    options = []
+    program_prefix = compiler.program_prefix
+    if program_prefix
+      options << "--host=#{program_prefix}"
+    end
+    options
+  end
 end
