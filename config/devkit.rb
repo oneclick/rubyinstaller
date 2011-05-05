@@ -63,4 +63,8 @@ module DevKitInstaller
     }
   )
 
+  module_function
+  def compiler
+    COMPILERS[ENV['DKVER']]
+  end
 end
