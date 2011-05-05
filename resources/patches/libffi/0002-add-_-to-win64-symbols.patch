@@ -39,54 +39,22 @@ diff -ru a/src/x86/ffi.c b/src/x86/ffi.c
      }
 diff -ru a/src/x86/win64.S b/src/x86/win64.S
 --- a/src/x86/win64.S	2010-01-01 01:32:40.000000000 +0900
-+++ b/src/x86/win64.S	2011-05-05 21:12:07.455445900 +0900
-@@ -20,7 +20,7 @@
- PUBLIC	ffi_call_win64
++++ b/src/x86/win64.S	2011-05-05 21:25:04.726811100 +0900
+@@ -235,7 +235,7 @@
+ #else        
+ .text
  
- EXTRN	__chkstk:NEAR
--EXTRN	ffi_closure_win64_inner:NEAR
-+EXTRN	_ffi_closure_win64_inner:NEAR
+-.extern _ffi_closure_win64_inner
++.extern ffi_closure_win64_inner
  
- _TEXT	SEGMENT
- 
-@@ -30,7 +30,7 @@
- ;;;    first four parameters are float or double
- ;;;
- ;;; It must move the parameters passed in registers to their stack location,
--;;; call ffi_closure_win64_inner for the actual work, then return the result.
-+;;; call _ffi_closure_win64_inner for the actual work, then return the result.
- ;;; 
- ffi_closure_win64 PROC FRAME
- 	;; copy register arguments onto stack
-@@ -72,11 +72,11 @@
- 	mov	rcx, rax	; context is first parameter
- 	mov	rdx, rsp	; stack is second parameter
- 	add	rdx, 48		; point to start of arguments
--	mov	rax, ffi_closure_win64_inner
-+	mov	rax, _ffi_closure_win64_inner
- 	call	rax		; call the real closure function
- 	add	rsp, 40
- 	movd	xmm0, rax	; If the closure returned a float,
--                                ; ffi_closure_win64_inner wrote it to rax
-+                                ; _ffi_closure_win64_inner wrote it to rax
- 	ret	0
- ffi_closure_win64 ENDP
- 
-@@ -243,7 +243,7 @@
- #    first four parameters are float or double
- #
- # It must move the parameters passed in registers to their stack location,
--# call ffi_closure_win64_inner for the actual work, then return the result.
-+# call _ffi_closure_win64_inner for the actual work, then return the result.
- # 
- 	.balign 16
-         .globl _ffi_closure_win64	
-@@ -291,7 +291,7 @@
+ # ffi_closure_win64 will be called with these registers set:
+ #    rax points to 'closure'
+@@ -287,7 +287,7 @@
+ 	mov	%rax, %rcx	# context is first parameter
+ 	mov	%rsp, %rdx	# stack is second parameter
+ 	add	$48, %rdx	# point to start of arguments
+-	mov	$_ffi_closure_win64_inner, %rax
++	mov	$ffi_closure_win64_inner, %rax
  	callq	*%rax		# call the real closure function
  	add	$40, %rsp
  	movq	%rax, %xmm0	# If the closure returned a float,
--                                # ffi_closure_win64_inner wrote it to rax
-+                                # _ffi_closure_win64_inner wrote it to rax
- 	retq
- .ffi_closure_win64_end:
- 
