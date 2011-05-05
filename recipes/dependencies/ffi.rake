@@ -44,6 +44,7 @@ namespace(:dependencies) do
     ct = checkpoint(:ffi, :configure) do
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
       configure_options = package.configure_options.join(' ')
+      configure_options << " "
       configure_options << DevKitInstaller.configure_options.join(' ')
       configure_options << " --prefix=#{install_target}"
       cd package.target do
