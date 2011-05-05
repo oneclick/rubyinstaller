@@ -45,7 +45,7 @@ module DevKitInstaller
       :target => 'sandbox/devkit/mingw64',
       :files => {
         :url_1 => [
-          'mingw-w64-1.0-bin_i686-mingw_20110502.zip'
+          'mingw-w64-1.0-bin_i686-mingw_20110502.zip',
           'x86_64-w64-mingw32-gdb-7.0.50.20100202.tar.bz2',
         ],
         :url_2 => [
