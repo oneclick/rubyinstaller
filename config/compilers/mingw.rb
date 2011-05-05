@@ -5,6 +5,7 @@ module DevKitInstaller
       :version => 'mingw-32-4.5.2',
       :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => nil,
+      :bit => 32,
       :url_1 => 'http://downloads.sourceforge.net/mingw',
       :target => 'sandbox/devkit/mingw',
       :files => {
@@ -44,6 +45,7 @@ module DevKitInstaller
       :version => 'mingw-32-3.4.5',
       :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => nil,
+      :bit => 32,
       :url_1 => 'http://downloads.sourceforge.net/mingw',
       :target => 'sandbox/devkit/mingw',
       :files => {
