@@ -47,8 +47,10 @@ namespace(:dependencies) do
       ENV['TERM'] = 'msys'
 
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
+      configure_options = package.configure_options.join(' ')
+      configure_options << " --prefix=#{install_target}"
       cd package.target do
-        sh "perl ./Configure #{package.configure_options.join(' ')} --prefix=#{install_target}"
+        sh "perl ./Configure #{configure_options}"
       end
 
       ENV['TERM'] = old_term

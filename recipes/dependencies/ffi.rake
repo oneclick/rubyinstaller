@@ -43,8 +43,10 @@ namespace(:dependencies) do
     # Prepare sources for compilation
     ct = checkpoint(:ffi, :configure) do
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
+      configure_options = package.configure_options.join(' ')
+      configure_options << " --prefix=#{install_target}"
       cd package.target do
-        sh "sh -c \"./configure #{package.configure_options.join(' ')} --prefix=#{install_target}\""
+        sh "sh -c \"./configure #{configure_options}\""
       end
     end
     task :configure => [:prepare, :compiler, ct]
