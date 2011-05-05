@@ -71,7 +71,7 @@ end
 
 def seven_zip_get(source, item, target)
   puts "** Extracting '#{item}' from '#{source}' into '#{target}'" if Rake.application.options.trace
-  sh "\"#{RubyInstaller::SEVEN_ZIP}\" e \"#{source}\" -o\"#{target}\" \"#{item}\" > NUL 2>&1"
+  sh "\"#{RubyInstaller::SEVEN_ZIP}\" e -y \"#{source}\" -o\"#{target}\" \"#{item}\" > NUL 2>&1"
 end
 
 def seven_zip_build(source, target, options={})
