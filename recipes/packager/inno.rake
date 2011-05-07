@@ -163,7 +163,8 @@ directory 'pkg'
         :ruby_path    => File.expand_path(pkg.install_target),
         :output       => 'pkg',
         :filename     => installer_pkg,
-        :sign         => ENV['SIGNED']
+        :sign         => ENV['SIGNED'],
+        :disable_group_page => !pkg.show_group
       )
     end
 

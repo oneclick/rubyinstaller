@@ -28,6 +28,10 @@
   #define InstVersion GetDateTimeString('dd-mmm-yy"T"hhnn', '', '')
 #endif
 
+#if Defined(DisableGroupPage) == 0
+  #define DisableGroupPage true
+#endif
+
 ; Grab MAJOR.MINOR info from RubyVersion (1.8)
 #define RubyMajorMinor Copy(RubyVersion, 1, 3)
 #define RubyFullVersion RubyVersion + '-p' + RubyPatch
@@ -54,7 +58,8 @@ AppPublisher={#InstallerPublisher}
 AppPublisherURL={#InstallerHomepage}
 AppVersion={#RubyFullVersion}
 DefaultGroupName={#InstallerName}
-DisableProgramGroupPage=true
+DisableProgramGroupPage={#DisableGroupPage}
+AllowNoIcons=true
 LicenseFile=LICENSE.txt
 Compression=lzma/ultra64
 SolidCompression=true
