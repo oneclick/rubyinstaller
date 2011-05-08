@@ -1,6 +1,6 @@
 diff -ru a/src/x86/ffi.c b/src/x86/ffi.c
 --- a/src/x86/ffi.c	2010-01-01 01:32:40.000000000 +0900
-+++ b/src/x86/ffi.c	2011-05-05 21:10:56.818521800 +0900
++++ b/src/x86/ffi.c	2011-05-08 22:44:45.985753600 +0900
 @@ -262,7 +262,7 @@
  #endif /* X86_WIN32 */
  #ifdef X86_WIN64
@@ -19,7 +19,7 @@ diff -ru a/src/x86/ffi.c b/src/x86/ffi.c
                         cif->flags, ecif.rvalue, fn);
        }
        break;
-@@ -355,7 +355,7 @@
+@@ -355,14 +355,14 @@
       __attribute__ ((regparm(1)));
  #endif
  #ifdef X86_WIN64
@@ -28,6 +28,14 @@ diff -ru a/src/x86/ffi.c b/src/x86/ffi.c
  #endif
  
  /* This function is jumped to by the trampoline */
+ 
+ #ifdef X86_WIN64
+ void * FFI_HIDDEN
+-ffi_closure_win64_inner (ffi_closure *closure, void *args) {
++_ffi_closure_win64_inner (ffi_closure *closure, void *args) {
+   ffi_cif       *cif;
+   void         **arg_area;
+   void          *result;
 @@ -545,7 +545,7 @@
      {
        int mask = FLAG(0)|FLAG(1)|FLAG(2)|FLAG(3);
@@ -37,24 +45,3 @@ diff -ru a/src/x86/ffi.c b/src/x86/ffi.c
                                   codeloc, mask);
        /* make sure we can execute here */
      }
-diff -ru a/src/x86/win64.S b/src/x86/win64.S
---- a/src/x86/win64.S	2010-01-01 01:32:40.000000000 +0900
-+++ b/src/x86/win64.S	2011-05-05 21:25:04.726811100 +0900
-@@ -235,7 +235,7 @@
- #else        
- .text
- 
--.extern _ffi_closure_win64_inner
-+.extern ffi_closure_win64_inner
- 
- # ffi_closure_win64 will be called with these registers set:
- #    rax points to 'closure'
-@@ -287,7 +287,7 @@
- 	mov	%rax, %rcx	# context is first parameter
- 	mov	%rsp, %rdx	# stack is second parameter
- 	add	$48, %rdx	# point to start of arguments
--	mov	$_ffi_closure_win64_inner, %rax
-+	mov	$ffi_closure_win64_inner, %rax
- 	callq	*%rax		# call the real closure function
- 	add	$40, %rsp
- 	movq	%rax, %xmm0	# If the closure returned a float,
