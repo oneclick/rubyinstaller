@@ -203,5 +203,5 @@ task :ruby19 => ['tools:rubygems:hook19']
 task :ruby19 => [:rbreadline]
 task :ruby19 => ['dependencies:rbreadline:install19']
 
-task :check19   => ['interpreter:ruby19:check']
-task :irb19     => ['interpreter:ruby19:irb']
+task :check19   => ['ruby19:dependencies', 'interpreter:ruby19:check']
+task :irb19     => ['ruby19:dependencies', 'interpreter:ruby19:irb']

@@ -212,5 +212,5 @@ task :ruby18 => ['tools:rubygems:hook18']
 task :ruby18 => [:rbreadline]
 task :ruby18 => ['dependencies:rbreadline:install18']
 
-task :check18 => ['interpreter:ruby18:check']
-task :irb18   => ['interpreter:ruby18:irb']
+task :check18 => ['ruby18:dependencies', 'interpreter:ruby18:check']
+task :irb18   => ['ruby18:dependencies', 'interpreter:ruby18:irb']
