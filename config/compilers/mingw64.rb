@@ -69,8 +69,6 @@ module DevKitInstaller
           'gettext-tools_0.18.1.1-1_win64.zip',
           'gettext-tools-dev_0.18.1.1-1_win64.zip',
           'win-iconv-dev_tml-20100912_win64.zip',
-          'zlib_1.2.3-1_win64.zip',
-          'zlib-dev_1.2.3-1_win64.zip',
         ],
       }
     )

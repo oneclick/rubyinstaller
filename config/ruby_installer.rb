@@ -111,6 +111,13 @@ module RubyInstaller
         'zlib125-dll.zip'
       ]
     )
+    if DevKitInstaller.64bit?
+      Zlib.url = "http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies"
+      Zlib.files = [
+        'zlib_1.2.5-1_win64.zip',
+        'zlib-dev_1.2.5-1_win64.zip',
+      ]
+    end
 
     PureReadline = OpenStruct.new(
       :release => 'experimental',
