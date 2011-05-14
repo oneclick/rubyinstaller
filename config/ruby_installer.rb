@@ -180,8 +180,8 @@ module RubyInstaller
     )
 
     LibFFI = OpenStruct.new(
-      :url => 'http://github.com/atgreen/libffi/tarball/v3.0.9',
-      :version => '3.0.9',
+      :url => 'ftp://sourceware.org/pub/libffi/libffi-3.0.10rc8.tar.gz',
+      :version => '3.1.10rc8',
       :target => 'sandbox/src-libffi',
       :install_target => 'sandbox/libffi',
       :patches => 'resources/patches/libffi',
@@ -190,7 +190,7 @@ module RubyInstaller
         '--disable-shared'
       ],
       :files => [
-        'libffi-3.0.9.tar.gz',
+        'libffi-3.0.10rc8.tar.gz',
       ]
     )
 
