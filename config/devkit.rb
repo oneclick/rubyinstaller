@@ -68,10 +68,6 @@ module DevKitInstaller
     COMPILERS[ENV['DKVER']]
   end
 
-  def 64bit?
-    compiler and compiler.bit == 64
-  end
-
   def configure_options
     options = []
     program_prefix = compiler.program_prefix
