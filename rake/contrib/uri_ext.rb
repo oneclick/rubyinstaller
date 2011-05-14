@@ -11,6 +11,7 @@ require 'net/http'
 require 'net/https'
 require 'tempfile'
 require 'fileutils'
+require 'open-uri'
 
 # show progress of download
 require File.join(File.dirname(__FILE__), 'progressbar')
@@ -296,4 +297,27 @@ module URI
       yield http
     end
   end  
+
+  class FTP #:nodoc:
+
+    alias_method :open_uri_read, :read
+    def read(options = nil, &block)
+      result = block ? nil : ""
+      content_length = nil
+      open(:content_length_proc => lambda {|length| content_length = length}) do |input|
+        with_progress_bar options[:progress], path.split('/').last, content_length do |progress|
+          chunk = ""
+          while input.read(4096, chunk)
+            if block
+              block.call chunk
+            else
+              result << chunk
+            end
+            progress << chunk
+          end
+        end
+      end
+      result
+    end
+  end
 end
