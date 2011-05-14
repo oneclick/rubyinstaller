@@ -117,6 +117,9 @@ end
 directory 'pkg'
 
 [RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |pkg|
+  if ENV["LOCAL"]
+    pkg.target = File.expand_path(File.join(ENV['LOCAL'], '.'))
+  end
   if info = RubyTools.ruby_version(File.join(pkg.target, 'version.h'))
     version       = "#{info[:version]}-p#{info[:patchlevel]}"
     version_xyz   = info[:version]
