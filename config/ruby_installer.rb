@@ -180,7 +180,7 @@ module RubyInstaller
     )
 
     LibFFI = OpenStruct.new(
-      :url => 'ftp://sourceware.org/pub/libffi/libffi-3.0.10rc8.tar.gz',
+      :url => 'ftp://sourceware.org/pub/libffi',
       :version => '3.1.10rc8',
       :target => 'sandbox/src-libffi',
       :install_target => 'sandbox/libffi',
