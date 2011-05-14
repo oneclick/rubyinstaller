@@ -114,7 +114,7 @@ module RubyInstaller
       :files_64 => [
         'zlib_1.2.5-1_win64.zip',
         'zlib-dev_1.2.5-1_win64.zip',
-      ],
+      ]
     )
 
     PureReadline = OpenStruct.new(
