@@ -10,8 +10,15 @@ namespace(:dependencies) do
 
     # Put files for the :download task
     dt = checkpoint(:zlib, :download)
-    package.files.each do |f|
-      file_source = "#{package.url}/#{f}"
+    if DevKitInstaller.compiler.bit == 64
+      url = package.url_64
+      files = package.files_64
+    else
+      url = package.url
+      files = package.files
+    end
+    files.each do |f|
+      file_source = "#{url}/#{f}"
       file_target = "downloads/#{f}"
       download file_target => file_source
 

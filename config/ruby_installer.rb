@@ -106,19 +106,16 @@ module RubyInstaller
       :release => "alternate",
       :version => "1.2.5",
       :url => "http://github.com/downloads/oneclick/rubyinstaller",
+      :url_64 => "http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies",
       :target => 'sandbox/zlib',
       :files => [
         'zlib125-dll.zip'
-      ]
-    )
-    compiler = DevKitInstaller.compiler
-    if compiler and compiler.bit == 64
-      Zlib.url = "http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies"
-      Zlib.files = [
+      ],
+      :files_64 => [
         'zlib_1.2.5-1_win64.zip',
         'zlib-dev_1.2.5-1_win64.zip',
-      ]
-    end
+      ],
+    )
 
     PureReadline = OpenStruct.new(
       :release => 'experimental',
