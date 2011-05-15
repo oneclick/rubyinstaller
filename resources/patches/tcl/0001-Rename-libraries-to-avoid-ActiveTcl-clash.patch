@@ -1,0 +1,38 @@
+From 88e0c212e94779f270ca07a2b04abc6e5ced3ef6 Mon Sep 17 00:00:00 2001
+From: Bosko Ivanisevic <bosko.ivanisevic@gmail.com>
+Date: Sat, 14 May 2011 15:21:48 +0200
+Subject: [PATCH] Rename libraries to avoid ActiveTcl clash
+
+---
+ tcl8.5.9/win/configure |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/tcl8.5.9/win/configure b/tcl8.5.9/win/configure
+index f58e61d..c14b589 100644
+--- a/tcl8.5.9/win/configure
++++ b/tcl8.5.9/win/configure
+@@ -4484,16 +4484,16 @@ TCL_EXPORT_FILE_SUFFIX="\${NODOT_VERSION}${LIBSUFFIX}"
+ 
+ eval "TCL_SRC_DIR=\"`cd $srcdir/..; pwd`\""
+ 
+-eval "TCL_DLL_FILE=tcl${VER}${DLLSUFFIX}"
++eval "TCL_DLL_FILE=tcl${VER}-ri${DLLSUFFIX}"
+ 
+-eval "TCL_LIB_FILE=${LIBPREFIX}tcl$VER${LIBSUFFIX}"
++eval "TCL_LIB_FILE=${LIBPREFIX}tcl$VER-ri${LIBSUFFIX}"
+ 
+-eval "TCL_LIB_FLAG=\"-ltcl${VER}${LIBFLAGSUFFIX}\""
++eval "TCL_LIB_FLAG=\"-ltcl${VER}-ri${LIBFLAGSUFFIX}\""
+ eval "TCL_BUILD_LIB_SPEC=\"-L`pwd` ${TCL_LIB_FLAG}\""
+ eval "TCL_LIB_SPEC=\"-L${libdir} ${TCL_LIB_FLAG}\""
+ 
+-eval "TCL_STUB_LIB_FILE=\"${LIBPREFIX}tclstub${VER}${LIBSUFFIX}\""
+-eval "TCL_STUB_LIB_FLAG=\"-ltclstub${VER}${LIBFLAGSUFFIX}\""
++eval "TCL_STUB_LIB_FILE=\"${LIBPREFIX}tclstub${VER}-ri${LIBSUFFIX}\""
++eval "TCL_STUB_LIB_FLAG=\"-ltclstub${VER}-ri${LIBFLAGSUFFIX}\""
+ eval "TCL_BUILD_STUB_LIB_SPEC=\"-L`pwd` ${TCL_STUB_LIB_FLAG}\""
+ eval "TCL_STUB_LIB_SPEC=\"-L${libdir} ${TCL_STUB_LIB_FLAG}\""
+ eval "TCL_BUILD_STUB_LIB_PATH=\"`pwd`/${TCL_STUB_LIB_FILE}\""
+-- 
+1.7.4.msysgit.0
+

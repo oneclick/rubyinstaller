@@ -35,6 +35,15 @@ namespace(:dependencies) do
 
     task :dependencies => package.dependencies
 
+    # Apply patches
+    pt = checkpoint(:tk, :prepare) do
+      patches = Dir.glob("#{package.patches}/*.patch").sort
+      patches.each do |patch|
+        sh "git apply --directory #{package.target} #{patch}"
+      end
+    end
+    task :prepare => [:extract, pt]
+
     # Prepare sources for compilation
     ct = checkpoint(:tk, :configure) do
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
@@ -46,7 +55,7 @@ namespace(:dependencies) do
         sh "sh tk#{package.version}/win/configure #{package.configure_options.join(' ')} --prefix=#{install_target}"
       end
     end
-    task :configure => [:extract, :compiler, :dependencies, ct]
+    task :configure => [:prepare, :compiler, :dependencies, ct]
 
     mt = checkpoint(:tk, :make) do
       cd package.target do
@@ -72,6 +81,7 @@ end
 task :tk => [
   'dependencies:tk:download',
   'dependencies:tk:extract',
+  'dependencies:tk:prepare',
   'dependencies:tk:configure',
   'dependencies:tk:compile',
   'dependencies:tk:install',

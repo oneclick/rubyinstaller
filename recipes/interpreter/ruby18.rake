@@ -94,8 +94,13 @@ namespace(:interpreter) do
           sh "sh -c \"autoconf\""
         end
       end
-
+      
       unless uptodate?(File.join(package.build_target, 'Makefile'), [File.join(package.target, 'configure')])
+        if package.dependencies.include? :tk
+          package.configure_options << "--with-tcl-dir=#{File.join(RubyInstaller::ROOT, RubyInstaller::Tcl.install_target)}"
+          package.configure_options << "--with-tk-dir=#{File.join(RubyInstaller::ROOT, RubyInstaller::Tk.install_target)}"
+        end
+
         cd package.build_target do
           sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
         end

@@ -31,6 +31,15 @@ namespace(:dependencies) do
     end
     task :extract => [:extract_utils, :download, package.target, et]
 
+    # Apply patches
+    pt = checkpoint(:tcl, :prepare) do
+      patches = Dir.glob("#{package.patches}/*.patch").sort
+      patches.each do |patch|
+        sh "git apply --directory #{package.target} #{patch}"
+      end
+    end
+    task :prepare => [:extract, pt]
+
     # Prepare sources for compilation
     ct = checkpoint(:tcl, :configure) do
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
@@ -38,7 +47,7 @@ namespace(:dependencies) do
         sh "sh tcl#{package.version}/win/configure #{package.configure_options.join(' ')} --prefix=#{install_target}"
       end
     end
-    task :configure => [:extract, :compiler, ct]
+    task :configure => [:prepare, :compiler, ct]
 
     mt = checkpoint(:tcl, :make) do
       cd package.target do
@@ -64,6 +73,7 @@ end
 task :tcl => [
   'dependencies:tcl:download',
   'dependencies:tcl:extract',
+  'dependencies:tcl:prepare',
   'dependencies:tcl:configure',
   'dependencies:tcl:compile',
   'dependencies:tcl:install',

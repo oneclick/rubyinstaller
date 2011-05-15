@@ -200,9 +200,9 @@ module RubyInstaller
       :url => "http://downloads.sourceforge.net/tcl",
       :target => 'sandbox/src-tcl',
       :install_target => 'sandbox/tcl',
+      :patches => 'resources/patches/tcl',
       :configure_options => [
-        '--enable-static',
-        '--disable-shared'
+        '--enable-threads'
       ],
       :files => [
         'tcl8.5.9-src.tar.gz'
@@ -214,9 +214,9 @@ module RubyInstaller
       :url => "http://downloads.sourceforge.net/tcl",
       :target => 'sandbox/src-tk',
       :install_target => 'sandbox/tk',
+      :patches => 'resources/patches/tk',
       :configure_options => [
-        '--enable-static',
-        '--disable-shared'
+        '--enable-threads'
       ],
       :files => [
         'tk8.5.9-src.tar.gz'
