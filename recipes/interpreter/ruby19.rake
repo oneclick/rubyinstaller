@@ -1,7 +1,6 @@
 require 'rake'
 require 'rake/clean'
 require 'pathname'
-require 'ruby-debug'
 
 namespace(:interpreter) do
   namespace(:ruby19) do
