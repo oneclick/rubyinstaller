@@ -1,0 +1,28 @@
+From 2fafde505640c924a8273cb8caacdbef0eb84110 Mon Sep 17 00:00:00 2001
+From: Bosko Ivanisevic <bosko.ivanisevic@gmail.com>
+Date: Tue, 17 May 2011 08:21:18 +0200
+Subject: [PATCH] Use Tcl/Tk files from separate directory
+
+---
+ ext/tk/lib/tk.rb |    5 +++++
+ 1 files changed, 5 insertions(+), 0 deletions(-)
+
+diff --git a/ext/tk/lib/tk.rb b/ext/tk/lib/tk.rb
+index 4beaaf9..a041940 100644
+--- a/ext/tk/lib/tk.rb
++++ b/ext/tk/lib/tk.rb
+@@ -3,6 +3,11 @@
+ #                       by Yukihiro Matsumoto <matz@netlab.jp>
+ 
+ # use Shigehiro's tcltklib
++require 'rbconfig'
++if RbConfig::CONFIG['host_os'] =~ /mingw/
++  ENV['TCL_LIBRARY'] = File.join(RbConfig::CONFIG['libdir'], 'tcl', 'tcl8.5')
++end
++
+ require 'tcltklib'
+ require 'tkutil'
+ 
+-- 
+1.7.4.msysgit.0
+
