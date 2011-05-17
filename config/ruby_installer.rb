@@ -33,7 +33,7 @@ module RubyInstaller
         'ruby-1.8.7-p334.tar.bz2'
       ],
       :dependencies => [
-        :gdbm, :iconv, :openssl, :pdcurses, :zlib
+        :gdbm, :iconv, :openssl, :pdcurses, :zlib, :tk
       ],
       :excludes => [
         'libcharset1.dll'
