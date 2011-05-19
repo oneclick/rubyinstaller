@@ -5,10 +5,20 @@ module RubyTools
   # a hash of values
   def self.ruby_version(target)
     return nil unless File.exist?(target)
+
     h = {}
     version_file = File.read(target)
     h[:version] = /RUBY_VERSION "(.+)"$/.match(version_file)[1]
     h[:patchlevel] = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
+
+    # check presence of RUBY_VERSION_CODE (only in 1.8.7) as proxy for
+    # RUBY_LIB_VERSION_STYLE == {2,3} check
+    if version_file =~ /RUBY_VERSION_CODE (.+)$/
+      h[:lib_version] = h[:version][0..2]
+    else
+      teeny = /RUBY_VERSION_TEENY (.+)$/.match(version_file)[1]
+      h[:lib_version] = "#{h[:version][0..2]}.#{teeny}"
+    end
     h
   end
 end
@@ -37,18 +47,21 @@ module InnoSetup
   # Example - the following method call
   #
   #   InnoSetup.iscc('rubyinstaller.iss',
-  #     :ruby_version => '1.9.2',
-  #     :ruby_patch   => '429',
-  #     :ruby_path    => File.expand_path('sandbox/ruby'),
-  #     :output       => 'pkg',
-  #     :filename     => 'rubyinstaller-1.9.2-p429',
-  #     :sign         => ENV['SIGNED']
+  #     :ruby_version     => '1.9.2',
+  #     :ruby_lib_version => '1.9.1'
+  #     :ruby_patch       => '429',
+  #     :ruby_path        => File.expand_path('sandbox/ruby'),
+  #     :output           => 'pkg',
+  #     :filename         => 'rubyinstaller-1.9.2-p429',
+  #     :no_tk            => true,
+  #     :sign             => ENV['SIGNED']
   #   )
   #
   # will be converted into a shell command line similar to:
   #
   #   iscc.exe rubyinstaller.iss /dRubyPatch=429 /dRubyPath=C:/.../sandbox/ruby
-  #       /dRubyVersion=1.9.2 /opkg /frubyinstaller-1.9.2-p429
+  #       /dRubyVersion=1.9.2 /dRubyLibVersion=1.9.1 /dNoTk=true
+  #       /opkg /frubyinstaller-1.9.2-p429
   #
   def self.iscc(script, *args)
     non_arg_options = [:output, :filename, :sign]
@@ -157,14 +170,18 @@ directory 'pkg'
     file "pkg/#{installer_pkg}.exe",
       :needs => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
 
-      InnoSetup.iscc("resources/installer/rubyinstaller.iss",
-        :ruby_version => info[:version],
-        :ruby_patch   => info[:patchlevel],
-        :ruby_path    => File.expand_path(pkg.install_target),
-        :output       => 'pkg',
-        :filename     => installer_pkg,
-        :sign         => ENV['SIGNED']
-      )
+      options = {
+        :ruby_version     => info[:version],
+        :ruby_lib_version => info[:lib_version],
+        :ruby_patch       => info[:patchlevel],
+        :ruby_path        => File.expand_path(pkg.install_target),
+        :output           => 'pkg',
+        :filename         => installer_pkg,
+        :sign             => ENV['SIGNED']
+      }
+      options[:no_tk] = true if ENV['NOTK']
+
+      InnoSetup.iscc("resources/installer/rubyinstaller.iss", options)
     end
 
     # define the packaging task for the version

@@ -102,6 +102,12 @@ module RubyInstaller
       Ruby19.dependencies.clear
     end
 
+    # do not build Tk extension or supporting libraries
+    if ENV['NOTK'] then
+      Ruby18.dependencies.delete(:tk)
+      Ruby19.dependencies.delete(:tk)
+    end
+
     Zlib = OpenStruct.new(
       :release => "alternate",
       :version => "1.2.5",
