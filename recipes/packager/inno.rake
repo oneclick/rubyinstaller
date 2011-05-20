@@ -11,12 +11,23 @@ module RubyTools
     h[:version] = /RUBY_VERSION "(.+)"$/.match(version_file)[1]
     h[:patchlevel] = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
 
+    # keep Inno's VersionInfoVersion happy for Ruby trunk builds
+    h[:patchlevel] = '9999' if h[:patchlevel].to_i < 0
+
     # check presence of RUBY_VERSION_CODE (only in 1.8.7) as proxy for
     # RUBY_LIB_VERSION_STYLE == {2,3} check
     if version_file =~ /RUBY_VERSION_CODE (.+)$/
       h[:lib_version] = h[:version][0..2]
     else
-      teeny = /RUBY_VERSION_TEENY (.+)$/.match(version_file)[1]
+      if version_file =~ /RUBY_API_VERSION_TEENY/
+        # support Ruby 1.9.3 version info
+        alt_target = File.join(File.dirname(target), 'include', 'ruby', 'version.h')
+        alt_version_file = File.read(alt_target)
+        teeny = /RUBY_API_VERSION_TEENY (.+)$/.match(alt_version_file)[1]
+      else
+        # support 1.9.1 and 1.9.2 version info
+        teeny = /RUBY_VERSION_TEENY (.+)$/.match(version_file)[1]
+      end
       h[:lib_version] = "#{h[:version][0..2]}.#{teeny}"
     end
     h
