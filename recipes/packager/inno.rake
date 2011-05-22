@@ -141,6 +141,10 @@ end
 directory 'pkg'
 
 [RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |pkg|
+  # skip iteration to prevent aliasing when using ENV['LOCAL']
+  next unless "ruby#{pkg.version[0..2].gsub('.','')}" ==
+    Rake.application.top_level_tasks.first.split(':')[0].downcase
+
   if info = RubyTools.ruby_version(File.join(pkg.target, 'version.h'))
     version       = "#{info[:version]}-p#{info[:patchlevel]}"
     version_xyz   = info[:version]
@@ -206,6 +210,7 @@ directory 'pkg'
       end
 
       task :clobber do
+        rm_f "resources/installer/config-#{version_xyz}.iss"
         rm_f "pkg/#{installer_pkg}.exe"
       end
 

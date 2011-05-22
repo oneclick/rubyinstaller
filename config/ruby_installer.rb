@@ -84,16 +84,22 @@ module RubyInstaller
       Ruby19.installer_guid = '{11233A17-BFFC-434A-8FC8-2E93369AF008}'
     end
 
-    # Don't patch with LOCAL
+    # Modify relevent configuration metadata when building from a
+    # local repository
     if ENV['LOCAL'] then
+      Ruby18.installer_guid = '{12E6FD2D-D425-4E32-B77B-020A15A8346F}'
+      Ruby18.target = ENV['LOCAL'].gsub('\\', File::SEPARATOR)
+
       Ruby19.patches = nil
+      Ruby19.target = ENV['LOCAL'].gsub('\\', File::SEPARATOR)
+      Ruby19.installer_guid = '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
     end
 
     # alter at runtime the checkout and versions of 1.9
-    # TODO define distinct GUID for dev versions?
     if ENV['TRUNK'] then
       Ruby19.version = '1.9.3'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/trunk'
+      Ruby19.installer_guid = '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
     end
 
     # do not build or prepare any dependency library
