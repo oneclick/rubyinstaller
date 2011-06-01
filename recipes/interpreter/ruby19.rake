@@ -108,6 +108,8 @@ namespace(:interpreter) do
           puts "Adding Tcl/Tk dirs..."
           package.configure_options << "--with-tcl-dir=#{File.join(RubyInstaller::ROOT, RubyInstaller::Tcl.install_target)}"
           package.configure_options << "--with-tk-dir=#{File.join(RubyInstaller::ROOT, RubyInstaller::Tk.install_target)}"
+          package.configure_options << "--with-tklib=tk85-ri"
+          package.configure_options << "--with-tcllib=tcl85-ri"
         end
 
         cd package.build_target do
