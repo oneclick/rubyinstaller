@@ -234,7 +234,7 @@ module URI
     def read(options = nil, &block)
       options ||= {}
       connect do |http|
-        puts "Requesting #{self}" if verbose
+        puts "Requesting #{self}" if Rake.application.options.verbose
         headers = { 'If-Modified-Since' => CGI.rfc1123_date(options[:modified].utc) } if options[:modified]
         request = Net::HTTP::Get.new(request_uri.empty? ? '/' : request_uri, headers)
         request.basic_auth self.user, self.password if self.user
@@ -242,14 +242,14 @@ module URI
           case response
           when Net::HTTPNotModified
             # No modification, nothing to do.
-            puts 'Not modified since last download' if verbose
+            puts 'Not modified since last download' if Rake.application.options.verbose
             return nil
           when Net::HTTPRedirection
             # Try to download from the new URI, handle relative redirects.
-            puts "Redirected to #{response['Location']}" if verbose
+            puts "Redirected to #{response['Location']}" if Rake.application.options.verbose
             return (self + URI.parse(response['location'])).read(options, &block)
           when Net::HTTPOK
-            puts "Downloading #{self}" if verbose
+            puts "Downloading #{self}" if Rake.application.options.verbose
             result = nil
             with_progress_bar options[:progress], path.split('/').last, response.content_length do |progress|
               if block

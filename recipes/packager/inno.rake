@@ -135,7 +135,7 @@ end
 
 # if SIGNED was specified, chain signtool verification to innosetup check
 if ENV['SIGNED'] then
-  task :innosetup, :needs => [:signtool]
+  task :innosetup => [:signtool]
 end
 
 directory 'pkg'
@@ -160,8 +160,7 @@ directory 'pkg'
       "resources/installer/config-#{version_xyz}.iss"
     ]
 
-    file "resources/installer/config-#{version_xyz}.iss",
-      :needs => ['resources/installer/config.iss.erb'] do |t|
+    file "resources/installer/config-#{version_xyz}.iss" => ['resources/installer/config.iss.erb'] do |t|
       guid = pkg.installer_guid
       contents = ERB.new(File.read(t.prerequisites.first)).result(binding)
 
@@ -170,9 +169,7 @@ directory 'pkg'
       end
     end
 
-    file 'resources/installer/changes.txt', 
-      :needs => ['pkg', 'History.txt'] do |t|
-
+    file 'resources/installer/changes.txt' => ['pkg', 'History.txt'] do |t|
       contents = File.read('History.txt')
       latest = contents.split(/^(===+ .*)/)[1..2].join.strip
 
@@ -182,9 +179,7 @@ directory 'pkg'
     end
 
     # installer
-    file "pkg/#{installer_pkg}.exe",
-      :needs => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
-
+    file "pkg/#{installer_pkg}.exe" => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
       options = {
         :ruby_version     => info[:version],
         :ruby_lib_version => info[:lib_version],
@@ -202,10 +197,10 @@ directory 'pkg'
     # define the packaging task for the version
     namespace "ruby#{namespace_ver}" do
       desc "generate #{installer_pkg}.exe"
-      task :package, :needs => [:innosetup, "pkg/#{installer_pkg}.exe"]
+      task :package => [:innosetup, "pkg/#{installer_pkg}.exe"]
 
       desc "install #{installer_pkg}.exe"
-      task :install, :needs => [:package] do
+      task :install => [:package] do
         sh "pkg/#{installer_pkg}.exe /LOG=pkg/#{installer_pkg}.log"
       end
 
@@ -215,7 +210,7 @@ directory 'pkg'
       end
 
       desc "rebuild #{installer_pkg}.exe"
-      task :repackage, :needs => [:clobber, :package]
+      task :repackage => [:clobber, :package]
     end
   end
 end
