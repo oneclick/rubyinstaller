@@ -37,11 +37,10 @@ end
 interpreters.each do |package|
   short_ver    = package.version.gsub('.', '')[0..1]
   version      = "ruby#{short_ver}"
-  version_dir  = File.basename(package.target)
   doc_dir      = File.join(RubyInstaller::ROOT, 'sandbox', 'doc')
-  target       = File.join(doc_dir, version_dir)
+  target       = File.join(doc_dir, version)
 
-  core_glob    = File.join(RubyInstaller::ROOT, package.target, "*.c")
+  core_glob    = File.join(package.target, "*.c")
   core_files   = Dir.glob(core_glob).map{ |f| File.basename(f) }
 
   stdlib_files = ['./lib', './ext']
