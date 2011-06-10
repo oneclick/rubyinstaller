@@ -36,6 +36,8 @@ end
 
 # TODO: port this to it's own innosetup recipe
 module InnoSetup
+  extend Rake::DSL if defined?(Rake::DSL)
+
   EXECUTABLE = "iscc.exe"
 
   def self.present?
