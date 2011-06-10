@@ -11,4 +11,4 @@ Source: {#RubyPath}\lib\ruby\{#RubyLibVersion}\tk\*; DestDir: {app}\lib\ruby\{#R
 Source: {#RubyPath}\lib\ruby\{#RubyLibVersion}\tkextlib\*; DestDir: {app}\lib\ruby\{#RubyLibVersion}\tkextlib; Flags: recursesubdirs createallsubdirs; Check: IsTclTk
 Source: {#RubyPath}\bin\tcl*.dll; DestDir: {app}\bin; Check: IsTclTk
 Source: {#RubyPath}\bin\tk*.dll; DestDir: {app}\bin; Check: IsTclTk
-Source: {#RubyPath}\lib\tk\*; DestDir: {app}\lib\tk; Flags: recursesubdirs createallsubdirs; Check: IsTclTk
+Source: {#RubyPath}\lib\tcltk\*; DestDir: {app}\lib\tcltk; Flags: recursesubdirs createallsubdirs; Check: IsTclTk

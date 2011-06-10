@@ -84,14 +84,12 @@ namespace(:dependencies) do
 
     def tcltk_install(interpreter)
       # DLLs are already copied by ruby own install task, so copy the remaining bits
-      target = File.join(interpreter.install_target, "lib", "tk")
+      target = File.join(interpreter.install_target, "lib", "tcltk")
+      mkdir_p target
 
       [RubyInstaller::Tcl.install_target, RubyInstaller::Tk.install_target].each do |pkg_dir|
         pattern = "#{pkg_dir}/lib/*"
-        files = Dir.glob(pattern)
-
-        mkdir_p target
-        files.each do |f|
+        Dir.glob(pattern).each do |f|
           next if f =~ /\.(a|sh)$/
 
           if File.directory?(f)
