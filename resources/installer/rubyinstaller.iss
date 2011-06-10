@@ -116,7 +116,7 @@ en.DiskSpaceMBLabel=Required free disk space: ~[mb] MB
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: {#RubyPath}\*; DestDir: {app}; Excludes: "\bin\tk*-ri.dll,\lib\ruby\{#RubyLibVersion}\tk*.rb,\lib\ruby\{#RubyLibVersion}\tcl*.rb,\lib\ruby\{#RubyLibVersion}\*-tk.rb,\lib\ruby\{#RubyLibVersion}\tk,\lib\ruby\{#RubyLibVersion}\tkextlib"; Flags: recursesubdirs createallsubdirs
+Source: {#RubyPath}\*; DestDir: {app}; Excludes: "\bin\tcl*.dll,\bin\tk*.dll,\lib\tcltk,\lib\ruby\{#RubyLibVersion}\tk*.rb,\lib\ruby\{#RubyLibVersion}\tcl*.rb,\lib\ruby\{#RubyLibVersion}\*-tk.rb,\lib\ruby\{#RubyLibVersion}\tk,\lib\ruby\{#RubyLibVersion}\tkextlib"; Flags: recursesubdirs createallsubdirs
 Source: ..\..\sandbox\book\bookofruby.pdf; DestDir: {app}\doc
 Source: setrbvars.bat; DestDir: {app}\bin
 
