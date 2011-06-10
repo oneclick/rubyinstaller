@@ -76,6 +76,11 @@ namespace(:dependencies) do
       activate(package.install_target)
     end
 
+    task :install18 => [:activate, RubyInstaller::Ruby18.install_target, *package.dependencies] do
+      tcltk_install RubyInstaller::Ruby18
+      tk_patch package, RubyInstaller::Ruby18
+    end
+
     task :install19 => [:activate, RubyInstaller::Ruby19.install_target, *package.dependencies] do
       tcltk_install RubyInstaller::Ruby19
       tk_patch package, RubyInstaller::Ruby19
