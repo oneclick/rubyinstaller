@@ -1,0 +1,17 @@
+diff --git a/tk.rb b/tk.rb
+--- a/tk.rb
++++ b/tk.rb
+@@ -3,6 +3,11 @@
+ #                       by Yukihiro Matsumoto <matz@netlab.jp>
+ 
+ # use Shigehiro's tcltklib
++require 'rbconfig'
++if RbConfig::CONFIG['host_os'] =~ /mingw/
++  ENV['TCL_LIBRARY'] = File.join(RbConfig::CONFIG['libdir'], 'tcltk', 'tcl8.5')
++end
++
+ require 'tcltklib'
+ require 'tkutil'
+ 
+-- 
+1.7.4.msysgit.0
