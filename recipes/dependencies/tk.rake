@@ -109,7 +109,11 @@ namespace(:dependencies) do
       # use diffs instead of patch so we can apply post_install
       diffs = Dir.glob("#{package.patches}/*.diff").sort
       diffs.each do |diff|
-        sh "git apply --directory #{parent} #{diff}"
+        # verify that diff can be applied
+        result = system("git apply --check --directory #{parent} #{diff} > NUL 2>&1")
+        if result
+          sh "git apply --directory #{parent} #{diff}"
+        end
       end
     end
   end
