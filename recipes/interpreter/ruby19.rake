@@ -211,5 +211,10 @@ task :ruby19 => ['tools:rubygems:hook19']
 task :ruby19 => [:rbreadline]
 task :ruby19 => ['dependencies:rbreadline:install19']
 
+# add tcl/tk installation
+unless ENV["NOTK"]
+  task :ruby19 => ["dependencies:tk.install19"]
+end
+
 task :check19   => ['ruby19:dependencies', 'interpreter:ruby19:check']
 task :irb19     => ['ruby19:dependencies', 'interpreter:ruby19:irb']
