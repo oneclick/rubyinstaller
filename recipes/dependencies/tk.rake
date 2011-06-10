@@ -71,9 +71,36 @@ namespace(:dependencies) do
     end
     task :install => [:compile, it]
 
-    task :activate => [:compile] do
+    task :activate => [:install] do
       puts "Activating tk version #{package.version}"
       activate(package.install_target)
+    end
+
+    task :install19 => [:activate, RubyInstaller::Ruby19.install_target, *package.dependencies] do
+      tcltk_install RubyInstaller::Ruby19
+    end
+
+  private
+
+    def tcltk_install(interpreter)
+      # DLLs are already copied by ruby own install task, so copy the remaining bits
+      target = File.join(interpreter.install_target, "lib", "tk")
+
+      [RubyInstaller::Tcl.install_target, RubyInstaller::Tk.install_target].each do |pkg_dir|
+        pattern = "#{pkg_dir}/lib/*"
+        files = Dir.glob(pattern)
+
+        mkdir_p target
+        files.each do |f|
+          next if f =~ /\.(a|sh)$/
+
+          if File.directory?(f)
+            cp_r f, target, :remove_destination => true
+          else
+            cp_f f, target
+          end
+        end
+      end
     end
   end
 end
