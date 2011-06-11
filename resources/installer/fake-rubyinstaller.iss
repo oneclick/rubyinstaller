@@ -28,6 +28,10 @@
   #define InstVersion GetDateTimeString('dd-mmm-yy"T"hhnn', '', '')
 #endif
 
+#if Defined(DisableGroupPage) == 0
+  #define DisableGroupPage true
+#endif
+
 ; Grab MAJOR.MINOR info from RubyVersion (1.8)
 #define RubyMajorMinor Copy(RubyVersion, 1, 3)
 #define RubyFullVersion RubyVersion + '-p' + RubyPatch
@@ -54,7 +58,8 @@ AppPublisher={#InstallerPublisher}
 AppPublisherURL={#InstallerHomepage}
 AppVersion={#RubyFullVersion}
 DefaultGroupName={#InstallerName}
-DisableProgramGroupPage=true
+DisableProgramGroupPage={#DisableGroupPage}
+AllowNoIcons=true
 LicenseFile=LICENSE.txt
 Compression=lzma/ultra64
 SolidCompression=true
@@ -143,7 +148,7 @@ Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}
 Name: {group}\Documentation\The Book of Ruby; Filename: {app}\doc\bookofruby.pdf; Flags: createonlyiffileexists
 Name: {group}\Interactive Ruby; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
 Name: {group}\RubyGems Documentation Server; Filename: {app}\bin\gem.bat; Parameters: server; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
-Name: {group}\Start Command Prompt with Ruby; Filename: {sys}\cmd.exe; Parameters: /E:ON /K {app}\bin\setrbvars.bat; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists
+Name: {group}\Start Command Prompt with Ruby; Filename: {sys}\cmd.exe; Parameters: "/E:ON /K ""{app}\bin\setrbvars.bat"""; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists
 Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
 
 [Code]

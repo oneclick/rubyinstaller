@@ -102,6 +102,12 @@ module RubyInstaller
       Ruby19.dependencies.clear
     end
 
+    # show start menu group naming page
+    if ENV['SHOW_GROUP'] then
+      Ruby18.show_group = true
+      Ruby19.show_group = true
+    end
+
     Zlib = OpenStruct.new(
       :release => "alternate",
       :version => "1.2.5",
