@@ -5,6 +5,7 @@ module DevKitInstaller
       :version => 'llvm-32-2.8',
       :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => 'llvm',
+      :bit => 32,
       :url_1 => 'http://llvm.org/releases/2.8',
       :url_2 => 'http://downloads.sourceforge.net/mingw',
       :target => 'sandbox/devkit/mingw',

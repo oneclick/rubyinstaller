@@ -63,4 +63,32 @@ module DevKitInstaller
     }
   )
 
+  module_function
+  def compiler
+    COMPILERS[ENV['DKVER']]
+  end
+
+  def configure_options
+    options = []
+    program_prefix = compiler.program_prefix
+    if program_prefix
+      options << "--host=#{program_prefix}"
+    end
+    options
+  end
+
+  def openssl_configure_options
+    options = []
+    program_prefix = compiler.program_prefix
+    if program_prefix
+      options << "--cross-compile-prefix=#{program_prefix}-"
+    end
+    case compiler.bit
+    when 64
+      options << "mingw64"
+    else
+      options << "mingw"
+    end
+    options
+  end
 end

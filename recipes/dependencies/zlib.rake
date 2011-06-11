@@ -10,8 +10,15 @@ namespace(:dependencies) do
 
     # Put files for the :download task
     dt = checkpoint(:zlib, :download)
-    package.files.each do |f|
-      file_source = "#{package.url}/#{f}"
+    if DevKitInstaller.compiler.bit == 64
+      url = package.url_64
+      files = package.files_64
+    else
+      url = package.url
+      files = package.files
+    end
+    files.each do |f|
+      file_source = "#{url}/#{f}"
       file_target = "downloads/#{f}"
       download file_target => file_source
 
@@ -31,18 +38,20 @@ namespace(:dependencies) do
     end
     task :extract => [:extract_utils, :download, package.target, et]
 
-    # zlib needs some relocation of files
+    # zlib for 32bit needs some relocation of files
     # remove test/*.exe
     # remove *.txt
     # move zlib1.dll to bin
     pt = checkpoint(:zlib, :prepare) do
       cd File.join(RubyInstaller::ROOT, package.target) do
-        rm_rf "test"
-        Dir.glob("*.txt").each do |path|
-          rm_f path
+        if File.exist?("zlib1.dll")
+          rm_rf "test"
+          Dir.glob("*.txt").each do |path|
+            rm_f path
+          end
+          mkdir 'bin'
+          mv "zlib1.dll", "bin"
         end
-        mkdir 'bin'
-        mv "zlib1.dll", "bin"
       end
     end
     task :prepare => [:extract, pt]

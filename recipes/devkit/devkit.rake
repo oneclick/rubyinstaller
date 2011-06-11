@@ -62,7 +62,7 @@ namespace(:devkit) do
 
     # Fragile --host alternative that currently allows the llvm-gcc and i686-w64-mingw32
     # toolchains to build deps and Ruby using their name prefixed tools, if applicable.
-    if mingw.program_prefix
+    if mingw.program_prefix and mingw.bit == 32
       ['CC','CPP','CXX','WINDRES','AR','AS','NM','RANLIB','OBJDUMP','OBJCOPY','STRIP','DLLWRAP','DLLTOOL'].zip(
         [:gcc,:cpp,:'g++',:windres,:ar,:as,:nm,:ranlib,:objdump,:objcopy,:strip,:dllwrap,:dlltool]) do |exe|
         ENV[exe[0]] = "#{mingw.program_prefix}-#{exe[1]}" if mingw.programs.include?(exe[1])

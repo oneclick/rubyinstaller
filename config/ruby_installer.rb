@@ -106,9 +106,14 @@ module RubyInstaller
       :release => "alternate",
       :version => "1.2.5",
       :url => "http://github.com/downloads/oneclick/rubyinstaller",
+      :url_64 => "http://ftp.gnome.org/pub/gnome/binaries/win64/dependencies",
       :target => 'sandbox/zlib',
       :files => [
         'zlib125-dll.zip'
+      ],
+      :files_64 => [
+        'zlib_1.2.5-1_win64.zip',
+        'zlib-dev_1.2.5-1_win64.zip',
       ]
     )
 
@@ -153,7 +158,6 @@ module RubyInstaller
       :install_target => 'sandbox/openssl',
       :patches => 'resources/patches/openssl',
       :configure_options => [
-        'mingw',
         'zlib-dynamic'
       ],
       :dllnames => {
@@ -181,8 +185,8 @@ module RubyInstaller
     )
 
     LibFFI = OpenStruct.new(
-      :url => 'http://github.com/atgreen/libffi/tarball/v3.0.9',
-      :version => '3.0.9',
+      :url => 'ftp://sourceware.org/pub/libffi',
+      :version => '3.1.10rc8',
       :target => 'sandbox/src-libffi',
       :install_target => 'sandbox/libffi',
       :patches => 'resources/patches/libffi',
@@ -191,7 +195,7 @@ module RubyInstaller
         '--disable-shared'
       ],
       :files => [
-        'libffi-3.0.9.tar.gz',
+        'libffi-3.0.10rc8.tar.gz',
       ]
     )
 
