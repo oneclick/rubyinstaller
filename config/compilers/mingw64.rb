@@ -10,7 +10,7 @@ module DevKitInstaller
       :target => 'sandbox/devkit/mingw',
       :files => {
         :url_1 => [
-          'mingw-w32-1.0-bin_i686-mingw_20110516.zip'
+          'mingw-w32-1.0-bin_i686-mingw_20110610.zip'
         ],
         :url_2 => [
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
