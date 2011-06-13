@@ -3,7 +3,7 @@
 * Enhancements:
   * Upgraded Ruby 1.9.2 to patchlevel 180
   * Upgraded Ruby 1.8.7 to patchlevel 334
-  * Upgraded RubyGems to 1.8.5 on all versions of Ruby
+  * Upgraded RubyGems to 1.7.2 on all versions of Ruby
   * Upgraded rb-readline to version 0.4.0
   * Upgraded OpenSSL to 1.0.0d on all versions of Ruby
   * Build Ruby using GCC 4.5.2 (TDM-1 release)
