@@ -1,0 +1,25 @@
+From b241077ba9afb80d72d93fb1437ba25bb011af99 Mon Sep 17 00:00:00 2001
+From: Jon <jon.forums@gmail.com>
+Date: Sun, 12 Jun 2011 18:29:47 -0400
+Subject: [PATCH] Allow mingw-w64 commctrl header.
+
+---
+ tk8.5.9/win/tkWinX.c |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/tk8.5.9/win/tkWinX.c b/tk8.5.9/win/tkWinX.c
+index d99f1ec..ae31ee9 100644
+--- a/tk8.5.9/win/tkWinX.c
++++ b/tk8.5.9/win/tkWinX.c
+@@ -30,7 +30,7 @@
+  */
+ 
+ #ifndef _WIN32_IE
+-#define _WIN32_IE 0x0300
++#define _WIN32_IE 0x0700
+ #endif
+ 
+ #include <commctrl.h>
+-- 
+1.7.4.msysgit.0
+
