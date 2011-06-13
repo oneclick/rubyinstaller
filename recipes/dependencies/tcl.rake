@@ -4,6 +4,8 @@ require 'rake/clean'
 namespace(:dependencies) do
   namespace(:tcl) do
     package = RubyInstaller::Tcl
+    compiler = DevKitInstaller::COMPILERS[ENV['DKVER']]
+
     directory package.target
     CLEAN.include(package.target)
     CLEAN.include(package.install_target)
@@ -42,6 +44,8 @@ namespace(:dependencies) do
 
     # Prepare sources for compilation
     ct = checkpoint(:tcl, :configure) do
+      ENV['RC'] = "#{compiler.program_prefix}-windres" unless compiler.nil? || compiler.program_prefix.nil?
+
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
       cd package.target do
         sh "sh tcl#{package.version}/win/configure #{package.configure_options.join(' ')} --prefix=#{install_target}"

@@ -5,6 +5,7 @@ namespace(:dependencies) do
   namespace(:tk) do
     package = RubyInstaller::Tk
     tcl = RubyInstaller::Tcl
+    compiler = DevKitInstaller::COMPILERS[ENV['DKVER']]
 
     directory package.target
     CLEAN.include(package.target)
@@ -46,6 +47,8 @@ namespace(:dependencies) do
 
     # Prepare sources for compilation
     ct = checkpoint(:tk, :configure) do
+      ENV['RC'] = "#{compiler.program_prefix}-windres" unless compiler.nil? || compiler.program_prefix.nil?
+
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
       tcl_target = File.join(RubyInstaller::ROOT, tcl.target)
 
