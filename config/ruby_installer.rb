@@ -33,7 +33,7 @@ module RubyInstaller
         'ruby-1.8.7-p334.tar.bz2'
       ],
       :dependencies => [
-        :gdbm, :iconv, :openssl, :pdcurses, :zlib
+        :gdbm, :iconv, :openssl, :pdcurses, :zlib, :tcl, :tk
       ],
       :excludes => [
         'libcharset1.dll'
@@ -66,7 +66,7 @@ module RubyInstaller
         'ruby-1.9.2-p180.tar.bz2'
       ],
       :dependencies => [
-        :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib
+        :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib, :tcl, :tk
       ],
       :excludes => [
         'libcharset1.dll'
@@ -84,22 +84,36 @@ module RubyInstaller
       Ruby19.installer_guid = '{11233A17-BFFC-434A-8FC8-2E93369AF008}'
     end
 
-    # Don't patch with LOCAL
+    # Modify relevent configuration metadata when building from a
+    # local repository
     if ENV['LOCAL'] then
+      Ruby18.installer_guid = '{12E6FD2D-D425-4E32-B77B-020A15A8346F}'
+      Ruby18.target = ENV['LOCAL'].gsub('\\', File::SEPARATOR)
+
       Ruby19.patches = nil
+      Ruby19.target = ENV['LOCAL'].gsub('\\', File::SEPARATOR)
+      Ruby19.installer_guid = '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
     end
 
     # alter at runtime the checkout and versions of 1.9
-    # TODO define distinct GUID for dev versions?
     if ENV['TRUNK'] then
       Ruby19.version = '1.9.3'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/trunk'
+      Ruby19.installer_guid = '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
     end
 
     # do not build or prepare any dependency library
     if ENV['NODEPS'] then
       Ruby18.dependencies.clear
       Ruby19.dependencies.clear
+    end
+
+    # do not build Tk extension or supporting libraries
+    if ENV['NOTK'] then
+      [:tcl, :tk].each do |pkg|
+        Ruby18.dependencies.delete(pkg)
+        Ruby19.dependencies.delete(pkg)
+      end
     end
 
     Zlib = OpenStruct.new(
@@ -192,6 +206,37 @@ module RubyInstaller
       ],
       :files => [
         'libffi-3.0.9.tar.gz',
+      ]
+    )
+
+    Tcl = OpenStruct.new(
+      :version => '8.5.9',
+      :url => "http://downloads.sourceforge.net/tcl",
+      :target => 'sandbox/src-tcl',
+      :install_target => 'sandbox/tcl',
+      :patches => 'resources/patches/tcl',
+      :configure_options => [
+        '--enable-threads'
+      ],
+      :files => [
+        'tcl8.5.9-src.tar.gz'
+      ]
+    )
+
+    Tk = OpenStruct.new(
+      :version => '8.5.9',
+      :url => "http://downloads.sourceforge.net/tcl",
+      :target => 'sandbox/src-tk',
+      :install_target => 'sandbox/tk',
+      :patches => 'resources/patches/tk',
+      :configure_options => [
+        '--enable-threads'
+      ],
+      :files => [
+        'tk8.5.9-src.tar.gz'
+      ],
+      :dependencies => [
+        :tcl
       ]
     )
 

@@ -5,16 +5,39 @@ module RubyTools
   # a hash of values
   def self.ruby_version(target)
     return nil unless File.exist?(target)
+
     h = {}
     version_file = File.read(target)
     h[:version] = /RUBY_VERSION "(.+)"$/.match(version_file)[1]
     h[:patchlevel] = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
+
+    # keep Inno's VersionInfoVersion happy for Ruby trunk builds
+    h[:patchlevel] = '9999' if h[:patchlevel].to_i < 0
+
+    # check presence of RUBY_VERSION_CODE (only in 1.8.7) as proxy for
+    # RUBY_LIB_VERSION_STYLE == {2,3} check
+    if version_file =~ /RUBY_VERSION_CODE (.+)$/
+      h[:lib_version] = h[:version][0..2]
+    else
+      if version_file =~ /RUBY_API_VERSION_TEENY/
+        # support Ruby 1.9.3 version info
+        alt_target = File.join(File.dirname(target), 'include', 'ruby', 'version.h')
+        alt_version_file = File.read(alt_target)
+        teeny = /RUBY_API_VERSION_TEENY (.+)$/.match(alt_version_file)[1]
+      else
+        # support 1.9.1 and 1.9.2 version info
+        teeny = /RUBY_VERSION_TEENY (.+)$/.match(version_file)[1]
+      end
+      h[:lib_version] = "#{h[:version][0..2]}.#{teeny}"
+    end
     h
   end
 end
 
 # TODO: port this to it's own innosetup recipe
 module InnoSetup
+  extend Rake::DSL if defined?(Rake::DSL)
+
   EXECUTABLE = "iscc.exe"
 
   def self.present?
@@ -37,18 +60,21 @@ module InnoSetup
   # Example - the following method call
   #
   #   InnoSetup.iscc('rubyinstaller.iss',
-  #     :ruby_version => '1.9.2',
-  #     :ruby_patch   => '429',
-  #     :ruby_path    => File.expand_path('sandbox/ruby'),
-  #     :output       => 'pkg',
-  #     :filename     => 'rubyinstaller-1.9.2-p429',
-  #     :sign         => ENV['SIGNED']
+  #     :ruby_version     => '1.9.2',
+  #     :ruby_lib_version => '1.9.1'
+  #     :ruby_patch       => '429',
+  #     :ruby_path        => File.expand_path('sandbox/ruby'),
+  #     :output           => 'pkg',
+  #     :filename         => 'rubyinstaller-1.9.2-p429',
+  #     :no_tk            => true,
+  #     :sign             => ENV['SIGNED']
   #   )
   #
   # will be converted into a shell command line similar to:
   #
   #   iscc.exe rubyinstaller.iss /dRubyPatch=429 /dRubyPath=C:/.../sandbox/ruby
-  #       /dRubyVersion=1.9.2 /opkg /frubyinstaller-1.9.2-p429
+  #       /dRubyVersion=1.9.2 /dRubyLibVersion=1.9.1 /dNoTk=true
+  #       /opkg /frubyinstaller-1.9.2-p429
   #
   def self.iscc(script, *args)
     non_arg_options = [:output, :filename, :sign]
@@ -111,12 +137,16 @@ end
 
 # if SIGNED was specified, chain signtool verification to innosetup check
 if ENV['SIGNED'] then
-  task :innosetup, :needs => [:signtool]
+  task :innosetup => [:signtool]
 end
 
 directory 'pkg'
 
 [RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |pkg|
+  # skip iteration to prevent aliasing when using ENV['LOCAL']
+  next unless "ruby#{pkg.version[0..2].gsub('.','')}" ==
+    Rake.application.top_level_tasks.first.split(':')[0].downcase
+
   if info = RubyTools.ruby_version(File.join(pkg.target, 'version.h'))
     version       = "#{info[:version]}-p#{info[:patchlevel]}"
     version_xyz   = info[:version]
@@ -132,8 +162,7 @@ directory 'pkg'
       "resources/installer/config-#{version_xyz}.iss"
     ]
 
-    file "resources/installer/config-#{version_xyz}.iss",
-      :needs => ['resources/installer/config.iss.erb'] do |t|
+    file "resources/installer/config-#{version_xyz}.iss" => ['resources/installer/config.iss.erb'] do |t|
       guid = pkg.installer_guid
       contents = ERB.new(File.read(t.prerequisites.first)).result(binding)
 
@@ -142,9 +171,7 @@ directory 'pkg'
       end
     end
 
-    file 'resources/installer/changes.txt', 
-      :needs => ['pkg', 'History.txt'] do |t|
-
+    file 'resources/installer/changes.txt' => ['pkg', 'History.txt'] do |t|
       contents = File.read('History.txt')
       latest = contents.split(/^(===+ .*)/)[1..2].join.strip
 
@@ -154,35 +181,38 @@ directory 'pkg'
     end
 
     # installer
-    file "pkg/#{installer_pkg}.exe",
-      :needs => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
+    file "pkg/#{installer_pkg}.exe" => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
+      options = {
+        :ruby_version     => info[:version],
+        :ruby_lib_version => info[:lib_version],
+        :ruby_patch       => info[:patchlevel],
+        :ruby_path        => File.expand_path(pkg.install_target),
+        :output           => 'pkg',
+        :filename         => installer_pkg,
+        :sign             => ENV['SIGNED']
+      }
+      options[:no_tk] = true if ENV['NOTK']
 
-      InnoSetup.iscc("resources/installer/rubyinstaller.iss",
-        :ruby_version => info[:version],
-        :ruby_patch   => info[:patchlevel],
-        :ruby_path    => File.expand_path(pkg.install_target),
-        :output       => 'pkg',
-        :filename     => installer_pkg,
-        :sign         => ENV['SIGNED']
-      )
+      InnoSetup.iscc("resources/installer/rubyinstaller.iss", options)
     end
 
     # define the packaging task for the version
     namespace "ruby#{namespace_ver}" do
       desc "generate #{installer_pkg}.exe"
-      task :package, :needs => [:innosetup, "pkg/#{installer_pkg}.exe"]
+      task :package => [:innosetup, "pkg/#{installer_pkg}.exe"]
 
       desc "install #{installer_pkg}.exe"
-      task :install, :needs => [:package] do
+      task :install => [:package] do
         sh "pkg/#{installer_pkg}.exe /LOG=pkg/#{installer_pkg}.log"
       end
 
       task :clobber do
+        rm_f "resources/installer/config-#{version_xyz}.iss"
         rm_f "pkg/#{installer_pkg}.exe"
       end
 
       desc "rebuild #{installer_pkg}.exe"
-      task :repackage, :needs => [:clobber, :package]
+      task :repackage => [:clobber, :package]
     end
   end
 end

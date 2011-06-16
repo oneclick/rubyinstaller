@@ -104,6 +104,14 @@ namespace(:interpreter) do
       end
 
       unless uptodate?(File.join(package.build_target, 'Makefile'), [File.join(package.target, 'configure')])
+        if package.dependencies.include? :tk
+          puts "Adding Tcl/Tk dirs..."
+          package.configure_options << "--with-tcl-dir=#{File.join(RubyInstaller::ROOT, RubyInstaller::Tcl.install_target)}"
+          package.configure_options << "--with-tk-dir=#{File.join(RubyInstaller::ROOT, RubyInstaller::Tk.install_target)}"
+          package.configure_options << "--with-tklib=tk85-ri"
+          package.configure_options << "--with-tcllib=tcl85-ri"
+        end
+
         cd package.build_target do
           sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
         end
@@ -202,6 +210,11 @@ task :ruby19 => ['tools:rubygems:hook19']
 # add Pure Readline to the chain
 task :ruby19 => [:rbreadline]
 task :ruby19 => ['dependencies:rbreadline:install19']
+
+# add tcl/tk installation
+unless ENV["NOTK"]
+  task :ruby19 => ["dependencies:tk:install19"]
+end
 
 task :check19   => ['ruby19:dependencies', 'interpreter:ruby19:check']
 task :irb19     => ['ruby19:dependencies', 'interpreter:ruby19:irb']

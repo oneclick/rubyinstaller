@@ -7,6 +7,7 @@ namespace(:book) do
   CLEAN.include(package.target)
 
   # Put files for the :download task
+  dt = checkpoint(:book, :download)
   package.files.each do |f|
     file_source = "#{package.url}/#{f}"
     file_target = "downloads/#{f}"
@@ -16,18 +17,17 @@ namespace(:book) do
     file file_target => "downloads"
 
     # download task need these files as pre-requisites
-    task :download => file_target
+    dt.enhance [file_target]
   end
+  task :download => dt
 
   # Prepare the :sandbox, it requires the :download task
-  task :extract => [:extract_utils, :download, package.target] do
-    # grab the files from the download task
-    files = Rake::Task['book:download'].prerequisites
-
-    files.each { |f|
+  et = checkpoint(:book, :extract) do
+    dt.prerequisites.each { |f|
       extract(File.join(RubyInstaller::ROOT, f), package.target)
     }
   end
+  task :extract => [:extract_utils, :download, package.target, et]
 end
 
 desc "Download and extract The Book of Ruby"

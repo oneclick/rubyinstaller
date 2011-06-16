@@ -37,11 +37,10 @@ end
 interpreters.each do |package|
   short_ver    = package.version.gsub('.', '')[0..1]
   version      = "ruby#{short_ver}"
-  version_dir  = File.basename(package.target)
   doc_dir      = File.join(RubyInstaller::ROOT, 'sandbox', 'doc')
-  target       = File.join(doc_dir, version_dir)
+  target       = File.join(doc_dir, version)
 
-  core_glob    = File.join(RubyInstaller::ROOT, package.target, "*.c")
+  core_glob    = File.join(package.target, "*.c")
   core_files   = Dir.glob(core_glob).map{ |f| File.basename(f) }
 
   stdlib_files = ['./lib', './ext']
@@ -91,7 +90,7 @@ interpreters.each do |package|
     end
 
     # meta package depends on individual chm files
-    file meta_chm.file, :needs => [chm_file]
+    file meta_chm.file => [chm_file]
   end
 
   # generate index
@@ -119,7 +118,7 @@ interpreters.each do |package|
   end
 
   # add index to the metapackge dependency
-  file meta_chm.file, :needs => [index]
+  file meta_chm.file => [index]
 
   # generate meta package
   file meta_chm.file do
@@ -148,9 +147,9 @@ interpreters.each do |package|
     end
 
     desc "build docs for #{version}"
-    task :docs, :needs => ['docs:htmlhelp', meta_chm.file]
+    task :docs => ['docs:htmlhelp', meta_chm.file]
 
     desc "rebuild docs for #{version}"
-    task :redocs, :needs => [:clobber_docs, :docs]
+    task :redocs => [:clobber_docs, :docs]
   end
 end

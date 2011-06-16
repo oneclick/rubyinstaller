@@ -1,17 +1,28 @@
 ; RubyInstaller - InnoSetup Script (base)
 ; This script is used to build Ruby Installers for Windows
+; Copyright (c) 2009-2011 Jon Maken
+; Copyright (c) 2009-2011 Gordon Thiesfeld
+; Copyright (c) 2009-2011 Luis Lavena
+; Revision: 05/19/2011 2:48:55 PM
 
 ; PRE-CHECK
 ; Verify that RubyPath, RubyVersion, and RubyPath are defined by ISCC using
 ; /d command line arguments.
 ;
 ; Usage:
-;  iscc rubyinstaller.iss /dRubyVersion=X.Y.Z /dRubyPatch=123; \
-;                         /dRubyPath=sandbox/ruby
-;                         [/dInstVersion=26-OCT-2009]
+;  iscc rubyinstaller.iss /dRubyVersion=X.Y.Z \
+;                         /dRubyLibVersion=A.B.C \
+;                         /dRubyPatch=123; \
+;                         /dRubyPath=sandbox/ruby \
+;                         [/dInstVersion=26-OCT-2009] \
+;                         [/dNoTk=true]
 
 #if Defined(RubyVersion) == 0
   #error Please provide a RubyVersion definition using a /d parameter.
+#endif
+
+#if Defined(RubyLibVersion) == 0
+  #error Please provide a RubyLibVersion definition using a /d parameter.
 #endif
 
 #if Defined(RubyPatch) == 0
@@ -41,10 +52,15 @@
 
 #define CurrentYear GetDateTimeString('yyyy', '', '')
 
-; INCLUDE
+; INCLUDES
 ; Include dynamically created version specific definitions
 #define InstallerConfigFile "config-" + RubyVersion + ".iss"
 #include InstallerConfigFile
+
+; Include Tcl/Tk artifacts unless building an non-Tk enabled installer
+#ifndef NoTk
+  #include "tcltk.iss"
+#endif
 
 #define RubyInstallerBaseId "MRI"
 
@@ -57,6 +73,7 @@ AppPublisher={#InstallerPublisher}
 AppPublisherURL={#InstallerHomepage}
 AppVersion={#RubyFullVersion}
 DefaultGroupName={#InstallerName}
+DisableWelcomePage=true
 DisableProgramGroupPage=true
 LicenseFile=LICENSE.txt
 Compression=lzma2/ultra64
@@ -99,7 +116,7 @@ en.DiskSpaceMBLabel=Required free disk space: ~[mb] MB
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: {#RubyPath}\*; DestDir: {app}; Flags: recursesubdirs createallsubdirs
+Source: {#RubyPath}\*; DestDir: {app}; Excludes: "\bin\tcl*.dll,\bin\tk*.dll,\lib\tcltk,\lib\ruby\{#RubyLibVersion}\tk*.rb,\lib\ruby\{#RubyLibVersion}\tcl*.rb,\lib\ruby\{#RubyLibVersion}\*-tk.rb,\lib\ruby\{#RubyLibVersion}\tk,\lib\ruby\{#RubyLibVersion}\tkextlib,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tcl*.so,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tk*.so"; Flags: recursesubdirs createallsubdirs
 Source: ..\..\sandbox\book\bookofruby.pdf; DestDir: {app}\doc
 Source: setrbvars.bat; DestDir: {app}\bin
 

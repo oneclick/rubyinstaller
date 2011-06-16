@@ -1,0 +1,40 @@
+From feb2553a4419a8abe3d0de30526b35f826beef6f Mon Sep 17 00:00:00 2001
+From: Bosko Ivanisevic <bosko.ivanisevic@gmail.com>
+Date: Sat, 14 May 2011 15:23:56 +0200
+Subject: [PATCH] Rename libraries to avoid ActiveTcl clash
+
+---
+ tk8.5.9/win/configure |   10 +++++-----
+ 1 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/tk8.5.9/win/configure b/tk8.5.9/win/configure
+index ee40344..82a9e0d 100644
+--- a/tk8.5.9/win/configure
++++ b/tk8.5.9/win/configure
+@@ -4215,18 +4215,18 @@ TK_EXPORT_FILE_SUFFIX="\${NODOT_VERSION}${LIBSUFFIX}"
+ 
+ eval "TK_SRC_DIR=\"`cd $srcdir/..; pwd`\""
+ 
+-eval "TK_DLL_FILE=tk$VER${DLLSUFFIX}"
+-eval "TK_LIB_FILE=${LIBPREFIX}tk$VER${LIBSUFFIX}"
++eval "TK_DLL_FILE=tk$VER-ri${DLLSUFFIX}"
++eval "TK_LIB_FILE=${LIBPREFIX}tk$VER-ri${LIBSUFFIX}"
+ 
+-eval "TK_STUB_LIB_FILE=${LIBPREFIX}tkstub${VER}${LIBSUFFIX}"
++eval "TK_STUB_LIB_FILE=${LIBPREFIX}tkstub${VER}-ri${LIBSUFFIX}"
+ # FIXME: All of this var junk needs to be done in tcl.m4 !!!!
+ # I left out the other vars that also need to get defined here.
+ # we also need to double check about spaces in path names
+-eval "TK_LIB_FLAG=\"-ltk${VER}${LIBFLAGSUFFIX}\""
++eval "TK_LIB_FLAG=\"-ltk${VER}-ri${LIBFLAGSUFFIX}\""
+ TK_LIB_SPEC="-L${libdir} ${TK_LIB_FLAG}"
+ TK_BUILD_LIB_SPEC="-L`pwd` ${TK_LIB_FLAG}"
+ 
+-eval "TK_STUB_LIB_FLAG=\"-ltkstub${VER}${LIBFLAGSUFFIX}\""
++eval "TK_STUB_LIB_FLAG=\"-ltkstub${VER}-ri${LIBFLAGSUFFIX}\""
+ TK_BUILD_STUB_LIB_SPEC="-L`pwd` ${TK_STUB_LIB_FLAG}"
+ 
+ TK_STUB_LIB_SPEC="-L${libdir} ${TK_STUB_LIB_FLAG}"
+-- 
+1.7.4.msysgit.0
+
