@@ -198,21 +198,26 @@ directory 'pkg'
 
     # define the packaging task for the version
     namespace "ruby#{namespace_ver}" do
-      desc "generate #{installer_pkg}.exe"
-      task :package => [:innosetup, "pkg/#{installer_pkg}.exe"]
+      desc "generate packages for ruby #{version}"
+      task :package => ["package:installer"]
+
+      namespace :package do
+        desc "generate #{installer_pkg}.exe"
+        task :installer => [:innosetup, "pkg/#{installer_pkg}.exe"]
+      end
 
       desc "install #{installer_pkg}.exe"
-      task :install => [:package] do
+      task :install => ["package:installer"] do
         sh "pkg/#{installer_pkg}.exe /LOG=pkg/#{installer_pkg}.log"
       end
 
-      task :clobber do
+      task :clean do
         rm_f "resources/installer/config-#{version_xyz}.iss"
         rm_f "pkg/#{installer_pkg}.exe"
       end
 
       desc "rebuild #{installer_pkg}.exe"
-      task :repackage => [:clobber, :package]
+      task :repackage => [:clean, :package]
     end
   end
 end
