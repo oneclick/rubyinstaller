@@ -244,7 +244,9 @@ directory 'pkg'
     end
 
     file "pkg/#{package_name}.7z" => ["pkg", "pkg/#{package_name}/bin/ruby.exe"] do |t|
-      seven_zip_build "pkg/#{package_name}", t.name
+      cd File.dirname(t.name) do
+        seven_zip_build "#{package_name}", File.basename(t.name)
+      end
 
       # Generate .md5 file
       File.open("#{t.name}.md5", "w") { |f| f.puts Digest::MD5.file(t.name) }
