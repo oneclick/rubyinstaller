@@ -1,4 +1,5 @@
 require 'erb'
+require "digest/md5"
 
 module RubyTools
   # use provided ruby.exe to figure out runtime information
@@ -204,7 +205,7 @@ directory 'pkg'
     end
 
     # installer
-    file "pkg/#{installer_pkg}.exe" => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do
+    file "pkg/#{installer_pkg}.exe" => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do |t|
       options = {
         :ruby_version     => info[:version],
         :ruby_lib_version => info[:lib_version],
@@ -217,6 +218,9 @@ directory 'pkg'
       options[:no_tk] = true if ENV['NOTK']
 
       InnoSetup.iscc("resources/installer/rubyinstaller.iss", options)
+
+      # Generate .md5 file
+      File.open("#{t.name}.md5", "w") { |f| f.puts Digest::MD5.file(t.name) }
     end
 
     # archives (engine-version-patchlevel|revision-platform.7z)
@@ -241,6 +245,9 @@ directory 'pkg'
 
     file "pkg/#{package_name}.7z" => ["pkg", "pkg/#{package_name}/bin/ruby.exe"] do |t|
       seven_zip_build "pkg/#{package_name}", t.name
+
+      # Generate .md5 file
+      File.open("#{t.name}.md5", "w") { |f| f.puts Digest::MD5.file(t.name) }
     end
 
     # define the packaging task for the version
