@@ -219,14 +219,41 @@ directory 'pkg'
       InnoSetup.iscc("resources/installer/rubyinstaller.iss", options)
     end
 
+    # archives (engine-version-patchlevel|revision-platform.7z)
+    package_name = "ruby"
+    package_name << "-%s" % info[:version]
+
+    if info[:patchlevel]
+      package_name << "-p%s" % info[:patchlevel]
+    else
+      package_name << "-r%s" % info[:revision]
+    end
+
+    package_name << "-%s" % info[:platform]
+
+    file "pkg/#{package_name}/bin/ruby.exe" => [pkg.install_target] do
+      dir = "pkg/#{package_name}"
+
+      # remove target
+      rm_rf dir if File.directory?(dir)
+      cp_r pkg.install_target, dir
+    end
+
+    file "pkg/#{package_name}.7z" => ["pkg", "pkg/#{package_name}/bin/ruby.exe"] do |t|
+      seven_zip_build "pkg/#{package_name}", t.name
+    end
+
     # define the packaging task for the version
     namespace "ruby#{namespace_ver}" do
       desc "generate packages for ruby #{version}"
-      task :package => ["package:installer"]
+      task :package => ["package:installer", "package:archive"]
 
       namespace :package do
         desc "generate #{installer_pkg}.exe"
         task :installer => [:innosetup, "pkg/#{installer_pkg}.exe"]
+
+        desc "generate #{package_name}.7z"
+        task :archive => ["pkg/#{package_name}.7z"]
       end
 
       desc "install #{installer_pkg}.exe"
