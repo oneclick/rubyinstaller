@@ -1,35 +1,42 @@
 require 'erb'
 
 module RubyTools
-  # read C definitions from 'target' file and return
-  # a hash of values
-  def self.ruby_version(target)
-    return nil unless File.exist?(target)
+  # use provided ruby.exe to figure out runtime information
+  def self.parse_ruby(ruby_exe)
+    result = `#{ruby_exe} -rrbconfig -ve \"puts 'ruby_version: %s' % RbConfig::CONFIG['ruby_version']\"`
+    return nil unless $?.success?
+    return nil if result.empty?
 
     h = {}
-    version_file = File.read(target)
-    h[:version] = /RUBY_VERSION "(.+)"$/.match(version_file)[1]
-    h[:patchlevel] = /RUBY_PATCHLEVEL (.+)$/.match(version_file)[1]
 
-    # keep Inno's VersionInfoVersion happy for Ruby trunk builds
-    h[:patchlevel] = '9999' if h[:patchlevel].to_i < 0
-
-    # check presence of RUBY_VERSION_CODE (only in 1.8.7) as proxy for
-    # RUBY_LIB_VERSION_STYLE == {2,3} check
-    if version_file =~ /RUBY_VERSION_CODE (.+)$/
-      h[:lib_version] = h[:version][0..2]
-    else
-      if version_file =~ /RUBY_API_VERSION_TEENY/
-        # support Ruby 1.9.3 version info
-        alt_target = File.join(File.dirname(target), 'include', 'ruby', 'version.h')
-        alt_version_file = File.read(alt_target)
-        teeny = /RUBY_API_VERSION_TEENY (.+)$/.match(alt_version_file)[1]
-      else
-        # support 1.9.1 and 1.9.2 version info
-        teeny = /RUBY_VERSION_TEENY (.+)$/.match(version_file)[1]
-      end
-      h[:lib_version] = "#{h[:version][0..2]}.#{teeny}"
+    if result =~ /(\d\.\d.\d)/
+      h[:version] = $1
     end
+
+    if result =~ /patchlevel (\d+)/
+      h[:patchlevel] = $1
+    end
+
+    if result =~ /\dp(\d+)/
+      h[:patchlevel] = $1
+    end
+
+    if result =~ /ruby_version: (\S+)/
+      h[:lib_version] = $1
+    end
+
+    if result =~ /\[(\S+)\]/
+      h[:platform] = $1
+    end
+
+    if result =~ /trunk (\d+)/
+      h[:revision] = $1
+    end
+
+    if result =~ /(\d+-\d+-\d+)/
+      h[:release_date] = $1
+    end
+
     h
   end
 end
@@ -143,17 +150,33 @@ end
 directory 'pkg'
 
 [RubyInstaller::Ruby18, RubyInstaller::Ruby19].each do |pkg|
-  # skip iteration to prevent aliasing when using ENV['LOCAL']
-  next unless "ruby#{pkg.version[0..2].gsub('.','')}" ==
-    Rake.application.top_level_tasks.first.split(':')[0].downcase
+  ruby_exe = File.join(pkg.install_target, "bin", "ruby.exe")
+  next unless File.exist?(ruby_exe)
 
-  if info = RubyTools.ruby_version(File.join(pkg.target, 'version.h'))
-    version       = "#{info[:version]}-p#{info[:patchlevel]}"
+  # if info = RubyTools.ruby_version(File.join(pkg.target, 'version.h'))
+  if info = RubyTools.parse_ruby(ruby_exe)
+    version       = info[:version].dup
+
+    # construct either X.Y.Z-p123 or X.Y.Z-rNNNN (dev)
+    if info[:patchlevel]
+      version     << "-p%s" % info[:patchlevel]
+    else
+      version     << "-r%s" % info[:revision]
+    end
+
     version_xyz   = info[:version]
     major_minor   = info[:version][0..2]
     namespace_ver = major_minor.sub('.', '')
-    version       << "-#{ENV['RELEASE']}" if ENV['RELEASE']
-    installer_pkg = "rubyinstaller-#{version}"
+
+    # i386-mingw32, x86_64-mingw32
+    case info[:platform]
+    when "i386-mingw32"
+      # noop
+    when "x86_64-mingw32"
+      version     << "-x64"
+    end
+
+    installer_pkg = "rubyinstaller-%s" % version
 
     # FIXME remove config-#{major_minor}.iss as this file is dynamically
     #       created in installer file task below
@@ -185,7 +208,7 @@ directory 'pkg'
       options = {
         :ruby_version     => info[:version],
         :ruby_lib_version => info[:lib_version],
-        :ruby_patch       => info[:patchlevel],
+        :ruby_patch       => info[:patchlevel] || info[:revision],
         :ruby_path        => File.expand_path(pkg.install_target),
         :output           => 'pkg',
         :filename         => installer_pkg,
