@@ -3,7 +3,7 @@
 ; Copyright (c) 2009-2011 Jon Maken
 ; Copyright (c) 2009-2011 Gordon Thiesfeld
 ; Copyright (c) 2009-2011 Luis Lavena
-; Revision: 05/19/2011 2:48:55 PM
+; Revision: 06/17/2011 10:02:54 PM
 
 ; PRE-CHECK
 ; Verify that RubyPath, RubyVersion, and RubyPath are defined by ISCC using
@@ -16,6 +16,7 @@
 ;                         /dRubyPath=sandbox/ruby \
 ;                         [/dInstVersion=26-OCT-2009] \
 ;                         [/dNoTk=true]
+;                         [/dNoDocs=true]
 
 #if Defined(RubyVersion) == 0
   #error Please provide a RubyVersion definition using a /d parameter.
@@ -117,7 +118,6 @@ en.DiskSpaceMBLabel=Required free disk space: ~[mb] MB
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: {#RubyPath}\*; DestDir: {app}; Excludes: "\bin\tcl*.dll,\bin\tk*.dll,\lib\tcltk,\lib\ruby\{#RubyLibVersion}\tk*.rb,\lib\ruby\{#RubyLibVersion}\tcl*.rb,\lib\ruby\{#RubyLibVersion}\*-tk.rb,\lib\ruby\{#RubyLibVersion}\tk,\lib\ruby\{#RubyLibVersion}\tkextlib,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tcl*.so,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tk*.so"; Flags: recursesubdirs createallsubdirs
-Source: ..\..\sandbox\book\bookofruby.pdf; DestDir: {app}\doc
 Source: setrbvars.bat; DestDir: {app}\bin
 
 [Registry]
@@ -164,7 +164,6 @@ Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}
 Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: BuildPlatform ; ValueData: {#RubyBuildPlatform}; Check: IsNotAdmin
 
 [Icons]
-Name: {group}\Documentation\The Book of Ruby; Filename: {app}\doc\bookofruby.pdf; Flags: createonlyiffileexists
 Name: {group}\Interactive Ruby; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
 Name: {group}\RubyGems Documentation Server; Filename: {app}\bin\gem.bat; Parameters: server --launch; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
 Name: {group}\Start Command Prompt with Ruby; Filename: {sys}\cmd.exe; Parameters: /E:ON /K {app}\bin\setrbvars.bat; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists

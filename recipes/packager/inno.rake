@@ -75,13 +75,14 @@ module InnoSetup
   #     :output           => 'pkg',
   #     :filename         => 'rubyinstaller-1.9.2-p429',
   #     :no_tk            => true,
+  #     :no_docs          => true,
   #     :sign             => ENV['SIGNED']
   #   )
   #
   # will be converted into a shell command line similar to:
   #
   #   iscc.exe rubyinstaller.iss /dRubyPatch=429 /dRubyPath=C:/.../sandbox/ruby
-  #       /dRubyVersion=1.9.2 /dRubyLibVersion=1.9.1 /dNoTk=true
+  #       /dRubyVersion=1.9.2 /dRubyLibVersion=1.9.1 /dNoTk=true /dNoDocs=true
   #       /opkg /frubyinstaller-1.9.2-p429
   #
   def self.iscc(script, *args)
@@ -205,7 +206,12 @@ directory 'pkg'
     end
 
     # installer
-    file "pkg/#{installer_pkg}.exe" => ['pkg', "ruby#{namespace_ver}:docs", :book, *files] do |t|
+    if ENV['NODOCS']
+      installer_deps = ['pkg', *files]
+    else
+      installer_deps = ['pkg', "ruby#{namespace_ver}:docs", :book, *files]
+    end
+    file "pkg/#{installer_pkg}.exe" => installer_deps do |t|
       options = {
         :ruby_version     => info[:version],
         :ruby_lib_version => info[:lib_version],
@@ -216,6 +222,7 @@ directory 'pkg'
         :sign             => ENV['SIGNED']
       }
       options[:no_tk] = true if ENV['NOTK']
+      options[:no_docs] = true if ENV['NODOCS']
 
       InnoSetup.iscc("resources/installer/rubyinstaller.iss", options)
 
