@@ -1,6 +1,16 @@
 require 'erb'
 require "digest/md5"
 
+module PkgTools
+  # create a companion MD5 checksum file for the file named by file_name
+  # format: hex_md5_checksum *file_basename
+  def self.md5_file(file_name)
+    File.open("#{file_name}.md5", "w") do |f|
+      f.puts '%s *%s' % [ Digest::MD5.file(file_name), File.basename(file_name) ]
+    end
+  end
+end
+
 module RubyTools
   # use provided ruby.exe to figure out runtime information
   def self.parse_ruby(ruby_exe)
@@ -227,7 +237,7 @@ directory 'pkg'
       InnoSetup.iscc("resources/installer/rubyinstaller.iss", options)
 
       # Generate .md5 file
-      File.open("#{t.name}.md5", "w") { |f| f.puts Digest::MD5.file(t.name) }
+      PkgTools.md5_file(t.name)
     end
 
     # archives (engine-version-patchlevel|revision-platform.7z)
@@ -256,7 +266,7 @@ directory 'pkg'
       end
 
       # Generate .md5 file
-      File.open("#{t.name}.md5", "w") { |f| f.puts Digest::MD5.file(t.name) }
+      PkgTools.md5_file(t.name)
     end
 
     # define the packaging task for the version
