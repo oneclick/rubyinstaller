@@ -29,6 +29,7 @@ require 'rake/env'
 # scan all override definitions and load them
 Dir.glob('override/*.rb').sort.each do |f|
   begin
+    puts "Loading override #{File.basename(f)}" if Rake.application.options.trace
     require f
   rescue StandardError => e
     warn "WARN: Problem loading #{f}: #{e.message}"
