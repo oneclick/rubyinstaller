@@ -23,6 +23,7 @@ module RubyInstaller
       :target => 'sandbox/ruby_1_8',
       :build_target => 'sandbox/ruby18_build',
       :install_target => 'sandbox/ruby18_mingw',
+      :patches => 'resources/patches/ruby187',
       :configure_options => [
         '--enable-shared',
         '--with-winsock2',
@@ -46,6 +47,7 @@ module RubyInstaller
       Ruby18.version = '1.8.6-p398'
       Ruby18.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_6'
       Ruby18.files = ['ruby-1.8.6-p398.tar.bz2']
+      Ruby18.patches = nil
       Ruby18.installer_guid = '{CE65B110-8786-47EA-A4A0-05742F29C221}'
     end
 

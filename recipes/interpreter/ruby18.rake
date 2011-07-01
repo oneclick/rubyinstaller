@@ -75,6 +75,11 @@ namespace(:interpreter) do
         cp_r(Dir.glob('resources/icons/*.ico'), package.build_target, :verbose => true)
       end
 
+      patches = Dir.glob("#{package.patches}/*.patch").sort
+      patches.each do |patch|
+        sh "git apply --directory #{package.target} #{patch}"
+      end
+
       unless ENV['LOCAL'] || ENV['CHECKOUT']
         Dir.chdir package.target do
           FileUtils.rm_f 'test/readline/test_readline.rb'

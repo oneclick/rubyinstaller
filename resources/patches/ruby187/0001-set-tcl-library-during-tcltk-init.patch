@@ -1,0 +1,12 @@
+diff --git a/ext/tk/tcltklib.c b/ext/tk/tcltklib.c
+index 8701cfe..b058443 100644
+--- a/ext/tk/tcltklib.c
++++ b/ext/tk/tcltklib.c
+@@ -5614,6 +5614,7 @@ ip_init(argc, argv, self)
+
+     /* from Tcl_AppInit() */
+     DUMP1("Tcl_Init");
++    Tcl_SetVar(ptr->ip, "tcl_library", getenv("TCL_LIBRARY"), TCL_GLOBAL_ONLY);
+     if (Tcl_Init(ptr->ip) == TCL_ERROR) {
+         rb_raise(rb_eRuntimeError, "%s", Tcl_GetStringResult(ptr->ip));
+     }
