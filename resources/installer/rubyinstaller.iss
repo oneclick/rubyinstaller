@@ -3,7 +3,8 @@
 ; Copyright (c) 2009-2011 Jon Maken
 ; Copyright (c) 2009-2011 Gordon Thiesfeld
 ; Copyright (c) 2009-2011 Luis Lavena
-; Revision: 06/17/2011 10:02:54 PM
+; Revision: 07/02/2011 2:25:30 PM
+; License: Modified BSD License
 
 ; PRE-CHECK
 ; Verify that RubyPath, RubyVersion, and RubyPath are defined by ISCC using

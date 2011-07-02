@@ -1,8 +1,8 @@
 // RubyInstaller Inno Setup GUI Customizations
 //
 // Copyright (c) 2009-2011 Jon Maken
-// Revision: 05/19/2011 2:47:50 PM
-// License: MIT
+// Revision: 07/02/2011 2:22:39 PM
+// License: Modified BSD License
 
 const
   ChkBoxBaseY = 95;

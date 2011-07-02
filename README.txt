@@ -1,10 +1,11 @@
 == MinGW RubyInstaller: Bootstrapping Build Recipes
 
-This project attempts to generate a development sandbox that can be used to
-compile Ruby and it's components using the freely available MinGW toolchain.
-Our goal is to offer a simplified way to boost your productivity when building
-Ruby from source code on your Windows system, and ease the path for anyone
-wishing to contribute to the RubyInstaller for Windows project.
+This project, licensed under the 3-clause Modified BSD License, attempts to
+generate a development sandbox that can be used to compile Ruby and it's
+components using the freely available MinGW toolchain. Our goal is to offer a
+simplified way to boost your productivity when building Ruby from source code
+on your Windows system, and ease the path for anyone wishing to contribute to
+the RubyInstaller for Windows project.
 
 This project is a work-in-progress collection of Rake build recipes that download
 and verify the MinGW utilities required to compile and build a Ruby interpreter

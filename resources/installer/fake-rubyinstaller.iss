@@ -2,7 +2,7 @@
 ; This script is used to build fake RubyInstallers for Windows for testing purposes
 ; Copyright (c) 2009-2011 Jon Maken
 ; Revision: 01/29/2011 2:31:03 PM
-; License: MIT
+; License: Modified BSD License
 
 ; PRE-CHECK
 ; Verify that RubyPath, RubyVersion, and RubyPath are defined by ISCC using

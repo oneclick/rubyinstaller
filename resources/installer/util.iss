@@ -1,8 +1,8 @@
 // Inno Setup utilities
 //
 // Copyright (c) 2009 Jon Maken
-// Revision: 11/03/2009 8:04:17 PM
-// License: MIT
+// Revision: 07/02/2011 2:23:34 PM
+// License: Modified BSD License
 
 // forward declarations
 function MungePathish(const SrcList: TStringList; NewData: Array of String; RegValue: String; IsUninstalling: Boolean): Boolean; forward;

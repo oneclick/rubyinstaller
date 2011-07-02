@@ -8,6 +8,8 @@
   * Upgraded OpenSSL to 1.0.0d on all versions of Ruby
   * Build Ruby using GCC 4.5.2 (TDM-1 release)
   * Enable unsupported builds with 32-bit MinGW-w64
+  * Change from MIT license to Modified BSD License (3-clause)
+  * Add support for Tcl/Tk 8.5.10 in recipes and installer
 
 * Bugfixes:
   * Be specific about version of RDoc and RDoc CHM required. GH-58
