@@ -1,7 +1,7 @@
 // RubyInstaller Inno Setup GUI Customizations
 //
 // Copyright (c) 2009-2011 Jon Maken
-// Revision: 07/02/2011 2:22:39 PM
+// Revision: 07/06/2011 9:18:45 AM
 // License: Modified BSD License
 
 const
@@ -73,7 +73,7 @@ var
   URLText, TmpLabel: TNewStaticText;
 begin
 
-  {* Path and file association task check boxes *}
+  {* Path, Tcl/Tk, and file association task check boxes *}
 
   Page := PageFromID(wpSelectDir);
   ChkBoxCurrentY := ChkBoxBaseY;
@@ -83,6 +83,10 @@ begin
   TclTkChkBox.Parent := Page.Surface;
   TclTkChkBox.State := cbUnchecked;
   TclTkChkBox.Caption := 'Install Tcl/Tk support';
+  TclTkChkBox.Hint := 'Select to install a Tcl/Tk GUI building toolkit for this' #13 +
+                      'Ruby installation. This option enables you to develop' #13 +
+                      'GUI applications in Ruby.';
+  TclTkChkBox.ShowHint := True;
   TclTkChkBox.Alignment := taRightJustify;
   TclTkChkBox.Top := ScaleY(ChkBoxBaseY);
   TclTkChkBox.Left := ScaleX(ChkBoxBaseLeft);
@@ -95,6 +99,9 @@ begin
   PathChkBox.Parent := Page.Surface;
   PathChkBox.State := cbUnchecked;
   PathChkBox.Caption := 'Add Ruby executables to your PATH';
+  PathChkBox.Hint := 'Select to make this Ruby installation available from everywhere.' #13 +
+                     'This may affect existing Ruby installations.';
+  PathChkBox.ShowHint := True;
   PathChkBox.Alignment := taRightJustify;
   PathChkBox.Top := ScaleY(ChkBoxCurrentY);
   PathChkBox.Left := ScaleX(ChkBoxBaseLeft);
@@ -106,11 +113,25 @@ begin
   PathExtChkBox.Parent := Page.Surface;
   PathExtChkBox.State := cbUnchecked;
   PathExtChkBox.Caption := 'Associate .rb and .rbw files with this Ruby installation';
+  PathExtChkBox.Hint := 'Select to enable running your Ruby scripts by double clicking' #13 +
+                        'or simply typing the script name at your shell prompt. This may' #13 +
+                        'affect existing Ruby installations.';
+  PathExtChkBox.ShowHint := True;
   PathExtChkBox.Alignment := taRightJustify;
   PathExtChkBox.Top := ScaleY(ChkBoxCurrentY);
   PathExtChkBox.Left := ScaleX(ChkBoxBaseLeft);
   PathExtChkBox.Width := Page.SurfaceWidth;
   PathExtChkBox.Height := ScaleY(ChkBoxBaseHeight);
+
+  {* Single Ruby installation tip message *}
+
+  TmpLabel := TNewStaticText.Create(Page);
+  TmpLabel.Parent := Page.Surface;
+  TmpLabel.Top := ScaleY(ChkBoxCurrentY + 30);
+  TmpLabel.Left := ScaleX(6);
+  TmpLabel.Width := Page.SurfaceWidth;
+  TmpLabel.WordWrap := True;
+  TmpLabel.Caption := 'TIP: Mouse over the above options for more detailed information.';
 
   ParseSilentTasks;
 
