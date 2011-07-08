@@ -216,11 +216,13 @@ namespace :ruby18 do
   task :clean => ['interpreter:ruby18:clean']
 end
 
-# Add rubygems to the chain
-task :ruby18 => [:rubygems18]
+unless ENV["NOGEMS"]
+  # Add rubygems to the chain
+  task :ruby18 => [:rubygems18]
 
-# Add RubyGems operating system customization
-task :ruby18 => ['tools:rubygems:hook18']
+  # Add RubyGems operating system customization
+  task :ruby18 => ['tools:rubygems:hook18']
+end
 
 # add Pure Readline to the chain
 task :ruby18 => [:rbreadline]

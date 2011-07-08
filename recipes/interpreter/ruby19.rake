@@ -201,11 +201,13 @@ namespace :ruby19 do
   task :clean => ['interpreter:ruby19:clean']
 end
 
-# Add rubygems to the chain
-task :ruby19 => [:rubygems19]
+unless ENV["NOGEMS"]
+  # Add rubygems to the chain
+  task :ruby19 => [:rubygems19]
 
-# Add RubyGems operating system customization
-task :ruby19 => ['tools:rubygems:hook19']
+  # Add RubyGems operating system customization
+  task :ruby19 => ['tools:rubygems:hook19']
+end
 
 # add Pure Readline to the chain
 task :ruby19 => [:rbreadline]
