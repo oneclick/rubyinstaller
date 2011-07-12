@@ -1,4 +1,4 @@
-=== (In Git)
+=== 2011-07-12
 
 * Enhancements:
   * Upgraded Ruby 1.9.2 to patchlevel 180
@@ -9,7 +9,7 @@
   * Build Ruby using GCC 4.5.2 (TDM-1 release)
   * Enable unsupported builds with 32-bit MinGW-w64
   * Change from MIT license to Modified BSD License (3-clause)
-  * Add support for Tcl/Tk 8.5.10 in recipes and installer
+  * Add support for Tcl/Tk 8.5.10 in recipes, installers, and archives
 
 * Bugfixes:
   * Be specific about version of RDoc and RDoc CHM required. GH-58
