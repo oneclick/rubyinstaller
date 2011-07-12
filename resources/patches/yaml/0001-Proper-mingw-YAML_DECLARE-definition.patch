@@ -1,6 +1,6 @@
 From 37a8ce4e439887f7856ad70ca71e2fe6820e37fd Mon Sep 17 00:00:00 2001
 From: Bosko Ivanisevic <bosko.ivanisevic@gmail.com>
-Date: Thu, 1 Apr 2010 12:54:42 +0200
+Date: Wed, 6 Jul 2011 09:22:29 +0200
 Subject: [PATCH] Proper mingw YAML_DECLARE definition
 
 ---
@@ -15,10 +15,10 @@ index 400cae1..c6e8b71 100644
  
  /** The public API declaration. */
  
--#ifdef WIN32
+-#ifdef _WIN32
 +#if defined(__MINGW32__)
 +#   define  YAML_DECLARE(type)  type
-+#elif defined(WIN32)
++#elif defined(_WIN32)
  #   if defined(YAML_DECLARE_STATIC)
  #       define  YAML_DECLARE(type)  type
  #   elif defined(YAML_DECLARE_EXPORT)

@@ -183,7 +183,7 @@ module RubyInstaller
 
     LibYAML = OpenStruct.new(
       :url => 'http://pyyaml.org/download/libyaml',
-      :version => '0.1.3',
+      :version => '0.1.4',
       :target => 'sandbox/src-libyaml',
       :install_target => 'sandbox/libyaml',
       :patches => 'resources/patches/yaml',
@@ -192,7 +192,7 @@ module RubyInstaller
         '--disable-shared'
       ],
       :files => [
-        'yaml-0.1.3.tar.gz',
+        'yaml-0.1.4.tar.gz',
       ]
     )
 
