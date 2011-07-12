@@ -162,9 +162,15 @@ namespace(:interpreter) do
     end
 
     task :check => [:compiler] do
+      old_gem_home = ENV.delete("GEM_HOME")
+      old_gem_path = ENV.delete("GEM_PATH")
+
       cd package.build_target do
         sh "make check"
       end
+
+      ENV["GEM_HOME"] = old_gem_home if old_gem_home
+      ENV["GEM_PATH"] = old_gem_path if old_gem_path
     end
 
     task :irb do
