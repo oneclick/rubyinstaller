@@ -1,3 +1,8 @@
+=== (In Git)
+
+* Enhancements:
+  * Upgraded libyaml to 0.1.4 in Ruby 1.9
+
 === 2011-07-12
 
 * Enhancements:
