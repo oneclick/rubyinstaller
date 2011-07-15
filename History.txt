@@ -1,6 +1,7 @@
 === (In Git)
 
 * Enhancements:
+  * Upgraded Ruby 1.9.2 to patchlevel 290
   * Upgraded libyaml to 0.1.4 in Ruby 1.9
 
 === 2011-07-12
