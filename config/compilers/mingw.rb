@@ -24,7 +24,7 @@ module DevKitInstaller
           'autoconf-9-1-mingw32-bin.tar.lzma',
           'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
           'automake-4-1-mingw32-bin.tar.lzma',
-          'gdb-7.2-1-mingw32-bin.tar.lzma',
+          'gdb-7.3-1-mingw32-bin.tar.lzma',
           'libexpat-2.0.1-1-mingw32-dll-1.tar.gz',
           'libtool-2.4-1-mingw32-bin.tar.lzma',
           'bsdtar-2.8.3-1-mingw32-bin.tar.bz2',
