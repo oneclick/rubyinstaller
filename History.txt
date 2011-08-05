@@ -3,7 +3,7 @@
 * Enhancements:
   * Upgraded rb-readline to version 0.4.1
   * Upgraded DevKit mintty to version 1.0.1
-  * Upgraded DevKit binutils to version 2.21.1-2
+  * Upgraded DevKit binutils to version 2.21.53
   * Upgraded DevKit gdb to version 7.3
 
 === 2011-07-15
