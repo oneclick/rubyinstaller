@@ -6,6 +6,9 @@
   * Upgraded DevKit binutils to version 2.21.53
   * Upgraded DevKit gdb to version 7.3-2
 
+* Bugfixes:
+  * Correct DevKit install path search behavior. GH-80
+
 === 2011-07-15
 
 * Enhancements:

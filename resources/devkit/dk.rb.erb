@@ -225,8 +225,8 @@ EOT
       end
 
       site_ruby = Dir.glob("#{path}/lib/ruby/site_ruby")
-      site_rubygems = Dir.glob("#{path}/lib/ruby/site_ruby/**/rubygems")
-      core_rubygems = Dir.glob("#{path}/lib/ruby/**/rubygems")
+      site_rubygems = Dir.glob("#{path}/lib/ruby/site_ruby/[1-9].*/rubygems")
+      core_rubygems = Dir.glob("#{path}/lib/ruby/[1-9].*/rubygems")
 
       # Warn and exit if unable to find a RubyGems installation
       if site_rubygems.empty? && core_rubygems.empty?
