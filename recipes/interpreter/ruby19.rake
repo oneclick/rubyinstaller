@@ -76,7 +76,7 @@ namespace(:interpreter) do
 
       patches = Dir.glob("#{package.patches}/*.patch").sort
       patches.each do |patch|
-        sh "git apply --directory #{package.target} #{patch}"
+        sh "git apply --ignore-whitespace --directory #{package.target} #{patch}"
       end
 
       # FIXME: Readline is not working, remove it for now (only from packages)
