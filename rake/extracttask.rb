@@ -41,7 +41,7 @@ def extract(file, target, options = {})
   # exclude folders packagename-X.Y.Z or packagename-DATE
   # move all the folders within that into target directly.
   folders_in_target.each do |folder|
-    next unless File.directory?(File.join(target, folder)) && folder =~ /\-\d/
+    next unless File.directory?(File.join(target, folder)) && folder =~ /\-(\d|\w)/
 
     # take the folder contents out!, now!
     contents = []
