@@ -5,10 +5,12 @@
   * Upgraded DevKit mintty to version 1.0.1
   * Upgraded DevKit binutils to version 2.21.53
   * Upgraded DevKit gdb to version 7.3-2
+  * Upgraded libffi to version 3.0.10
 
 * Bugfixes:
   * Correct DevKit install path search behavior. GH-80
   * Avoid forcing users to clone with autocrlf=false. GH-71, GH-78 and GH-84
+  * Correct extraction of SHA1 based tarballs
 
 === 2011-07-15
 
