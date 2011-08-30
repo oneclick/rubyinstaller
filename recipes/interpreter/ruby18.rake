@@ -150,6 +150,13 @@ namespace(:interpreter) do
       # remove path reference to sandbox (after install!!!)
       rbconfig = Dir.glob("#{package.install_target}/lib/**/rbconfig.rb").first
       contents = File.read(rbconfig).gsub(/#{Regexp.escape(full_install_target)}/) { |match| "" }
+
+      # remove sandbox-specific LDFLAGS
+      if contents =~ %r{-L\.\s(.*)\"}
+        contents.gsub!($1, "")
+      end
+
+      # update file
       File.open(rbconfig, 'w') { |f| f.write(contents) }
 
       # replace the batch files with new and path-clean stubs

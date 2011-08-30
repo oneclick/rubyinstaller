@@ -11,6 +11,7 @@
   * Correct DevKit install path search behavior. GH-80
   * Avoid forcing users to clone with autocrlf=false. GH-71, GH-78 and GH-84
   * Correct extraction of SHA1 based tarballs
+  * No longer leak LDFLAGS into sandboxed rbconfig.rb. GH-85
 
 === 2011-07-15
 
