@@ -6,6 +6,7 @@
   * Upgraded DevKit binutils to version 2.21.53
   * Upgraded DevKit gdb to version 7.3-2
   * Upgraded libffi to version 3.0.10
+  * Upgraded DevKit mingwrt to 3.20
 
 * Bugfixes:
   * Correct DevKit install path search behavior. GH-80
