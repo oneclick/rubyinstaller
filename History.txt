@@ -7,6 +7,7 @@
   * Upgraded DevKit gdb to version 7.3-2
   * Upgraded libffi to version 3.0.10
   * Upgraded DevKit mingwrt to 3.20
+  * Upgraded OpenSSL to version 1.0.0e
 
 * Bugfixes:
   * Correct DevKit install path search behavior. GH-80
