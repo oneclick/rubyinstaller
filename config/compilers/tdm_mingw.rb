@@ -7,6 +7,7 @@ module DevKitInstaller
       :program_prefix => nil,
       :url_1 => 'http://downloads.sourceforge.net/tdm-gcc',
       :url_2 => 'http://downloads.sourceforge.net/mingw',
+      :url_3 => 'http://downloads.sourceforge.net/gnuwin32',
       :target => 'sandbox/devkit/mingw',
       :files => {
         :url_1 => [
@@ -34,6 +35,9 @@ module DevKitInstaller
           'libintl-0.17-1-mingw32-dll-8.tar.lzma',
           'libiconv-1.13.1-1-mingw32-dll-2.tar.lzma',
           'libz-1.2.3-1-mingw32-dll-1.tar.gz'
+        ],
+        :url_3 => [
+          'which-2.20-bin.zip'
         ],
       }
     )

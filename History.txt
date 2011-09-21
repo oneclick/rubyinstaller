@@ -8,6 +8,7 @@
   * Upgraded libffi to version 3.0.10
   * Upgraded DevKit mingwrt to 3.20
   * Upgraded OpenSSL to version 1.0.0e
+  * Add GnuWin32 which.exe to relevant DevKit's
 
 * Bugfixes:
   * Correct DevKit install path search behavior. GH-80
