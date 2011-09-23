@@ -9,6 +9,7 @@
   * Upgraded DevKit mingwrt to 3.20
   * Upgraded OpenSSL to version 1.0.0e
   * Add GnuWin32 which.exe to relevant DevKit's
+  * Add tdm-32-4.6.1 toolchain support
 
 * Bugfixes:
   * Correct DevKit install path search behavior. GH-80
