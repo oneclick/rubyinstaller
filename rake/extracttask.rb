@@ -27,8 +27,8 @@ def extract(file, target, options = {})
       bsd_tar_extract(target, file, options)
     when /(^.+)\.tgz$/
       bsd_tar_extract(target, file, options)
-    when /(^.+\.zip$)/
-      seven_zip(target, $1)
+    when /^.+\.zip$/, /^.+\.7z$/
+      seven_zip(target, file)
     else
       raise "Unknown file extension! (for file #{file})"
   end
