@@ -60,24 +60,24 @@ end
 
 def seven_zip(target, file)
   puts "** Extracting #{file} into #{target}" if Rake.application.options.trace
-  sh "\"#{RubyInstaller::SEVEN_ZIP}\" x -y -o\"#{target}\" \"#{file}\" > NUL 2>&1"
+  sh %Q["#{RubyInstaller::SEVEN_ZIP}" x -y -o"#{target}" "#{file}" > NUL 2>&1]
 end
 
 #TODO confirm function returns false upon failing 7-Zip integrity test
 def seven_zip_valid?(target)
   puts "** 7-Zip integrity checking '#{target}'" if Rake.application.options.trace
-  sh "\"#{RubyInstaller::SEVEN_ZIP}\" t \"#{target}\" > NUL 2>&1"
+  sh %Q["#{RubyInstaller::SEVEN_ZIP}" t "#{target}" > NUL 2>&1]
 end
 
 def seven_zip_get(source, item, target)
   puts "** Extracting '#{item}' from '#{source}' into '#{target}'" if Rake.application.options.trace
-  sh "\"#{RubyInstaller::SEVEN_ZIP}\" e -y \"#{source}\" -o\"#{target}\" \"#{item}\" > NUL 2>&1"
+  sh %Q["#{RubyInstaller::SEVEN_ZIP}" e -y "#{source}" -o"#{target}" "#{item}" > NUL 2>&1]
 end
 
 def seven_zip_build(source, target, options={})
   puts "** Building '#{target}' from '#{source}'" if Rake.application.options.trace
   sfx_arg = '-sfx7z.sfx' if options[:sfx]
-  sh "\"#{RubyInstaller::SEVEN_ZIP}\" a -mx=9 #{sfx_arg} \"#{target}\" \"#{source}\" > NUL 2>&1"
+  sh %Q["#{RubyInstaller::SEVEN_ZIP}" a -mx=9 #{sfx_arg} "#{target}" "#{source}" > NUL 2>&1]
 end
 
 def bsd_tar_extract(target, file, options = {})
@@ -90,6 +90,6 @@ def bsd_tar_extract(target, file, options = {})
   puts "** Extracting #{file} into #{target}" if Rake.application.options.trace
   absolute_file = File.expand_path(file)
   Dir.chdir(target) do
-    sh "\"#{RubyInstaller::BSD_TAR}\" -xf \"#{absolute_file}\" > NUL 2>&1", &block
+    sh %Q["#{RubyInstaller::BSD_TAR}" -xf "#{absolute_file}" > NUL 2>&1], &block
   end
 end
