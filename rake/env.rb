@@ -2,8 +2,8 @@ def append_env(name, value, delim=';')
   env_name = name.to_s.upcase
   sane_value = value.gsub(File::SEPARATOR, File::ALT_SEPARATOR)
   old_value = ENV[env_name] || ''
-  unless old_value.include?(sane_value)
-    ENV[env_name] = "#{sane_value}#{delim}" + old_value
+  unless old_value.include?(sane_value) || old_value.include?(value)
+    ENV[env_name] = "#{value}#{delim}" + old_value
   end
 end
 
