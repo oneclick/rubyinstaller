@@ -120,8 +120,8 @@ subdirectory for your DevKit artifact.
 
 Compiler     DKVER Values
 
-tdm          tdm-32-4.6.1, tdm-32-4.5.2 (*), tdm-32-4.5.1, tdm-32-4.5.0, tdm-64-4.5.1
-mingw        mingw-32-4.5.2, mingw-32-3.4.5
+tdm          tdm-32-4.6.1, tdm-32-4.5.2 (*)
+mingw        mingw-32-4.6.1, mingw-32-4.5.2, mingw-32-3.4.5
 mingw64      mingw64-32-4.5.4
 llvm         llvm-32-2.8
 

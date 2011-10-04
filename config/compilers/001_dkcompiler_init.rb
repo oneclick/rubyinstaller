@@ -8,9 +8,6 @@ module DevKitInstaller
   VALID_COMPILERS = [
     'tdm-32-4.6.1',
     'tdm-32-4.5.2',
-    'tdm-32-4.5.1',
-    'tdm-32-4.5.0',
-    'tdm-64-4.5.1',
     'llvm-32-2.8',
     'mingw-32-4.6.1',
     'mingw-32-4.5.2',
