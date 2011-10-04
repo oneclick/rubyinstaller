@@ -96,8 +96,8 @@ Subversion repository.
 
 === DevKit Build Task Examples:
 
-rake devkit                      # builds Installer (TDM 4.5.1)
-rake devkit DKVER=tdm-32-4.5.0   # builds Installer (TDM 32-bit 4.5.0)
+rake devkit                      # builds Installer (TDM 4.5.2)
+rake devkit DKVER=tdm-32-4.6.1   # builds Installer (TDM 32-bit 4.6.1)
 rake devkit 7Z=1                 # builds Installer and 7-Zip archive
 rake devkit SFX=1                # builds Installer and self-extracting archive
 
@@ -111,7 +111,7 @@ DKVER=vendor-bits-version command line value as part of your rake task
 invocation. For example:
 
 rake devkit sfx=1 dkver=llvm-32-2.8
-rake ruby19 dkver=tdm-32-4.5.0
+rake ruby19 dkver=mingw-32-4.6.1
 
 If you built a custom DevKit as in the first example, look in the pkg/
 subdirectory for your DevKit artifact.
