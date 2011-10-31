@@ -1,4 +1,4 @@
-=== (In Git)
+=== 2011-10-31
 
 * Enhancements:
   * Add Ruby 1.9.3-p0 as default for `ruby19` task
