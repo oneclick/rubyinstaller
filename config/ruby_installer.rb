@@ -52,20 +52,20 @@ module RubyInstaller
     end
 
     Ruby19 = OpenStruct.new(
-      :version => "1.9.2-p290",
+      :version => "1.9.3-p0",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
-      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_2',
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_3',
       :checkout_target => 'downloads/ruby_1_9',
       :target => 'sandbox/ruby_1_9',
       :build_target => 'sandbox/ruby19_build',
       :install_target => 'sandbox/ruby19_mingw',
-      :patches => 'resources/patches/ruby192',
+      :patches => 'resources/patches/ruby193',
       :configure_options => [
         '--enable-shared',
         '--disable-install-doc'
       ],
       :files => [
-        'ruby-1.9.2-p290.tar.bz2'
+        'ruby-1.9.3-p0.tar.bz2'
       ],
       :dependencies => [
         :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib, :tcl, :tk
@@ -73,11 +73,19 @@ module RubyInstaller
       :excludes => [
         'libcharset1.dll'
       ],
-      :installer_guid => '{BD5F3A9C-22D5-4C1D-AEA0-ED1BE83A1E67}'
+      :installer_guid => '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
     )
 
-    # COMPAT mode for Ruby 1.9.1
+    # COMPAT mode for Ruby 1.9.2
     if ENV['COMPAT'] then
+      Ruby19.version = "1.9.2-p290"
+      Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_2'
+      Ruby19.files = ['ruby-1.9.2-p290.tar.bz2']
+      Ruby19.installer_guid = '{BD5F3A9C-22D5-4C1D-AEA0-ED1BE83A1E67}'
+    end
+
+    # OBSOLETE for Ruby 1.9.1
+    if ENV["OBSOLETE"]
       Ruby19.version = '1.9.1-p430'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_1'
       Ruby19.files = ['ruby-1.9.1-p430.tar.bz2']
@@ -99,9 +107,9 @@ module RubyInstaller
 
     # alter at runtime the checkout and versions of 1.9
     if ENV['TRUNK'] then
-      Ruby19.version = '1.9.3'
+      Ruby19.version = '2.0.0'
       Ruby19.checkout = 'http://svn.ruby-lang.org/repos/ruby/trunk'
-      Ruby19.installer_guid = '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
+      Ruby19.installer_guid = "{270FF09A-DC07-499D-B5D7-C4F5A30EDC83}"
     end
 
     # do not build or prepare any dependency library

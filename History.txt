@@ -1,6 +1,7 @@
 === (In Git)
 
 * Enhancements:
+  * Add Ruby 1.9.3-p0 as default for `ruby19` task
   * Upgraded rb-readline to version 0.4.1
   * Upgraded DevKit mintty to version 1.0.1
   * Upgraded DevKit binutils to version 2.21.53
