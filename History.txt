@@ -1,3 +1,8 @@
+=== (In Git)
+
+* Enhancements:
+  * Upgraded rb-readline to version 0.4.2
+
 === 2011-10-31
 
 * Enhancements:
