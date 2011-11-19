@@ -13,6 +13,7 @@ module DevKitInstaller
     'mingw-32-4.5.2',
     'mingw-32-3.4.5',
     'mingw64-32-4.5.4',
+    'mingw64-32-4.6.3',
 #    'mingw64-64-4.4.5',
   ]
 
