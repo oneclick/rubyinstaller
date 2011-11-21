@@ -3,6 +3,7 @@
 * Enhancements:
   * Add mingw64-32-4.6.3 toolchain support
   * Upgraded rb-readline to version 0.4.2
+  * Upgraded Tcl/Tk to version 8.5.11
 
 === 2011-10-31
 

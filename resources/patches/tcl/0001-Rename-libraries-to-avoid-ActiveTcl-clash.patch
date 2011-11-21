@@ -1,17 +1,17 @@
 From 9b7a3d34ee22b5b55a8dc9482304c5c30224c5d0 Mon Sep 17 00:00:00 2001
 From: Bosko Ivanisevic <bosko.ivanisevic@gmail.com>
-Date: Thu, 30 Jun 2011 08:31:29 +0200
+Date: Sun, 20 Nov 2011 17:42:29 +0200
 Subject: [PATCH] Rename libraries to avoid ActiveTcl clash
 
 ---
- tcl8.5.10/win/Makefile.in |   10 +++++-----
- tcl8.5.10/win/configure   |   10 +++++-----
+ tcl8.5.11/win/Makefile.in |   10 +++++-----
+ tcl8.5.11/win/configure   |   10 +++++-----
  2 files changed, 10 insertions(+), 10 deletions(-)
 
-diff --git a/tcl8.5.10/win/Makefile.in b/tcl8.5.10/win/Makefile.in
+diff --git a/tcl8.5.11/win/Makefile.in b/tcl8.5.11/win/Makefile.in
 index b48f1f4..0b8759a 100644
---- a/tcl8.5.10/win/Makefile.in
-+++ b/tcl8.5.10/win/Makefile.in
+--- a/tcl8.5.11/win/Makefile.in
++++ b/tcl8.5.11/win/Makefile.in
 @@ -128,11 +128,11 @@ REGDOTVER		= @TCL_REG_MAJOR_VERSION@.@TCL_REG_MINOR_VERSION@
  TCL_STUB_LIB_FILE	= @TCL_STUB_LIB_FILE@
  TCL_DLL_FILE		= @TCL_DLL_FILE@
@@ -29,10 +29,10 @@ index b48f1f4..0b8759a 100644
  
  SHARED_LIBRARIES 	= $(TCL_DLL_FILE) $(TCL_STUB_LIB_FILE) \
  			  $(DDE_DLL_FILE) $(REG_DLL_FILE) $(PIPE_DLL_FILE)
-diff --git a/tcl8.5.10/win/configure b/tcl8.5.10/win/configure
+diff --git a/tcl8.5.11/win/configure b/tcl8.5.11/win/configure
 index 174ad68..5ac8b5b 100644
---- a/tcl8.5.10/win/configure
-+++ b/tcl8.5.10/win/configure
+--- a/tcl8.5.11/win/configure
++++ b/tcl8.5.11/win/configure
 @@ -4988,16 +4988,16 @@ TCL_EXPORT_FILE_SUFFIX="\${NODOT_VERSION}${LIBSUFFIX}"
  
  eval "TCL_SRC_DIR=\"`cd $srcdir/..; pwd`\""
