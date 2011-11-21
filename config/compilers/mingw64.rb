@@ -46,7 +46,7 @@ module DevKitInstaller
       :url_2 => 'http://downloads.sourceforge.net/mingw',
       :url_3 => 'http://downloads.sourceforge.net/gnuwin32',
       :target => 'sandbox/devkit/mingw',
-      :move_from => 'sandbox/devkit/mingw/mingw32',
+      :relocate => 'sandbox/devkit/mingw/mingw32',
       :files => {
         :url_1 => [
           'i686-w64-mingw32-gcc-4.6.3_rubenvb.7z'
