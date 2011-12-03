@@ -275,7 +275,7 @@ module RubyInstaller
 
     RubyGems = OpenStruct.new(
       :release => 'official',
-      :version => '1.8.11',
+      :version => '1.8.12',
       :url => 'http://production.cf.rubygems.org/rubygems',
       :checkout => 'http://github.com/rubygems/rubygems.git',
       :checkout_target => 'downloads/rubygems',
@@ -285,7 +285,7 @@ module RubyInstaller
         '--no-rdoc'
       ],
       :files => [
-        'rubygems-1.8.11.tgz'
+        'rubygems-1.8.12.tgz'
       ],
       :hooks => [
         'resources/rubygems/operating_system.rb'
