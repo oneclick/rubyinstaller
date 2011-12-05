@@ -5,6 +5,7 @@
   * Upgraded rb-readline to version 0.4.2
   * Upgraded Tcl/Tk to version 8.5.11
   * Upgraded RubyGems to 1.8.12 on all versions of Ruby
+  * Upgraded DevKit mintty to version 1.0.2
 
 === 2011-10-31
 
