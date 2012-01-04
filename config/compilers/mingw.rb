@@ -35,8 +35,8 @@ module DevKitInstaller
           'libarchive-2.8.3-1-mingw32-dll-2.tar.bz2',
           'libbz2-1.0.5-2-mingw32-dll-2.tar.gz',
           'liblzma-4.999.9beta_20100401-1-mingw32-dll-1.tar.bz2',
-          'libintl-0.17-1-mingw32-dll-8.tar.lzma',
-          'libiconv-1.13.1-1-mingw32-dll-2.tar.lzma',
+          'libintl-0.18.1.1-2-mingw32-dll-8.tar.lzma',
+          'libiconv-1.14-2-mingw32-dll-2.tar.lzma',
           'libz-1.2.3-1-mingw32-dll-1.tar.gz'
         ],
         :url_2 => [
