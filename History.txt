@@ -2,6 +2,7 @@
 
 * Enhancements:
   * Upgraded DevKit mintty to version 1.0.3
+  * Add mingw-32-4.6.2 toolchain support
 
 === 2011-12-28
 
