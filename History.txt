@@ -5,6 +5,7 @@
   * Add mingw-32-4.6.2 toolchain support
   * Upgraded OpenSSL to version 1.0.0f
   * Upgraded DevKit MSYS libiconv (1.14-1) and libintl (0.18.1.1-1)
+  * Upgraded RubyGems to 1.8.15 on all versions of Ruby
 
 === 2011-12-28
 
