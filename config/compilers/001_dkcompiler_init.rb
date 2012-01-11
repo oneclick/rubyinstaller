@@ -10,7 +10,6 @@ module DevKitInstaller
     'tdm-32-4.5.2',
     'llvm-32-2.8',
     'mingw-32-4.6.2',
-    'mingw-32-4.6.1',
     'mingw-32-4.5.2',
     'mingw-32-3.4.5',
     'mingw64-32-4.5.4',

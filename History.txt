@@ -8,6 +8,7 @@
   * Upgraded RubyGems to 1.8.15 on all versions of Ruby
   * Upgraded DevKit binutils to version 2.22
   * Upgraded DevKit gdb (and deps) to version 7.3.1
+  * Removed mingw-32-4.6.1 toolchain support
 
 === 2011-12-28
 
