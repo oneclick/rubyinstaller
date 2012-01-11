@@ -15,7 +15,7 @@ module DevKitInstaller
           'gcc-4.6.1-tdm-1-c++.tar.lzma',
         ],
         :url_2 => [
-          'binutils-2.21.53-1-mingw32-bin.tar.lzma',
+          'binutils-2.22-1-mingw32-bin.tar.lzma',
           'mingwrt-3.20-mingw32-dev.tar.gz',
           'mingwrt-3.20-mingw32-dll.tar.gz',
           'w32api-3.17-2-mingw32-dev.tar.lzma',
@@ -57,7 +57,7 @@ module DevKitInstaller
           'gcc-4.5.2-tdm-1-c++.tar.lzma',
         ],
         :url_2 => [
-          'binutils-2.21.53-1-mingw32-bin.tar.lzma',
+          'binutils-2.22-1-mingw32-bin.tar.lzma',
           'mingwrt-3.20-mingw32-dev.tar.gz',
           'mingwrt-3.20-mingw32-dll.tar.gz',
           'w32api-3.17-2-mingw32-dev.tar.lzma',
