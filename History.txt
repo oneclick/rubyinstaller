@@ -7,6 +7,7 @@
   * Upgraded DevKit MSYS libiconv (1.14-1) and libintl (0.18.1.1-1)
   * Upgraded RubyGems to 1.8.15 on all versions of Ruby
   * Upgraded DevKit binutils to version 2.22
+  * Upgraded DevKit gdb (and deps) to version 7.3.1
 
 === 2011-12-28
 
