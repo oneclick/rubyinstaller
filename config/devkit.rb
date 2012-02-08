@@ -43,6 +43,7 @@ module DevKitInstaller
         'libgdbm-1.8.3-3-msys-1.0.13-dll-3.tar.lzma',
         'libcrypt-1.1_1-3-msys-1.0.13-dll-0.tar.lzma',
         'bash-3.1.17-4-msys-1.0.16-bin.tar.lzma',
+        'mksh-40.0.0c-1-msys-1.0.17-bin.tar.lzma',
         'termcap-0.20050421_1-2-msys-1.0.13-bin.tar.lzma',
         'libregex-1.20090805-2-msys-1.0.13-dll-1.tar.lzma',
         'crypt-1.1_1-3-msys-1.0.13-bin.tar.lzma',

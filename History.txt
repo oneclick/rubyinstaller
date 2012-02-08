@@ -9,6 +9,7 @@
   * Upgraded DevKit binutils to version 2.22
   * Upgraded DevKit gdb (and deps) to version 7.3.1
   * Removed mingw-32-4.6.1 toolchain support
+  * Add DevKit MSYS Korn Shell (mksh) implementation
 
 === 2011-12-28
 
