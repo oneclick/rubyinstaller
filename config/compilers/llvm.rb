@@ -16,7 +16,7 @@ module DevKitInstaller
           'binutils-2.21-3-mingw32-bin.tar.lzma',
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.68-1-mingw32-bin.tar.lzma',
-          'autoconf-9-1-mingw32-bin.tar.lzma',
+          'autoconf-10-1-mingw32-bin.tar.lzma',
           'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
           'automake-4-1-mingw32-bin.tar.lzma',
           'gdb-7.2-1-mingw32-bin.tar.lzma',

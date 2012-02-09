@@ -16,7 +16,7 @@ module DevKitInstaller
         :url_2 => [
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.68-1-mingw32-bin.tar.lzma',
-          'autoconf-9-1-mingw32-bin.tar.lzma',
+          'autoconf-10-1-mingw32-bin.tar.lzma',
           'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
           'automake-4-1-mingw32-bin.tar.lzma',
           'gdb-7.3-2-mingw32-bin.tar.lzma',
@@ -54,7 +54,7 @@ module DevKitInstaller
         :url_2 => [
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.68-1-mingw32-bin.tar.lzma',
-          'autoconf-9-1-mingw32-bin.tar.lzma',
+          'autoconf-10-1-mingw32-bin.tar.lzma',
           'automake1.11-1.11.1-1-mingw32-bin.tar.lzma',
           'automake-4-1-mingw32-bin.tar.lzma',
           'libexpat-2.0.1-1-mingw32-dll-1.tar.gz',
