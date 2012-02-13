@@ -6,7 +6,7 @@
   * Add mingw-32-4.6.2 toolchain support
   * Upgraded OpenSSL to version 1.0.0g
   * Upgraded DevKit MSYS libiconv (1.14-1) and libintl (0.18.1.1-1)
-  * Upgraded RubyGems to 1.8.15 on all versions of Ruby
+  * Upgraded RubyGems to 1.8.16 on all versions of Ruby
   * Upgraded DevKit binutils to version 2.22
   * Upgraded DevKit gdb (and deps) to version 7.3.1
   * Removed mingw-32-4.6.1 toolchain support
