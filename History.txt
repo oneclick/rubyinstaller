@@ -1,6 +1,7 @@
 === (in git)
 
 * Enhancements:
+  * Upgraded Ruby 1.9.3 to patchlevel 125
   * Upgraded DevKit autoconf (and wrapper) to version 2.68
   * Upgraded DevKit mintty to version 1.0.3
   * Add mingw-32-4.6.2 toolchain support
