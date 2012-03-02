@@ -1,3 +1,8 @@
+=== (in git)
+
+* Enhancements:
+  * Upgraded RubyGems to 1.8.17 on all versions of Ruby
+
 === 2012-02-16
 
 * Enhancements:
