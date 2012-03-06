@@ -2,6 +2,7 @@
 
 * Enhancements:
   * Upgraded RubyGems to 1.8.17 on all versions of Ruby
+  * Increased file descriptions for 1.9.x to 32K. Closes #104
 
 === 2012-02-16
 

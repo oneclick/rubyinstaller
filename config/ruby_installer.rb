@@ -62,7 +62,8 @@ module RubyInstaller
       :patches => 'resources/patches/ruby193',
       :configure_options => [
         '--enable-shared',
-        '--disable-install-doc'
+        '--disable-install-doc',
+        "CPPFLAGS='-DFD_SETSIZE=32767'"
       ],
       :files => [
         'ruby-1.9.3-p125.tar.bz2'
