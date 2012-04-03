@@ -5,6 +5,9 @@
   * Increased file descriptions for 1.9.x to 32K. Closes #104
   * Upgraded OpenSSL to version 1.0.0h
 
+* Cleanup:
+  * Removed support for non-functioning DevKit flavors
+
 === 2012-02-16
 
 * Enhancements:
