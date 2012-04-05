@@ -17,10 +17,12 @@ module RubyInstaller
 
     Ruby18 = OpenStruct.new(
       :version => '1.8.7-p358',
+      :short_version => 'ruby18',
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_8_7',
       :checkout_target => 'downloads/ruby_1_8',
       :target => 'sandbox/ruby_1_8',
+      :doc_target => 'sandbox/doc/ruby18',
       :build_target => 'sandbox/ruby18_build',
       :install_target => 'sandbox/ruby18_mingw',
       :patches => 'resources/patches/ruby187',
@@ -53,10 +55,12 @@ module RubyInstaller
 
     Ruby19 = OpenStruct.new(
       :version => "1.9.3-p125",
+      :short_version => 'ruby19',
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_3',
       :checkout_target => 'downloads/ruby_1_9',
       :target => 'sandbox/ruby_1_9',
+      :doc_target => 'sandbox/doc/ruby19',
       :build_target => 'sandbox/ruby19_build',
       :install_target => 'sandbox/ruby19_mingw',
       :patches => 'resources/patches/ruby193',
