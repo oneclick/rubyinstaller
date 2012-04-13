@@ -4,7 +4,6 @@ require 'rake/clean'
 namespace(:tools) do
   namespace(:rubygems) do
     package = RubyInstaller::RubyGems
-    interpreter = RubyInstaller::Ruby18
     directory package.target
     CLEAN.include(package.target)
 
