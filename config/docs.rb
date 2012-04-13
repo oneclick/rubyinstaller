@@ -4,14 +4,12 @@ module RubyInstaller
   interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19]
 
   interpreters.each do |package|
+    doc_dir = File.join(RubyInstaller::ROOT, package.doc_target)
 
     core_glob    = File.join(package.target, "*.c")
     core_files   = Dir.glob(core_glob).map { |file| File.basename(file) }
 
     stdlib_files = [ './lib', './ext' ]
-
-    doc_dir = File.join(RubyInstaller::ROOT, package.doc_target)
-
 
     package.docs = [
       core = OpenStruct.new(
@@ -28,5 +26,23 @@ module RubyInstaller
         :exclude  => "./lib/rdoc"
       )
     ]
+
+    package.docs.each do |doc|
+      # Build options
+      opts = []
+      opts.concat ['-x', doc.exclude] if doc.exclude
+      doc.opts = opts unless opts.empty?
+
+      # Build chm file names
+      doc.chm_file_basename = "#{package.short_version}-#{doc.lib}.chm"
+      doc.chm_file = File.join(RubyInstaller::ROOT, package.doc_target, doc.chm_file_basename)
+
+    end
+
+    # meta_chm for CHM format
+    package.meta_chm = OpenStruct.new(
+      :title => "Ruby #{package.version} Help file",
+      :file  => File.join(package.doc_target, "#{package.short_version}.chm")
+    )
   end
 end
