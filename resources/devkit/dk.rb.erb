@@ -64,6 +64,7 @@ EOT
 <<-EOT
 # enable RubyInstaller DevKit usage as a vendorable helper library
 unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
+  puts "Prepending ENV['PATH'] to include DevKit..." if $DEBUG
   ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
 end
 ENV['RI_DEVKIT'] = '#{d}'
