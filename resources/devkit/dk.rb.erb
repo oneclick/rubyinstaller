@@ -49,9 +49,7 @@ EOT
 # #{DEVKIT_START} override 'gem install' to enable RubyInstaller DevKit usage
 Gem.pre_install do |gem_installer|
   unless gem_installer.spec.extensions.empty?
-    if require 'devkit'
-      Gem.ui.say 'Temporarily enhancing PATH to include DevKit...' if Gem.configuration.verbose
-    end
+    require 'devkit'
   end
 end
 # #{DEVKIT_END}
@@ -64,6 +62,12 @@ EOT
 <<-EOT
 # enable RubyInstaller DevKit usage as a vendorable helper library
 unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
+  phrase = 'Temporarily enhancing PATH to include DevKit...'
+  if defined?(Gem)
+    Gem.ui.say(phrase) if Gem.configuration.verbose
+  else
+    puts phrase
+  end
   puts "Prepending ENV['PATH'] to include DevKit..." if $DEBUG
   ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
 end
