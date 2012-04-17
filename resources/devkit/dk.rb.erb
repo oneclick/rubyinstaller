@@ -48,9 +48,7 @@ EOT
 <<-EOT
 # #{DEVKIT_START} override 'gem install' to enable RubyInstaller DevKit usage
 Gem.pre_install do |gem_installer|
-  unless gem_installer.spec.extensions.empty?
-    require 'devkit'
-  end
+    load 'devkit.rb' unless gem_installer.spec.extensions.empty?
 end
 # #{DEVKIT_END}
 EOT
