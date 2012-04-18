@@ -37,7 +37,7 @@ namespace(:dependencies) do
     pt = checkpoint(:tcl, :prepare) do
       patches = Dir.glob("#{package.patches}/*.patch").sort
       patches.each do |patch|
-        sh "git apply --directory #{package.target} #{patch}"
+        sh "git apply --ignore-whitespace --directory #{package.target} #{patch}"
       end
     end
     task :prepare => [:extract, pt]

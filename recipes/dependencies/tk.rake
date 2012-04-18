@@ -40,7 +40,7 @@ namespace(:dependencies) do
     pt = checkpoint(:tk, :prepare) do
       patches = Dir.glob("#{package.patches}/*.patch").sort
       patches.each do |patch|
-        sh "git apply --directory #{package.target} #{patch}"
+        sh "git apply --ignore-whitespace --directory #{package.target} #{patch}"
       end
     end
     task :prepare => [:extract, pt]
@@ -120,7 +120,7 @@ namespace(:dependencies) do
         # verify that diff can be applied
         result = system("git apply --check --directory #{parent} #{diff} > NUL 2>&1")
         if result
-          sh "git apply --directory #{parent} #{diff}"
+          sh "git apply --ignore-whitespace --directory #{parent} #{diff}"
         end
       end
     end
