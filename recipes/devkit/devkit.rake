@@ -60,6 +60,7 @@ namespace(:devkit) do
       ENV['PATH'] = "#{msys_path}\\bin;#{mingw_path}\\bin;" + ENV['PATH']
     end
 
+    # TODO remove as this env var override style will no longer be supported
     # Fragile --host alternative that currently allows the llvm-gcc and i686-w64-mingw32
     # toolchains to build deps and Ruby using their name prefixed tools, if applicable.
     if mingw.program_prefix
@@ -89,42 +90,49 @@ namespace(:devkit) do
       ]
     end
   end
+
+  task :build => ['devkit:msys', 'devkit:mingw', DevKitInstaller::DevKit.install_script, 'pkg'] do |t|
+    # copy helper scripts to DevKit sandbox
+    DevKitInstaller::DevKit.setup_scripts.each do |s|
+      FileUtils.cp(File.join(RubyInstaller::ROOT, 'resources', 'devkit', s),
+                   'sandbox/devkit')
+    end
+  end
+
+  # Devkit packing vars
+  archive_base = "DevKit-#{ENV['DKVER']}-#{Time.now.strftime('%Y%m%d-%H%M')}"
+
+  task :zip => [:build] do
+    # build a 7-Zip archive and/or a self-extracting archive
+    Dir.chdir('sandbox/devkit') do
+      seven_zip_build('*',
+                      File.join(RubyInstaller::ROOT, 'pkg', "#{archive_base}.7z"))
+    end
+  end
+
+  task :sfx => [:zip] do
+    Dir.chdir(RubyInstaller::ROOT) do
+      cmd = 'copy /b %s + %s %s' % [
+        'sandbox\extract_utils\7z.sfx',
+        "pkg\\#{archive_base}.7z",
+        "pkg\\#{archive_base}-sfx.exe"
+      ]
+      sh "#{cmd} > NUL"
+    end
+  end
 end
 
 desc 'Build DevKit installer and/or archives.'
-task :devkit => ['devkit:msys', 'devkit:mingw', DevKitInstaller::DevKit.install_script, 'pkg'] do |t|
-  sevenz_archive = ENV['7Z'] ? true : false
-  sevenz_sfx = ENV['SFX'] ? true : false
+task :devkit => ['devkit:build']
 
-  archive_base = "DevKit-#{ENV['DKVER']}-#{Time.now.strftime('%Y%m%d-%H%M')}"
+if ENV['7Z']
+  task :devkit => ['devkit:zip']
+end
 
-  # copy helper scripts to DevKit sandbox
-  DevKitInstaller::DevKit.setup_scripts.each do |s|
-    FileUtils.cp(File.join(RubyInstaller::ROOT, 'resources', 'devkit', s),
-              'sandbox/devkit')
-  end
-
-  # build a 7-Zip archive and/or a self-extracting archive
-  Dir.chdir('sandbox/devkit') do
-
-    seven_zip_build('*',
-                    File.join(RubyInstaller::ROOT, 'pkg', "#{archive_base}.7z"))
-
-    if sevenz_sfx
-      Dir.chdir(RubyInstaller::ROOT) do
-        cmd = 'copy /b %s + %s %s' % [
-          'sandbox\extract_utils\7z.sfx',
-          "pkg\\#{archive_base}.7z",
-          "pkg\\#{archive_base}-sfx.exe"
-        ]
-        sh "#{cmd} > NUL"
-      end
-    end
-
-  end if sevenz_archive || sevenz_sfx
+if ENV['SFX']
+  task :devkit => ['devkit:sfx']
+end
 
   # build a Windows Installer
   # TODO enable after finishing DevKit GUI code
   #Rake::Task['devkit:installer'].invoke(archive_base)
-
-end
