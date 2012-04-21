@@ -52,7 +52,7 @@ module RubyInstaller
     end
 
     Ruby19 = OpenStruct.new(
-      :version => "1.9.3-p125",
+      :version => "1.9.3-p194",
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.9",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_3',
       :checkout_target => 'downloads/ruby_1_9',
@@ -66,7 +66,7 @@ module RubyInstaller
         "CPPFLAGS='-DFD_SETSIZE=32767'"
       ],
       :files => [
-        'ruby-1.9.3-p125.tar.bz2'
+        'ruby-1.9.3-p194.tar.bz2'
       ],
       :dependencies => [
         :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib, :tcl, :tk
