@@ -1,4 +1,4 @@
-=== (in git)
+=== 2012-04-21
 
 * Enhancements:
   * Upgraded Ruby 1.9.3 to patchlevel 194
