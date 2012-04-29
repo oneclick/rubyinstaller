@@ -78,7 +78,9 @@ namespace(:devkit) do
   desc 'List valid DevKit flavors'
   task :ls do
     puts "\n=== Available DevKit's ==="
-    DevKitInstaller::COMPILERS.keys.sort.each { |c| puts "  #{c}" }
+    DevKitInstaller::COMPILERS.keys.sort.each do |k|
+      puts " #{DevKitInstaller::DEFAULT_VERSION.downcase == k.downcase ? '=>' : '  ' } #{k}"
+    end
   end
 end
 
