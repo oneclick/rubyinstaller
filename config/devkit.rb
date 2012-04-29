@@ -1,23 +1,8 @@
 require 'ostruct'
 
 module DevKitInstaller
-
   DEFAULT_VERSION = 'tdm-32-4.5.2'
   COMPILERS = {}
-
-  # TODO update this list when adding any new compiler or compiler version!
-  #      The format is a String consisting of vendor-bits-version
-  VALID_COMPILERS = [
-    'tdm-32-4.6.1',
-    'tdm-32-4.5.2',
-    'tdm-64-4.6.1',
-    'mingw-32-4.6.2',
-    'mingw-32-4.5.2',
-    'mingw-32-3.4.5',
-    'mingw64-32-4.6.3',
-#    'mingw64-64-4.4.5',
-  ]
-
 end
 
 # load DevKit compiler definitions

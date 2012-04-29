@@ -36,7 +36,7 @@ namespace(:devkit) do
 
   # canonicalize DevKit compiler version and check if version is supported
   ENV['DKVER'] = ENV['DKVER'].nil? ? DevKitInstaller::DEFAULT_VERSION.downcase : ENV['DKVER'].downcase
-  fail '[FAIL] invalid DKVER value provided' unless DevKitInstaller::VALID_COMPILERS.include?(ENV['DKVER'])
+  fail '[FAIL] invalid DKVER value provided' unless DevKitInstaller::COMPILERS.has_key?(ENV['DKVER'])
 
   task :installer, [:target] => [DevKitInstaller::DevKit.inno_config, :innosetup] do |t, args|
     InnoSetup.iscc(DevKitInstaller::DevKit.inno_script,
