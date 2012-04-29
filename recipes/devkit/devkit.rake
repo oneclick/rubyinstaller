@@ -74,6 +74,12 @@ namespace(:devkit) do
     sh_exe = File.join(RubyInstaller::ROOT, DevKitInstaller::MSYS.target, 'bin', 'sh.exe')
     exec sh_exe
   end
+
+  desc 'List valid DevKit flavors'
+  task :ls do
+    puts "\n=== Available DevKit's ==="
+    DevKitInstaller::COMPILERS.keys.sort.each { |c| puts "  #{c}" }
+  end
 end
 
 desc 'Build DevKit installer and/or archives.'
