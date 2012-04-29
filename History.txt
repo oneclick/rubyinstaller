@@ -1,6 +1,7 @@
 === (in git)
 
 * Enhancements:
+  * Upgraded RubyGems to 1.8.24 on all versions of Ruby
   * Upgraded OpenSSL to version 1.0.0i
   * Upgraded libffi to version 3.0.11
 
