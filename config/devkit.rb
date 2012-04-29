@@ -1,14 +1,32 @@
 require 'ostruct'
 
-# load DevKit compiler definitions
-Dir.glob("#{RubyInstaller::ROOT}/config/compilers/*.rb").sort.each do |compiler|
-  puts "Loading #{File.basename(compiler)}" if Rake.application.options.trace
-  require compiler
-end
-
 module DevKitInstaller
 
   DEFAULT_VERSION = 'tdm-32-4.5.2'
+  COMPILERS = {}
+
+  # TODO update this list when adding any new compiler or compiler version!
+  #      The format is a String consisting of vendor-bits-version
+  VALID_COMPILERS = [
+    'tdm-32-4.6.1',
+    'tdm-32-4.5.2',
+    'tdm-64-4.6.1',
+    'mingw-32-4.6.2',
+    'mingw-32-4.5.2',
+    'mingw-32-3.4.5',
+    'mingw64-32-4.6.3',
+#    'mingw64-64-4.4.5',
+  ]
+
+end
+
+# load DevKit compiler definitions
+Dir.glob("#{RubyInstaller::ROOT}/config/compilers/*.rb").sort.each do |compiler|
+  puts "Loading #{File.basename(compiler)}" if Rake.application.options.trace
+  load compiler
+end
+
+module DevKitInstaller
 
   DevKit = OpenStruct.new(
     :installer_guid => '{D25478D4-72AE-40BF-829F-2C8CE49E2EE8}',
