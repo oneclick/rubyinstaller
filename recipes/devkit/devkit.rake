@@ -75,17 +75,18 @@ namespace(:devkit) do
     exec sh_exe
   end
 
-  desc 'List valid DevKit flavors'
+  desc 'List available DevKit flavors'
   task :ls do
     default = DevKitInstaller::DEFAULT_VERSION
     current = ENV['DKVER'] || default
 
     puts "\n=== Available DevKit's ==="
     DevKitInstaller::COMPILERS.keys.sort.each do |k|
-      str  = " #{current.downcase == k.downcase ? '=>' : '  ' }"
-      str << " #{k}"
-      str << "  #{default.downcase == k.downcase ? '[default]' : ''}"
-      puts str
+      puts ' %-2s %-17s  %s' % [
+        current.downcase == k.downcase ? '=>' : nil,
+        k,
+        default.downcase == k.downcase ? '[default]' : nil
+      ]
     end
   end
 end
