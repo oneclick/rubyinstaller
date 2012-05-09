@@ -48,7 +48,7 @@ module DevKitInstaller
       :relocate => 'sandbox/devkit/mingw/mingw32',
       :files => {
         :url_1 => [
-          'i686-w64-mingw32-gcc-4.6.3-1_rubenvb.7z'
+          'i686-w64-mingw32-gcc-4.6.3-release-win32_rubenvb.7z'
         ],
         :url_2 => [
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
