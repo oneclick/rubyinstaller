@@ -20,6 +20,9 @@ require 'config/ruby_installer'
 # DevKit configuration data
 require 'config/devkit'
 
+# Docs configuration data
+require 'config/docs'
+
 # Added download task from buildr
 require 'rake/downloadtask'
 require 'rake/extracttask'
