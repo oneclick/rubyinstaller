@@ -67,6 +67,7 @@ module RubyInstaller
       :configure_options => [
         '--enable-shared',
         '--disable-install-doc',
+        'debugflags=-g'
         "CPPFLAGS='-DFD_SETSIZE=32767'"
       ],
       :files => [
