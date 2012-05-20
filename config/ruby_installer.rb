@@ -134,11 +134,11 @@ module RubyInstaller
 
     Zlib = OpenStruct.new(
       :release => "alternate",
-      :version => "1.2.5",
-      :url => "http://github.com/downloads/oneclick/rubyinstaller",
+      :version => "1.2.7",
+      :url => "http://packages.openknapsack.org/zlib",
       :target => 'sandbox/zlib',
       :files => [
-        'zlib125-dll.zip'
+        'zlib-1.2.7-x86-windows.tar.lzma'
       ]
     )
 

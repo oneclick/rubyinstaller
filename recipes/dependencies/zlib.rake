@@ -31,23 +31,7 @@ namespace(:dependencies) do
     end
     task :extract => [:extract_utils, :download, package.target, et]
 
-    # zlib needs some relocation of files
-    # remove test/*.exe
-    # remove *.txt
-    # move zlib1.dll to bin
-    pt = checkpoint(:zlib, :prepare) do
-      cd File.join(RubyInstaller::ROOT, package.target) do
-        rm_rf "test"
-        Dir.glob("*.txt").each do |path|
-          rm_f path
-        end
-        mkdir 'bin'
-        mv "zlib1.dll", "bin"
-      end
-    end
-    task :prepare => [:extract, pt]
-
-    task :activate => [:prepare] do
+    task :activate => [:extract] do
       puts "Activating zlib version #{package.version}"
       activate(package.target)
     end
@@ -57,6 +41,5 @@ end
 task :zlib => [
   'dependencies:zlib:download',
   'dependencies:zlib:extract',
-  'dependencies:zlib:prepare',
   'dependencies:zlib:activate'
 ]
