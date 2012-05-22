@@ -23,11 +23,9 @@ def extract(file, target, options = {})
     # tar.z, tar.gz, tar.bz2 and tar.lzma contains .tar files inside, use bsdtar to
     # extract the files directly to target directory without the need to first
     # extract to a temporary directory as when using 7za.exe
-    when /(^.+\.tar)\.z$/, /(^.+\.tar)\.gz$/, /(^.+\.tar)\.bz2$/, /(^.+\.tar)\.lzma$/
+    when /^.+\.(tar\.(z|gz|bz2|lzma)|tgz)$/
       bsd_tar_extract(target, file, options)
-    when /(^.+)\.tgz$/
-      bsd_tar_extract(target, file, options)
-    when /^.+\.zip$/, /^.+\.7z$/
+    when /^.+\.(zip|7z)$/
       seven_zip(target, file)
     else
       raise "Unknown file extension! (for file #{file})"
