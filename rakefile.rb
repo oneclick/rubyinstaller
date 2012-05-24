@@ -16,6 +16,7 @@ require 'rake/core_extensions'
 
 # RubyInstaller configuration data
 require 'config/ruby_installer'
+require 'config/dependencies'
 
 # DevKit configuration data
 require 'config/devkit'
