@@ -30,7 +30,7 @@ dependencies.each do |dependency_key, dependency|
       task :extract => [:extract_utils, :download, dependency.target, et]
 
       task :activate => [:extract] do
-        puts "Activating #{dependency_key} version #{dependency.version}"
+        puts "Activating #{dependency.human_name} version #{dependency.version}"
         activate(dependency.target)
       end
     end

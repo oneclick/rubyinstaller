@@ -2,6 +2,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES = {}
 
   KNAPSACK_PACKAGES['zlib'] = OpenStruct.new(
+    :human_name => "Zlib",
     :release => "alternate",
     :version => "1.2.7",
     :url => "http://packages.openknapsack.org/zlib",
