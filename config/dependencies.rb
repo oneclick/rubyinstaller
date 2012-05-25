@@ -32,6 +32,16 @@ module RubyInstaller
     ]
   )
 
+  KNAPSACK_PACKAGES['yaml'] = OpenStruct.new(
+    :human_name => "LibYAML",
+    :version => '0.1.4',
+    :url => "http://packages.openknapsack.org/libyaml",
+    :target => 'sandbox/libyaml',
+    :files => [
+      'libyaml-0.1.4-x86-windows.tar.lzma'
+    ]
+  )
+
   PureReadline = OpenStruct.new(
     :release => 'experimental',
     :version => '0.5.2-0.4.2',
@@ -64,21 +74,6 @@ module RubyInstaller
           'basic-bsdtar-2.8.3-1-mingw32-bin.zip'
         ],
       }
-  )
-
-  LibYAML = OpenStruct.new(
-    :url => 'http://pyyaml.org/download/libyaml',
-    :version => '0.1.4',
-    :target => 'sandbox/src-libyaml',
-    :install_target => 'sandbox/libyaml',
-    :patches => 'resources/patches/yaml',
-    :configure_options => [
-      '--enable-static',
-      '--disable-shared'
-    ],
-    :files => [
-      'yaml-0.1.4.tar.gz',
-    ]
   )
 
   Tcl = OpenStruct.new(
