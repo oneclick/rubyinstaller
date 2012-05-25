@@ -12,6 +12,16 @@ module RubyInstaller
     ]
   )
 
+  KNAPSACK_PACKAGES['openssl'] = OpenStruct.new(
+    :human_name => "OpenSSL",
+    :version => '1.0.0j',
+    :url => "http://packages.openknapsack.org/openssl",
+    :target => 'sandbox/openssl',
+    :files => [
+      'openssl-1.0.0j-x86-windows.tar.lzma'
+    ]
+  )
+
   PureReadline = OpenStruct.new(
     :release => 'experimental',
     :version => '0.5.2-0.4.2',
@@ -44,25 +54,6 @@ module RubyInstaller
           'basic-bsdtar-2.8.3-1-mingw32-bin.zip'
         ],
       }
-  )
-
-  OpenSsl = OpenStruct.new(
-    :url => 'http://openssl.org/source/',
-    :version => '1.0.0j',
-    :target => 'sandbox/src-openssl',
-    :install_target => 'sandbox/openssl',
-    :patches => 'resources/patches/openssl',
-    :configure_options => [
-      'mingw',
-      'zlib-dynamic'
-    ],
-    :dllnames => {
-      :libcrypto => 'libeay32-1.0.0-msvcrt.dll',
-      :libssl => 'ssleay32-1.0.0-msvcrt.dll',
-    },
-    :files => [
-      'openssl-1.0.0j.tar.gz',
-    ]
   )
 
   LibYAML = OpenStruct.new(
