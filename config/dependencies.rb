@@ -22,6 +22,16 @@ module RubyInstaller
     ]
   )
 
+  KNAPSACK_PACKAGES['ffi'] = OpenStruct.new(
+    :human_name => "libffi",
+    :version => '3.0.11',
+    :url => "http://packages.openknapsack.org/libffi",
+    :target => 'sandbox/libffi',
+    :files => [
+      'libffi-3.0.11-x86-windows.tar.lzma'
+    ]
+  )
+
   PureReadline = OpenStruct.new(
     :release => 'experimental',
     :version => '0.5.2-0.4.2',
@@ -68,21 +78,6 @@ module RubyInstaller
     ],
     :files => [
       'yaml-0.1.4.tar.gz',
-    ]
-  )
-
-  LibFFI = OpenStruct.new(
-    :url => 'http://github.com/atgreen/libffi/tarball/v3.0.11',
-    :version => '3.0.11',
-    :target => 'sandbox/src-libffi',
-    :install_target => 'sandbox/libffi',
-    :patches => 'resources/patches/libffi',
-    :configure_options => [
-      '--enable-static',
-      '--disable-shared'
-    ],
-    :files => [
-      'libffi-3.0.11.tar.gz',
     ]
   )
 
