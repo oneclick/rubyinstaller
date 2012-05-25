@@ -42,6 +42,18 @@ module RubyInstaller
     ]
   )
 
+  KNAPSACK_PACKAGES['iconv'] = OpenStruct.new(
+    :human_name => "Iconv",
+    :release => 'official',
+    :version => "1.14",
+    :url => "http://packages.openknapsack.org/libiconv",
+    :target => 'sandbox/iconv',
+    :files => [
+      'libiconv-1.14-x86-windows.tar.lzma'
+    ]
+  )
+
+
   PureReadline = OpenStruct.new(
     :release => 'experimental',
     :version => '0.5.2-0.4.2',
@@ -104,17 +116,6 @@ module RubyInstaller
     ],
     :dependencies => [
       :tcl
-    ]
-  )
-
-  Iconv = OpenStruct.new(
-    :release => 'official',
-    :version => "1.9.2-1",
-    :url => "http://downloads.sourceforge.net/gnuwin32",
-    :target => 'sandbox/iconv',
-    :files => [
-      'libiconv-1.9.2-1-bin.zip',
-      'libiconv-1.9.2-1-lib.zip'
     ]
   )
 

@@ -7,6 +7,7 @@
   * Upgraded OpenSSL to version 1.0.0j
   * Upgraded libffi to version 3.0.11
   * Upgraded ZLib to version 1.2.7
+  * Upgraded Iconv to version 1.14
   * Disable extra debug information from Ruby 1.9 builds (debugflags)
 
 === 2012-04-21
