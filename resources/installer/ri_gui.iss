@@ -82,10 +82,8 @@ begin
   TclTkChkBox := TCheckBox.Create(Page);
   TclTkChkBox.Parent := Page.Surface;
   TclTkChkBox.State := cbUnchecked;
-  TclTkChkBox.Caption := 'Install Tcl/Tk support';
-  TclTkChkBox.Hint := 'Select to install a Tcl/Tk GUI building toolkit for this' #13 +
-                      'Ruby installation. This option enables you to develop' #13 +
-                      'GUI applications in Ruby.';
+  TclTkChkBox.Caption := CustomMessage('InstallTclTk');
+  TclTkChkBox.Hint := CustomMessage('InstallTclTkHint');
   TclTkChkBox.ShowHint := True;
   TclTkChkBox.Alignment := taRightJustify;
   TclTkChkBox.Top := ScaleY(ChkBoxBaseY);
@@ -98,9 +96,8 @@ begin
   PathChkBox := TCheckBox.Create(Page);
   PathChkBox.Parent := Page.Surface;
   PathChkBox.State := cbUnchecked;
-  PathChkBox.Caption := 'Add Ruby executables to your PATH';
-  PathChkBox.Hint := 'Select to make this Ruby installation available from everywhere.' #13 +
-                     'This may affect existing Ruby installations.';
+  PathChkBox.Caption := CustomMessage('AddPath');
+  PathChkBox.Hint := CustomMessage('AddPathHint');
   PathChkBox.ShowHint := True;
   PathChkBox.Alignment := taRightJustify;
   PathChkBox.Top := ScaleY(ChkBoxCurrentY);
@@ -112,10 +109,8 @@ begin
   PathExtChkBox := TCheckBox.Create(Page);
   PathExtChkBox.Parent := Page.Surface;
   PathExtChkBox.State := cbUnchecked;
-  PathExtChkBox.Caption := 'Associate .rb and .rbw files with this Ruby installation';
-  PathExtChkBox.Hint := 'Select to enable running your Ruby scripts by double clicking' #13 +
-                        'or simply typing the script name at your shell prompt. This may' #13 +
-                        'affect existing Ruby installations.';
+  PathExtChkBox.Caption := CustomMessage('AssociateExt');
+  PathExtChkBox.Hint := CustomMessage('AssociateExtHint');
   PathExtChkBox.ShowHint := True;
   PathExtChkBox.Alignment := taRightJustify;
   PathExtChkBox.Top := ScaleY(ChkBoxCurrentY);
@@ -131,7 +126,7 @@ begin
   TmpLabel.Left := ScaleX(6);
   TmpLabel.Width := Page.SurfaceWidth;
   TmpLabel.WordWrap := True;
-  TmpLabel.Caption := 'TIP: Mouse over the above options for more detailed information.';
+  TmpLabel.Caption := CustomMessage('MouseoverHint');
 
   ParseSilentTasks;
 
@@ -145,7 +140,7 @@ begin
   TmpLabel.Top := ScaleY(180);
   TmpLabel.Left := ScaleX(176);
   TmpLabel.AutoSize := True;
-  TmpLabel.Caption := 'Web Site:';
+  TmpLabel.Caption := CustomMessage('WebSiteLabel');
 
   URLText := TNewStaticText.Create(HostPage);
   URLText.Parent := HostPage;
@@ -162,7 +157,7 @@ begin
   TmpLabel.Top := ScaleY(196);
   TmpLabel.Left := ScaleX(176);
   TmpLabel.AutoSize := True;
-  TmpLabel.Caption := 'Support group:';
+  TmpLabel.Caption := CustomMessage('SupportGroupLabel');
 
   URLText := TNewStaticText.Create(HostPage);
   URLText.Parent := HostPage;
@@ -179,7 +174,7 @@ begin
   TmpLabel.Top := ScaleY(212);
   TmpLabel.Left := ScaleX(176);
   TmpLabel.AutoSize := True;
-  TmpLabel.Caption := 'Wiki:';
+  TmpLabel.Caption := CustomMessage('WikiLabel');
 
   URLText := TNewStaticText.Create(HostPage);
   URLText.Parent := HostPage;
@@ -196,14 +191,14 @@ begin
   TmpLabel.Top := ScaleY(245);
   TmpLabel.Left := ScaleX(176);
   TmpLabel.AutoSize := True;
-  TmpLabel.Caption := 'How about a toolkit for building native C RubyGems?';
+  TmpLabel.Caption := CustomMessage('IntroductionDevKitLabel');
 
   TmpLabel := TNewStaticText.Create(HostPage);
   TmpLabel.Parent := HostPage;
   TmpLabel.Top := ScaleY(260);
   TmpLabel.Left := ScaleX(176);
   TmpLabel.AutoSize := True;
-  TmpLabel.Caption := 'DevKit:';
+  TmpLabel.Caption := CustomMessage('DevKitLabel');
 
   URLText := TNewStaticText.Create(HostPage);
   URLText.Parent := HostPage;
@@ -219,5 +214,5 @@ end;
 procedure CurPageChanged(CurPageID: Integer);
 begin
   if CurPageID = wpSelectDir then
-    WizardForm.NextButton.Caption := '&Install';
+    WizardForm.NextButton.Caption := SetupMessage(msgButtonInstall);
 end;
