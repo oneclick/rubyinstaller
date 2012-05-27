@@ -14,6 +14,6 @@ Source: ..\..\sandbox\doc\ruby<%= major_minor.sub('.', '') %>\*.chm; DestDir: {a
 Source: ..\..\sandbox\book\bookofruby.pdf; DestDir: {app}\doc
 
 [Icons]
-Name: {group}\Documentation\Ruby <%= version %> API Reference; Filename: {app}\doc\ruby<%= major_minor.sub('.', '') %>.chm; Flags: createonlyiffileexists
-Name: {group}\Documentation\The Book of Ruby; Filename: {app}\doc\bookofruby.pdf; Flags: createonlyiffileexists
+Name: {group}\{cm:DocumentationTitle}\{cm:APIReferenceTitle,<%= version %>}; Filename: {app}\doc\ruby<%= major_minor.sub('.', '') %>.chm; Flags: createonlyiffileexists
+Name: {group}\{cm:DocumentationTitle}\{cm:TheBookofRubyTitle}; Filename: {app}\doc\bookofruby.pdf; Flags: createonlyiffileexists
 #endif

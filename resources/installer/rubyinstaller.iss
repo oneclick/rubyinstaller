@@ -129,6 +129,12 @@ SupportGroupLabel=Support group:
 WikiLabel=Wiki:
 IntroductionDevKitLabel=How about a toolkit for building native C RubyGems?
 DevKitLabel=DevKit:
+InteractiveRubyTitle=Interactive Ruby
+RubyGemsDocumentationServerTitle=RubyGems Documentation Server
+StartCmdPromptWithRubyTitle=Start Command Prompt with Ruby
+DocumentationTitle=Documentation
+APIReferenceTitle=Ruby %1 API Reference
+TheBookofRubyTitle=The Book of Ruby
 
 #include "languages\jp.isl"
 
@@ -181,9 +187,9 @@ Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}
 Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: BuildPlatform ; ValueData: {#RubyBuildPlatform}; Check: IsNotAdmin
 
 [Icons]
-Name: {group}\Interactive Ruby; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
-Name: {group}\RubyGems Documentation Server; Filename: {app}\bin\gem.bat; Parameters: server --launch; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
-Name: {group}\Start Command Prompt with Ruby; Filename: {sys}\cmd.exe; Parameters: /E:ON /K {app}\bin\setrbvars.bat; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists
+Name: {group}\{cm:InteractiveRubyTitle}; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
+Name: {group}\{cm:RubyGemsDocumentationServerTitle}; Filename: {app}\bin\gem.bat; Parameters: server --launch; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
+Name: {group}\{cm:StartCmdPromptWithRubyTitle}; Filename: {sys}\cmd.exe; Parameters: /E:ON /K {app}\bin\setrbvars.bat; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists
 Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
 
 [Code]
