@@ -116,6 +116,28 @@ en.SelectDirLabel3=Setup will install [name] into the following folder. Click In
 en.SelectDirBrowseLabel=Please avoid any folder name that contains spaces (e.g. Program Files).
 en.DiskSpaceMBLabel=Required free disk space: ~[mb] MB
 
+[CustomMessages]
+InstallTclTk=Install Tcl/Tk support
+InstallTclTkHint=Select to install a Tcl/Tk GUI building toolkit for this%nRuby installation. This option enables you to develop%nGUI applications in Ruby.
+AddPath=Add Ruby executables to your PATH
+AddPathHint=Select to make this Ruby installation available from everywhere.%nThis may affect existing Ruby installations.
+AssociateExt=Associate .rb and .rbw files with this Ruby installation
+AssociateExtHint=Select to enable running your Ruby scripts by double clicking%nor simply typing the script name at your shell prompt. This may%naffect existing Ruby installations.
+MouseoverHint=TIP: Mouse over the above options for more detailed information.
+WebSiteLabel=Web Site:
+SupportGroupLabel=Support group:
+WikiLabel=Wiki:
+IntroductionDevKitLabel=How about a toolkit for building native C RubyGems?
+DevKitLabel=DevKit:
+InteractiveRubyTitle=Interactive Ruby
+RubyGemsDocumentationServerTitle=RubyGems Documentation Server
+StartCmdPromptWithRubyTitle=Start Command Prompt with Ruby
+DocumentationTitle=Documentation
+APIReferenceTitle=Ruby %1 API Reference
+TheBookofRubyTitle=The Book of Ruby
+
+#include "languages\ja.isl"
+
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 Source: {#RubyPath}\*; DestDir: {app}; Excludes: "\bin\tcl*.dll,\bin\tk*.dll,\lib\tcltk,\lib\ruby\{#RubyLibVersion}\tk*.rb,\lib\ruby\{#RubyLibVersion}\tcl*.rb,\lib\ruby\{#RubyLibVersion}\*-tk.rb,\lib\ruby\{#RubyLibVersion}\tk,\lib\ruby\{#RubyLibVersion}\tkextlib,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tcl*.so,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tk*.so"; Flags: recursesubdirs createallsubdirs
@@ -165,9 +187,9 @@ Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}
 Root: HKCU; Subkey: Software\RubyInstaller\{#RubyInstallerBaseId}\{#RubyVersion}; ValueType: string; ValueName: BuildPlatform ; ValueData: {#RubyBuildPlatform}; Check: IsNotAdmin
 
 [Icons]
-Name: {group}\Interactive Ruby; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
-Name: {group}\RubyGems Documentation Server; Filename: {app}\bin\gem.bat; Parameters: server --launch; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
-Name: {group}\Start Command Prompt with Ruby; Filename: {sys}\cmd.exe; Parameters: /E:ON /K {app}\bin\setrbvars.bat; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists
+Name: {group}\{cm:InteractiveRubyTitle}; Filename: {app}\bin\irb.bat; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists
+Name: {group}\{cm:RubyGemsDocumentationServerTitle}; Filename: {app}\bin\gem.bat; Parameters: server --launch; IconFilename: {app}\bin\ruby.exe; Flags: createonlyiffileexists runminimized
+Name: {group}\{cm:StartCmdPromptWithRubyTitle}; Filename: {sys}\cmd.exe; Parameters: /E:ON /K {app}\bin\setrbvars.bat; WorkingDir: {%HOMEDRIVE}{%HOMEPATH}; IconFilename: {sys}\cmd.exe; Flags: createonlyiffileexists
 Name: {group}\{cm:UninstallProgram,{#InstallerName}}; Filename: {uninstallexe}
 
 [Code]
