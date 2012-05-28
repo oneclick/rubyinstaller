@@ -1,7 +1,7 @@
 ; RubyInstaller Tcl/Tk extension InnoSetup support
-; Copyright (c) 2011 Jon Maken
+; Copyright (c) 2011-2012 Jon Maken
 ; License: Modified BSD License
-; Revision: 07/02/2011 2:22:05 PM
+; Revision: 2012-05-28 14:06:39 -0600
 
 [Files]
 Source: {#RubyPath}\lib\ruby\{#RubyLibVersion}\tk*.rb; DestDir: {app}\lib\ruby\{#RubyLibVersion}; Check: IsTclTk

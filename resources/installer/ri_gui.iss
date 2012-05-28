@@ -1,7 +1,8 @@
 // RubyInstaller Inno Setup GUI Customizations
 //
-// Copyright (c) 2009-2011 Jon Maken
-// Revision: 07/06/2011 9:18:45 AM
+// Copyright (c) 2009-2012 Jon Maken
+// Copyright (c) 2012 Yusuke Endoh
+// Revision: 2012-05-28 13:58:04 -0600
 // License: Modified BSD License
 
 const

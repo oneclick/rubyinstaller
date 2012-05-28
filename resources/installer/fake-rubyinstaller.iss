@@ -1,7 +1,7 @@
 ; Fake Ruby Installer - InnoSetup Script
 ; This script is used to build fake RubyInstallers for Windows for testing purposes
-; Copyright (c) 2009-2011 Jon Maken
-; Revision: 01/29/2011 2:31:03 PM
+; Copyright (c) 2009-2012 Jon Maken
+; Revision: 2012-05-28 14:07:10 -0600
 ; License: Modified BSD License
 
 ; PRE-CHECK

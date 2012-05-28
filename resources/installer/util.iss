@@ -1,7 +1,7 @@
 // Inno Setup utilities
 //
-// Copyright (c) 2009 Jon Maken
-// Revision: 07/02/2011 2:23:34 PM
+// Copyright (c) 2009-2012 Jon Maken
+// Revision: 2012-05-28 14:06:56 -0600
 // License: Modified BSD License
 
 // forward declarations

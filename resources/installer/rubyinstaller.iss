@@ -1,9 +1,10 @@
 ; RubyInstaller - InnoSetup Script (base)
 ; This script is used to build Ruby Installers for Windows
-; Copyright (c) 2009-2011 Jon Maken
-; Copyright (c) 2009-2011 Gordon Thiesfeld
-; Copyright (c) 2009-2011 Luis Lavena
-; Revision: 07/02/2011 2:25:30 PM
+; Copyright (c) 2009-2012 Jon Maken
+; Copyright (c) 2009-2012 Gordon Thiesfeld
+; Copyright (c) 2009-2012 Luis Lavena
+; Copyright (c) 2012 Yusuke Endoh
+; Revision: 2012-05-28 13:57:37 -0600
 ; License: Modified BSD License
 
 ; PRE-CHECK
