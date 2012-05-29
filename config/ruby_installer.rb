@@ -39,7 +39,7 @@ module RubyInstaller
         :gdbm, :iconv, :openssl, :pdcurses, :zlib, :tcl, :tk
       ],
       :excludes => [
-        'libcharset1.dll'
+        'libcharset-1.dll'
       ],
       :installer_guid => '{F6377277-9DF1-4a1f-A487-CB5D34DCD793}'
     )
@@ -77,7 +77,7 @@ module RubyInstaller
         :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib, :tcl, :tk
       ],
       :excludes => [
-        'libcharset1.dll'
+        'libcharset-1.dll'
       ],
       :installer_guid => '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
     )
