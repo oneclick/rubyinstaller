@@ -1,6 +1,8 @@
 === (in git)
 
 * Enhancements:
+  * Add support for Japanese language installers.
+  * Enhance Inno scripts to enable multi-language installers.
   * Add mingw64-32-4.7.1 support (mingwbuilds 20120528-rev-187923)
   * Correct mingw64 4.6.3 to latest stable release
   * Upgraded RubyGems to 1.8.24 on all versions of Ruby
