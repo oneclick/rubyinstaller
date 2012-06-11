@@ -12,7 +12,7 @@ module DevKitInstaller
       :relocate => 'sandbox/devkit/mingw/mingw',
       :files => {
         :url_1 => [
-          'i686-mingw-w64-gcc-4.7.1-prerelease-20120604-rev-188156-c,c++,fortran-sjlj.7z'
+          'i686-mingw-w64-gcc-4.7.1-prerelease-20120611-rev-188371-c,c++,fortran-sjlj.7z'
         ],
         :url_2 => [
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
