@@ -3,7 +3,7 @@
 * Enhancements:
   * Add support for Japanese language installers.
   * Enhance Inno scripts to enable multi-language installers.
-  * Add mingw64-32-4.7.1 support (mingwbuilds 20120611-rev-188371)
+  * Add mingw64-32-4.7.1 support (mingwbuilds 4.7.1 release)
   * Correct mingw64 4.6.3 to latest stable release
   * Upgraded RubyGems to 1.8.24 on all versions of Ruby
   * Upgraded OpenSSL to version 1.0.0j
