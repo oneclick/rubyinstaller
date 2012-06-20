@@ -112,12 +112,18 @@ interpreters.each do |package|
   end
 
   namespace package.short_version do
+    task "docs:check_source" do
+      unless File.exist? package.target
+        fail "Source directory doesn't exist. Perhaps you built using LOCAL or CHECKOUT?"
+      end
+    end
+
     task :clobber_docs do
       rm_rf package.doc_target
     end
 
     desc "build docs for #{package.short_version}"
-    task :docs => ['docs:htmlhelp', meta_chm.file]
+    task :docs => ['docs:htmlhelp', 'docs:check_source', meta_chm.file]
 
     desc "rebuild docs for #{package.short_version}"
     task :redocs => [:clobber_docs, :docs]
