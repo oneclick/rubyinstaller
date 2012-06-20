@@ -104,10 +104,10 @@ module RubyInstaller
     # local repository
     if ENV['LOCAL'] then
       Ruby18.installer_guid = '{12E6FD2D-D425-4E32-B77B-020A15A8346F}'
-      Ruby18.target = ENV['LOCAL'].gsub('\\', File::SEPARATOR)
+      Ruby18.target = File.expand_path(ENV['LOCAL'].gsub('\\', File::SEPARATOR))
 
       Ruby19.patches = nil
-      Ruby19.target = ENV['LOCAL'].gsub('\\', File::SEPARATOR)
+      Ruby19.target = File.expand_path(ENV['LOCAL'].gsub('\\', File::SEPARATOR))
       Ruby19.installer_guid = '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
     end
 

@@ -52,7 +52,6 @@ namespace(:interpreter) do
     task :extract => [:extract_utils] do
       case
       when ENV['LOCAL']
-        package.target = File.expand_path(File.join(ENV['LOCAL'], '.'))
       when ENV['CHECKOUT']
         package.target = File.expand_path(package.checkout_target)
       else
