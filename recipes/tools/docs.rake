@@ -6,12 +6,12 @@ interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19]
 begin
   gem 'rdoc', '~> 3.12'
   require 'rdoc/rdoc'
-  gem 'rdoc_chm', '~> 3.0.0'
+  gem 'rdoc_chm', '~> 3.1.0'
 rescue Gem::LoadError
   if Rake.application.options.show_tasks
     puts "You need rdoc 3.12 and rdoc_chm 3.0.0 gems installed"
     puts "in order to build the docs tasks."
-    puts "Try `gem install rdoc -v 3.12` and later `gem install rdoc_chm -v 3.0.0`"
+    puts "Try `gem install rdoc -v 3.12` and later `gem install rdoc_chm -v 3.1.0`"
     puts
   end
   interpreters = []
