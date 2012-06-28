@@ -211,6 +211,10 @@ task :ruby19 => [
 namespace :ruby19 do
   task :dependencies => ['interpreter:ruby19:dependencies']
   task :clean => ['interpreter:ruby19:clean']
+
+  task :sh => ['interpreter:ruby19:dependencies'] do
+    Rake::Task['devkit:sh'].invoke
+  end
 end
 
 unless ENV["NOGEMS"]
