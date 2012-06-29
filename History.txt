@@ -1,6 +1,7 @@
 === (in git)
 
 * Enhancements:
+  * Upgraded Ruby 1.8.7 to patchlevel 370
   * Add support for Japanese language installers.
   * Enhance Inno scripts to enable multi-language installers.
   * Upgraded documentation generator dependency (rdoc_chm) to 3.1.0. Closes #63
