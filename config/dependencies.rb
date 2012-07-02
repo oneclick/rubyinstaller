@@ -121,13 +121,16 @@ module RubyInstaller
 
   Gdbm = OpenStruct.new(
     :release => 'official',
-    :version => '1.8.3-1',
-    :url => "http://downloads.sourceforge.net/gnuwin32",
-    :target => 'sandbox/gdbm',
+    :version => '1.8.3',
+    :url => "http://ftpmirror.gnu.org/gdbm",
+    :target => 'sandbox/src-gdbm',
+    :install_target => 'sandbox/gdbm',
+    :patches => 'resources/patches/gdbm',
+    :configure_options => [
+      '--enable-static --enable-shared'
+    ],
     :files => [
-      'gdbm-1.8.3-1-bin.zip',
-      'gdbm-1.8.3-1-lib.zip',
-      'gdbm-1.8.3-1-src.zip'
+      'gdbm-1.8.3.tar.gz'
     ]
   )
 end

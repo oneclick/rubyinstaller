@@ -4,6 +4,7 @@ require 'rake/clean'
 namespace(:dependencies) do
   namespace(:gdbm) do
     package = RubyInstaller::Gdbm
+    compiler = DevKitInstaller::COMPILERS[ENV['DKVER']]
     directory package.target
     CLEAN.include(package.target)
 
@@ -30,24 +31,43 @@ namespace(:dependencies) do
     end
     task :extract => [:extract_utils, :download, package.target, et]
 
-    # gdbm needs some adjustments.
-    # move gdbm-dll.h from source to include
-    # move ndbm.h from source to include
-    # move dbm.h from source to include
+    # Apply patches
     pt = checkpoint(:gdbm, :prepare) do
-      cd File.join(RubyInstaller::ROOT, package.target) do
-        ['gdbm-dll.h', 'ndbm.h', 'dbm.h'].each do |file|
-          files = Dir.glob(File.join('src', 'gdbm', '*', 'gdbm-*-src', file))
-          fail "#{files.size} #{file} files found." unless files.size == 1
-          cp files[0], 'include'
-        end
+      patches = Dir.glob("#{package.patches}/*.patch").sort
+      patches.each do |patch|
+        sh "git apply --directory #{package.target} #{patch}"
       end
     end
-    task :prepare => [et, pt]
+    task :prepare => [:extract, pt]
 
-    task :activate => [:prepare] do
+    # Prepare sources for compilation
+    ct = checkpoint(:gdbm, :configure) do
+      install_target = File.join(RubyInstaller::ROOT, package.install_target)
+
+      cd package.target do
+        sh "sh ./configure #{package.configure_options.join(' ')} --prefix=#{install_target}"
+      end
+    end
+    task :configure => [:prepare, :compiler, ct]
+
+    mt = checkpoint(:gdbm, :make) do
+      cd package.target do
+        sh "make"
+      end
+    end
+    task :compile => [:configure, mt]
+
+    it = checkpoint(:gdbm, :install) do
+      cd package.target do
+        sh "make install"
+        sh "make install-compat"
+      end
+    end
+    task :install => [:compile, it]
+
+    task :activate => [:install] do
       puts "Activating gdbm version #{package.version}"
-      activate(package.target)
+      activate(package.install_target)
     end
   end
 end
@@ -56,5 +76,8 @@ task :gdbm => [
   'dependencies:gdbm:download',
   'dependencies:gdbm:extract',
   'dependencies:gdbm:prepare',
+  'dependencies:gdbm:configure',
+  'dependencies:gdbm:compile',
+  'dependencies:gdbm:install',
   'dependencies:gdbm:activate'
 ]
