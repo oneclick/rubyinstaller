@@ -44,7 +44,6 @@ module RubyInstaller
 
   KNAPSACK_PACKAGES['iconv'] = OpenStruct.new(
     :human_name => "Iconv",
-    :release => 'official',
     :version => "1.14",
     :url => "http://packages.openknapsack.org/libiconv",
     :target => 'sandbox/iconv',
@@ -53,6 +52,15 @@ module RubyInstaller
     ]
   )
 
+  KNAPSACK_PACKAGES["gdbm"] = OpenStruct.new(
+    :human_name => "GDBM",
+    :version => "1.8.3",
+    :url => "http://packages.openknapsack.org/gdbm",
+    :target => "sandbox/gdbm",
+    :files => [
+      "gdbm-1.8.3-x86-windows.tar.lzma"
+    ]
+  )
 
   PureReadline = OpenStruct.new(
     :release => 'experimental',
@@ -116,18 +124,6 @@ module RubyInstaller
     ],
     :dependencies => [
       :tcl
-    ]
-  )
-
-  Gdbm = OpenStruct.new(
-    :release => 'official',
-    :version => '1.8.3-1',
-    :url => "http://downloads.sourceforge.net/gnuwin32",
-    :target => 'sandbox/gdbm',
-    :files => [
-      'gdbm-1.8.3-1-bin.zip',
-      'gdbm-1.8.3-1-lib.zip',
-      'gdbm-1.8.3-1-src.zip'
     ]
   )
 end
