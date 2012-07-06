@@ -1,0 +1,431 @@
+From 88183980ad393f4dffa446e960a739e41965abc3 Mon Sep 17 00:00:00 2001
+From: Hiroshi Shirosaki <h.shirosaki@gmail.com>
+Date: Sat, 30 Jun 2012 21:08:37 +0900
+Subject: [PATCH] Fix gdbm reorganize failure
+
+Reorganize of gdbm doesn't work because file rename doesn't be allowed
+with opened files on Windows. Adding close/open file process fixes the
+issue.
+
+This patch is based on Usa's work which passes
+TestGDBM#test_s_open_error.
+http://jarp.does.notwork.org/win32/gdbm-1.8.3-1-src.zip
+
+This enables both static and dll libraries using libtool.
+
+GnuWin32 version is hard to build. So far I cannot build this.
+http://gnuwin32.sourceforge.net/packages/gdbm.htm
+---
+ Makefile.in |  28 +++++-----
+ gdbmopen.c  |   9 ++--
+ gdbmreorg.c | 170 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ systems.h   |  23 ++++++--
+ 4 files changed, 208 insertions(+), 22 deletions(-)
+
+diff --git a/Makefile.in b/Makefile.in
+index fec70bb..ba1c895 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -5,7 +5,7 @@ top_builddir = .
+ VPATH = @srcdir@
+ 
+ CC = @CC@
+-LIBTOOL = @LIBTOOL@
++LIBTOOL = libtool
+ 
+ # GDBM 1.8.3 builds shared libraries version 3.0
+ SHLIB_VER = 3 0 0
+@@ -130,22 +130,22 @@ install: libgdbm.la gdbm.h gdbm.info
+ 	$(srcdir)/mkinstalldirs $(INSTALL_ROOT)$(libdir) \
+ 		$(INSTALL_ROOT)$(includedir) $(INSTALL_ROOT)$(man3dir) \
+ 		$(INSTALL_ROOT)$(infodir)
+-	$(LIBTOOL) $(INSTALL) -c libgdbm.la $(INSTALL_ROOT)$(libdir)/libgdbm.la
+-	$(INSTALL_DATA) -o $(BINOWN) -g $(BINGRP) gdbm.h \
++	$(LIBTOOL) --mode=install $(INSTALL) libgdbm.la $(INSTALL_ROOT)$(libdir)/libgdbm.la
++	$(INSTALL_DATA) gdbm.h \
+ 		$(INSTALL_ROOT)$(includedir)/gdbm.h
+-	$(INSTALL_DATA) -o $(BINOWN) -g $(BINGRP) $(srcdir)/gdbm.3 \
++	$(INSTALL_DATA) $(srcdir)/gdbm.3 \
+ 		$(INSTALL_ROOT)$(man3dir)/gdbm.3
+-	$(INSTALL_DATA) -o $(BINOWN) -g $(BINGRP) $(srcdir)/gdbm.info \
++	$(INSTALL_DATA) $(srcdir)/gdbm.info \
+ 		$(INSTALL_ROOT)$(infodir)/gdbm.info
+ 
+ install-compat:
+ 	$(srcdir)/mkinstalldirs $(INSTALL_ROOT)$(libdir) \
+ 		$(INSTALL_ROOT)$(includedir)
+-	$(LIBTOOL) $(INSTALL) -c libgdbm_compat.la \
++	$(LIBTOOL) --mode=install $(INSTALL) libgdbm_compat.la \
+ 		$(INSTALL_ROOT)$(libdir)/libgdbm_compat.la
+-	$(INSTALL_DATA) -o $(BINOWN) -g $(BINGRP) $(srcdir)/dbm.h \
++	$(INSTALL_DATA) $(srcdir)/dbm.h \
+ 		$(INSTALL_ROOT)$(includedir)/dbm.h
+-	$(INSTALL_DATA) -o $(BINOWN) -g $(BINGRP) $(srcdir)/ndbm.h \
++	$(INSTALL_DATA) $(srcdir)/ndbm.h \
+ 		$(INSTALL_ROOT)$(includedir)/ndbm.h
+ 
+ #libgdbm.a: $(OBJS) gdbm.h
+@@ -156,12 +156,12 @@ install-compat:
+ libgdbm.la: $(LOBJS) gdbm.h
+ 	rm -f libgdbm.la
+ 	$(LIBTOOL) --mode=link $(CC) -o libgdbm.la -rpath $(libdir) \
+-		-version-info $(SHLIB_VER) $(LOBJS)
++		-version-info $(SHLIB_VER) $(LOBJS) -no-undefined
+ 
+ libgdbm_compat.la: $(C_LOBJS) gdbm.h
+ 	rm -f libgdbm_compat.la
+ 	$(LIBTOOL) --mode=link $(CC) -o libgdbm_compat.la -rpath $(libdir) \
+-		-version-info $(SHLIB_VER) $(C_LOBJS)
++		-version-info $(SHLIB_VER) $(C_LOBJS) libgdbm.la -no-undefined
+ 
+ gdbm.h:	gdbm.proto gdbmerrno.h gdbm.proto2
+ 	rm -f gdbm.h
+@@ -172,10 +172,10 @@ gdbm.h:	gdbm.proto gdbmerrno.h gdbm.proto2
+ 	chmod -w gdbm.h
+ 
+ testgdbm: testgdbm.o libgdbm.la @LIBOBJS@
+-	$(LIBTOOL) $(CC) $(LDFLAGS) -o testgdbm testgdbm.o libgdbm.la @LIBOBJS@
++	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o testgdbm testgdbm.o libgdbm.la @LIBOBJS@
+ 
+ testdbm: testdbm.o libgdbm.la libgdbm_compat.la
+-	$(LIBTOOL) $(CC) $(LDFLAGS) -o testdbm testdbm.o libgdbm.la libgdbm_compat.la
++	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o testdbm testdbm.o libgdbm.la libgdbm_compat.la
+ 
+ tdbm: testdbm.o
+ 	$(CC) $(LDFLAGS) -o tdbm testdbm.o $(LIBS)
+@@ -184,7 +184,7 @@ testndbm.o: testndbm.c
+ 	$(CC) -c -I. -I$(srcdir) $(CFLAGS) $(DEFS) -DGNU $(srcdir)/testndbm.c
+ 
+ testndbm: testndbm.o libgdbm.la libgdbm_compat.la
+-	$(LIBTOOL) $(CC) $(LDFLAGS) -o testndbm testndbm.o libgdbm.la libgdbm_compat.la
++	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o testndbm testndbm.o libgdbm.la libgdbm_compat.la
+ 
+ tndbm.o: testndbm.c
+ 	cp $(srcdir)/testndbm.c ./tndbm.c
+@@ -195,7 +195,7 @@ tndbm: tndbm.o
+ 	$(CC) $(LDFLAGS) -o tndbm tndbm.o $(LIBS)
+ 
+ conv2gdbm: conv2gdbm.o libgdbm.la @LIBOBJS@
+-	$(LIBTOOL) $(CC) $(LDFLAGS) -o conv2gdbm conv2gdbm.o $(LIBS) libgdbm.la @LIBOBJS@
++	$(LIBTOOL) --mode=link $(CC) $(LDFLAGS) -o conv2gdbm conv2gdbm.o $(LIBS) libgdbm.la @LIBOBJS@
+ 
+ lintgdbm: 
+ 	lint $(DEFS) $(LFLAGS) $(DBM_CF) $(NDBM_CF) $(GDBM_CF) testgdbm.c
+diff --git a/gdbmopen.c b/gdbmopen.c
+index 54cbcde..2808dbe 100644
+--- a/gdbmopen.c
++++ b/gdbmopen.c
+@@ -33,6 +33,7 @@
+ #include "gdbmdefs.h"
+ #include "gdbmerrno.h"
+ 
++
+ /* Initialize dbm system.  FILE is a pointer to the file name.  If the file
+    has a size of zero bytes, a file initialization procedure is performed,
+    setting up the initial structure in the file.  BLOCK_SIZE is used during
+@@ -126,20 +127,20 @@ gdbm_open (file, block_size, flags, mode, fatal_func)
+   switch (flags & GDBM_OPENMASK)
+     {
+       case GDBM_READER:
+-	dbf->desc = open (dbf->name, O_RDONLY, 0);
++	dbf->desc = open (dbf->name, O_RDONLY|O_BINARY, 0);
+ 	break;
+ 
+       case GDBM_WRITER:
+-	dbf->desc = open (dbf->name, O_RDWR, 0);
++	dbf->desc = open (dbf->name, O_RDWR|O_BINARY, 0);
+ 	break;
+ 
+       case GDBM_NEWDB:
+-	dbf->desc = open (dbf->name, O_RDWR|O_CREAT, mode);
++	dbf->desc = open (dbf->name, O_RDWR|O_CREAT|O_BINARY, mode);
+ 	need_trunc = TRUE;
+ 	break;
+ 
+       default:
+-	dbf->desc = open (dbf->name, O_RDWR|O_CREAT, mode);
++	dbf->desc = open (dbf->name, O_RDWR|O_CREAT|O_BINARY, mode);
+ 	break;
+ 
+     }
+diff --git a/gdbmreorg.c b/gdbmreorg.c
+index 16e8a02..6321bb0 100644
+--- a/gdbmreorg.c
++++ b/gdbmreorg.c
+@@ -34,7 +34,19 @@
+ #include "gdbmerrno.h"
+ #include "extern.h"
+ 
+-#if !HAVE_RENAME
++#ifdef _WIN32
++static int
++_gdbm_rename (old_name, new_name)
++     char* old_name;
++     char* new_name;
++{
++  if (!MoveFileEx (old_name, new_name, MOVEFILE_REPLACE_EXISTING))
++    return -1;
++
++  return 0;
++}
++#define rename _gdbm_rename
++#elif !HAVE_RENAME
+ 
+ /* Rename takes OLD_NAME and renames it as NEW_NAME.  If it can not rename
+    the file a non-zero value is returned.  OLD_NAME is guaranteed to
+@@ -61,6 +73,140 @@ _gdbm_rename (old_name, new_name)
+ #endif
+ 
+ 
++#ifdef _WIN32
++#include <errno.h>
++#include <limits.h>
++
++/*
++ * flock support code for windows
++ *
++ * This code is derived from ruby (http://www.ruby-lang.org/).
++ * Original copyright notice is below.
++ */
++/*
++ *  Copyright (c) 1993, Intergraph Corporation
++ *
++ *  You may distribute under the terms of either the GNU General Public
++ *  License or the Artistic License, as specified in the perl README file.
++ *
++ *  Various Unix compatibility functions and NT specific functions.
++ *
++ *  Some of this code was derived from the MSDOS port(s) and the OS/2 port.
++ *
++ */
++
++DWORD Win32System = (DWORD)-1;
++
++static DWORD
++IdOS(void)
++{
++    static OSVERSIONINFO osver;
++
++    if (osver.dwPlatformId != Win32System) {
++	memset(&osver, 0, sizeof(OSVERSIONINFO));
++	osver.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
++	GetVersionEx(&osver);
++	Win32System = osver.dwPlatformId;
++    }
++    return (Win32System);
++}
++
++static int
++IsWin95(void) {
++    return (IdOS() == VER_PLATFORM_WIN32_WINDOWS);
++}
++
++static int
++IsWinNT(void) {
++    return (IdOS() == VER_PLATFORM_WIN32_NT);
++}
++
++#define LOCK_SH 1
++#define LOCK_EX 2
++#define LOCK_NB 4
++#define LOCK_UN 8
++#ifndef EWOULDBLOCK
++#define EWOULDBLOCK 10035 /* EBASEERR + 35 (winsock.h) */
++#endif
++
++#define LK_ERR(f,i) ((f) ? (i = 0) : (errno = GetLastError() == ERROR_LOCK_VIOLATION ? EWOULDBLOCK : EACCES))
++#define LK_LEN      ULONG_MAX
++
++static int
++flock_winnt(HANDLE fh, int oper)
++{
++    OVERLAPPED o;
++    int i = -1;
++
++    memset(&o, 0, sizeof(o));
++
++    switch(oper) {
++      case LOCK_SH:		/* shared lock */
++	LK_ERR(LockFileEx(fh, 0, 0, LK_LEN, LK_LEN, &o), i);
++	break;
++      case LOCK_EX:		/* exclusive lock */
++	LK_ERR(LockFileEx(fh, LOCKFILE_EXCLUSIVE_LOCK, 0, LK_LEN, LK_LEN, &o), i);
++	break;
++      case LOCK_SH|LOCK_NB:	/* non-blocking shared lock */
++	LK_ERR(LockFileEx(fh, LOCKFILE_FAIL_IMMEDIATELY, 0, LK_LEN, LK_LEN, &o), i);
++	break;
++      case LOCK_EX|LOCK_NB:	/* non-blocking exclusive lock */
++	LK_ERR(LockFileEx(fh,
++			  LOCKFILE_EXCLUSIVE_LOCK|LOCKFILE_FAIL_IMMEDIATELY,
++			  0, LK_LEN, LK_LEN, &o), i);
++	break;
++      case LOCK_UN:		/* unlock lock */
++	LK_ERR(UnlockFileEx(fh, 0, LK_LEN, LK_LEN, &o), i);
++	break;
++      default:            /* unknown */
++	errno = EINVAL;
++	break;
++    }
++    return i;
++}
++
++static int
++flock_win95(HANDLE fh, int oper)
++{
++    int i = -1;
++
++    switch(oper) {
++      case LOCK_EX:
++	do {
++	    LK_ERR(LockFile(fh, 0, 0, LK_LEN, LK_LEN), i);
++	} while (i && errno == EWOULDBLOCK);
++	break;
++      case LOCK_EX|LOCK_NB:
++	LK_ERR(LockFile(fh, 0, 0, LK_LEN, LK_LEN), i);
++	break;
++      case LOCK_UN:
++	LK_ERR(UnlockFile(fh, 0, 0, LK_LEN, LK_LEN), i);
++	break;
++      default:
++	errno = EINVAL;
++	break;
++    }
++    return i;
++}
++
++#undef LK_ERR
++
++int
++flock(int fd, int oper)
++{
++    static int (*locker)(HANDLE, int) = NULL;
++
++    if (!locker) {
++	if (IsWinNT())
++	    locker = flock_winnt;
++	else
++	    locker = flock_win95;
++    }
++
++    return locker((HANDLE)_get_osfhandle(fd), oper);
++}
++#endif /* _WIN32 */
++
+ 
+ /* Reorganize the database.  This requires creating a new file and inserting
+    all the elements in the old file DBF into the new file.  The new file
+@@ -103,7 +249,11 @@ gdbm_reorganize (dbf)
+   strcpy (&new_name[0], dbf->name);
+   new_name[len+2] = 0;
+   new_name[len+1] = '#';
++#ifndef _WIN32
+   while ( (len > 0) && new_name[len-1] != '/')
++#else
++  while ( (len > 0) && new_name[len-1] != '/' && new_name[len-1] != '\\')
++#endif
+     {
+       new_name[len] = new_name[len-1];
+       len -= 1;
+@@ -163,20 +313,38 @@ gdbm_reorganize (dbf)
+ 
+   /* Move the new file to old name. */
+ 
++
++#ifdef _WIN32
++  close (new_dbf->desc);
++
++  if (dbf->file_locking)
++    {
++      UNLOCK_FILE(dbf);
++    }
++  close (dbf->desc);
++#endif
+   if (rename (new_name, dbf->name) != 0)
+     {
+       gdbm_errno = GDBM_REORGANIZE_FAILED;
++#ifdef _WIN32
++      dbf->desc = open (dbf->name, O_RDWR|O_BINARY, 0);
++      new_dbf->desc = open (new_name, O_RDWR|O_BINARY, 0);
++#endif
+       gdbm_close (new_dbf);
+       free (new_name);
+       return -1;
+     }
+ 
+   /* Fix up DBF to have the correct information for the new file. */
++#ifdef _WIN32
++  new_dbf->desc = open (dbf->name, O_RDWR|O_BINARY, 0);
++#else
+   if (dbf->file_locking)
+     {
+       UNLOCK_FILE(dbf);
+     }
+   close (dbf->desc);
++#endif
+   free (dbf->header);
+   free (dbf->dir);
+ 
+diff --git a/systems.h b/systems.h
+index 89bee2f..e9757a9 100644
+--- a/systems.h
++++ b/systems.h
+@@ -50,6 +50,10 @@
+ #if HAVE_FCNTL_H
+ #include <fcntl.h>
+ #endif
++#ifdef _WIN32
++#define _WIN32_WINNT 0x0500
++#include <windows.h>
++#endif
+ 
+ #ifndef SEEK_SET
+ #define SEEK_SET        0
+@@ -61,7 +65,10 @@
+ 
+ /* Do we have flock?  (BSD...) */
+ 
+-#if HAVE_FLOCK
++#if HAVE_FLOCK || defined(_WIN32)
++#ifdef _WIN32
++extern int flock(int fd, int oper);
++#endif
+ 
+ #ifndef LOCK_SH
+ #define LOCK_SH	1
+@@ -123,7 +130,9 @@
+ #endif
+ 
+ /* Do we have fsync? */
+-#if !HAVE_FSYNC
++#if defined(_WIN32)
++#define fsync(f) (!FlushFileBuffers((HANDLE)_get_osfhandle(f)))
++#elif !HAVE_FSYNC
+ #define fsync(f) {sync(); sync();}
+ #endif
+ 
+@@ -136,13 +145,21 @@
+ #define STATBLKSIZE 1024
+ #endif
+ 
++#ifndef O_BINARY
++#define O_BINARY 0
++#endif
++
+ /* Do we have ftruncate? */
+ #if HAVE_FTRUNCATE
+ #define TRUNCATE(dbf) ftruncate (dbf->desc, 0)
+ #else
+-#define TRUNCATE(dbf) close( open (dbf->name, O_RDWR|O_TRUNC, mode));
++#define TRUNCATE(dbf) close( open (dbf->name, O_RDWR|O_TRUNC|O_BINARY, mode));
+ #endif
+ 
+ #ifndef STDERR_FILENO
+ #define STDERR_FILENO 2
+ #endif
++
++#ifdef _WIN32
++#define link(src, dst) (!CreateHardLink((dst), (src), NULL))
++#endif
+-- 
+1.7.11.msysgit.0
+
