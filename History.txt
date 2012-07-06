@@ -1,6 +1,6 @@
 === (in git)
 * Enhancements:
-  * Update mingw64-32-4.7.1 support (mingwbuilds 4.7.1 PREFINAL)
+  * Update mingw64-32-4.7.1 support (mingwbuilds 4.7.1 rev1)
 
 === 2012-06-29
 
