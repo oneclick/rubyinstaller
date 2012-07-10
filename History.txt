@@ -1,7 +1,7 @@
 === (in git)
 
 * Enhancements:
-  * Update mingw64-32-4.7.1 support (mingwbuilds 4.7.1 rev1)
+  * Update mingw64-32-4.7.1 support (mingwbuilds 4.7.1 rev2)
   * Convert gdbm recipe to use Knapsack binaries
 
 === 2012-06-29
