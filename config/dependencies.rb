@@ -62,6 +62,16 @@ module RubyInstaller
     ]
   )
 
+  KNAPSACK_PACKAGES["pdcurses"] = OpenStruct.new(
+    :human_name => "PDCurses",
+    :version => "3.4",
+    :url => "http://packages.openknapsack.org/pdcurses",
+    :target => "sandbox/pdcurses",
+    :files => [
+      "pdcurses-3.4-x86-windows.tar.lzma"
+    ]
+  )
+
   PureReadline = OpenStruct.new(
     :release => 'experimental',
     :version => '0.5.2-0.4.2',
@@ -72,14 +82,6 @@ module RubyInstaller
     ]
   )
 
-  PdCurses = OpenStruct.new(
-    :version => '3.4',
-    :url => "http://downloads.sourceforge.net/pdcurses",
-    :target => 'sandbox/pdcurses',
-    :files => [
-      'pdc34dll.zip'
-    ]
-  )
 
   ExtractUtils = OpenStruct.new(
       :url_1 => 'http://downloads.sourceforge.net/sevenzip',
