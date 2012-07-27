@@ -5,6 +5,12 @@
   * Convert gdbm recipe to use Knapsack binaries
   * Convert pdcurses recipe to use Knapsack binaries
 
+* Internal:
+  * Allow cleanup before make to satisfy CI environment.
+    Usage:
+
+    rake ruby19 CLEAN=1
+
 === 2012-06-29
 
 * Enhancements:

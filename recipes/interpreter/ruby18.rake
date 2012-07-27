@@ -117,7 +117,8 @@ namespace(:interpreter) do
 
     task :compile => [:configure, :compiler, :dependencies] do
       cd package.build_target do
-        sh "make"
+        clean = ENV["CLEAN"] ? "clean" : ""
+        sh "make #{clean} all"
       end
     end
 
