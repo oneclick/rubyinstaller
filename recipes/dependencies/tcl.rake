@@ -47,6 +47,11 @@ namespace(:dependencies) do
       ENV['RC'] = "#{compiler.program_prefix}-windres" unless compiler.nil? || compiler.program_prefix.nil?
 
       install_target = File.join(RubyInstaller::ROOT, package.install_target)
+
+      cd "#{package.target}/tcl#{package.version}/win" do
+        sh "sh -c \"autoconf\""
+      end
+
       cd package.target do
         sh "sh tcl#{package.version}/win/configure #{package.configure_options.join(' ')} --prefix=#{install_target}"
       end
