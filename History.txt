@@ -4,6 +4,7 @@
   * Update mingw64-32-4.7.1 support (mingwbuilds 4.7.1 rev2)
   * Convert gdbm recipe to use Knapsack binaries
   * Convert pdcurses recipe to use Knapsack binaries
+  * Upgraded Tcl/Tk to version 8.5.12
 
 * Internal:
   * Allow cleanup before make to satisfy CI environment.

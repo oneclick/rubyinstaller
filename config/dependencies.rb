@@ -99,7 +99,7 @@ module RubyInstaller
   )
 
   Tcl = OpenStruct.new(
-    :version => '8.5.11',
+    :version => '8.5.12',
     :url => "http://downloads.sourceforge.net/tcl",
     :target => 'sandbox/src-tcl',
     :install_target => 'sandbox/tcl',
@@ -108,12 +108,12 @@ module RubyInstaller
       '--enable-threads'
     ],
     :files => [
-      'tcl8.5.11-src.tar.gz'
+      'tcl8.5.12-src.tar.gz'
     ]
   )
 
   Tk = OpenStruct.new(
-    :version => '8.5.11',
+    :version => '8.5.12',
     :url => "http://downloads.sourceforge.net/tcl",
     :target => 'sandbox/src-tk',
     :install_target => 'sandbox/tk',
@@ -122,7 +122,7 @@ module RubyInstaller
       '--enable-threads'
     ],
     :files => [
-      'tk8.5.11-src.tar.gz'
+      'tk8.5.12-src.tar.gz'
     ],
     :dependencies => [
       :tcl
