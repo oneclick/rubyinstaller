@@ -6,6 +6,11 @@
   * Convert pdcurses recipe to use Knapsack binaries
   * Upgraded Tcl/Tk to version 8.5.12
 
+* Bugfixes:
+  * Decreased file descriptors for 1.9.x to 2K. Closes #104 (again)
+    Ruby associates a file descriptor to a socket, so can't use more than
+    2048 FDs
+
 * Internal:
   * Allow cleanup before make to satisfy CI environment.
     Usage:
