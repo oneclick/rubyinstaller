@@ -1,4 +1,6 @@
 dependencies = RubyInstaller::KNAPSACK_PACKAGES
+dkver = ENV['DKVER'] || DevKitInstaller::DEFAULT_VERSION
+compiler = DevKitInstaller::COMPILERS[dkver]
 
 dependencies.each do |dependency_key, dependency|
   namespace(:dependencies) do
@@ -8,7 +10,14 @@ dependencies.each do |dependency_key, dependency|
 
       # Put files for the :download task
       dt = checkpoint(dependency_key, :download)
-      dependency.files.each do |f|
+
+      if compiler.host =~ /x86_64/
+        files = dependency.x64_files
+      else
+        files = dependency.files
+      end
+
+      files.each do |f|
         file_source = "#{dependency.url}/#{f}"
         file_target = "downloads/#{f}"
         download file_target => file_source

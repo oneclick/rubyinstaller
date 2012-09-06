@@ -111,6 +111,12 @@ namespace(:interpreter) do
           package.configure_options << "--with-tcllib=tcl85-ri"
         end
 
+        compiler = DevKitInstaller::COMPILERS[ENV['DKVER']]
+        if compiler.host
+          # add options for x64
+          package.configure_options << "--host=#{compiler.host}"
+        end
+
         cd package.build_target do
           sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
         end

@@ -9,6 +9,9 @@ module RubyInstaller
     :target => 'sandbox/zlib',
     :files => [
       'zlib-1.2.7-x86-windows.tar.lzma'
+    ],
+    :x64_files => [
+      'zlib-1.2.7-x64-windows.tar.lzma'
     ]
   )
 
@@ -19,6 +22,9 @@ module RubyInstaller
     :target => 'sandbox/openssl',
     :files => [
       'openssl-1.0.0j-x86-windows.tar.lzma'
+    ],
+    :x64_files => [
+      'openssl-1.0.0j-x64-windows.tar.lzma'
     ]
   )
 
@@ -29,6 +35,9 @@ module RubyInstaller
     :target => 'sandbox/libffi',
     :files => [
       'libffi-3.0.11-x86-windows.tar.lzma'
+    ],
+    :x64_files => [
+      'libffi-3.0.11-x64-windows.tar.lzma'
     ]
   )
 
@@ -39,6 +48,9 @@ module RubyInstaller
     :target => 'sandbox/libyaml',
     :files => [
       'libyaml-0.1.4-x86-windows.tar.lzma'
+    ],
+    :x64_files => [
+      'libyaml-0.1.4-x64-windows.tar.lzma'
     ]
   )
 
@@ -49,6 +61,9 @@ module RubyInstaller
     :target => 'sandbox/iconv',
     :files => [
       'libiconv-1.14-x86-windows.tar.lzma'
+    ],
+    :x64_files => [
+      'libiconv-1.14-x64-windows.tar.lzma'
     ]
   )
 
@@ -59,6 +74,9 @@ module RubyInstaller
     :target => "sandbox/gdbm",
     :files => [
       "gdbm-1.8.3-x86-windows.tar.lzma"
+    ],
+    :x64_files => [
+      "gdbm-1.8.3-x64-windows.tar.lzma"
     ]
   )
 
@@ -69,6 +87,39 @@ module RubyInstaller
     :target => "sandbox/pdcurses",
     :files => [
       "pdcurses-3.4-x86-windows.tar.lzma"
+    ],
+    :x64_files => [
+      "pdcurses-3.4-x64-windows.tar.lzma"
+    ]
+  )
+
+  KNAPSACK_PACKAGES["tcl"] = OpenStruct.new(
+    :human_name => "Tcl",
+    :version => "8.5.12",
+    :url => "http://packages.openknapsack.org/tcl",
+    :target => "sandbox/tcl",
+    :files => [
+      "tcl-8.5.12-x86-windows.tar.lzma"
+    ],
+    :x64_files => [
+      "tcl-8.5.12-x64-windows.tar.lzma"
+    ]
+  )
+
+  KNAPSACK_PACKAGES["tk"] = OpenStruct.new(
+    :human_name => "Tk",
+    :version => "8.5.12",
+    :url => "http://packages.openknapsack.org/tk",
+    :target => "sandbox/tk",
+    :patches => "resources/patches/tk",
+    :files => [
+      "tk-8.5.12-x86-windows.tar.lzma"
+    ],
+    :x64_files => [
+      "tk-8.5.12-x64-windows.tar.lzma"
+    ],
+    :dependencies => [
+      :tcl
     ]
   )
 
@@ -96,36 +147,5 @@ module RubyInstaller
           'basic-bsdtar-2.8.3-1-mingw32-bin.zip'
         ],
       }
-  )
-
-  Tcl = OpenStruct.new(
-    :version => '8.5.12',
-    :url => "http://downloads.sourceforge.net/tcl",
-    :target => 'sandbox/src-tcl',
-    :install_target => 'sandbox/tcl',
-    :patches => 'resources/patches/tcl',
-    :configure_options => [
-      '--enable-threads'
-    ],
-    :files => [
-      'tcl8.5.12-src.tar.gz'
-    ]
-  )
-
-  Tk = OpenStruct.new(
-    :version => '8.5.12',
-    :url => "http://downloads.sourceforge.net/tcl",
-    :target => 'sandbox/src-tk',
-    :install_target => 'sandbox/tk',
-    :patches => 'resources/patches/tk',
-    :configure_options => [
-      '--enable-threads'
-    ],
-    :files => [
-      'tk8.5.12-src.tar.gz'
-    ],
-    :dependencies => [
-      :tcl
-    ]
   )
 end
