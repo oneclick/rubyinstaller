@@ -12,9 +12,9 @@
     2048 FDs
 
 * Internal:
+  * Upgraded specific DevKit's to GDB version 7.5
   * Allow cleanup before make to satisfy CI environment.
     Usage:
-  * Upgraded specific DevKit's to GDB version 7.5
 
     rake ruby19 CLEAN=1
 
