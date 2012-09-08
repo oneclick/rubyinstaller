@@ -4,7 +4,7 @@
   * Updated mingw64-32-4.7.1 support (mingwbuilds 4.7.1 rev3)
   * Convert gdbm recipe to use Knapsack binaries
   * Convert pdcurses recipe to use Knapsack binaries
-  * Upgraded Tcl/Tk to version 8.5.12
+  * Convert tcl and tk recipes to use Knapsack binaries
 
 * Bugfixes:
   * Decreased file descriptors for 1.9.x to 2K. Closes #104 (again)
