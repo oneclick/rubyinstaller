@@ -5,14 +5,14 @@ module DevKitInstaller
       :version => 'mingw64-32-4.7.1',
       :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => nil,
-      :url_1 => 'http://downloads.sourceforge.net/mingwbuilds',
+      :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
       :url_2 => 'http://downloads.sourceforge.net/mingw',
       :url_3 => 'http://downloads.sourceforge.net/gnuwin32',
       :target => 'sandbox/devkit/mingw',
-      :relocate => 'sandbox/devkit/mingw/mingw',
+      :relocate => 'sandbox/devkit/mingw/mingw32',
       :files => {
         :url_1 => [
-          'i686-mingw-w64-gcc-4.7.1-release-c,c++,fortran-sjlj-rev3.7z'
+          'i686-w64-mingw32-gcc-4.7.1-2-release-win32_rubenvb.7z'
         ],
         :url_2 => [
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',

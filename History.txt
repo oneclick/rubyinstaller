@@ -1,7 +1,8 @@
 === (in git)
 
 * Enhancements:
-  * Updated mingw64-32-4.7.1 support (mingwbuilds 4.7.1 rev3)
+  * Changed mingw64-32-4.7.1 to use i686-w64-mingw32-gcc-4.7.1-2-release-win32_rubenvb
+  * Added mingwbuilds-32-4.7.1 support (mingwbuilds 4.7.1 rev3)
   * Convert gdbm recipe to use Knapsack binaries
   * Convert pdcurses recipe to use Knapsack binaries
   * Convert tcl and tk recipes to use Knapsack binaries
