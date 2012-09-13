@@ -16,8 +16,8 @@ module DevKitInstaller
         ],
         :url_2 => [
           'binutils-2.22-1-mingw32-bin.tar.lzma',
-          'mingwrt-3.20-mingw32-dev.tar.gz',
-          'mingwrt-3.20-mingw32-dll.tar.gz',
+          'mingwrt-3.20-2-mingw32-dev.tar.lzma',
+          'mingwrt-3.20-2-mingw32-dll.tar.lzma',
           'w32api-3.17-2-mingw32-dev.tar.lzma',
           'autoconf2.1-2.13-4-mingw32-bin.tar.lzma',
           'autoconf2.5-2.68-1-mingw32-bin.tar.lzma',
