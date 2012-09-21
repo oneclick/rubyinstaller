@@ -78,15 +78,18 @@ namespace(:devkit) do
 
   desc 'List available DevKit flavors'
   task :ls do
-    default = DevKitInstaller::DEFAULT_VERSION
+    compilers = DevKitInstaller::COMPILERS.keys.sort.map(&:downcase)
+    default = DevKitInstaller::DEFAULT_VERSION.downcase
     current = ENV['DKVER'] || default
+    current = current.downcase
 
     puts "\n=== Available DevKit's ==="
-    DevKitInstaller::COMPILERS.keys.sort.each do |k|
-      puts ' %-2s %-17s  %s' % [
-        current.downcase == k.downcase ? '=>' : nil,
+    max_len = compilers.map(&:length).max
+    compilers.each do |k|
+      puts " %-2s %-#{max_len+1}s %s" % [
+        current == k ? '=>' : nil,
         k,
-        default.downcase == k.downcase ? '[default]' : nil
+        default == k ? '[default]' : nil
       ]
     end
   end
