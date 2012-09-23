@@ -16,6 +16,7 @@
 ;                         /dRubyLibVersion=A.B.C \
 ;                         /dRubyPatch=123; \
 ;                         /dRubyPath=sandbox/ruby \
+;                         /dRubyBuildPlatform=i386-mingw32 \
 ;                         [/dInstVersion=26-OCT-2009] \
 ;                         [/dNoTk=true]
 ;                         [/dNoDocs=true]
@@ -40,6 +41,14 @@
   #endif
 #endif
 
+#if Defined(RubyBuildPlatform) == 0
+  # error Please provide a value for RubyBuildPlatform using /d parameter.
+#endif
+
+#if Defined(RubyShortPlatform) == 0
+  # error Please provide a value for RubyShortPlatform using /d parameter.
+#endif
+
 #if Defined(InstVersion) == 0
   #define InstVersion GetDateTimeString('dd-mmm-yy"T"hhnn', '', '')
 #endif
@@ -49,7 +58,8 @@
 #define RubyFullVersion RubyVersion + '-p' + RubyPatch
 
 ; Build Installer details using above values
-#define InstallerName "Ruby " + RubyFullVersion
+#define InstallerName "Ruby " + RubyFullVersion + RubyShortPlatform
+
 #define InstallerPublisher "RubyInstaller Team"
 #define InstallerHomepage "http://rubyinstaller.org"
 
@@ -57,7 +67,7 @@
 
 ; INCLUDES
 ; Include dynamically created version specific definitions
-#define InstallerConfigFile "config-" + RubyVersion + ".iss"
+#define InstallerConfigFile "config-" + RubyVersion + "-" + RubyBuildPlatform + ".iss"
 #include InstallerConfigFile
 
 ; Include Tcl/Tk artifacts unless building an non-Tk enabled installer

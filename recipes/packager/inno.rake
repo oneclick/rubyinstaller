@@ -168,6 +168,7 @@ directory 'pkg'
   # if info = RubyTools.ruby_version(File.join(pkg.target, 'version.h'))
   if info = RubyTools.parse_ruby(ruby_exe)
     version       = info[:version].dup
+    platform      = info[:platform]
 
     # construct either X.Y.Z-p123 or X.Y.Z-rNNNN (dev)
     if info[:patchlevel]
@@ -180,12 +181,17 @@ directory 'pkg'
     major_minor   = info[:version][0..2]
     namespace_ver = major_minor.sub('.', '')
 
-    # i386-mingw32, x86_64-mingw32
-    case info[:platform]
+    # i386-mingw32, x64-mingw32
+    case platform
     when "i386-mingw32"
-      # noop
-    when "x86_64-mingw32"
-      version     << "-x64"
+      guid            = pkg.installer_guid
+      limit_platforms = ""
+      short_platform  = ""
+    when "x64-mingw32"
+      guid            = pkg.installer_guid_x64
+      limit_platforms = "x64"
+      short_platform  = "-x64"
+      version         << short_platform
     end
 
     installer_pkg = "rubyinstaller-%s" % version
@@ -194,11 +200,10 @@ directory 'pkg'
     #       created in installer file task below
     files = FileList[
       'resources/installer/rubyinstaller.iss',
-      "resources/installer/config-#{version_xyz}.iss"
+      "resources/installer/config-#{version_xyz}-#{platform}.iss"
     ]
 
-    file "resources/installer/config-#{version_xyz}.iss" => ['resources/installer/config.iss.erb'] do |t|
-      guid = pkg.installer_guid
+    file "resources/installer/config-#{version_xyz}-#{platform}.iss" => ['resources/installer/config.iss.erb'] do |t|
       contents = ERB.new(File.read(t.prerequisites.first)).result(binding)
 
       when_writing("Generating #{t.name}") do
@@ -223,13 +228,15 @@ directory 'pkg'
     end
     file "pkg/#{installer_pkg}.exe" => installer_deps do |t|
       options = {
-        :ruby_version     => info[:version],
-        :ruby_lib_version => info[:lib_version],
-        :ruby_patch       => info[:patchlevel] || info[:revision],
-        :ruby_path        => File.expand_path(pkg.install_target),
-        :output           => 'pkg',
-        :filename         => installer_pkg,
-        :sign             => ENV['SIGNED']
+        :ruby_version        => info[:version],
+        :ruby_lib_version    => info[:lib_version],
+        :ruby_patch          => info[:patchlevel] || info[:revision],
+        :ruby_path           => File.expand_path(pkg.install_target),
+        :ruby_build_platform => info[:platform],
+        :ruby_short_platform => short_platform,
+        :output              => 'pkg',
+        :filename            => installer_pkg,
+        :sign                => ENV['SIGNED']
       }
       options[:no_tk] = true if ENV['NOTK']
       options[:no_docs] = true if ENV['NODOCS']
@@ -288,7 +295,7 @@ directory 'pkg'
       end
 
       task :clean do
-        rm_f "resources/installer/config-#{version_xyz}.iss"
+        rm_f "resources/installer/config-#{version_xyz}-#{platform}.iss"
         rm_f "pkg/#{installer_pkg}.exe"
       end
 

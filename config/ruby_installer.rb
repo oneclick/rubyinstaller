@@ -79,7 +79,8 @@ module RubyInstaller
       :excludes => [
         'libcharset-1.dll'
       ],
-      :installer_guid => '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
+      :installer_guid => '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}',
+      :installer_guid_x64 => '{74C4327B-E042-4B03-A8BA-482FD66BEEDB}'
     )
 
     # COMPAT mode for Ruby 1.9.2

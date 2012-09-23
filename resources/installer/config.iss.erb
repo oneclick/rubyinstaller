@@ -1,11 +1,9 @@
 ; Ruby <%= version %> Configuration File.
 
-; TODO update to parse from source file/dir, potentially move to main script
-#define RubyBuildPlatform "i386-mingw32"
-
 [Setup]
 AppId={<%= guid %>
-DefaultDirName={sd}\Ruby<%= version_xyz.gsub('.', '') %>
+DefaultDirName={sd}\Ruby<%= version_xyz.gsub('.', '') %><%= short_platform %>
+ArchitecturesAllowed=<%= limit_platforms %>
 
 ; Include documentation unless requested otherwise
 #ifndef NoDocs
