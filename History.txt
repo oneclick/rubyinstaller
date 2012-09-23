@@ -17,6 +17,7 @@
 * Internal:
   * Upgraded mingwrt for tdm-32-4.6.1 and mingw-32-4.6.2
   * Upgraded specific DevKit's to GDB version 7.5
+  * Correct typo in rdoc_chm installation message.
   * Allow cleanup before make to satisfy CI environment.
     Usage:
 
