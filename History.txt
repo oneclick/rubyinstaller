@@ -1,6 +1,7 @@
 === (in git)
 
 * Enhancements:
+  * Retire build support for mingw-32-4.5.2 DevKit
   * Add MinGW-w64 v2.0.7 header/CRT update to mingw64-{34,64}-4.7.2
   * Add tdm-32-4.7.1 and tdm-64-4.7.1 support
   * Changed mingw64-32-4.7.2 to use i686-w64-mingw32-gcc-4.7.2-release-win32_rubenvb
