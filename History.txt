@@ -6,7 +6,7 @@
   * Add tdm-32-4.7.1 and tdm-64-4.7.1 support
   * Changed mingw64-32-4.7.2 to use i686-w64-mingw32-gcc-4.7.2-release-win32_rubenvb
   * Add 64bits GCC 4.7.2 from mingw-w64 project (rubenvb builds)
-  * Added mingwbuilds-32-4.7.2 support (mingwbuilds 4.7.2 rev1)
+  * Added mingwbuilds-32-4.7.2 support
   * Convert gdbm recipe to use Knapsack binaries
   * Convert pdcurses recipe to use Knapsack binaries
   * Convert tcl and tk recipes to use Knapsack binaries
