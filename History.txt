@@ -1,6 +1,7 @@
 === (in git)
 
 * Enhancements:
+  * Update mingwbuilds-32-4.7.2 to rev1
   * Retire build support for mingw64-32-4.6.3 DevKit
 
 === 2012-10-21
