@@ -83,6 +83,16 @@ module RubyInstaller
       :installer_guid_x64 => '{74C4327B-E042-4B03-A8BA-482FD66BEEDB}'
     )
 
+    # NEXT mode for Ruby 2.0.0
+    if ENV["NEXT"]
+      Ruby19.version = "2.0.0-preview1"
+      Ruby19.checkout = "http://svn.ruby-lang.org/repos/ruby/trunk"
+      Ruby19.url = "http://ftp.ruby-lang.org/pub/ruby/2.0"
+      Ruby19.files = ["ruby-2.0.0-preview1.tar.bz2"]
+      Ruby19.installer_guid = "{ABAA9781-845A-43CC-BABA-76CB580FE35D}"
+      Ruby19.installer_guid_x64 = "{B5BD4615-7C8A-4E50-9179-71B593CA6B67}"
+    end
+
     # COMPAT mode for Ruby 1.9.2
     if ENV['COMPAT'] then
       Ruby19.version = "1.9.2-p290"

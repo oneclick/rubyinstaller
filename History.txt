@@ -3,6 +3,9 @@
 * Enhancements:
   * Update mingwbuilds-32-4.7.2 to rev1
   * Retire build support for mingw64-32-4.6.3 DevKit
+  * Add support for Ruby 2.0.0-preview1 (use NEWER option)
+
+    rake ruby19 NEWER=1
 
 === 2012-10-21
 
