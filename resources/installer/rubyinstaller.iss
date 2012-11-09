@@ -147,7 +147,8 @@ DocumentationTitle=Documentation
 APIReferenceTitle=Ruby %1 API Reference
 TheBookofRubyTitle=The Book of Ruby
 
-#include "languages\ja.isl"
+; TODO: Fix Japanese language file
+; #include "languages\ja.isl"
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

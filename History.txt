@@ -8,6 +8,9 @@
 
     rake ruby19 NEWER=1
 
+* Bugfixes:
+  * Disable Japanese support until changes to #139 are made
+
 === 2012-10-21
 
 * Enhancements:
