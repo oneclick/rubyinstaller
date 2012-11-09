@@ -1,6 +1,7 @@
 === (in git)
 
 * Enhancements:
+  * Upgraded Ruby 1.9.3 to patchlevel 327
   * Update mingwbuilds-32-4.7.2 to rev1
   * Retire build support for mingw64-32-4.6.3 DevKit
   * Add support for Ruby 2.0.0-preview1 (use NEWER option)
