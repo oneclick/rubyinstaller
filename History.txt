@@ -1,3 +1,8 @@
+=== (in git)
+
+* Bugfixes:
+  * Fix Japanese support in the installer. #139 #142 [mame]
+
 === 2012-11-09
 
 * Enhancements:
