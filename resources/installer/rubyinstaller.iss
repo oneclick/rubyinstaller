@@ -147,7 +147,7 @@ DocumentationTitle=Documentation
 APIReferenceTitle=Ruby %1 API Reference
 TheBookofRubyTitle=The Book of Ruby
 
-; TODO: Fix Japanese language file
+; Include language files
 #include "languages\ja.isl"
 
 [Files]
