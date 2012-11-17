@@ -1,36 +1,36 @@
-[Languages]
+ï»¿[Languages]
 Name: ja; MessagesFile: compiler:Languages\Japanese.isl
 
 [Messages]
-ja.WelcomeLabel1=[name] Installer ‚ÌŠJn
-ja.WelcomeLabel2=‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í‚²g—p‚ÌƒRƒ“ƒsƒ…[ƒ^‚Ö [name/ver] ‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B%n%n‘±s‚·‚é‘O‚É‘¼‚ÌƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğ‚·‚×‚ÄI—¹‚µ‚Ä‚­‚¾‚³‚¢B
-ja.WizardLicense={#InstallerName} g—p‹–‘øŒ_–ñ‘‚Ì“¯ˆÓ
+ja.WelcomeLabel1=[name] Installer ã®é–‹å§‹
+ja.WelcomeLabel2=ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯ã”ä½¿ç”¨ã®ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã¸ [name/ver] ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚%n%nç¶šè¡Œã™ã‚‹å‰ã«ä»–ã®ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ã™ã¹ã¦çµ‚äº†ã—ã¦ãã ã•ã„ã€‚
+ja.WizardLicense={#InstallerName} ä½¿ç”¨è¨±è«¾å¥‘ç´„æ›¸ã®åŒæ„
 ja.LicenseLabel=
-ja.LicenseLabel3=ˆÈ‰º‚Ìg—p‹–‘øŒ_–ñ‘‚ğ‚¨“Ç‚İ‚­‚¾‚³‚¢BƒCƒ“ƒXƒg[ƒ‹‚ğ‘±s‚·‚é‚É‚Í‚±‚Ìğ€‚É“¯ˆÓ‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
-ja.LicenseAccepted=“¯ˆÓ‚·‚é(&A)
-ja.LicenseNotAccepted=“¯ˆÓ‚µ‚È‚¢(&D)
-ja.WizardSelectDir=ƒCƒ“ƒXƒg[ƒ‹æ‚ÆƒIƒvƒVƒ‡ƒ“‚Ìw’è
+ja.LicenseLabel3=ä»¥ä¸‹ã®ä½¿ç”¨è¨±è«¾å¥‘ç´„æ›¸ã‚’ãŠèª­ã¿ãã ã•ã„ã€‚ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã‚’ç¶šè¡Œã™ã‚‹ã«ã¯ã“ã®æ¡é …ã«åŒæ„ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+ja.LicenseAccepted=åŒæ„ã™ã‚‹(&A)
+ja.LicenseNotAccepted=åŒæ„ã—ãªã„(&D)
+ja.WizardSelectDir=ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«å…ˆã¨ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®æŒ‡å®š
 ja.SelectDirDesc=
-ja.SelectDirLabel3=ˆÈ‰º‚ÌƒtƒHƒ‹ƒ_‚É [name] ‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B%n‘±‚¯‚é‚É‚ÍuŸ‚Öv‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B•Ê‚ÌƒtƒHƒ‹ƒ_‚ğ‘I‘ğ‚·‚é‚É‚ÍuQÆv‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
-ja.SelectDirBrowseLabel=ƒXƒy[ƒX‚ğŠÜ‚ŞƒtƒHƒ‹ƒ_–¼‚Í”ğ‚¯‚Ä‚­‚¾‚³‚¢B(ˆ«‚¢—á: Program Files)
-ja.DiskSpaceMBLabel=•K—v‚ÈƒfƒBƒXƒN‹ó‚«—e—Ê: ` [mb] MB
+ja.SelectDirLabel3=ä»¥ä¸‹ã®ãƒ•ã‚©ãƒ«ãƒ€ã« [name] ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚%nç¶šã‘ã‚‹ã«ã¯ã€Œæ¬¡ã¸ã€ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚åˆ¥ã®ãƒ•ã‚©ãƒ«ãƒ€ã‚’é¸æŠã™ã‚‹ã«ã¯ã€Œå‚ç…§ã€ã‚’ã‚¯ãƒªãƒƒã‚¯ã—ã¦ãã ã•ã„ã€‚
+ja.SelectDirBrowseLabel=ã‚¹ãƒšãƒ¼ã‚¹ã‚’å«ã‚€ãƒ•ã‚©ãƒ«ãƒ€åã¯é¿ã‘ã¦ãã ã•ã„ã€‚(æ‚ªã„ä¾‹: Program Files)
+ja.DiskSpaceMBLabel=å¿…è¦ãªãƒ‡ã‚£ã‚¹ã‚¯ç©ºãå®¹é‡: ï½ [mb] MB
 
 [CustomMessages]
-ja.InstallTclTk=Tcl/Tk ƒTƒ|[ƒg‚ğƒCƒ“ƒXƒg[ƒ‹‚·‚é
-ja.InstallTclTkHint=Ruby ‚Æ‚Æ‚à‚É Tcl/Tk GUI ì¬ƒc[ƒ‹ƒLƒbƒg‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ü‚·B%nƒCƒ“ƒXƒg[ƒ‹‚·‚é‚ÆARuby ‚Å GUI ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªì¬‚Å‚«‚Ü‚·B
-ja.AddPath=Ruby ‚ÌÀsƒtƒ@ƒCƒ‹‚ÖŠÂ‹«•Ï” PATH ‚ğİ’è‚·‚é
-ja.AddPathHint=‚Ç‚±‚©‚ç‚Å‚à Ruby ‚ğÀs‚Å‚«‚é‚æ‚¤‚µ‚Ü‚·B%n‚·‚Å‚É Ruby ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é‚Æ‹£‡‚·‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB
-ja.AssociateExt=.rb ‚Æ .rbw ƒtƒ@ƒCƒ‹‚ğ Ruby ‚ÉŠÖ˜A‚Ã‚¯‚é
-ja.AssociateExtHint=ƒ_ƒuƒ‹ƒNƒŠƒbƒN‚âAƒVƒFƒ‹ƒvƒƒ“ƒvƒg‚ÅƒXƒNƒŠƒvƒg–¼‚ğ‘Å‚Â‚¾‚¯‚Å%nRuby ƒXƒNƒŠƒvƒg‚ğÀs‚Å‚«‚é‚æ‚¤‚É‚µ‚Ü‚·B%n‚·‚Å‚É Ruby ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é‚Æ‹£‡‚·‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB
-ja.MouseoverHint=ƒqƒ“ƒg: ã‹L‚ÌƒIƒvƒVƒ‡ƒ“‚Éƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ‚ ‚Ä‚é‚ÆÚ‚µ‚¢î•ñ‚ªo‚Ü‚·B
-ja.WebSiteLabel=Web ƒTƒCƒg:
-ja.SupportGroupLabel=ƒTƒ|[ƒg:
+ja.InstallTclTk=Tcl/Tk ã‚µãƒãƒ¼ãƒˆã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹
+ja.InstallTclTkHint=Ruby ã¨ã¨ã‚‚ã« Tcl/Tk GUI ä½œæˆãƒ„ãƒ¼ãƒ«ã‚­ãƒƒãƒˆã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¾ã™ã€‚%nã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ã¨ã€Ruby ã§ GUI ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒä½œæˆã§ãã¾ã™ã€‚
+ja.AddPath=Ruby ã®å®Ÿè¡Œãƒ•ã‚¡ã‚¤ãƒ«ã¸ç’°å¢ƒå¤‰æ•° PATH ã‚’è¨­å®šã™ã‚‹
+ja.AddPathHint=ã©ã“ã‹ã‚‰ã§ã‚‚ Ruby ã‚’å®Ÿè¡Œã§ãã‚‹ã‚ˆã†ã—ã¾ã™ã€‚%nã™ã§ã« Ruby ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã¨ç«¶åˆã™ã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚
+ja.AssociateExt=.rb ã¨ .rbw ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ Ruby ã«é–¢é€£ã¥ã‘ã‚‹
+ja.AssociateExtHint=ãƒ€ãƒ–ãƒ«ã‚¯ãƒªãƒƒã‚¯ã‚„ã€ã‚·ã‚§ãƒ«ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã§ã‚¹ã‚¯ãƒªãƒ—ãƒˆåã‚’æ‰“ã¤ã ã‘ã§%nRuby ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å®Ÿè¡Œã§ãã‚‹ã‚ˆã†ã«ã—ã¾ã™ã€‚%nã™ã§ã« Ruby ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã¨ç«¶åˆã™ã‚‹ã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚
+ja.MouseoverHint=ãƒ’ãƒ³ãƒˆ: ä¸Šè¨˜ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã«ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’ã‚ã¦ã‚‹ã¨è©³ã—ã„æƒ…å ±ãŒå‡ºã¾ã™ã€‚
+ja.WebSiteLabel=Web ã‚µã‚¤ãƒˆ:
+ja.SupportGroupLabel=ã‚µãƒãƒ¼ãƒˆ:
 ja.WikiLabel=Wiki:
-ja.IntroductionDevKitLabel=ƒlƒCƒeƒBƒu‚Ì C RubyGems ‚ğƒrƒ‹ƒh‚·‚é‚½‚ß‚Ìƒc[ƒ‹ƒLƒbƒg‚ª•K—v‚È‚ç
+ja.IntroductionDevKitLabel=ãƒã‚¤ãƒ†ã‚£ãƒ–ã® C RubyGems ã‚’ãƒ“ãƒ«ãƒ‰ã™ã‚‹ãŸã‚ã®ãƒ„ãƒ¼ãƒ«ã‚­ãƒƒãƒˆãŒå¿…è¦ãªã‚‰
 ja.DevKitLabel=DevKit:
-ja.InteractiveRubyTitle=‘Î˜b“I Ruby (irb)
-ja.RubyGemsDocumentationServerTitle=RubyGems ƒhƒLƒ…ƒƒ“ƒgƒT[ƒo
-ja.StartCmdPromptWithRubyTitle=Ruby ƒRƒ}ƒ“ƒhƒvƒƒ“ƒvƒg‚ğŠJ‚­
-ja.DocumentationTitle=ƒhƒLƒ…ƒƒ“ƒg
-ja.APIReferenceTitle=Ruby %1 API ƒŠƒtƒ@ƒŒƒ“ƒX
+ja.InteractiveRubyTitle=å¯¾è©±çš„ Ruby (irb)
+ja.RubyGemsDocumentationServerTitle=RubyGems ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆã‚µãƒ¼ãƒ
+ja.StartCmdPromptWithRubyTitle=Ruby ã‚³ãƒãƒ³ãƒ‰ãƒ—ãƒ­ãƒ³ãƒ—ãƒˆã‚’é–‹ã
+ja.DocumentationTitle=ãƒ‰ã‚­ãƒ¥ãƒ¡ãƒ³ãƒˆ
+ja.APIReferenceTitle=Ruby %1 API ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹
 ja.TheBookofRubyTitle=The Book of Ruby
