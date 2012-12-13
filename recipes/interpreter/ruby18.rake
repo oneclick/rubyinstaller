@@ -150,13 +150,6 @@ namespace(:interpreter) do
       # update file
       File.open(rbconfig, 'w') { |f| f.write(contents) }
 
-      # replace the batch files with new and path-clean stubs
-      Dir.glob("#{package.install_target}/bin/*.bat").each do |bat|
-        File.open(bat, 'w') do |f|
-          f.write batch_stub
-        end
-      end
-
       rbconfig = File.join(package.install_target, 'lib/ruby/1.8/i386-mingw32/rbconfig.rb')
       contents = File.read(rbconfig).
         gsub(/#{Regexp.escape(full_install_target)}/) { |match| "" }.
