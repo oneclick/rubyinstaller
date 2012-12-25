@@ -1,5 +1,8 @@
 === (in git)
 
+* Enhancements:
+  * Upgraded Ruby 1.9.3 to patchlevel 362
+
 * Bugfixes:
   * Fix Japanese support in the installer. #139 #142 [mame]
 
