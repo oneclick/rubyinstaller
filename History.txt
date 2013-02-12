@@ -1,3 +1,8 @@
+=== (in Git)
+
+* Enhancements:
+  * Upgraded OpenSSL to version 1.0.0k
+
 === 2013-02-07
 
 * Enhancements:
