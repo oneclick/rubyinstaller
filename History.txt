@@ -1,6 +1,7 @@
 === (in Git)
 
 * Enhancements:
+  * Upgraded Ruby 1.9.3 to patchlevel 392
   * Upgraded OpenSSL to version 1.0.0k
 
 === 2013-02-07
