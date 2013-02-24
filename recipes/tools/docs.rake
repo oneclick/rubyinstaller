@@ -35,6 +35,12 @@ EOT
 end
 
 interpreters.each do |package|
+  ruby_exe = File.join(package.install_target, "bin", "ruby.exe")
+  next unless File.exist?(ruby_exe)
+
+  info = RubyTools.parse_ruby(ruby_exe)
+  next if info.empty?
+
   default_opts = ['--format=chm', '--encoding=UTF-8']
   meta_chm = package.meta_chm
   expanded_doc_target = File.join(RubyInstaller::ROOT, package.doc_target)
@@ -111,7 +117,7 @@ interpreters.each do |package|
     end
   end
 
-  namespace package.short_version do
+  namespace "ruby#{info[:namespace_version]}" do
     task "docs:check_source" do
       unless File.exist? package.target
         fail "Source directory doesn't exist. Perhaps you built using LOCAL or CHECKOUT?"

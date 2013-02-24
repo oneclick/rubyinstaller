@@ -91,6 +91,8 @@ module RubyInstaller
       Ruby19.files = ["ruby-2.0.0-p0.tar.bz2"]
       Ruby19.installer_guid = "{ABAA9781-845A-43CC-BABA-76CB580FE35D}"
       Ruby19.installer_guid_x64 = "{B5BD4615-7C8A-4E50-9179-71B593CA6B67}"
+      Ruby19.short_version = "ruby20"
+      Ruby19.doc_target = "sandbox/doc/ruby20"
     end
 
     # COMPAT mode for Ruby 1.9.2

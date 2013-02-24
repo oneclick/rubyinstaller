@@ -3,6 +3,9 @@
 * Enhancements:
   * Upgraded Ruby 2.0.0 to patchlevel 0
 
+* Bugfixes:
+  * Generate documentation for target version of Ruby
+
 === 2013-02-22
 
 * Enhancements:

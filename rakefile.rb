@@ -29,6 +29,7 @@ require 'rake/downloadtask'
 require 'rake/extracttask'
 require 'rake/checkpoint'
 require 'rake/env'
+require 'rake/ruby_tools'
 
 # scan all override definitions and load them
 Dir.glob('override/*.rb').sort.each do |f|
