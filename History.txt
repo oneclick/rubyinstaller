@@ -1,4 +1,4 @@
-=== (in Git)
+=== 2013-02-24 / Happy Birthday Ruby Edition!
 
 * Enhancements:
   * Upgraded Ruby 2.0.0 to patchlevel 0
