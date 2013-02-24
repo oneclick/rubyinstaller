@@ -216,7 +216,7 @@ namespace :ruby19 do
   end
 end
 
-unless ENV["NOGEMS"]
+unless ENV["NOGEMS"] || ENV["NEXT"]
   # Add rubygems to the chain
   task :ruby19 => [:rubygems19]
 end
