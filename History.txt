@@ -1,3 +1,8 @@
+=== (in Git)
+
+* Enhancements:
+  * Upgraded Ruby 1.9.3 to patchlevel 429
+
 === 2013-02-24 / Happy Birthday Ruby Edition!
 
 * Enhancements:
