@@ -2,6 +2,7 @@
 
 * Enhancements:
   * Upgraded Ruby 1.9.3 to patchlevel 429
+  * Upgraded Ruby 2.0.0 to patchlevel 195
 
 === 2013-02-24 / Happy Birthday Ruby Edition!
 
