@@ -3,6 +3,7 @@
 * Enhancements:
   * Upgraded Ruby 1.8.7 to patchlevel 374
   * Upgraded Ruby 1.9.3 to patchlevel 448
+  * Upgraded Ruby 2.0.0 to patchlevel 247
 
 === 2013-05-17
 
