@@ -1,3 +1,8 @@
+=== (in Git)
+
+* Enhancements:
+  * Update mingwbuilds recipes for both 32 and 64bits (4.7.3 rev1)
+
 === 2013-07-07
 
 * Enhancements:
