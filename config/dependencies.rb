@@ -140,8 +140,8 @@ module RubyInstaller
       :target => 'sandbox/extract_utils',
       :files => {
         :url_1 => [
-          '7za465.zip',
-          '7z465.msi',
+          '7za920.zip',
+          '7z920.msi',
         ],
         :url_2 => [
           'basic-bsdtar-2.8.3-1-mingw32-bin.zip'
