@@ -1,6 +1,7 @@
 === (in Git)
 
 * Enhancements:
+  * Upgraded Ruby 1.9.3 to patchlevel 484
   * Update mingwbuilds recipes for both 32 and 64bits (4.7.3 rev1)
 
 * Internal:
