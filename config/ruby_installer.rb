@@ -85,10 +85,10 @@ module RubyInstaller
 
     # NEXT mode for Ruby 2.0.0
     if ENV["NEXT"]
-      Ruby19.version = "2.0.0-p247"
+      Ruby19.version = "2.0.0-p353"
       Ruby19.checkout = "http://svn.ruby-lang.org/repos/ruby/ruby_2_0_0"
-      Ruby19.url = "http://ftp.ruby-lang.org/pub/ruby/2.0"
-      Ruby19.files = ["ruby-2.0.0-p247.tar.bz2"]
+      Ruby19.url = "http://cache.ruby-lang.org/pub/ruby/2.0"
+      Ruby19.files = ["ruby-2.0.0-p353.tar.bz2"]
       Ruby19.installer_guid = "{ABAA9781-845A-43CC-BABA-76CB580FE35D}"
       Ruby19.installer_guid_x64 = "{B5BD4615-7C8A-4E50-9179-71B593CA6B67}"
       Ruby19.short_version = "ruby20"
