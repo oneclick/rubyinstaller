@@ -122,7 +122,7 @@ To use or build a specific compiler toolchain, pass rake the appropriate
 DKVER=vendor-bits-version command line value as part of your rake task
 invocation. For example:
 
-rake devkit sfx=1 dkver=llvm-32-2.8
+rake devkit sfx=1 dkver=mingw64-32-4.8.2
 rake ruby19 dkver=mingw-32-4.6.1
 
 If you built a custom DevKit as in the first example, look in the pkg/
@@ -134,7 +134,7 @@ Compiler     DKVER Values
 
 tdm          tdm-32-4.7.1, tdm-32-4.6.1, tdm-64-4.7.1, tdm-64-4.6.1, tdm-32-4.5.2 (*)
 mingw        mingw-32-4.6.2, mingw-32-3.4.5
-mingw64      mingw64-32-4.7.2, mingw64-64-4.7.2
+mingw64      mingw64-32-4.8.2, mingw64-64-4.8.2, mingw64-32-4.7.2, mingw64-64-4.7.2
 mingwbuilds  mingwbuilds-32-4.7.2
 
 (*) = default build toolchain

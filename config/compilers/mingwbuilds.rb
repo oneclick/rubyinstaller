@@ -13,7 +13,7 @@ module DevKitInstaller
     'libbz2-1.0.5-2-mingw32-dll-2.tar.gz',
     'liblzma-4.999.9beta_20100401-1-mingw32-dll-1.tar.bz2',
     'libz-1.2.3-1-mingw32-dll-1.tar.gz'
-  ]
+  ] unless DevKitInstaller.constants.include?(:COMMON_MSYS)
 
   COMPILERS['mingwbuilds-32-4.7.3'] =
     OpenStruct.new(

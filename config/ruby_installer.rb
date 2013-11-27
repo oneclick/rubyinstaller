@@ -68,7 +68,8 @@ module RubyInstaller
         '--enable-shared',
         '--disable-install-doc',
         'debugflags=-g',
-        "CPPFLAGS='-DFD_SETSIZE=2048'"
+        "CPPFLAGS='-DFD_SETSIZE=2048'",
+        'DLDFLAGS=-static-libgcc'
       ],
       :files => [
         "ruby-1.9.3-p551.tar.bz2"
