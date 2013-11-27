@@ -54,7 +54,7 @@ module RubyInstaller
     end
 
     Ruby19 = OpenStruct.new(
-      :version => "1.9.3-p448",
+      :version => "1.9.3-p484",
       :short_version => 'ruby19',
       :url => "http://cache.ruby-lang.org/pub/ruby/1.9",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_1_9_3',
