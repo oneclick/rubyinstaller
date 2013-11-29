@@ -110,6 +110,8 @@ namespace(:interpreter) do
         end
 
         cd package.build_target do
+          # XXX update regex as required for newer DevKit's
+          package.configure_options.push('DLDFLAGS=-static-libgcc') if compiler.version =~ /(?:32|64)\-4\.8\.?\d{0,2}\z/
           sh "sh -c \"#{relative_path}/configure #{package.configure_options.join(' ')} --prefix=#{File.join(RubyInstaller::ROOT, package.install_target)}\""
         end
       end
