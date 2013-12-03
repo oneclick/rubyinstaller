@@ -58,11 +58,13 @@ namespace(:tools) do
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
 
     task :install18 => [package.target, RubyInstaller::Ruby18.install_target] do
+      do_patches RubyInstaller::RubyGems
       do_install RubyInstaller::RubyGems, RubyInstaller::Ruby18
       copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby18
     end
 
     task :install19 => [package.target, RubyInstaller::Ruby19.install_target] do
+      do_patches RubyInstaller::RubyGems
       do_install RubyInstaller::RubyGems, RubyInstaller::Ruby19
       copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby19
     end
@@ -112,6 +114,13 @@ TEXT
           end
           File.open(script, 'w') { |f| f.write(contents) }
         end
+      end
+    end
+
+    def do_patches(package)
+      patches = Dir.glob("#{package.patches}/*.patch").sort
+      patches.each do |patch|
+        sh "git apply --directory #{package.target} #{patch}"
       end
     end
 
