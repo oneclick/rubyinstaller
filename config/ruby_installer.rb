@@ -83,6 +83,36 @@ module RubyInstaller
       :installer_guid_x64 => '{74C4327B-E042-4B03-A8BA-482FD66BEEDB}'
     )
 
+    Ruby21 = OpenStruct.new(
+      :version => "2.1.0-p0",
+      :short_version => 'ruby21',
+      :url => "http://cache.ruby-lang.org/pub/ruby/2.1/",
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_2_1',
+      :checkout_target => 'downloads/ruby_2_1',
+      :target => 'sandbox/ruby_2_1',
+      :doc_target => 'sandbox/doc/ruby21',
+      :build_target => 'sandbox/ruby21_build',
+      :install_target => 'sandbox/ruby21_mingw',
+      :patches => 'resources/patches/ruby21',
+      :configure_options => [
+        '--enable-shared',
+        '--disable-install-doc',
+        'debugflags=-g',
+        "CPPFLAGS='-DFD_SETSIZE=2048'"
+      ],
+      :files => [
+        "ruby-2.1.0.tar.bz2"
+      ],
+      :dependencies => [
+        :ffi, :gdbm, :iconv, :openssl, :yaml, :zlib, :tcl, :tk
+      ],
+      :excludes => [
+        'libcharset-1.dll'
+      ],
+      :installer_guid => '{64763A89-6347-43AF-833F-3840615C62AE}',
+      :installer_guid_x64 => '{2A5A5972-E912-49C4-9459-F05131507B6E}'
+    )
+
     # NEXT mode for Ruby 2.0.0
     if ENV["NEXT"]
       Ruby19.version = "2.0.0-p353"
