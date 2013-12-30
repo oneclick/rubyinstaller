@@ -75,6 +75,10 @@ namespace(:tools) do
       copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby19
     end
 
+    task :hook21 => [package.target, RubyInstaller::Ruby21.install_target] do
+      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby21
+    end
+
     private
     def do_install(package, interpreter)
       new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
