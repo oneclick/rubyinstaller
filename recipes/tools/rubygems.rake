@@ -75,6 +75,10 @@ namespace(:tools) do
       copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby19
     end
 
+    task :hook20 => [package.target, RubyInstaller::Ruby20.install_target] do
+      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby20
+    end
+
     task :hook21 => [package.target, RubyInstaller::Ruby21.install_target] do
       copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby21
     end

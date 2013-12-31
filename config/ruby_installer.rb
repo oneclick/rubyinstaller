@@ -83,6 +83,36 @@ module RubyInstaller
       :installer_guid_x64 => '{74C4327B-E042-4B03-A8BA-482FD66BEEDB}'
     )
 
+    Ruby20 = OpenStruct.new(
+      :version => "2.0.0-p353",
+      :short_version => 'ruby20',
+      :url => "http://cache.ruby-lang.org/pub/ruby/2.0",
+      :checkout => "http://svn.ruby-lang.org/repos/ruby/ruby_2_0_0",
+      :checkout_target => 'downloads/ruby_2_0',
+      :target => 'sandbox/ruby_2_0',
+      :doc_target => 'sandbox/doc/ruby20',
+      :build_target => 'sandbox/ruby20_build',
+      :install_target => 'sandbox/ruby20_mingw',
+      :patches => 'resources/patches/ruby20',
+      :configure_options => [
+        '--enable-shared',
+        '--disable-install-doc',
+        'debugflags=-g',
+        "CPPFLAGS='-DFD_SETSIZE=2048'"
+      ],
+      :files => [
+        "ruby-2.0.0-p353.tar.bz2"
+      ],
+      :dependencies => [
+        :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib, :tcl, :tk
+      ],
+      :excludes => [
+        'libcharset-1.dll'
+      ],
+      :installer_guid => '{ABAA9781-845A-43CC-BABA-76CB580FE35D}',
+      :installer_guid_x64 => '{B5BD4615-7C8A-4E50-9179-71B593CA6B67}'
+    )
+
     Ruby21 = OpenStruct.new(
       :version => "2.1.0-p0",
       :short_version => 'ruby21',
@@ -112,18 +142,6 @@ module RubyInstaller
       :installer_guid => '{64763A89-6347-43AF-833F-3840615C62AE}',
       :installer_guid_x64 => '{2A5A5972-E912-49C4-9459-F05131507B6E}'
     )
-
-    # NEXT mode for Ruby 2.0.0
-    if ENV["NEXT"]
-      Ruby19.version = "2.0.0-p353"
-      Ruby19.checkout = "http://svn.ruby-lang.org/repos/ruby/ruby_2_0_0"
-      Ruby19.url = "http://cache.ruby-lang.org/pub/ruby/2.0"
-      Ruby19.files = ["ruby-2.0.0-p353.tar.bz2"]
-      Ruby19.installer_guid = "{ABAA9781-845A-43CC-BABA-76CB580FE35D}"
-      Ruby19.installer_guid_x64 = "{B5BD4615-7C8A-4E50-9179-71B593CA6B67}"
-      Ruby19.short_version = "ruby20"
-      Ruby19.doc_target = "sandbox/doc/ruby20"
-    end
 
     # COMPAT mode for Ruby 1.9.2
     if ENV['COMPAT'] then

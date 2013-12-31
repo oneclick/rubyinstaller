@@ -1,7 +1,10 @@
 require 'ostruct'
 
 module RubyInstaller
-  interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19, RubyInstaller::Ruby21]
+  interpreters = [
+    RubyInstaller::Ruby18, RubyInstaller::Ruby19,
+    RubyInstaller::Ruby20, RubyInstaller::Ruby21
+  ]
 
   interpreters.each do |package|
     doc_dir = File.join(RubyInstaller::ROOT, package.doc_target)
