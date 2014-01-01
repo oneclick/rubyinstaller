@@ -1,0 +1,19 @@
+RubyInstaller is a project that provides binaries for Windows and a
+complementary set of tools to make it more easy use Ruby on Windows.
+
+However, it doesn't patch or alter Ruby source code and by that it cannot
+modify Ruby beyond packaging.
+
+Bugs accepted are those related to the Installers, Development Kit, compilation
+options or missing documentation. Other bug reports fit better to Ruby's own
+bug tracker:
+
+http://bugs.ruby-lang.org/
+
+If you're not sure if your bug is directly RubyInstaller or Ruby specific,
+please use our Google Groups to ask these questions:
+
+http://groups.google.com/group/rubyinstaller/
+
+Thank you
+
