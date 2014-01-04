@@ -167,9 +167,15 @@ module RubyInstaller
       Ruby18.installer_guid = '{12E6FD2D-D425-4E32-B77B-020A15A8346F}'
       Ruby18.target = File.expand_path(ENV['LOCAL'].gsub('\\', File::SEPARATOR))
 
-      Ruby19.patches = nil
-      Ruby19.target = File.expand_path(ENV['LOCAL'].gsub('\\', File::SEPARATOR))
-      Ruby19.installer_guid = '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}'
+      {
+        Ruby19 => '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}',
+        Ruby20 => '{73A045D3-1C69-4885-B055-A5379CC7E603}',
+        Ruby21 => '{04C58EFB-39FF-42E8-ADA1-3F588D2F2E10}'
+      }.each do |k, v|
+          k.patches = nil
+          k.target = File.expand_path(ENV['LOCAL'].gsub('\\', File::SEPARATOR))
+          k.installer_guid = v
+      end
     end
 
     # alter at runtime the checkout and versions of 1.9
