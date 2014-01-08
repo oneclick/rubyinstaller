@@ -2,6 +2,7 @@
 
 * Enhancements:
   * Upgraded rb-readline to 0.5.0 (compatible with Ruby 2.0)
+  * Upgraded OpenSSL to version 1.0.0l
 
 === 2013-11-24
 
