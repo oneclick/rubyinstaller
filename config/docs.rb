@@ -13,6 +13,7 @@ module RubyInstaller
     core_files   = Dir.glob(core_glob).map { |file| File.basename(file) }
 
     stdlib_files = [ './lib', './ext' ]
+    language_files = [ './doc' ]
 
     package.docs = [
       core = OpenStruct.new(
@@ -26,6 +27,13 @@ module RubyInstaller
         :target  => File.join(doc_dir, "#{package.short_version}-stdlib"),
         :title => "Ruby #{package.version} Standard Library API Reference",
         :files => stdlib_files,
+        :exclude  => "./lib/rdoc"
+      ),
+      language = OpenStruct.new(
+        :lib => "language",
+        :target  => File.join(doc_dir, "#{package.short_version}-language"),
+        :title => "Ruby #{package.version} Language Reference",
+        :files => language_files,
         :exclude  => "./lib/rdoc"
       )
     ]
