@@ -28,7 +28,6 @@ To generate CHM documentation you need Microsoft's Html Help Workshop installed.
 
 You can download a copy for free from:
 
-    http://msdn.microsoft.com/library/default.asp?url=/library/en-us/htmlhelp/html/hwMicrosoftHTMLHelpDownloads.asp
     http://www.microsoft.com/en-us/download/details.aspx?id=21138
 EOT
       fail "HtmlHelp is required"
