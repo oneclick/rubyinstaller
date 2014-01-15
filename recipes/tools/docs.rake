@@ -2,7 +2,8 @@ require 'erb'
 require 'rubygems'
 
 interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19,
-                RubyInstaller::Ruby20, RubyInstaller::Ruby21]
+                RubyInstaller::Ruby20, RubyInstaller::Ruby21,
+                RubyInstaller::Ruby_trunk]
 
 begin
   gem 'rdoc', '~> 3.12'

@@ -3,7 +3,8 @@ require 'ostruct'
 module RubyInstaller
   interpreters = [
     RubyInstaller::Ruby18, RubyInstaller::Ruby19,
-    RubyInstaller::Ruby20, RubyInstaller::Ruby21
+    RubyInstaller::Ruby20, RubyInstaller::Ruby21,
+    RubyInstaller::Ruby_trunk
   ]
 
   interpreters.each do |package|
