@@ -121,7 +121,8 @@ end
 directory 'pkg'
 
 [RubyInstaller::Ruby18, RubyInstaller::Ruby19,
-  RubyInstaller::Ruby20, RubyInstaller::Ruby21].each do |pkg|
+  RubyInstaller::Ruby20, RubyInstaller::Ruby21,
+  RubyInstaller::Ruby_trunk].each do |pkg|
   ruby_exe = File.join(pkg.install_target, "bin", "ruby.exe")
   next unless File.exist?(ruby_exe)
 
