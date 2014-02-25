@@ -1,6 +1,7 @@
 === (In Git)
 
 * Enhancements:
+  * Upgraded Ruby 2.0.0 to patchlevel 451
   * Upgraded Ruby 1.9.3 to patchlevel 545
   * Upgraded rb-readline to 0.5.0 (compatible with Ruby 2.0)
   * Upgraded OpenSSL to version 1.0.0l
