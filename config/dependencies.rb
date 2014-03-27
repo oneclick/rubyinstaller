@@ -43,14 +43,14 @@ module RubyInstaller
 
   KNAPSACK_PACKAGES['yaml'] = OpenStruct.new(
     :human_name => "LibYAML",
-    :version => '0.1.5',
+    :version => '0.1.6',
     :url => "http://packages.openknapsack.org/libyaml",
     :target => 'sandbox/libyaml',
     :files => [
-      'libyaml-0.1.5-x86-windows.tar.lzma'
+      'libyaml-0.1.6-x86-windows.tar.lzma'
     ],
     :x64_files => [
-      'libyaml-0.1.5-x64-windows.tar.lzma'
+      'libyaml-0.1.6-x64-windows.tar.lzma'
     ]
   )
 
