@@ -101,6 +101,7 @@ rake LOCAL="c:\myruby18"         # builds 1.8.x from sources at "c:\myruby18"
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
 rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.3)
 rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
+rake ruby21 MAKE_OPT=-j8         # builds 2.1.0 by make -j8 (parallel build)
 
 You can combine COMPAT and CHECKOUT to build Ruby 1.8.6 directly from the
 Subversion repository.
