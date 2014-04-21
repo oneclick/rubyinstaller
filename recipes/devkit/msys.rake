@@ -34,10 +34,25 @@ namespace(:devkit) do
     end
     task :extract => [:extract_utils, :download, package.target, et]
 
-    task :prepare do
-      #TODO verify whether need to comment out 'cd $HOME' from /etc/profile
+    pt = checkpoint(:msys, :prepare) do
+      # check if package define 'relocate'
+      # A package that defines it will trigger move of all the inner folders of the mentioned folder
+      # to the original package target.
+      if package.relocate && Dir.exist?(package.relocate)
+        folders = []
+        Dir.chdir(package.relocate) { folders = Dir.glob("*") }
+
+        folders.each do |folder|
+          puts "** Moving out #{folder} from #{package.relocate} and drop into #{package.target}" if Rake.application.options.trace
+          mv_r File.join(package.relocate, folder), package.target
+        end
+
+        # remove folder
+        rm_r package.relocate
+      end
     end
+    task :prepare => [:extract, pt]
   end
 
-  task :msys => ['devkit:msys:download', 'devkit:msys:extract']
+  task :msys => ['devkit:msys:download', 'devkit:msys:extract', 'devkit:msys:prepare']
 end
