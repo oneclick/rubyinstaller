@@ -70,6 +70,7 @@ unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
   ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
 end
 ENV['RI_DEVKIT'] = '#{d}'
+ENV['MSYSTEM'] = 'MINGW32'
 <% tool_names.each_pair do |k,v| -%>
 <%= 'ENV[\'%s\'] = \'%s\'' % [k,v] %>
 <% end -%>

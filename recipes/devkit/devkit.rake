@@ -60,6 +60,8 @@ namespace(:devkit) do
       ENV['PATH'] = "#{msys_path}\\bin;#{mingw_path}\\bin;" + ENV['PATH']
     end
 
+    ENV['MSYSTEM'] = 'MINGW32'
+
     # TODO remove as this env var override style will no longer be supported
     # Fragile --host alternative that currently allows the llvm-gcc and i686-w64-mingw32
     # toolchains to build deps and Ruby using their name prefixed tools, if applicable.
