@@ -61,7 +61,18 @@ module DevKitInstaller
         'less-458-1-i686.pkg.tar.xz',
         'findutils-4.5.12-1-i686.pkg.tar.xz',
         'perl-5.20.0-1-i686.pkg.tar.xz',
-        'mintty-1322-1-i686.pkg.tar.xz'
+        'mintty-1322-1-i686.pkg.tar.xz',
+        'autoconf-2.69-1-any.pkg.tar.xz',
+        'automake-1.14-1-any.pkg.tar.xz',
+        'libexpat-2.1.0-1-i686.pkg.tar.xz',
+        'libtool-2.4.2-4-i686.pkg.tar.xz',
+        'bsdtar-3.1.2-2-i686.pkg.tar.xz',
+        'bsdcpio-3.1.2-2-i686.pkg.tar.xz',
+        'libarchive-3.1.2-2-i686.pkg.tar.xz',
+        'libbz2-1.0.6-1-i686.pkg.tar.xz',
+        'liblzma-5.0.5-1-i686.pkg.tar.xz',
+        'zlib-1.2.8-2-i686.pkg.tar.xz',
+        'which-2.20-1-i686.pkg.tar.xz'
       ],
     }
   )
