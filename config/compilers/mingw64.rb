@@ -22,6 +22,7 @@ module DevKitInstaller
       :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
       :target => 'sandbox/devkit/mingw',
       :relocate => 'sandbox/devkit/mingw/mingw64',
+      :host => 'x86_64-w64-mingw32',
       :files => {
         :url_1 => [
           'x86_64-4.9.0-release-win32-sjlj-rt_v3-rev1.7z'
@@ -52,6 +53,7 @@ module DevKitInstaller
       :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
       :target => 'sandbox/devkit/mingw',
       :relocate => 'sandbox/devkit/mingw/mingw64',
+      :host => 'x86_64-w64-mingw32',
       :files => {
         :url_1 => [
           'x86_64-4.8.2-release-win32-sjlj-rt_v3-rev4.7z'
