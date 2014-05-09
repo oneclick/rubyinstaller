@@ -25,6 +25,8 @@ project root directory, and type one of:
 
 rake          # builds MRI 1.8.7
 rake ruby19   # builds MRI 1.9.2
+rake ruby20   # builds MRI 2.0.0
+rake ruby21   # builds MRI 2.1.x
 
 === Project Directory Organization:
 
