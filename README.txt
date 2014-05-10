@@ -88,7 +88,7 @@ rake ruby18 COMPAT=1             # builds 1.8.6
 rake ruby19                      # builds 1.9.2
 rake ruby19 COMPAT=1             # builds 1.9.1
 rake ruby20                      # builds 2.0.0
-rake ruby21                      # builds 2.1.0
+rake ruby21                      # builds 2.1.x
 rake CHECKOUT=1                  # builds 1.8.7 svn latest (branch ruby_1_8_7)
 rake LOCAL="c:\myruby18"         # builds 1.8.x from sources at "c:\myruby18"
 rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
