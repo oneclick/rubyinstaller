@@ -1,6 +1,7 @@
 === (In Git)
 
 * Enhancements:
+  * Upgraded Ruby 2.1 package to version 2.1.2
   * Upgraded Ruby 2.0.0 to patchlevel 481
   * Upgraded libyaml to version 0.1.6
 
