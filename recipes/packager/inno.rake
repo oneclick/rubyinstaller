@@ -130,16 +130,25 @@ directory 'pkg'
     version       = info[:version].dup
     platform      = info[:platform]
 
-    # construct either X.Y.Z-p123 or X.Y.Z-rNNNN (dev)
-    if info[:patchlevel]
-      version     << "-p%s" % info[:patchlevel]
-    else
-      version     << "-r%s" % info[:revision]
+    # Ruby 2.1.0 introduced semantic versioning, so we drop patchlevel
+    if version < "2.1.0"
+      # construct either X.Y.Z-p123 or X.Y.Z-rNNNN (dev)
+      if info[:patchlevel]
+        version     << "-p%s" % info[:patchlevel]
+      else
+        version     << "-r%s" % info[:revision]
+      end
     end
 
     version_xyz   = info[:version]
     major_minor   = info[:version][0..2]
     namespace_ver = major_minor.sub('.', '')
+
+    if version < "2.1.0"
+      version_dir = version_xyz.gsub(".", "")
+    else
+      version_dir = namespace_ver
+    end
 
     # i386-mingw32, x64-mingw32
     case platform
@@ -211,10 +220,12 @@ directory 'pkg'
     package_name = "ruby"
     package_name << "-%s" % info[:version]
 
-    if info[:patchlevel]
-      package_name << "-p%s" % info[:patchlevel]
-    else
-      package_name << "-r%s" % info[:revision]
+    if info[:version] < "2.1.0"
+      if info[:patchlevel]
+        package_name << "-p%s" % info[:patchlevel]
+      else
+        package_name << "-r%s" % info[:revision]
+      end
     end
 
     package_name << "-%s" % info[:platform]
