@@ -71,7 +71,7 @@ module InnoSetup
 
     if options[:sign] then
       cmd << "/dSignPackage=1"
-      cmd << '/s"risigntool=signtool.exe $p"' 
+      cmd << '/s"risigntool=signtool.exe $p"'
     end
 
     sh cmd.join(' ')
