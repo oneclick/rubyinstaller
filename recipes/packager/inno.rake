@@ -247,10 +247,39 @@ directory 'pkg'
       PkgTools.md5_file(t.name)
     end
 
+    # documentation (engine-version-doc-chm.7z)
+    docs_name = "ruby"
+    docs_name << "-%s" % info[:version]
+
+    if info[:version] < "2.1.0"
+      if info[:patchlevel]
+        docs_name << "-p%s" % info[:patchlevel]
+      else
+        docs_name << "-r%s" % info[:revision]
+      end
+    end
+
+    docs_name << "-doc-chm"
+    doc_files = pkg.docs.collect { |doc| doc.chm_file }
+    doc_files << pkg.meta_chm.chm_file
+
+    file "pkg/#{docs_name}.7z" => ["pkg", "ruby#{namespace_ver}:docs", *doc_files] do |t|
+      cd File.dirname(t.name) do
+        seven_zip_multi doc_files, "#{docs_name}.7z"
+      end
+
+      # generate .md5 file
+      PkgTools.md5_file(t.name)
+    end
+
     # define the packaging task for the version
     namespace "ruby#{namespace_ver}" do
       desc "generate packages for ruby #{version}"
       task :package => ["package:installer", "package:archive"]
+
+      unless ENV["NODOCS"]
+        task :package => ["package:docs"]
+      end
 
       namespace :package do
         desc "generate #{installer_pkg}.exe"
@@ -258,6 +287,9 @@ directory 'pkg'
 
         desc "generate #{package_name}.7z"
         task :archive => ["pkg/#{package_name}.7z"]
+
+        desc "generate #{docs_name}.7z"
+        task :docs => ["pkg/#{docs_name}.7z"]
       end
 
       desc "install #{installer_pkg}.exe"

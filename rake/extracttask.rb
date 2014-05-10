@@ -78,6 +78,14 @@ def seven_zip_build(source, target, options={})
   sh %Q["#{RubyInstaller::SEVEN_ZIP}" a -mx=9 #{sfx_arg} "#{target}" "#{source}" > NUL 2>&1]
 end
 
+def seven_zip_multi(sources, target, options={})
+  expanded_sources = sources.collect { |source| source.inspect }
+
+  puts "** Building '#{target}' from #{expanded_sources}" if Rake.application.options.trace
+  sfx_arg = '-sfx7z.sfx' if options[:sfx]
+  sh %Q["#{RubyInstaller::SEVEN_ZIP}" a -mx=9 #{sfx_arg} "#{target}" #{expanded_sources.join(' ')} > NUL 2>&1]
+end
+
 def bsd_tar_extract(target, file, options = {})
   block = if options[:noerror]
     lambda { |ok, status|
