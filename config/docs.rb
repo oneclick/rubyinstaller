@@ -47,7 +47,6 @@ module RubyInstaller
       # Build chm file names
       doc.chm_file_basename = "#{package.short_version}-#{doc.lib}.chm"
       doc.chm_file = File.join(RubyInstaller::ROOT, package.doc_target, doc.chm_file_basename)
-
     end
 
     # meta_chm for CHM format
@@ -55,5 +54,7 @@ module RubyInstaller
       :title => "Ruby #{package.version} Help file",
       :file  => File.join(package.doc_target, "#{package.short_version}.chm")
     )
+
+    package.meta_chm.chm_file = File.join(RubyInstaller::ROOT, package.meta_chm.file)
   end
 end
