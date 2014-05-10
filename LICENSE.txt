@@ -1,4 +1,4 @@
-Copyright (c) 2007-2011, RubyInstaller Team
+Copyright (c) 2007-2014, RubyInstaller Team
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
