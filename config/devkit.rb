@@ -72,7 +72,8 @@ module DevKitInstaller
         'libbz2-1.0.6-1-i686.pkg.tar.xz',
         'liblzma-5.0.5-1-i686.pkg.tar.xz',
         'zlib-1.2.8-2-i686.pkg.tar.xz',
-        'which-2.20-1-i686.pkg.tar.xz'
+        'which-2.20-1-i686.pkg.tar.xz',
+        'patch-2.7.1-1-i686.pkg.tar.xz'
       ],
     }
   )
