@@ -220,7 +220,7 @@ directory 'pkg'
     package_name = "ruby"
     package_name << "-%s" % info[:version]
 
-    if info[:version] < "2.1.0"
+    if info[:version] < "2.1.0" || ENV['FULL_VERSION']
       if info[:patchlevel]
         package_name << "-p%s" % info[:patchlevel]
       else
