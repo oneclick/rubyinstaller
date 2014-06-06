@@ -2,6 +2,7 @@
 
 * Enhancements:
   * Upgraded OpenSSL to version 1.0.0m
+  * Upgraded zlib to version 1.2.8
 
 === 2014-05-11
 

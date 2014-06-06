@@ -4,14 +4,14 @@ module RubyInstaller
   KNAPSACK_PACKAGES['zlib'] = OpenStruct.new(
     :human_name => "Zlib",
     :release => "alternate",
-    :version => "1.2.7",
+    :version => "1.2.8",
     :url => "http://packages.openknapsack.org/zlib",
     :target => 'sandbox/zlib',
     :files => [
-      'zlib-1.2.7-x86-windows.tar.lzma'
+      'zlib-1.2.8-x86-windows.tar.lzma'
     ],
     :x64_files => [
-      'zlib-1.2.7-x64-windows.tar.lzma'
+      'zlib-1.2.8-x64-windows.tar.lzma'
     ]
   )
 
