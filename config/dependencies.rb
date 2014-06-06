@@ -17,14 +17,14 @@ module RubyInstaller
 
   KNAPSACK_PACKAGES['openssl'] = OpenStruct.new(
     :human_name => "OpenSSL",
-    :version => '1.0.0l',
+    :version => '1.0.0m',
     :url => "http://packages.openknapsack.org/openssl",
     :target => 'sandbox/openssl',
     :files => [
-      'openssl-1.0.0l-x86-windows.tar.lzma'
+      'openssl-1.0.0m-x86-windows.tar.lzma'
     ],
     :x64_files => [
-      'openssl-1.0.0l-x64-windows.tar.lzma'
+      'openssl-1.0.0m-x64-windows.tar.lzma'
     ]
   )
 
