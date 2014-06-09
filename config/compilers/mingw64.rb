@@ -9,7 +9,7 @@ module DevKitInstaller
       :relocate => 'sandbox/devkit/mingw/mingw32',
       :files => {
         :url_1 => [
-          'i686-4.9.0-release-win32-sjlj-rt_v3-rev1.7z'
+          'i686-4.9.0-release-win32-sjlj-rt_v3-rev2.7z'
         ],
       }
     )
@@ -25,7 +25,7 @@ module DevKitInstaller
       :host => 'x86_64-w64-mingw32',
       :files => {
         :url_1 => [
-          'x86_64-4.9.0-release-win32-sjlj-rt_v3-rev1.7z'
+          'x86_64-4.9.0-release-win32-sjlj-rt_v3-rev2.7z'
         ],
       }
     )
