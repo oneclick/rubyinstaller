@@ -196,6 +196,8 @@ module RubyInstaller
       [:tcl, :tk].each do |pkg|
         Ruby18.dependencies.delete(pkg)
         Ruby19.dependencies.delete(pkg)
+        Ruby20.dependencies.delete(pkg)
+        Ruby21.dependencies.delete(pkg)
       end
     end
 
