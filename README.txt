@@ -28,6 +28,13 @@ rake ruby19   # builds MRI 1.9.2
 rake ruby20   # builds MRI 2.0.0
 rake ruby21   # builds MRI 2.1.x
 
+Please note that for ruby20 and ruby21, you need to use a different DevKit version
+than the default one.
+
+At this time, mingw64-32-4.7.2 and mingw64-64-4.7.2 are used, e.g:
+
+rake ruby21 DKVER=mingw64-32-4.7.2
+
 === Project Directory Organization:
 
 The Rake build recipes are distributed inside the project's recipes/ directory
