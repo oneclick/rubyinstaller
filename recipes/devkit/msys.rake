@@ -50,6 +50,9 @@ namespace(:devkit) do
         # remove folder
         rm_r package.relocate
       end
+
+      # create /etc/fstab to remove cygdrive prefix from path
+      cp File.join(RubyInstaller::ROOT, 'resources/devkit/fstab'), File.join(package.target, 'etc')
     end
     task :prepare => [:extract, pt]
   end
