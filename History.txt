@@ -1,7 +1,7 @@
 === (In Git)
 
 * Enhancements:
-  * Upgraded OpenSSL to version 1.0.0m
+  * Upgraded OpenSSL to version 1.0.0n
   * Upgraded zlib to version 1.2.8
 
 === 2014-05-11
