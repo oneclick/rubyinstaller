@@ -251,7 +251,8 @@ module URI
           when Net::HTTPOK
             puts "Downloading #{self}" if Rake.application.options.verbose
             result = nil
-            with_progress_bar options[:progress], path.split('/').last, response.content_length do |progress|
+            size = response.content_length.to_i
+            with_progress_bar options[:progress], path.split('/').last, size do |progress|
               if block
                 response.read_body do |chunk|
                   block.call chunk

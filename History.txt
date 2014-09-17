@@ -4,6 +4,10 @@
   * Upgraded OpenSSL to version 1.0.0n
   * Upgraded zlib to version 1.2.8
 
+* Internal:
+  * Attempt to fix exception caused by proxy/redirect response missing
+    Content-Length information. Contribution by Enrique Perez-Terron.
+
 === 2014-05-11
 
 * Enhancements:
