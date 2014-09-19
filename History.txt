@@ -1,6 +1,7 @@
 === (In Git)
 
 * Enhancements:
+  * Upgraded Ruby 2.1 to version 2.1.3
   * Upgraded Ruby 2.0.0 to patchlevel 576
   * Upgraded RubyGems to version 1.8.29
   * Upgraded OpenSSL to version 1.0.0n
