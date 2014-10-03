@@ -74,7 +74,8 @@ module DevKitInstaller
         'liblzma-5.0.5-1-i686.pkg.tar.xz',
         'zlib-1.2.8-2-i686.pkg.tar.xz',
         'which-2.20-1-i686.pkg.tar.xz',
-        'patch-2.7.1-1-i686.pkg.tar.xz'
+        'patch-2.7.1-1-i686.pkg.tar.xz',
+        'tar-1.28-1-i686.pkg.tar.xz'
       ],
     }
   )
