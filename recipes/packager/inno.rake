@@ -1,12 +1,24 @@
 require 'erb'
 require "digest/md5"
+require "digest/sha2"
 
 module PkgTools
+  def self.digests(file_name)
+    md5_file(file_name)
+    sha256_file(file_name)
+  end
+
   # create a companion MD5 checksum file for the file named by file_name
   # format: hex_md5_checksum *file_basename
   def self.md5_file(file_name)
     File.open("#{file_name}.md5", "w") do |f|
       f.puts '%s *%s' % [ Digest::MD5.file(file_name), File.basename(file_name) ]
+    end
+  end
+
+  def self.sha256_file(file_name)
+    File.open("#{file_name}.sha256", "w") do |f|
+      f.puts '%s *%s' % [Digest::SHA256.file(file_name), File.basename(file_name)]
     end
   end
 end
@@ -212,8 +224,8 @@ directory 'pkg'
 
       InnoSetup.iscc("resources/installer/rubyinstaller.iss", options)
 
-      # Generate .md5 file
-      PkgTools.md5_file(t.name)
+      # Generate digest files
+      PkgTools.digests(t.name)
     end
 
     # archives (engine-version-patchlevel|revision-platform.7z)
@@ -243,8 +255,8 @@ directory 'pkg'
         seven_zip_build "#{package_name}", File.basename(t.name)
       end
 
-      # Generate .md5 file
-      PkgTools.md5_file(t.name)
+      # Generate digest files
+      PkgTools.digests(t.name)
     end
 
     # documentation (engine-version-doc-chm.7z)
@@ -268,8 +280,8 @@ directory 'pkg'
         seven_zip_multi doc_files, "#{docs_name}.7z"
       end
 
-      # generate .md5 file
-      PkgTools.md5_file(t.name)
+      # generate digest files
+      PkgTools.digests(t.name)
     end
 
     # define the packaging task for the version
