@@ -18,7 +18,7 @@ namespace :release do
       filename = File.basename(path)
 
       puts "Uploading: #{filename}"
-      system "curl --silent -T #{path} -u #{username}:#{api_key} #{base_url}/#{version}/#{filename}"
+      system "curl --silent -T #{path} -u #{username}:#{api_key} #{base_url}/#{version}/#{filename} > NUL 2>&1"
 
       success = $?.success?
 
