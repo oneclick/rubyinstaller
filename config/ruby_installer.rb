@@ -84,7 +84,7 @@ module RubyInstaller
     )
 
     Ruby20 = OpenStruct.new(
-      :version => "2.0.0-p576",
+      :version => "2.0.0-p594",
       :short_version => 'ruby20',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.0",
       :checkout => "http://svn.ruby-lang.org/repos/ruby/ruby_2_0_0",
@@ -101,7 +101,7 @@ module RubyInstaller
         "CPPFLAGS='-DFD_SETSIZE=2048'"
       ],
       :files => [
-        "ruby-2.0.0-p576.tar.bz2"
+        "ruby-2.0.0-p594.tar.bz2"
       ],
       :dependencies => [
         :ffi, :gdbm, :iconv, :openssl, :pdcurses, :yaml, :zlib, :tcl, :tk
