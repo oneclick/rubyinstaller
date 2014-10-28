@@ -114,7 +114,7 @@ module RubyInstaller
     )
 
     Ruby21 = OpenStruct.new(
-      :version => "2.1.3",
+      :version => "2.1.4",
       :short_version => 'ruby21',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.1/",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_2_1',
@@ -131,7 +131,7 @@ module RubyInstaller
         "CPPFLAGS='-DFD_SETSIZE=2048'"
       ],
       :files => [
-        "ruby-2.1.3.tar.bz2"
+        "ruby-2.1.4.tar.bz2"
       ],
       :dependencies => [
         :ffi, :gdbm, :iconv, :openssl, :yaml, :zlib, :tcl, :tk
