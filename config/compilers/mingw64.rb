@@ -1,4 +1,35 @@
 module DevKitInstaller
+  COMPILERS['mingw64-32-4.9.2'] =
+    OpenStruct.new(
+      :version => 'mingw64-32-4.9.2',
+      :programs => [ :gcc, :cpp, :'g++' ],
+      :program_prefix => nil,
+      :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
+      :target => 'sandbox/devkit/mingw',
+      :relocate => 'sandbox/devkit/mingw/mingw32',
+      :files => {
+        :url_1 => [
+          'i686-4.9.2-release-win32-sjlj-rt_v3-rev0.7z'
+        ],
+      }
+    )
+
+  COMPILERS['mingw64-64-4.9.2'] =
+    OpenStruct.new(
+      :version => 'mingw64-64-4.9.2',
+      :programs => [ :gcc, :cpp, :'g++' ],
+      :program_prefix => nil,
+      :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
+      :target => 'sandbox/devkit/mingw',
+      :relocate => 'sandbox/devkit/mingw/mingw64',
+      :host => 'x86_64-w64-mingw32',
+      :files => {
+        :url_1 => [
+          'x86_64-4.9.2-release-win32-sjlj-rt_v3-rev0.7z'
+        ],
+      }
+    )
+
   COMPILERS['mingw64-32-4.9.1'] =
     OpenStruct.new(
       :version => 'mingw64-32-4.9.1',
