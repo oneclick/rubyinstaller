@@ -2,6 +2,7 @@
 
 * Enhancements:
   * Upgraded Ruby 1.9.3 to patchlevel 551
+  * Upgraded OpenSSL to version 1.0.0o
 
 === 2014-10-28
 
