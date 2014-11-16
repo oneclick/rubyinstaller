@@ -1,4 +1,4 @@
-=== (In Git)
+=== 2014-11-16
 
 * Enhancements:
   * Upgraded Ruby 2.1 to version 2.1.5
