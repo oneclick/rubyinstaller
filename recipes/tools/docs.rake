@@ -1,8 +1,9 @@
 require 'erb'
 require 'rubygems'
 
-interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19,
-                RubyInstaller::Ruby20, RubyInstaller::Ruby21]
+interpreters = RubyInstaller::BaseVersions.collect { |ver|
+  RubyInstaller.const_get("Ruby#{ver}")
+}
 
 begin
   gem 'rdoc', '~> 3.12'

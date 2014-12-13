@@ -15,6 +15,8 @@ module RubyInstaller
       :file => 'cacert.pem'
     )
 
+    BaseVersions = %w(18 19 20 21)
+
     Ruby18 = OpenStruct.new(
       :version => '1.8.7-p374',
       :short_version => 'ruby18',
