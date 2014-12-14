@@ -85,14 +85,14 @@ namespace(:tools) do
       Dir.glob("#{interpreter.install_target}/bin/gem.bat").each do |bat|
         script = File.basename(bat).gsub(File.extname(bat), '')
         File.open(bat, 'w') do |f|
-          f.puts <<-TEXT
-@ECHO OFF
-IF NOT "%~f0" == "~f0" GOTO :WinNT
-ECHO.This version of Ruby has not been built with support for Windows 95/98/Me.
-GOTO :EOF
-:WinNT
-@"%~dp0ruby.exe" "%~dpn0" %*
-TEXT
+          f.puts <<-TEXT.gsub(/^\s+/, "")
+            @ECHO OFF
+            IF NOT "%~f0" == "~f0" GOTO :WinNT
+            ECHO.This version of Ruby has not been built with support for Windows 95/98/Me.
+            GOTO :EOF
+            :WinNT
+            @"%~dp0ruby.exe" "%~dpn0" %*
+          TEXT
         end
       end
 
