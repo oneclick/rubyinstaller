@@ -15,7 +15,7 @@ module RubyInstaller
       :file => 'cacert.pem'
     )
 
-    BaseVersions = %w(18 19 20 21)
+    BaseVersions = %w(18 19 20 21 22)
 
     Ruby18 = OpenStruct.new(
       :number  => "18",
@@ -150,6 +150,7 @@ module RubyInstaller
     )
 
     Ruby22 = OpenStruct.new(
+      :number  => "22",
       :version => "2.2.0",
       :short_version => 'ruby22',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.2/",
