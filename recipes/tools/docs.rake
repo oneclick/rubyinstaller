@@ -1,8 +1,9 @@
 require 'erb'
 require 'rubygems'
 
-interpreters = [RubyInstaller::Ruby18, RubyInstaller::Ruby19,
-                RubyInstaller::Ruby20, RubyInstaller::Ruby21]
+interpreters = RubyInstaller::BaseVersions.collect { |ver|
+  RubyInstaller.const_get("Ruby#{ver}")
+}
 
 begin
   gem 'rdoc', '~> 3.12'
@@ -47,7 +48,7 @@ interpreters.each do |package|
   expanded_doc_target = File.join(RubyInstaller::ROOT, package.doc_target)
 
   package.docs.each do |doc|
-    file doc.chm_file do 
+    file doc.chm_file do
       cd package.target do
         dirname = File.basename(doc.chm_file, '.chm')
         op_dir  = doc.target

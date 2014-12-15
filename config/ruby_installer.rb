@@ -15,7 +15,10 @@ module RubyInstaller
       :file => 'cacert.pem'
     )
 
+    BaseVersions = %w(18 19 20 21 22)
+
     Ruby18 = OpenStruct.new(
+      :number  => "18",
       :version => '1.8.7-p374',
       :short_version => 'ruby18',
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
@@ -54,6 +57,7 @@ module RubyInstaller
     end
 
     Ruby19 = OpenStruct.new(
+      :number  => "19",
       :version => "1.9.3-p551",
       :short_version => 'ruby19',
       :url => "http://cache.ruby-lang.org/pub/ruby/1.9",
@@ -84,6 +88,7 @@ module RubyInstaller
     )
 
     Ruby20 = OpenStruct.new(
+      :number  => "20",
       :version => "2.0.0-p598",
       :short_version => 'ruby20',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.0",
@@ -114,6 +119,7 @@ module RubyInstaller
     )
 
     Ruby21 = OpenStruct.new(
+      :number  => "21",
       :version => "2.1.5",
       :short_version => 'ruby21',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.1/",
@@ -141,6 +147,35 @@ module RubyInstaller
       ],
       :installer_guid => '{64763A89-6347-43AF-833F-3840615C62AE}',
       :installer_guid_x64 => '{2A5A5972-E912-49C4-9459-F05131507B6E}'
+    )
+
+    Ruby22 = OpenStruct.new(
+      :number  => "22",
+      :version => "2.2.0-preview2",
+      :short_version => 'ruby22',
+      :url => "http://cache.ruby-lang.org/pub/ruby/2.2/",
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_2_2',
+      :checkout_target => 'downloads/ruby_2_2',
+      :target => 'sandbox/ruby_2_2',
+      :doc_target => 'sandbox/doc/ruby22',
+      :build_target => 'sandbox/ruby22_build',
+      :install_target => 'sandbox/ruby22_mingw',
+      :patches => 'resources/patches/ruby22',
+      :configure_options => [
+        '--enable-shared',
+        '--disable-install-doc',
+        'debugflags=-g',
+        "CPPFLAGS='-DFD_SETSIZE=2048'"
+      ],
+      :files => [
+        "ruby-2.2.0-preview2.tar.bz2"
+      ],
+      :dependencies => [
+        :ffi, :gdbm, :openssl, :yaml, :zlib, :tcl, :tk
+      ],
+      :excludes => [],
+      :installer_guid => "{F4249FFD-42CD-4404-9534-170D074544F4}",
+      :installer_guid_x64 => "{A98E44F8-6401-400F-830E-B1A2919C22BD}"
     )
 
     # COMPAT mode for Ruby 1.9.2

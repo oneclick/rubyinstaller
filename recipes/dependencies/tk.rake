@@ -3,24 +3,12 @@ namespace(:dependencies) do
     package = RubyInstaller::KNAPSACK_PACKAGES['tk']
     directory package.target
 
-    task :install18 => [:activate, RubyInstaller::Ruby18.install_target, *package.dependencies] do
-      tcltk_install RubyInstaller::Ruby18
-      tk_patch package, RubyInstaller::Ruby18
-    end
-
-    task :install19 => [:activate, RubyInstaller::Ruby19.install_target, *package.dependencies] do
-      tcltk_install RubyInstaller::Ruby19
-      tk_patch package, RubyInstaller::Ruby19
-    end
-
-    task :install20 => [:activate, RubyInstaller::Ruby20.install_target, *package.dependencies] do
-      tcltk_install RubyInstaller::Ruby20
-      tk_patch package, RubyInstaller::Ruby20
-    end
-
-    task :install21 => [:activate, RubyInstaller::Ruby21.install_target, *package.dependencies] do
-      tcltk_install RubyInstaller::Ruby21
-      tk_patch package, RubyInstaller::Ruby21
+    RubyInstaller::BaseVersions.each do |ver|
+      interpreter = RubyInstaller.const_get("Ruby#{ver}")
+      task "install#{ver}" => [:activate, interpreter.install_target, *package.dependencies] do
+        tcltk_install interpreter
+        tk_patch package, interpreter
+      end
     end
 
   private
