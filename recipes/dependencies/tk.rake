@@ -23,6 +23,11 @@ namespace(:dependencies) do
       tk_patch package, RubyInstaller::Ruby21
     end
 
+    task :install22 => [:activate, RubyInstaller::Ruby22.install_target, *package.dependencies] do
+      tcltk_install RubyInstaller::Ruby22
+      tk_patch package, RubyInstaller::Ruby22
+    end
+
   private
 
     def tcltk_install(interpreter)

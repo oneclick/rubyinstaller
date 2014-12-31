@@ -143,6 +143,34 @@ module RubyInstaller
       :installer_guid_x64 => '{2A5A5972-E912-49C4-9459-F05131507B6E}'
     )
 
+    Ruby22 = OpenStruct.new(
+      :version => "2.2.0",
+      :short_version => 'ruby22',
+      :url => "http://cache.ruby-lang.org/pub/ruby/2.2/",
+      :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_2_2',
+      :checkout_target => 'downloads/ruby_2_2',
+      :target => 'sandbox/ruby_2_2',
+      :doc_target => 'sandbox/doc/ruby22',
+      :build_target => 'sandbox/ruby22_build',
+      :install_target => 'sandbox/ruby22_mingw',
+      :patches => 'resources/patches/ruby22',
+      :configure_options => [
+        '--enable-shared',
+        '--disable-install-doc',
+        'debugflags=-g',
+        "CPPFLAGS='-DFD_SETSIZE=2048'"
+      ],
+      :files => [
+        "ruby-2.2.0.tar.bz2"
+      ],
+      :dependencies => [
+        :ffi, :gdbm, :openssl, :yaml, :zlib, :tcl, :tk
+      ],
+      :excludes => [],
+      :installer_guid => "{F4249FFD-42CD-4404-9534-170D074544F4}",
+      :installer_guid_x64 => "{A98E44F8-6401-400F-830E-B1A2919C22BD}"
+    )
+
     # COMPAT mode for Ruby 1.9.2
     if ENV['COMPAT'] then
       Ruby19.version = "1.9.2-p290"
@@ -170,7 +198,8 @@ module RubyInstaller
       {
         Ruby19 => '{17E73B15-62D2-43FD-B851-ACF86A8C9D25}',
         Ruby20 => '{73A045D3-1C69-4885-B055-A5379CC7E603}',
-        Ruby21 => '{04C58EFB-39FF-42E8-ADA1-3F588D2F2E10}'
+        Ruby21 => '{04C58EFB-39FF-42E8-ADA1-3F588D2F2E10}',
+        Ruby22 => "{245A7D99-7BDE-4CC7-A872-63E47C73174B}"
       }.each do |k, v|
           k.patches = nil
           k.target = File.expand_path(ENV['LOCAL'].gsub('\\', File::SEPARATOR))
@@ -198,6 +227,7 @@ module RubyInstaller
         Ruby19.dependencies.delete(pkg)
         Ruby20.dependencies.delete(pkg)
         Ruby21.dependencies.delete(pkg)
+        Ruby22.dependencies.delete(pkg)
       end
     end
 

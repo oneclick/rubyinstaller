@@ -70,6 +70,16 @@ namespace(:dependencies) do
         sh "ruby setup.rb #{(package.configure_options || []).join(' ')}"
       end
     end
+
+    task :install22 => [package.target] do
+      interpreter = RubyInstaller::Ruby22
+      new_ruby = File.join(RubyInstaller::ROOT, interpreter.install_target, "bin").gsub(File::SEPARATOR, File::ALT_SEPARATOR)
+      ENV['PATH'] = "#{new_ruby};#{ENV['PATH']}"
+      ENV.delete("RUBYOPT")
+      cd package.target do
+        sh "ruby setup.rb #{(package.configure_options || []).join(' ')}"
+      end
+    end
   end
 end
 
