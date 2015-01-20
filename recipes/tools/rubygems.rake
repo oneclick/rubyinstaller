@@ -57,34 +57,16 @@ namespace(:tools) do
     end
     ENV['CHECKOUT'] ? task(:extract => :checkout) : task(:extract => :download)
 
-    task :install18 => [package.target, RubyInstaller::Ruby18.install_target] do
-      do_install RubyInstaller::RubyGems, RubyInstaller::Ruby18
-      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby18
-    end
+    RubyInstaller::BaseVersions.each do |ver|
+      interpreter = RubyInstaller.const_get("Ruby#{ver}")
+      task "install#{ver}" => [package.target, interpreter.install_target] do
+        do_install RubyInstaller::RubyGems, interpreter
+        copy_devkit_hook RubyInstaller::RubyGems, interpreter
+      end
 
-    task :install19 => [package.target, RubyInstaller::Ruby19.install_target] do
-      do_install RubyInstaller::RubyGems, RubyInstaller::Ruby19
-      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby19
-    end
-
-    task :hook18 => [package.target, RubyInstaller::Ruby18.install_target] do
-      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby18
-    end
-
-    task :hook19 => [package.target, RubyInstaller::Ruby19.install_target] do
-      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby19
-    end
-
-    task :hook20 => [package.target, RubyInstaller::Ruby20.install_target] do
-      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby20
-    end
-
-    task :hook21 => [package.target, RubyInstaller::Ruby21.install_target] do
-      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby21
-    end
-
-    task :hook22 => [package.target, RubyInstaller::Ruby22.install_target] do
-      copy_devkit_hook RubyInstaller::RubyGems, RubyInstaller::Ruby22
+      task "hook#{ver}" => [package.target, interpreter.install_target] do
+        copy_devkit_hook RubyInstaller::RubyGems, interpreter
+      end
     end
 
     private
@@ -103,14 +85,14 @@ namespace(:tools) do
       Dir.glob("#{interpreter.install_target}/bin/gem.bat").each do |bat|
         script = File.basename(bat).gsub(File.extname(bat), '')
         File.open(bat, 'w') do |f|
-          f.puts <<-TEXT
-@ECHO OFF
-IF NOT "%~f0" == "~f0" GOTO :WinNT
-ECHO.This version of Ruby has not been built with support for Windows 95/98/Me.
-GOTO :EOF
-:WinNT
-@"%~dp0ruby.exe" "%~dpn0" %*
-TEXT
+          f.puts <<-TEXT.gsub(/^\s+/, "")
+            @ECHO OFF
+            IF NOT "%~f0" == "~f0" GOTO :WinNT
+            ECHO.This version of Ruby has not been built with support for Windows 95/98/Me.
+            GOTO :EOF
+            :WinNT
+            @"%~dp0ruby.exe" "%~dpn0" %*
+          TEXT
         end
       end
 

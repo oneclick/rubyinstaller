@@ -15,7 +15,10 @@ module RubyInstaller
       :file => 'cacert.pem'
     )
 
+    BaseVersions = %w(18 19 20 21 22)
+
     Ruby18 = OpenStruct.new(
+      :number  => "18",
       :version => '1.8.7-p374',
       :short_version => 'ruby18',
       :url => "http://ftp.ruby-lang.org/pub/ruby/1.8",
@@ -54,6 +57,7 @@ module RubyInstaller
     end
 
     Ruby19 = OpenStruct.new(
+      :number  => "19",
       :version => "1.9.3-p551",
       :short_version => 'ruby19',
       :url => "http://cache.ruby-lang.org/pub/ruby/1.9",
@@ -84,6 +88,7 @@ module RubyInstaller
     )
 
     Ruby20 = OpenStruct.new(
+      :number  => "20",
       :version => "2.0.0-p598",
       :short_version => 'ruby20',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.0",
@@ -114,6 +119,7 @@ module RubyInstaller
     )
 
     Ruby21 = OpenStruct.new(
+      :number  => "21",
       :version => "2.1.5",
       :short_version => 'ruby21',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.1/",
@@ -144,6 +150,7 @@ module RubyInstaller
     )
 
     Ruby22 = OpenStruct.new(
+      :number  => "22",
       :version => "2.2.0",
       :short_version => 'ruby22',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.2/",
