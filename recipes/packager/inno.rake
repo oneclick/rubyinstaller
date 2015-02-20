@@ -95,9 +95,14 @@ end
 task :innosetup do
   unless InnoSetup.present?
     # if not found, add InnoSetup to the PATH
-    path = File.join(ENV['ProgramFiles'], 'Inno Setup 5')
-    path.gsub!(File::SEPARATOR, File::ALT_SEPARATOR)
+    path = []
+    [ ENV['ProgramFiles'], ENV['ProgramFiles(x86)'] ].compact.uniq.each do |env_var|
+      path << File.join(env_var, 'Inno Setup 5')
+    end
+    path = path.join(File::PATH_SEPARATOR).gsub(File::SEPARATOR, File::ALT_SEPARATOR)
     ENV['PATH'] = "#{ENV['PATH']}#{File::PATH_SEPARATOR}#{path}"
+    puts ENV['PATH']
+    exit
   end
 
   fail "You need InnoSetup installed" unless InnoSetup.present?
