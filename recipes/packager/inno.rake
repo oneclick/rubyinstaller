@@ -101,8 +101,6 @@ task :innosetup do
     end
     path = path.join(File::PATH_SEPARATOR).gsub(File::SEPARATOR, File::ALT_SEPARATOR)
     ENV['PATH'] = "#{ENV['PATH']}#{File::PATH_SEPARATOR}#{path}"
-    puts ENV['PATH']
-    exit
   end
 
   fail "You need InnoSetup installed" unless InnoSetup.present?
