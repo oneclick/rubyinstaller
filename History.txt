@@ -1,6 +1,7 @@
 === (In Git)
 
 * Enhancements:
+  * Upgraded Ruby 2.0.0 to patchlevel 643
   * Upgraded RubyGems to version 1.8.30
   * Update README to be in Markdown format
   
