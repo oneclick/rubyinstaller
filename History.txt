@@ -2,6 +2,10 @@
 
 * Enhancements:
   * Upgraded RubyGems to version 1.8.30
+  * Update README to be in Markdown format
+  
+* Internal
+  * x64-bit Ruby can now use Inno recipe
 
 === 2014-11-16
 
