@@ -31,6 +31,7 @@
   * Upgraded RubyGems to version 1.8.29
   * Upgraded OpenSSL to version 1.0.0n
   * Upgraded zlib to version 1.2.8
+  * Upgraded rb-readline to 0.5.1 (compatible with Ruby 2.0)
 
 * Internal:
   * Attempt to fix exception caused by proxy/redirect response missing
