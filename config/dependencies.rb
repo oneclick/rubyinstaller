@@ -5,7 +5,7 @@ module RubyInstaller
     :human_name => "Zlib",
     :release => "alternate",
     :version => "1.2.8",
-    :url => "http://packages.openknapsack.org/zlib",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => 'sandbox/zlib',
     :files => [
       'zlib-1.2.8-x86-windows.tar.lzma'
@@ -18,7 +18,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES['openssl'] = OpenStruct.new(
     :human_name => "OpenSSL",
     :version => '1.0.0o',
-    :url => "http://packages.openknapsack.org/openssl",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => 'sandbox/openssl',
     :files => [
       'openssl-1.0.0o-x86-windows.tar.lzma'
@@ -31,7 +31,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES['ffi'] = OpenStruct.new(
     :human_name => "libffi",
     :version => '3.0.11',
-    :url => "http://packages.openknapsack.org/libffi",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => 'sandbox/libffi',
     :files => [
       'libffi-3.0.11-x86-windows.tar.lzma'
@@ -44,7 +44,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES['yaml'] = OpenStruct.new(
     :human_name => "LibYAML",
     :version => '0.1.6',
-    :url => "http://packages.openknapsack.org/libyaml",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => 'sandbox/libyaml',
     :files => [
       'libyaml-0.1.6-x86-windows.tar.lzma'
@@ -57,7 +57,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES['iconv'] = OpenStruct.new(
     :human_name => "Iconv",
     :version => "1.14",
-    :url => "http://packages.openknapsack.org/libiconv",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => 'sandbox/iconv',
     :files => [
       'libiconv-1.14-x86-windows.tar.lzma'
@@ -70,7 +70,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES["gdbm"] = OpenStruct.new(
     :human_name => "GDBM",
     :version => "1.8.3",
-    :url => "http://packages.openknapsack.org/gdbm",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => "sandbox/gdbm",
     :files => [
       "gdbm-1.8.3-x86-windows.tar.lzma"
@@ -83,7 +83,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES["pdcurses"] = OpenStruct.new(
     :human_name => "PDCurses",
     :version => "3.4",
-    :url => "http://packages.openknapsack.org/pdcurses",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => "sandbox/pdcurses",
     :files => [
       "pdcurses-3.4-x86-windows.tar.lzma"
@@ -96,7 +96,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES["tcl"] = OpenStruct.new(
     :human_name => "Tcl",
     :version => "8.5.12",
-    :url => "http://packages.openknapsack.org/tcl",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => "sandbox/tcl",
     :files => [
       "tcl-8.5.12-x86-windows.tar.lzma"
@@ -109,7 +109,7 @@ module RubyInstaller
   KNAPSACK_PACKAGES["tk"] = OpenStruct.new(
     :human_name => "Tk",
     :version => "8.5.12",
-    :url => "http://packages.openknapsack.org/tk",
+    :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => "sandbox/tk",
     :patches => "resources/patches/tk",
     :files => [

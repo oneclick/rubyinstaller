@@ -13,12 +13,14 @@ dependencies.each do |dependency_key, dependency|
 
       if compiler.host =~ /x86_64/
         files = dependency.x64_files
+        files_url = "#{dependency.url}/x64"
       else
         files = dependency.files
+        files_url = "#{dependency.url}/x86"
       end
 
       files.each do |f|
-        file_source = "#{dependency.url}/#{f}"
+        file_source = "#{files_url}/#{f}"
         file_target = "downloads/#{f}"
         download file_target => file_source
 
