@@ -151,7 +151,7 @@ module RubyInstaller
 
     Ruby22 = OpenStruct.new(
       :number  => "22",
-      :version => "2.2.0",
+      :version => "2.2.1",
       :short_version => 'ruby22',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.2/",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_2_2',
@@ -168,7 +168,7 @@ module RubyInstaller
         "CPPFLAGS='-DFD_SETSIZE=2048'"
       ],
       :files => [
-        "ruby-2.2.0.tar.bz2"
+        "ruby-2.2.1.tar.bz2"
       ],
       :dependencies => [
         :ffi, :gdbm, :openssl, :yaml, :zlib, :tcl, :tk
