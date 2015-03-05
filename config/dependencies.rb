@@ -21,10 +21,10 @@ module RubyInstaller
     :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => 'sandbox/openssl',
     :files => [
-      'openssl-1.0.0o-x86-windows.tar.lzma'
+      'openssl-1.0.1l-x86-windows.tar.lzma'
     ],
     :x64_files => [
-      'openssl-1.0.0o-x64-windows.tar.lzma'
+      'openssl-1.0.1l-x64-windows.tar.lzma'
     ]
   )
 

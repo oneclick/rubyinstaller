@@ -1,3 +1,11 @@
+=== (In Git)
+
+* Enhancements:
+  * Upgraded OpenSSL to version 1.0.1l
+
+* Internal:
+  * Changed OpenKnapsack packages URL to bintray
+
 === 2015-2-27
 
 * Enhancements:
