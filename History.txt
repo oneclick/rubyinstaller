@@ -1,3 +1,8 @@
+=== 2015-3-6
+
+* Enhancements:
+  * Upgrade rbreadline to master branch (Temporarily)
+
 === 2015-3-5
 
 * Enhancements:
