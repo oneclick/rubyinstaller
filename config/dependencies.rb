@@ -17,7 +17,7 @@ module RubyInstaller
 
   KNAPSACK_PACKAGES['openssl'] = OpenStruct.new(
     :human_name => "OpenSSL",
-    :version => '1.0.0o',
+    :version => '1.0.1l',
     :url => "http://dl.bintray.com/oneclick/OpenKnapsack",
     :target => 'sandbox/openssl',
     :files => [
