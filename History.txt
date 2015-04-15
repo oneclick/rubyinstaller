@@ -2,6 +2,8 @@
 
 * Enhancements:
   * Upgrade rbreadline to master branch (Temporarily)
+  * Upgrade Ruby to 2.2.2
+  * Upgrade OpenSSL to 1.0.11
 
 === 2015-3-5
 
