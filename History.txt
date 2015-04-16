@@ -3,6 +3,7 @@
 * Enhancements:
   * Upgraded Ruby 2.0.0 to patchlevel 645
   * Upgraded Ruby 2.1 to 2.1.6
+  * Upgraded Ruby 2.2 to 2.2.2
 
 === 2015-3-6
 
