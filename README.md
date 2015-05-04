@@ -134,7 +134,7 @@ subdirectory for your DevKit artifact.
     tdm          tdm-32-4.7.1, tdm-32-4.6.1, tdm-64-4.7.1, tdm-64-4.6.1, tdm-32-4.5.2 (*)
     mingw        mingw-32-4.6.2, mingw-32-3.4.5
     mingw64      mingw64-32-4.7.2, mingw64-64-4.7.2
-    mingwbuilds  mingwbuilds-32-4.7.2
+    mingwbuilds  mingwbuilds-32-4.7.3, mingwbuilds-64-4.7.3
 
 (*) = default build toolchain
 
