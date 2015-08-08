@@ -1,7 +1,7 @@
 module DevKitInstaller
-  COMPILERS['mingw64-32-4.9.2'] =
+  COMPILERS['mingw64-32-4.9.3'] =
     OpenStruct.new(
-      :version => 'mingw64-32-4.9.2',
+      :version => 'mingw64-32-4.9.3',
       :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => nil,
       :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
@@ -9,14 +9,14 @@ module DevKitInstaller
       :relocate => 'sandbox/devkit/mingw/mingw32',
       :files => {
         :url_1 => [
-          'i686-4.9.2-release-win32-sjlj-rt_v3-rev1.7z'
+          'i686-4.9.3-release-win32-sjlj-rt_v4-rev0.7z'
         ],
       }
     )
 
-  COMPILERS['mingw64-64-4.9.2'] =
+  COMPILERS['mingw64-64-4.9.3'] =
     OpenStruct.new(
-      :version => 'mingw64-64-4.9.2',
+      :version => 'mingw64-64-4.9.3',
       :programs => [ :gcc, :cpp, :'g++' ],
       :program_prefix => nil,
       :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
@@ -25,69 +25,7 @@ module DevKitInstaller
       :host => 'x86_64-w64-mingw32',
       :files => {
         :url_1 => [
-          'x86_64-4.9.2-release-win32-sjlj-rt_v3-rev1.7z'
-        ],
-      }
-    )
-
-  COMPILERS['mingw64-32-4.9.1'] =
-    OpenStruct.new(
-      :version => 'mingw64-32-4.9.1',
-      :programs => [ :gcc, :cpp, :'g++' ],
-      :program_prefix => nil,
-      :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
-      :target => 'sandbox/devkit/mingw',
-      :relocate => 'sandbox/devkit/mingw/mingw32',
-      :files => {
-        :url_1 => [
-          'i686-4.9.1-release-win32-sjlj-rt_v3-rev3.7z'
-        ],
-      }
-    )
-
-  COMPILERS['mingw64-64-4.9.1'] =
-    OpenStruct.new(
-      :version => 'mingw64-64-4.9.1',
-      :programs => [ :gcc, :cpp, :'g++' ],
-      :program_prefix => nil,
-      :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
-      :target => 'sandbox/devkit/mingw',
-      :relocate => 'sandbox/devkit/mingw/mingw64',
-      :host => 'x86_64-w64-mingw32',
-      :files => {
-        :url_1 => [
-          'x86_64-4.9.1-release-win32-sjlj-rt_v3-rev3.7z'
-        ],
-      }
-    )
-
-  COMPILERS['mingw64-32-4.9.0'] =
-    OpenStruct.new(
-      :version => 'mingw64-32-4.9.0',
-      :programs => [ :gcc, :cpp, :'g++' ],
-      :program_prefix => nil,
-      :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
-      :target => 'sandbox/devkit/mingw',
-      :relocate => 'sandbox/devkit/mingw/mingw32',
-      :files => {
-        :url_1 => [
-          'i686-4.9.0-release-win32-sjlj-rt_v3-rev2.7z'
-        ],
-      }
-    )
-
-  COMPILERS['mingw64-64-4.9.0'] =
-    OpenStruct.new(
-      :version => 'mingw64-64-4.9.0',
-      :programs => [ :gcc, :cpp, :'g++' ],
-      :program_prefix => nil,
-      :url_1 => 'http://downloads.sourceforge.net/mingw-w64',
-      :target => 'sandbox/devkit/mingw',
-      :relocate => 'sandbox/devkit/mingw/mingw64',
-      :host => 'x86_64-w64-mingw32',
-      :files => {
-        :url_1 => [
-          'x86_64-4.9.0-release-win32-sjlj-rt_v3-rev2.7z'
+          'x86_64-4.9.3-release-win32-sjlj-rt_v4-rev0.7z'
         ],
       }
     )
