@@ -3,6 +3,7 @@
 * Enhancements:
   * Upgraded Ruby 2.2 to 2.2.3
   * Upgraded Ruby 2.1 to 2.2.7
+  * Upgraded Ruby 2.0.0 to 2.0.0-p647
 
 * Internal:
   * Upgraded bash to 3.1.23-1
