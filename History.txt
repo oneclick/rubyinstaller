@@ -1,4 +1,4 @@
-=== (in Git)
+=== 2015-9-1
 
 * Enhancements:
   * Upgraded Ruby 2.2 to 2.2.3
