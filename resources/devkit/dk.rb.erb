@@ -68,7 +68,7 @@ unless ENV['PATH'].include?('#{d}\\\\mingw\\\\bin') then
     puts phrase
   end
   puts "Prepending ENV['PATH'] to include DevKit..." if $DEBUG
-  ENV['PATH'] = '#{d}\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
+  ENV['PATH'] = '#{d}\\\\usr\\\\bin;#{d}\\\\mingw\\\\bin;' + ENV['PATH']
 end
 ENV['RI_DEVKIT'] = '#{d}'
 ENV['MSYSTEM'] = 'MINGW32'

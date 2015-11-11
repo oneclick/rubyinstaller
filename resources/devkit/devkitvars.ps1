@@ -5,4 +5,4 @@ echo "Adding DevKit to PATH..."
 $devkit = [System.IO.Path]::GetDirectoryName($MyInvocation.MyCommand.Definition)
 $env:RI_DEVKIT = "$devkit"
 $env:MSYSTEM = "MINGW32"
-$env:path = "$devkit\bin;$devkit\mingw\bin;$env:path"
+$env:path = "$devkit\usr\bin;$devkit\mingw\bin;$env:path"

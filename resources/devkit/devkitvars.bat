@@ -5,4 +5,4 @@
 ECHO Adding the DevKit to PATH...
 SET RI_DEVKIT=%~dp0
 SET MSYSTEM=MINGW32
-SET PATH=%RI_DEVKIT%bin;%RI_DEVKIT%mingw\bin;%PATH%
+SET PATH=%RI_DEVKIT%usr\bin;%RI_DEVKIT%mingw\bin;%PATH%
