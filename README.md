@@ -100,6 +100,7 @@ Innosetup 5.4.2 is required to compile and build the Windows installer.
     rake ruby19 CHECKOUT=1           # builds 1.9.1 svn latest
     rake ruby19 CHECKOUT=1 TRUNK=1   # builds 1.9 trunk latest (1.9.3)
     rake ruby19 LOCAL="c:\myruby"    # builds 1.9 from sources at "c:\myruby"
+    rake ruby19 MAKE_OPT=-j8         # builds 1.9 by make -j8 (parallel build)
 
 You can combine `COMPAT` and `CHECKOUT` to build Ruby 1.8.6 directly from the
 Subversion repository.
