@@ -39,7 +39,7 @@ module RubyInstaller
 
     package.docs.each do |doc|
       # Build options
-      opts = []
+      opts = ['--visibility=private']
       opts.concat ['-x', doc.exclude] if doc.exclude
       doc.opts = opts unless opts.empty?
 
