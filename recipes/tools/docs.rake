@@ -43,7 +43,7 @@ interpreters.each do |package|
   info = RubyTools.parse_ruby(ruby_exe)
   next if info.empty?
 
-  default_opts = ['--format=chm', '--encoding=UTF-8']
+  default_opts = ['--format=chm', '--encoding=UTF-8', '--visibility=private']
   meta_chm = package.meta_chm
   expanded_doc_target = File.join(RubyInstaller::ROOT, package.doc_target)
 
