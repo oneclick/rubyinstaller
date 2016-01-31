@@ -1,7 +1,7 @@
 require 'ostruct'
 
 module DevKitInstaller
-  DEFAULT_VERSION = 'tdm-32-4.5.2'
+  DEFAULT_VERSION = 'mingw64-32-4.7.2'
   COMPILERS = {}
 end
 
