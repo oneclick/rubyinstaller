@@ -6,6 +6,10 @@
   * Upgraded Ruby 2.0.0 to 2.0.0-p678
   * Upgraded rbreadline to v0.5.3
 
+* Internal
+  * Change default DKVER to mingw64-32-4.7.2
+  * Change default task to ruby23
+
 === 2015-9-1
 
 * Enhancements:
