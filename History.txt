@@ -1,6 +1,7 @@
 === (in git)
 
 * Enhancements:
+  * Upgraded Ruby 2.0.0 to 2.0.0-p678
   * Upgraded rbreadline to v0.5.3
 
 === 2015-9-1
