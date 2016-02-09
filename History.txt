@@ -3,7 +3,7 @@
 * Enhancements:
   * Upgraded Ruby 2.2 to 2.2.4
   * Upgraded Ruby 2.1 to 2.1.8
-  * Upgraded Ruby 2.0.0 to 2.0.0-p678
+  * Upgraded Ruby 2.0.0 to 2.0.0-p648
   * Upgraded rbreadline to v0.5.3
 
 * Internal
