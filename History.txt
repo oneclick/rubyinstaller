@@ -1,3 +1,8 @@
+=== 2016-4-4
+
+* Enchancements
+  * Added Ruby 2.3.0
+
 === 2016-2-3
 
 * Enhancements:
