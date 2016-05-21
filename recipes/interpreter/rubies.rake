@@ -134,15 +134,36 @@ interpreters.each do |package|
           sh "make install"
         end
 
+        # determine an assembly.and create its directory
+        if assy_manifest = Dir.glob("#{package.build_target}/*Assembly.manifest").first
+          assy_name = File.basename(assy_manifest, ".manifest")
+          assy_path = "#{package.install_target}/bin/#{assy_name}"
+          FileUtils.mkdir_p assy_path
+        end
+
         # copy the DLLs from the listed dependencies
         paths = ENV['PATH'].split(';')
+        dlls_xml = ""
         package.dependencies.each do |dep|
           if dir = paths.find { |p| p =~ /#{dep.to_s}/ }
             Dir.glob("#{File.expand_path(dir)}/*.dll").each do |path|
               next if package.excludes.include?(File.basename(path))
-              cp path, File.join(package.install_target, "bin")
+              if assy_path
+                cp path, assy_path
+                dlls_xml << "    <file name=\"#{File.basename(path)}\"></file>\n"
+              elsif
+                cp path, File.join(package.install_target, "bin")
+              end
             end
           end
+        end
+        
+        # copy and edit *Assembly.manifest
+        if assy_manifest
+          cp assy_manifest, assy_path
+          installed_manifest_path = "#{assy_path}/#{File.basename(assy_manifest)}"
+          contents = File.read(installed_manifest_path).gsub(/#{Regexp.escape("<!-- PLACE_HOLDER -->")}/) { |match| dlls_xml }
+          File.open(installed_manifest_path, 'w') { |f| f.write(contents) }
         end
 
         # copy original scripts from ruby_1_8 to install_target
