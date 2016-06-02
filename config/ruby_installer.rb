@@ -5,6 +5,9 @@ module RubyInstaller
     # Root folder
     ROOT = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 
+    # Downloads folder
+    DOWNLOADS = ENV['DOWNLOADS'] || "downloads"
+
     # Console based utilities
     SEVEN_ZIP = File.expand_path(File.join(ROOT, 'sandbox', 'extract_utils', '7za.exe'))
     BSD_TAR = File.expand_path(File.join(ROOT, 'sandbox', 'extract_utils', 'basic-bsdtar.exe'))

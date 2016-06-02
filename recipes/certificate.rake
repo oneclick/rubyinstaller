@@ -2,7 +2,7 @@ namespace :certificate do
   cert = RubyInstaller::Certificate
 
   source = "#{cert.url}/#{cert.file}"
-  target = "downloads/#{cert.file}"
+  target = "#{RubyInstaller::DOWNLOADS}/#{cert.file}"
 
   download target => source
   task :download => target

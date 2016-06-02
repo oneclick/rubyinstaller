@@ -13,19 +13,33 @@ dependencies.each do |dependency_key, dependency|
 
       if compiler.host =~ /x86_64/
         files = dependency.x64_files
+        if compiler.knap_path
+          files_url = "#{dependency.url}/#{compiler.knap_path}/x64"
+        else
         files_url = "#{dependency.url}/x64"
+        end
       else
         files = dependency.files
+        if compiler.knap_path
+          files_url = "#{dependency.url}/#{compiler.knap_path}/x86"
+        else
         files_url = "#{dependency.url}/x86"
+      end
+      end
+
+      download_path = RubyInstaller::DOWNLOADS
+      if compiler.knap_path
+        download_path = "#{download_path}/#{compiler.knap_path}"
       end
 
       files.each do |f|
         file_source = "#{files_url}/#{f}"
-        file_target = "downloads/#{f}"
+        file_target = "#{download_path}/#{f}"
         download file_target => file_source
 
         # depend on downloads directory
-        file file_target => "downloads"
+        file file_target => "#{download_path}"
+        directory "#{download_path}"
 
         # download task need these files as pre-requisites
         dt.enhance [file_target]
@@ -35,7 +49,7 @@ dependencies.each do |dependency_key, dependency|
       # Prepare the :sandbox, it requires the :download task
       et = checkpoint(dependency_key, :extract) do
         dt.prerequisites.each { |f|
-          extract(File.join(RubyInstaller::ROOT, f), dependency.target)
+          extract(f, dependency.target)
         }
       end
       task :extract => [:extract_utils, :download, dependency.target, et]

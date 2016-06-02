@@ -10,11 +10,11 @@ namespace(:book) do
   dt = checkpoint(:book, :download)
   package.files.each do |f|
     file_source = "#{package.url}/#{f}"
-    file_target = "downloads/#{f}"
+    file_target = "#{RubyInstaller::DOWNLOADS}/#{f}"
     download file_target => file_source
 
     # depend on downloads directory
-    file file_target => "downloads"
+    file file_target => RubyInstaller::DOWNLOADS
 
     # download task need these files as pre-requisites
     dt.enhance [file_target]
@@ -24,7 +24,7 @@ namespace(:book) do
   # Prepare the :sandbox, it requires the :download task
   et = checkpoint(:book, :extract) do
     dt.prerequisites.each { |f|
-      extract(File.join(RubyInstaller::ROOT, f), package.target)
+      extract(f, package.target)
     }
   end
   task :extract => [:extract_utils, :download, package.target, et]

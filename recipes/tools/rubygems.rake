@@ -10,17 +10,17 @@ namespace(:tools) do
     # Put files for the :download task
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
-      file_target = "downloads/#{f}"
+      file_target = "#{RubyInstaller::DOWNLOADS}/#{f}"
       download file_target => file_source
 
       # depend on downloads directory
-      file file_target => "downloads"
+      file file_target => RubyInstaller::DOWNLOADS
 
       # download task need these files as pre-requisites
       task :download => file_target
     end
 
-    task :checkout => "downloads" do
+    task :checkout => RubyInstaller::DOWNLOADS do
       cd RubyInstaller::ROOT do
         # If is there already a checkout, update instead of checkout
         if File.exist?(File.join(RubyInstaller::ROOT, package.checkout_target, '.git'))
@@ -49,7 +49,7 @@ namespace(:tools) do
       # use the checkout copy instead of the packaged file
       unless ENV['CHECKOUT']
         files.each { |f|
-          extract(File.join(RubyInstaller::ROOT, f), package.target)
+          extract(f, package.target)
         }
       else
         cp_r(package.checkout_target, File.join(RubyInstaller::ROOT, 'sandbox'), :verbose => true, :remove_destination => true)
