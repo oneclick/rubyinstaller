@@ -10,11 +10,11 @@ namespace(:dependencies) do
     # Put files for the :download task
     package.files.each do |f|
       file_source = "#{package.url}/#{f}"
-      file_target = "downloads/#{f}"
+      file_target = "#{RubyInstaller::DOWNLOADS}/#{f}"
       download file_target => file_source
 
       # depend on downloads directory
-      file file_target => "downloads"
+      file file_target => RubyInstaller::DOWNLOADS
 
       # download task need these files as pre-requisites
       task :download => file_target
@@ -26,7 +26,7 @@ namespace(:dependencies) do
       files = Rake::Task['dependencies:rbreadline:download'].prerequisites
 
       files.each { |f|
-        extract(File.join(RubyInstaller::ROOT, f), package.target)
+        extract(f, package.target)
       }
     end
 

@@ -3,8 +3,8 @@ require 'rake/clean'
 
 # default cleanup
 CLOBBER.include("sandbox")
-CLOBBER.include("downloads")
+CLOBBER.include(RubyInstaller::DOWNLOADS)
 
 # define common tasks
-directory "downloads"
+directory (RubyInstaller::DOWNLOADS)
 directory "sandbox"
