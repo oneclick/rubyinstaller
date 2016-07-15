@@ -1,3 +1,8 @@
+=== In Git
+
+* Enhancements
+  * Upgraded Ruby 2.3 to 2.3.1
+
 === 2016-4-4
 
 * Enchancements
