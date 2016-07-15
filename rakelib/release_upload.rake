@@ -28,4 +28,16 @@ namespace :release do
 
     puts "Done."
   end
+
+  desc "Get the md5 and sha256 digests and print them for a release"
+  task :digests, [:version] do |_task, args|
+    %w(md5 sha256).each do |digest_type|
+      files = Dir.glob("pkg/#{args.version.strip}/*.#{digest_type}").sort
+      puts "### #{digest_type.upcase}:"
+      files.each do |file|
+        puts "    #{File.read(file)}"
+      end
+      puts ''
+    end
+  end
 end
