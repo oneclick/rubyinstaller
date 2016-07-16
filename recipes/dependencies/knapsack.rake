@@ -16,15 +16,15 @@ dependencies.each do |dependency_key, dependency|
         if compiler.knap_path
           files_url = "#{dependency.url}/#{compiler.knap_path}/x64"
         else
-        files_url = "#{dependency.url}/x64"
+          files_url = "#{dependency.url}/x64"
         end
       else
         files = dependency.files
         if compiler.knap_path
           files_url = "#{dependency.url}/#{compiler.knap_path}/x86"
         else
-        files_url = "#{dependency.url}/x86"
-      end
+          files_url = "#{dependency.url}/x86"
+        end
       end
 
       download_path = RubyInstaller::DOWNLOADS
