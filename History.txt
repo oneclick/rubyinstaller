@@ -2,6 +2,8 @@
 
 * Enhancements
   * Upgraded Ruby 2.3 to 2.3.1
+  * Upgraded Ruby 2.2 to 2.2.5
+  * Upgraded Ruby 2.1 to 2.1.9
 
 === 2016-4-4
 
