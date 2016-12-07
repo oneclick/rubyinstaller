@@ -151,7 +151,7 @@ module RubyInstaller
 
     Ruby22 = OpenStruct.new(
       :number  => "22",
-      :version => "2.2.5",
+      :version => "2.2.6",
       :short_version => 'ruby22',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.2/",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_2_2',
@@ -168,7 +168,7 @@ module RubyInstaller
         "CPPFLAGS='-DFD_SETSIZE=2048'"
       ],
       :files => [
-        "ruby-2.2.5.tar.bz2"
+        "ruby-2.2.6.tar.bz2"
       ],
       :dependencies => [
         :ffi, :gdbm, :openssl, :yaml, :zlib, :tcl, :tk
@@ -180,7 +180,7 @@ module RubyInstaller
 
     Ruby23 = OpenStruct.new(
       :number  => "23",
-      :version => "2.3.1",
+      :version => "2.3.3",
       :short_version => 'ruby23',
       :url => "http://cache.ruby-lang.org/pub/ruby/2.3/",
       :checkout => 'http://svn.ruby-lang.org/repos/ruby/branches/ruby_2_3',
@@ -197,7 +197,7 @@ module RubyInstaller
         "CPPFLAGS='-DFD_SETSIZE=2048'"
       ],
       :files => [
-        "ruby-2.3.1.tar.bz2"
+        "ruby-2.3.3.tar.bz2"
       ],
       :dependencies => [
         :ffi, :gdbm, :openssl, :yaml, :zlib, :tcl, :tk
