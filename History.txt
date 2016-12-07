@@ -1,4 +1,4 @@
-=== 2016-11-21
+=== (In Git)
 
 * Enhancements
   * Upgraded Ruby 2.3 to 2.3.3
