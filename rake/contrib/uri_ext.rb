@@ -274,6 +274,9 @@ module URI
           end
         end
       end
+    rescue Errno::ETIMEDOUT
+      puts "Download of #{self} timed out. Retrying."
+      retry
     end
 
   private

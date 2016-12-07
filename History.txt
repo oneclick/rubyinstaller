@@ -8,6 +8,9 @@
   * Upgraded LibYAML to 0.1.7
   * Upgraded tcl & tk to 8.5.19
 
+* Internal
+  * Retry timeouts with SourceForge
+
 === 2016-7-17
 
 * Enhancements
