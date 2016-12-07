@@ -3,6 +3,10 @@
 * Enhancements
   * Upgraded Ruby 2.3 to 2.3.3
   * Upgraded Ruby 2.2 to 2.2.6
+  * Upgraded OpenSSL to 1.0.2j
+  * Upgraded libffi to 3.2.1
+  * Upgraded LibYAML to 0.1.7
+  * Upgraded tcl & tk to 8.5.19
 
 === 2016-7-17
 
