@@ -232,8 +232,8 @@ module RubyInstaller
         :ffi, :gdbm, :openssl, :yaml, :zlib
       ],
       :excludes => [],
-      :installer_guid => "{59DB842A-C903-4F35-AD79-C48ABFAE4E3A}",
-      :installer_guid_x64 => "{FA4EC4B8-8A69-434D-B356-38DBBC44D9C6}"
+      :installer_guid => "{88AB5BD7-425C-416A-A06D-014990F253D1}",
+      :installer_guid_x64 => "{DD87A7DC-FBAE-4993-AA63-F16271C82D27}"
     )
 
     # COMPAT mode for Ruby 1.9.2
@@ -266,7 +266,7 @@ module RubyInstaller
         Ruby21 => '{04C58EFB-39FF-42E8-ADA1-3F588D2F2E10}',
         Ruby22 => "{245A7D99-7BDE-4CC7-A872-63E47C73174B}",
         Ruby23 => "{E5385270-5AEF-462F-BEA0-27F72897E2A4}",
-        Ruby24 => "{86DAB33C-44EC-4AE8-B682-C18515150E2E}",
+        Ruby24 => "{50789C3E-9D74-4254-85C7-F06EC2D4E8C2}",
       }.each do |k, v|
           k.patches = nil
           k.target = File.expand_path(ENV['LOCAL'].gsub('\\', File::SEPARATOR))
