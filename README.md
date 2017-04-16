@@ -1,4 +1,4 @@
-#RubyInstaller
+# RubyInstaller
 
 This project, licensed under the 3-clause Modified BSD License, attempts to
 generate a development sandbox that can be used to compile Ruby and it's
@@ -18,7 +18,7 @@ C-based RubyGems extensions that may not yet have a binary RubyGem. The DevKit
 provides an easy-to-install compiler and build system, and convenient setup helper
 scripts.
 
-##7-Second Quick Start
+## 7-Second Quick Start
 
 Ensure you are connected to the Internet, open a Command Prompt, `cd` to the
 project root directory, and type one of:
@@ -34,7 +34,7 @@ At this time, `mingw64-32-4.7.2` and `mingw64-64-4.7.2` are used, e.g:
 
     rake ruby21 DKVER=mingw64-32-4.7.2
 
-##Project Directory Organization
+## Project Directory Organization
 
 The Rake build recipes are distributed inside the project's recipes/ directory
 using the following sub-directory structure:
@@ -72,7 +72,7 @@ To override the default configuration, create an `override/build_config.rb` file
 in the project's root directory. See the default `config/ruby_installer.rb` and
 `config/devkit.rb` configuration files for values that can be overridden.
 
-##Requirements
+## Requirements
 
 At this time you need to have a working Ruby installation (the current stable
 One-Click Installer release is enough).
@@ -86,7 +86,7 @@ or your Ruby bin directory)
 
 Innosetup 5.4.2 is required to compile and build the Windows installer.
 
-##Build Task Examples
+## Build Task Examples
 
     rake                             # builds 1.8.7 [default build task]
     rake ruby18                      # builds 1.8.7
@@ -104,7 +104,7 @@ Innosetup 5.4.2 is required to compile and build the Windows installer.
 You can combine `COMPAT` and `CHECKOUT` to build Ruby 1.8.6 directly from the
 Subversion repository.
 
-###DevKit Build Task Examples:
+### DevKit Build Task Examples:
 
     rake devkit                      # builds Installer (TDM 4.5.2)
     rake devkit DKVER=tdm-32-4.6.1   # builds Installer (TDM 32-bit 4.6.1)
@@ -127,7 +127,7 @@ invocation. For example:
 If you built a custom DevKit as in the first example, look in the `pkg/`
 subdirectory for your DevKit artifact.
 
-###DevKit Compiler Toolchains
+### DevKit Compiler Toolchains
 
     Compiler     DKVER Values
 
@@ -138,7 +138,7 @@ subdirectory for your DevKit artifact.
 
 (*) = default build toolchain
 
-##Known Issues
+## Known Issues
 
 * Avoid running this project in a PATH containing spaces as the MSYS
   environment has issues correctly mounting /etc/fstab entries for MinGW.
