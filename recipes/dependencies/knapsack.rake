@@ -40,7 +40,24 @@ dependencies.each do |dependency_key, dependency|
       end
       task :extract => [:extract_utils, :download, dependency.target, et]
 
-      task :activate => [:extract] do
+      task :patch => [:extract] do
+        if dependency_key == 'openssl'
+          openssl_base = File.join(RubyInstaller::ROOT, dependency.target)
+          conf_file = File.join(openssl_base, "include/openssl/opensslconf.h")
+          content = File.open(conf_file, "rb") { |f| f.read }
+
+          if content
+            ssl_dir = content.sub(/.*\n#define OPENSSLDIR "([^\n]*)"\n.*/m, '\1')
+          end
+
+          if ssl_dir && !File.exist?(File.join(ssl_dir, "openssl.cnf"))
+            mkdir_p ssl_dir
+            cp File.join(openssl_base, "ssl/openssl.cnf"), ssl_dir
+          end
+        end
+      end
+
+      task :activate => [:extract, :patch] do
         puts "Activating #{dependency.human_name} version #{dependency.version}"
         activate(dependency.target)
       end
