@@ -1,3 +1,6 @@
+__Attention__: This project provides an Installer on Windows for Ruby-2.3 and older.
+For Ruby-2.4 and newer please refer to [RubyInstaller2](https://github.com/oneclick/rubyinstaller2).
+
 # RubyInstaller
 
 This project, licensed under the 3-clause Modified BSD License, attempts to
