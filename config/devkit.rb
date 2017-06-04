@@ -62,7 +62,8 @@ module DevKitInstaller
         'texinfo-4.13a-2-msys-1.0.13-bin.tar.lzma',
         'libmagic-5.04-1-msys-1.0.13-dll-1.tar.lzma',
         'file-5.04-1-msys-1.0.13-bin.tar.lzma',
-        'mintty-1.0.3-1-msys-1.0.17-bin.tar.lzma'
+        'mintty-1.0.3-1-msys-1.0.17-bin.tar.lzma',
+        'patch-2.6.1-1-msys-1.0.13-bin.tar.lzma'
       ],
     }
   )
