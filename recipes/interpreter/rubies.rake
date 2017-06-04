@@ -121,8 +121,8 @@ interpreters.each do |package|
 
       task :compile => [:configure, :compiler, :dependencies] do
         cd package.build_target do
-          clean = ENV["CLEAN"] ? "clean" : ""
-          sh "make #{clean} all"
+          sh "make clean" if ENV["CLEAN"]
+          sh "make #{ENV["MAKE_OPT"]} all"
         end
       end
 

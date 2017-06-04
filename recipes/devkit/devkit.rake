@@ -57,8 +57,10 @@ namespace(:devkit) do
 
     unless ENV['PATH'].include?("#{mingw_path}\\bin")
       puts 'Temporarily enhancing PATH to include DevKit...'
-      ENV['PATH'] = "#{msys_path}\\bin;#{mingw_path}\\bin;" + ENV['PATH']
+      ENV['PATH'] = "#{msys_path}\\usr\\bin;#{mingw_path}\\bin;" + ENV['PATH']
     end
+
+    ENV['MSYSTEM'] = 'MINGW32'
 
     # TODO remove as this env var override style will no longer be supported
     # Fragile --host alternative that currently allows the llvm-gcc and i686-w64-mingw32
@@ -72,7 +74,7 @@ namespace(:devkit) do
   end
 
   task :sh => [:activate] do
-    sh_exe = File.join(RubyInstaller::ROOT, DevKitInstaller::MSYS.target, 'bin', 'sh.exe')
+    sh_exe = File.join(RubyInstaller::ROOT, DevKitInstaller::MSYS.target, 'usr', 'bin', 'sh.exe')
     exec sh_exe
   end
 
