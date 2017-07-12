@@ -82,8 +82,7 @@ One-Click Installer release is enough).
 
 In case you don't have the OCI installed, you will need:
 
-- Ruby 1.8.5 or greater (mswin32 or mingw32 implementation will work) -- **Not cygwin!**
-- Rake 0.7.3 or greater
+- Ruby 1.9.3 or greater (mswin32 or mingw32 implementation will work) -- **Not cygwin!**
 - Zlib extension and DLL (zlib1.dll) available in the PATH (could be in system32
 or your Ruby bin directory)
 
