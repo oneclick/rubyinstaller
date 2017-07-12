@@ -152,7 +152,7 @@ TheBookofRubyTitle=The Book of Ruby
 
 [Files]
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
-Source: {#RubyPath}\*; DestDir: {app}; Excludes: "\bin\tcl*.dll,\bin\tk*.dll,\lib\tcltk,\lib\ruby\{#RubyLibVersion}\tk*.rb,\lib\ruby\{#RubyLibVersion}\tcl*.rb,\lib\ruby\{#RubyLibVersion}\*-tk.rb,\lib\ruby\{#RubyLibVersion}\tk,\lib\ruby\{#RubyLibVersion}\tkextlib,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tcl*.so,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tk*.so"; Flags: recursesubdirs createallsubdirs
+Source: {#RubyPath}\*; DestDir: {app}; Excludes: "\bin\RubyInstaller.MRI.RubyAssembly\tcl*.dll,\bin\RubyInstaller.MRI.RubyAssembly\tk*.dll,\lib\tcltk,\lib\ruby\{#RubyLibVersion}\tk*.rb,\lib\ruby\{#RubyLibVersion}\tcl*.rb,\lib\ruby\{#RubyLibVersion}\*-tk.rb,\lib\ruby\{#RubyLibVersion}\tk,\lib\ruby\{#RubyLibVersion}\tkextlib,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tcl*.so,\lib\ruby\{#RubyLibVersion}\{#RubyBuildPlatform}\tk*.so"; Flags: recursesubdirs createallsubdirs
 Source: setrbvars.bat; DestDir: {app}\bin
 
 [Registry]
