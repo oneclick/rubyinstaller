@@ -1,6 +1,6 @@
 # :DK-BEG: missing DevKit/build tool convenience notice
 Gem.pre_install do |gem_installer|
-  unless gem_installer.spec.extensions.empty?
+  unless gem_installer.spec.extensions.reject { |extension| /mkrf_conf/ === extension }.empty?
     begin
       load 'devkit'
     rescue LoadError
