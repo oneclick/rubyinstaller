@@ -10,11 +10,11 @@ namespace(:extract_utils) do
     v.each do |f|
       #TODO handle exception when no corresponding URL defined on package
       file_source = "#{package.send(k)}/#{f}"
-      file_target = "downloads/#{f}"
+      file_target = "#{RubyInstaller::DOWNLOADS}/#{f}"
       download file_target => file_source
 
       # depend on downloads directory
-      file file_target => "downloads"
+      file file_target => RubyInstaller::DOWNLOADS
 
       # download task need these files as pre-requisites
       task :download => file_target
@@ -35,13 +35,13 @@ namespace(:extract_utils) do
     fail 'Only one .msi allowed for RubyInstaller::ExtractUtils.files' if msis.length != 1
 
     zips.each do |f|
-      filename = "downloads/#{f}"
+      filename = "#{RubyInstaller::DOWNLOADS}/#{f}"
       Zip.fake_unzip(filename, /\.exe|\.dll$/, package.target)
     end
 
     # assume 7za.exe can extract individual files from MSI's
     unless File.exist?("#{package.target}/7z.sfx")
-      msi = "downloads/#{msis.first}"
+      msi = "#{RubyInstaller::DOWNLOADS}/#{msis.first}"
       seven_zip_get(msi, '_7z.sfx', package.target)
       File.rename("#{package.target}/_7z.sfx", "#{package.target}/7z.sfx")
     end

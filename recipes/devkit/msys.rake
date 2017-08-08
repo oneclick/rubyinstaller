@@ -12,11 +12,11 @@ namespace(:devkit) do
       v.each do |f|
         #TODO handle exception when no corresponding URL defined on package
         file_source = "#{package.send(k)}/#{f}"
-        file_target = "downloads/#{f}"
+        file_target = "#{RubyInstaller::DOWNLOADS}/#{f}"
         download file_target => file_source
 
         # depend on downloads directory
-        file file_target => "downloads"
+        file file_target => RubyInstaller::DOWNLOADS
 
         # download task needs the packages files as pre-requisites
         dt.enhance [file_target]
@@ -29,7 +29,7 @@ namespace(:devkit) do
     et = checkpoint(:msys, :extract) do
       dt.prerequisites.each do |f|
         fail "[FAIL] corrupt '#{f}' archive" unless seven_zip_valid?(f)
-        extract(File.join(RubyInstaller::ROOT, f), package.target)
+        extract(f, package.target)
       end
     end
     task :extract => [:extract_utils, :download, package.target, et]
